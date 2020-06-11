@@ -207,9 +207,9 @@
 <p>使用反射生成 1000 个实例，虽然需要9ms，高于<code>new</code>的 2ms，但是 9ms 和 2ms 的差距本身肉眼不可见，而且通常我们在业务中写的反射一般来说执行频率也未必会超过 1000 次，这种场景下，我们还能理直气壮地说反射性能很低么？</p>
 <p>很显然，不能。</p>
 <p>除了代码执行耗时，我们再看看反射对内存的影响。我们仍然以生成 10万 个实例为目标，对上述代码做略微改动，依次只保留 <code>new</code> 方式和反射方式，然后运行程序，观察内存占用情况。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/3/20/170f7df2febd3611?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df2febd3611?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>使用 <code>new</code> 方式</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/3/20/170f7df300d4decd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df300d4decd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>使用反射</p>
 <p>对比两图，我们可以看到第二张图中多了很多 <code>Constructor</code>和<code>Class</code>对象实例，这两部分占用的内存2.7M。因此，我们可以得出结论，反射会产生大量的临时对象，并且会占用额外内存空间。</p>
 <h2 id="刨根问底：反射原理是什么"><a href="#刨根问底：反射原理是什么" class="headerlink" title="刨根问底：反射原理是什么"></a>刨根问底：反射原理是什么</h2><p>我们以前面试验中反射生成实例的代码为入口。</p>
@@ -245,7 +245,7 @@
 <p><code>newReflectionData</code>中使用 <strong>volatile + 死循环 + CAS 机制</strong> 保证线程安全。注意到这里的死循环每执行一次都会构造一个新的 <code>ReflectionData</code> 实例。</p>
 <p>你可能会有疑问，<code>Class</code> 中 <code>reflectionData</code>属性什么时候被赋值的，其实是封装在<code>Atomic.casReflectionData</code>这个方法里了，他会检测当前<code>Class</code>对象中的<code>reflectionData</code>是否与<code>oldReflectionData</code>相等，如果相等，就会把<code>new SoftReference&lt;&gt;(rd)</code>赋值给 <code>reflectionData</code>。</p>
 <p>到现在为止，关于 <code>ReflectionData</code>的背景知识都介绍完了。我们再回到 <code>privateGetDeclaredConstructors</code>中看看获取构造方法的流程。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/3/20/170f7df304157365?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df304157365?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p><code>privateGetDeclaredConstructors</code>流程图</p>
 <p>可以看到对于普通类，最终通过调用 <code>getDeclaredConstructors0</code>方法获取的构造方法列表。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private native Constructor&lt;T&gt;[] getDeclaredConstructors0(boolean publicOnly);</span><br></pre></td></tr></table></figure>

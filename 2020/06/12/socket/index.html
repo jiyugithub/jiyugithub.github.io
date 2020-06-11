@@ -199,7 +199,7 @@
 <p>为了标识数据属于哪个进程，我们给需要进行 TCP 通信的进程分配一个唯一的数字来标识它。这个数字，就是我们常说的<strong>端口号</strong>。</p>
 <p>TCP 的全称是 Transmission Control Protocol，大家对它说得最多的，大概就是<strong>面向连接</strong>的特性了。之所以说它是有连接的，是说在进行通信前，通信双方需要先经过一个<em>三次握手</em>的过程。三次握手完成后，连接便建立了。这时候我们才可以开始发送/接收数据。（与之相对的是 UDP，不需要经过握手，就可以直接发送数据）。</p>
 <p>下面我们简单了解一下三次握手的过程。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="tcp-three-way-handshake"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="tcp-three-way-handshake"></p>
 <ol>
 <li>首先，客户向服务端发送一个 <code>SYN</code>，假设此时 sequence number 为 <code>x</code>。这个 <code>x</code> 是由操作系统根据一定的规则生成的，不妨认为它是一个随机数。</li>
 <li>服务端收到 <code>SYN</code> 后，会向客户端再发送一个 <code>SYN</code>，此时服务器的 <code>seq number = y</code>。与此同时，会 <code>ACK x+1</code>，告诉客户端“已经收到了 <code>SYN</code>，可以发送数据了”。</li>
