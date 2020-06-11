@@ -262,7 +262,8 @@
 <p>解释：</p>
 <p>如上示例代码，对于一对多，我们需要使用 <code>MultiType#register(class)</code> 方法，它会返回一个 <code>OneToManyFlow</code> 让你紧接着绑定多个 <code>ItemViewBinder</code> 实例，最后再调用 <code>OneToManyEndpoint#withLinker</code> 或 <code>OneToManyEndpoint#withClassLinker</code> 操作符方法类设置 linker. 所谓 linker，是负责动态连接这个 “一” 对应 “多” 中哪一个 binder 的角色。</p>
 <p>这个方案具有很好的性能表现，而且可谓十分直观。另外，我使用了 <code>@CheckResult</code> 注解来让编译器督促开发者一定要完整调用方法链才不至于出错。</p>
-<p>更详细的”一对多”示例可以参考我的 sample 源码：<a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/one2many" target="_blank" rel="noopener">https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/one2many</a></p>
+<p>更详细的”一对多”示例可以参考我的 sample </p>
+<p>源码：<a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/one2many" target="_blank" rel="noopener">https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/one2many</a></p>
 <h2 id="使用-全局类型池"><a href="#使用-全局类型池" class="headerlink" title="使用 全局类型池"></a>使用 全局类型池</h2><p><strong>MultiType</strong> 在 3.0 版本之前一直是支持全局类型池的，你可以往一个全局类型池中 register 类型和 view binder，然后让你的各个 <code>MultiTypeAdapter</code> 都能使用它。</p>
 <p>但在 <strong>MultiType</strong> 3.0 之后，我们废弃并删除了内置的全局类型池。原因在于全局类型池容易对全局产生不可见影响，比如你注册了一堆全局类型关系并在多处引用它，某一天你的伙伴不小心修改了全局类型池的某个内容，将导致所有使用的地方皆受到变化，是我们不希望发生的。一个好的模块，应该是高内聚、自包含的，如果过多下放权力到外围，很容易遭受破坏或影响。</p>
 <p>另外，全局类型池一般都是 static 形式的，如果我们给这个 static 容器传递了 <code>Activity</code> 或 <code>Context</code> 对象，而没有在退出时释放，就容易造出内存泄漏，这对新手来说很容易触犯。</p>
@@ -389,7 +390,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/12/android_multitype/">https://jiyugithub.github.io/2020/06/12/android_multitype/</a></span>
+                        <span><a href="https://jiyugithub.github.io/2020/06/12/multitype/">https://jiyugithub.github.io/2020/06/12/multitype/</a></span>
                     </p>
                 
                 
