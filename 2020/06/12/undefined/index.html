@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Apocalypse">
+
+
+
+
+
+<title>postHandler 机制 | Apocalypse&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">postHandler 机制</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 12, 2020&nbsp;&nbsp;4:19:36</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”"><a href="#面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”" class="headerlink" title="面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”"></a>面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”</h1><a id="more"></a>
+
+<h2 id="一-序"><a href="#一-序" class="headerlink" title="一. 序"></a>一. 序</h2><p>Handler 机制算是 Android 基本功，面试常客。但现在面试，多数已经不会直接让你讲讲 Handler 的机制，Looper 是如何循环的，MessageQueue 是如何管理 Message 等，而是基于场景去提问，看看你对 Handler 机制的掌握是否扎实。</p>
+<p>本文就来聊聊 Handler 中的 IdleHandler，这个我们比较少用的功能。它能干什么？怎么使用？有什么合适的使用场景？哪些不是合适的使用场景？在 Android Framework 中有哪些地方用到了它？</p>
+<h2 id="二-IdleHandler"><a href="#二-IdleHandler" class="headerlink" title="二. IdleHandler"></a>二. IdleHandler</h2><h3 id="2-1-简单说说-Handler-机制"><a href="#2-1-简单说说-Handler-机制" class="headerlink" title="2.1 简单说说 Handler 机制"></a>2.1 简单说说 Handler 机制</h3><p>在说 IdleHandler 之前，先简单了解一下 Handler 机制。</p>
+<p>Handler 是标准的事件驱动模型，存在一个消息队列 MessageQueue，它是一个基于消息触发时间的优先级队列，还有一个基于此消息队列的事件循环 Looper，Looper 通过循环，不断的从 MessageQueue 中取出待处理的 Message，再交由对应的事件处理器 Handler/callback 来处理。</p>
+<p>其中 MessageQueue 被 Looper 管理，Looper 在构造时同步会创建 MessageQueue，并利用 ThreadLocal 这种 TLS，将其与当前线程绑定。而 App 的主线程在启动时，已经构造并准备好主线程的 Looper 对象，开发者只需要直接使用即可。</p>
+<p>Handler 类中封装了大部分「Handler 机制」对外的操作接口，可以通过它的 send/post 相关的方法，向消息队列 MessageQueue 中插入一条 Message。在 Looper 循环中，又会不断的从 MessageQueue 取出下一条待处理的 Message 进行处理。</p>
+<p>IdleHandler 使用相关的逻辑，就在 MessageQueue 取消息的 <code>next()</code> 方法中。</p>
+<h3 id="2-2-IdleHandler-是什么？怎么用？"><a href="#2-2-IdleHandler-是什么？怎么用？" class="headerlink" title="2.2 IdleHandler 是什么？怎么用？"></a>2.2 IdleHandler 是什么？怎么用？</h3><p><strong>IdleHandler 说白了，就是 Handler 机制提供的一种，可以在 Looper 事件循环的过程中，当出现空闲的时候，允许我们执行任务的一种机制。</strong></p>
+<p>IdleHandler 被定义在 MessageQueue 中，它是一个接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; MessageQueue.java</span><br><span class="line">public static interface IdleHandler &#123;</span><br><span class="line">  boolean queueIdle();</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，定义时需要实现其 <code>queueIdle()</code> 方法。同时返回值为 true 表示是一个持久的 IdleHandler 会重复使用，返回 false 表示是一个一次性的 IdleHandler。</p>
+<p>既然 IdleHandler 被定义在 MessageQueue 中，使用它也需要借助 MessageQueue。在 MessageQueue 中定义了对应的 add 和 remove 方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; MessageQueue.java</span><br><span class="line">public void addIdleHandler(@NonNull IdleHandler handler) &#123;</span><br><span class="line">	&#x2F;&#x2F; ...</span><br><span class="line">  synchronized (this) &#123;</span><br><span class="line">    mIdleHandlers.add(handler);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">public void removeIdleHandler(@NonNull IdleHandler handler) &#123;</span><br><span class="line">  synchronized (this) &#123;</span><br><span class="line">    mIdleHandlers.remove(handler);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 add 或 remove 其实操作的都是 <code>mIdleHandlers</code>，它的类型是一个 ArrayList。</p>
+<p><strong>既然 IdleHandler 主要是在 MessageQueue 出现空闲的时候被执行，那么何时出现空闲？</strong></p>
+<p>MessageQueue 是一个基于消息触发时间的优先级队列，所以队列出现空闲存在两种场景。</p>
+<ol>
+<li>MessageQueue 为空，没有消息；</li>
+<li>MessageQueue 中最近需要处理的消息，是一个延迟消息（when&gt;currentTime），需要滞后执行；</li>
+</ol>
+<p>这两个场景，都会尝试执行 IdleHandler。</p>
+<p>处理 IdleHandler 的场景，就在 <code>Message.next()</code> 这个获取消息队列下一个待执行消息的方法中，我们跟一下具体的逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">Message next() &#123;</span><br><span class="line">	&#x2F;&#x2F; ...</span><br><span class="line">  int pendingIdleHandlerCount &#x3D; -1; </span><br><span class="line">  int nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  for (;;) &#123;</span><br><span class="line">    nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line"></span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line">      &#x2F;&#x2F; ...</span><br><span class="line">      if (msg !&#x3D; null) &#123;</span><br><span class="line">        if (now &lt; msg.when) &#123;</span><br><span class="line">          &#x2F;&#x2F; 计算休眠的时间</span><br><span class="line">          nextPollTimeoutMillis &#x3D; (int) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          &#x2F;&#x2F; Other code</span><br><span class="line">          &#x2F;&#x2F; 找到消息处理后返回</span><br><span class="line">          return msg;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 没有更多的消息</span><br><span class="line">        nextPollTimeoutMillis &#x3D; -1;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      if (pendingIdleHandlerCount &lt; 0</span><br><span class="line">          &amp;&amp; (mMessages &#x3D;&#x3D; null || now &lt; mMessages.when)) &#123;</span><br><span class="line">        pendingIdleHandlerCount &#x3D; mIdleHandlers.size();</span><br><span class="line">      &#125;</span><br><span class="line">      if (pendingIdleHandlerCount &lt;&#x3D; 0) &#123;</span><br><span class="line">        mBlocked &#x3D; true;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (mPendingIdleHandlers &#x3D;&#x3D; null) &#123;</span><br><span class="line">        mPendingIdleHandlers &#x3D; new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];</span><br><span class="line">      &#125;</span><br><span class="line">      mPendingIdleHandlers &#x3D; mIdleHandlers.toArray(mPendingIdleHandlers);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 0; i &lt; pendingIdleHandlerCount; i++) &#123;</span><br><span class="line">      final IdleHandler idler &#x3D; mPendingIdleHandlers[i];</span><br><span class="line">      mPendingIdleHandlers[i] &#x3D; null; </span><br><span class="line"></span><br><span class="line">      boolean keep &#x3D; false;</span><br><span class="line">      try &#123;</span><br><span class="line">        keep &#x3D; idler.queueIdle();</span><br><span class="line">      &#125; catch (Throwable t) &#123;</span><br><span class="line">        Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (!keep) &#123;</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">          mIdleHandlers.remove(idler);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pendingIdleHandlerCount &#x3D; 0;</span><br><span class="line">    nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>我们先解释一下 <code>next()</code> 中关于 IdleHandler 执行的主逻辑：</p>
+<ol>
+<li>准备执行 IdleHandler 时，说明当前待执行的消息为 null，或者这条消息的执行时间未到；</li>
+<li>当 <code>pendingIdleHandlerCount &lt; 0</code> 时，根据 <code>mIdleHandlers.size()</code> 赋值给 <code>pendingIdleHandlerCount</code>，它是后期循环的基础；</li>
+<li>将 <code>mIdleHandlers</code> 中的 IdleHandler 拷贝到 <code>mPendingIdleHandlers</code> 数组中，这个数组是临时的，之后进入 for 循环；</li>
+<li>循环中从数组中取出 IdleHandler，并调用其 <code>queueIdle()</code> 记录返回值存到 <code>keep</code> 中；</li>
+<li>当 <code>keep</code> 为 false 时，从 <code>mIdleHandler</code> 中移除当前循环的 IdleHandler，反之则保留；</li>
+</ol>
+<p>可以看到 IdleHandler 机制中，最核心的就是在 <code>next()</code> 中，当队列空闲的时候，循环 mIdleHandler 中记录的 IdleHandler 对象，如果其 <code>queueIdle()</code> 返回值为 <code>false</code> 时，将其从 <code>mIdleHander</code> 中移除。</p>
+<p>需要注意的是，对 <code>mIdleHandler</code> 这个 List 的所有操作，都通过 synchronized 来保证线程安全，这一点无需担心。</p>
+<h3 id="2-3-IdleHander-是如何保证不进入死循环的？"><a href="#2-3-IdleHander-是如何保证不进入死循环的？" class="headerlink" title="2.3 IdleHander 是如何保证不进入死循环的？"></a>2.3 IdleHander 是如何保证不进入死循环的？</h3><p>当队列空闲时，会循环执行一遍 <code>mIdleHandlers</code> 数组并执行 <code>IdleHandler.queueIdle()</code> 方法。而如果数组中有一些 IdleHander 的 <code>queueIdle()</code> 返回了 <code>true</code>，则会保留在 <code>mIdleHanders</code> 数组中，下次依然会再执行一遍。</p>
+<p>注意现在代码逻辑还在 <code>MessageQueue.next()</code> 的循环中，在这个场景下 IdleHandler 机制是如何保证不会进入死循环的？</p>
+<p>有些文章会说 IdleHandler 不会死循环，是因为下次循环调用了 <code>nativePollOnce()</code> 借助 epoll 机制进入休眠状态，下次有新消息入队的时候会重新唤醒，但这是不对的。</p>
+<p>注意看前面 <code>next()</code> 中的代码，在方法的末尾会重置 pendingIdleHandlerCount 和 nextPollTimeoutMillis。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Message next() &#123;</span><br><span class="line">	&#x2F;&#x2F; ...</span><br><span class="line">  int pendingIdleHandlerCount &#x3D; -1; </span><br><span class="line">  int nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  for (;;) &#123;</span><br><span class="line">		nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    &#x2F;&#x2F; 循环执行 mIdleHandlers</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    pendingIdleHandlerCount &#x3D; 0;</span><br><span class="line">    nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>nextPollTimeoutMillis 决定了下次进入 <code>nativePollOnce()</code> 超时的时间，它传递 0 的时候等于不会进入休眠，所以说 <code>natievPollOnce()</code> 进入休眠所以不会死循环是不对的。</p>
+<p>这很好理解，毕竟 <code>IdleHandler.queueIdle()</code> 运行在主线程，它执行的时间是不可控的，那么 MessageQueue 中的消息情况可能会变化，所以需要再处理一遍。</p>
+<p>实际不会死循环的关键是在于 pendingIdleHandlerCount，我们看看下面的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Message next() &#123;</span><br><span class="line">	&#x2F;&#x2F; ...</span><br><span class="line">  &#x2F;&#x2F; Step 1</span><br><span class="line">  int pendingIdleHandlerCount &#x3D; -1; </span><br><span class="line">  int nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  for (;;) &#123;</span><br><span class="line">    nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line"></span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line">      &#x2F;&#x2F; ...</span><br><span class="line">      &#x2F;&#x2F; Step 2</span><br><span class="line">      if (pendingIdleHandlerCount &lt; 0</span><br><span class="line">          &amp;&amp; (mMessages &#x3D;&#x3D; null || now &lt; mMessages.when)) &#123;</span><br><span class="line">        pendingIdleHandlerCount &#x3D; mIdleHandlers.size();</span><br><span class="line">      &#125;</span><br><span class="line">     	&#x2F;&#x2F; Step 3</span><br><span class="line">      if (pendingIdleHandlerCount &lt;&#x3D; 0) &#123;</span><br><span class="line">        mBlocked &#x3D; true;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line">		&#x2F;&#x2F; Step 4</span><br><span class="line">    pendingIdleHandlerCount &#x3D; 0;</span><br><span class="line">    nextPollTimeoutMillis &#x3D; 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>我们梳理一下：</p>
+<ul>
+<li>Step 1，循环开始前，<code>pendingIdleHandlerCount</code> 的初始值为 -1；</li>
+<li>Step 2，在 <code>pendingIdleHandlerCount&lt;0</code> 时，才会通过 <code>mIdleHandlers.size()</code> 赋值。也就是说只有第一次循环才会改变 <code>pendingIdleHandlerCount</code> 的值；</li>
+<li>Step 3，如果 <code>pendingIdleHandlerCount&lt;=0</code> 时，则循环 continus；</li>
+<li>Step 4，重置 <code>pendingIdleHandlerCount</code> 为 0；</li>
+</ul>
+<p>在第二次循环时，<code>pendingIdleHandlerCount</code> 等于 0，在 Step 2 不会改变它的值，那么在 Step 3 中会直接 continus 继续下一次循环，此时没有机会修改 <code>nextPollTimeoutMillis</code>。</p>
+<p>那么 <code>nextPollTimeoutMillis</code> 有两种可能：-1 或者下次唤醒的等待间隔时间，在执行到 <code>nativePollOnce()</code> 时就会进入休眠，等待再次被唤醒。</p>
+<p>下次唤醒时，<code>mMessage</code> 必然会有一个待执行的 Message，则 <code>MessageQueue.next()</code> 返回到 <code>Looper.loop()</code> 的循环中，分发处理这个 Message，之后又是一轮新的 <code>next()</code> 中去循环。</p>
+<h3 id="2-4-framework-中如何使用-IdleHander？"><a href="#2-4-framework-中如何使用-IdleHander？" class="headerlink" title="2.4 framework 中如何使用 IdleHander？"></a>2.4 framework 中如何使用 IdleHander？</h3><p>到这里基本上就讲清楚 IdleHandler 如何使用以及一些细节，接下来我们来看看，在系统中，有哪些地方会用到 IdleHandler 机制。</p>
+<p>在 AS 中搜索一下 IdleHandler。</p>
+<p><img src="http://gank.io/images/fb0ad74ad4df4ad4be358282fea3cd7b" alt="img"></p>
+<p>简单解释一下：</p>
+<ol>
+<li>ActivityThread.Idler 在 <code>ActivityThread.handleResumeActivity()</code> 中调用。</li>
+<li>ActivityThread.GcIdler 是在内存不足时，强行 GC；</li>
+<li>Instrumentation.ActivityGoing 在 Activity onCreate() 执行前添加；</li>
+<li>Instrumentation.Idler 调用的时机就比较多了，是键盘相关的调用；</li>
+<li>TextToSpeechService.SynthThread 是在 TTS 合成完成之后发送广播；</li>
+</ol>
+<p>有兴趣可以自己追一下源码，这些都是使用的场景，具体用 IdleHander 干什么，还是要看业务。</p>
+<h2 id="三-一些面试问题"><a href="#三-一些面试问题" class="headerlink" title="三.一些面试问题"></a>三.一些面试问题</h2><p>到这里我们就讲清楚 IdleHandler 干什么？怎么用？有什么问题？以及使用中一些原理的讲解。</p>
+<p>下面准备一些基本的问题，供大家理解。</p>
+<p><strong>Q：IdleHandler 有什么用？</strong></p>
+<ol>
+<li>IdleHandler 是 Handler 提供的一种在消息队列空闲时，执行任务的时机；</li>
+<li>当 MessageQueue 当前没有立即需要处理的消息时，会执行 IdleHandler；</li>
+</ol>
+<p><strong>Q：MessageQueue 提供了 add/remove IdleHandler 的方法，是否需要成对使用？</strong></p>
+<ol>
+<li>不是必须；</li>
+<li>IdleHandler.queueIdle() 的返回值，可以移除加入 MessageQueue 的 IdleHandler；</li>
+</ol>
+<p><strong>Q：当 mIdleHanders 一直不为空时，为什么不会进入死循环？</strong></p>
+<ol>
+<li>只有在 pendingIdleHandlerCount 为 -1 时，才会尝试执行 mIdleHander；</li>
+<li>pendingIdlehanderCount 在 next() 中初始时为 -1，执行一遍后被置为 0，所以不会重复执行；</li>
+</ol>
+<p><strong>Q：是否可以将一些不重要的启动服务，搬移到 IdleHandler 中去处理？</strong></p>
+<ol>
+<li>不建议；</li>
+<li>IdleHandler 的处理时机不可控，如果 MessageQueue 一直有待处理的消息，那么 IdleHander 的执行时机会很靠后；</li>
+</ol>
+<p><strong>Q：IdleHandler 的 queueIdle() 运行在那个线程？</strong></p>
+<ol>
+<li>陷进问题，queueIdle() 运行的线程，只和当前 MessageQueue 的 Looper 所在的线程有关；</li>
+<li>子线程一样可以构造 Looper，并添加 IdleHandler；</li>
+</ol>
+<h2 id="三-小结时刻"><a href="#三-小结时刻" class="headerlink" title="三. 小结时刻"></a>三. 小结时刻</h2><p>到这里就把 IdleHandler 的使用和原理说清除了。</p>
+<p>IdleHandler 是 Handler 提供的一种在消息队列空闲时，执行任务的时机。但它执行的时机依赖消息队列的情况，那么如果 MessageQueue 一直有待执行的消息时，IdleHandler 就一直得不到执行，也就是它的执行时机是不可控的，不适合执行一些对时机要求比较高的任务。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Apocalypse</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://jiyugithub.github.io/2020/06/12/undefined/">https://jiyugithub.github.io/2020/06/12/undefined/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/06/12/multitype/">Android 复杂的列表视图新写法 MultiType</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
