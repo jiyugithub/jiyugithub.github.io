@@ -12,7 +12,7 @@
 
 
 
-<title>Apocalypse&#39;s Blog</title>
+<title>postAndroid 复杂的列表视图新写法 MultiType | Apocalypse&#39;s Blog</title>
 
 
 
@@ -105,12 +105,95 @@
 </script>
         <div class="main">
             <div class="container">
-    <article class="post-wrap page">
-        
-        <h2 class="post-title"></h2>
-        
-        <section class="post-content">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">postAndroid 复杂的列表视图新写法 MultiType</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 12, 2020&nbsp;&nbsp;3:57:58</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
             <h1 id="Android-复杂的列视图新写法-MultiType"><a href="#Android-复杂的列视图新写法-MultiType" class="headerlink" title="Android 复杂的列视图新写法 MultiType"></a>Android 复杂的列视图新写法 MultiType</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在开发我的 <strong><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">TimeMachine</a></strong> 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 <strong>MultiType</strong>.</p>
+<a id="more"></a>
+
 <p>从前，<strong>比如我们写一个类似微博列表页面</strong>，这样的列表是十分复杂的：有纯文本的、带转发原文的、带图片的、带视频的、带文章的等等，甚至穿插一条可以横向滑动的好友推荐条目。不同的 item 类型众多，而且随着业务发展，还会更多。如果我们使用传统的开发方式，经常要做一些繁琐的工作，代码可能都堆积在一个 <code>Adapter</code> 中：我们需要覆写 <code>RecyclerView.Adapter</code> 的 <code>getItemViewType</code> 方法，罗列一些 <code>type</code> 整型常量，并且 <code>ViewHolder</code> 转型、绑定数据也比较麻烦。一旦产品需求有变，或者产品设计说需要增加一种新的 item 类型，我们需要去代码堆里找到原来的逻辑去修改，或找到正确的位置去增加代码。这些过程都比较繁琐，侵入较强，需要小心翼翼，以免改错影响到其他地方。</p>
 <p>现在好了，我们有了 <strong>MultiType</strong>，简单来说，<strong>MultiType 就是一个多类型列表视图的中间分发框架，它能帮助你快速并且清晰地开发一些复杂的列表页面。</strong> 它本是为聊天页面开发的，聊天页面的消息类型也是有大量不同种类，且新增频繁，而 <strong>MultiType</strong> 能够轻松胜任。</p>
 <p><strong>MultiType</strong> 以灵活直观为第一宗旨进行设计，它内建了 <code>类型</code> - <code>View</code> 的复用池系统，支持 <code>RecyclerView</code>，随时可拓展新的类型进入列表当中，使用简单，令代码清晰、模块化、灵活可变。</p>
@@ -293,7 +376,58 @@
 </li>
 </ul>
 
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Apocalypse</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://jiyugithub.github.io/2020/06/12/android_multitype/">https://jiyugithub.github.io/2020/06/12/android_multitype/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
         </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/06/06/hexo-zhuan/">hexo撰写文章</a>
+            
+        </section>
+
+
     </article>
 </div>
 
