@@ -1,0 +1,605 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="以前处理 Fragment 的懒加载，我们通常会在 Fragment 中处理 setUserVisibleHint + onHiddenChanged 这两个函数，而在 Androidx 模式下，我们可以使用 FragmentTransaction.setMaxLifecycle() 的方式来处理 Fragment 的懒加载。 在本文章中，我会详细介绍不同使用场景下两种方案的差异。大家快拿好小板凳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Androidx 下 Fragment 懒加载的新实现">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/FragmentTransaction/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="以前处理 Fragment 的懒加载，我们通常会在 Fragment 中处理 setUserVisibleHint + onHiddenChanged 这两个函数，而在 Androidx 模式下，我们可以使用 FragmentTransaction.setMaxLifecycle() 的方式来处理 Fragment 的懒加载。 在本文章中，我会详细介绍不同使用场景下两种方案的差异。大家快拿好小板凳">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96781bfcafeb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb967909b892db?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782a90b81e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb967928f23799?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb967817311da1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb967825d4acb4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb9679081837f2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782048236e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96784fdd764d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb967895238ac1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782b025a2f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96788af81c73?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-06-13T17:44:42.000Z">
+<meta property="article:modified_time" content="2020-06-13T17:49:39.680Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/1/19/16fb96781bfcafeb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Androidx 下 Fragment 懒加载的新实现 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/14/FragmentTransaction/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Androidx 下 Fragment 懒加载的新实现</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/FragmentTransaction/" data-flag-title="Androidx 下 Fragment 懒加载的新实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>以前处理 Fragment 的懒加载，我们通常会在 Fragment 中处理 <code>setUserVisibleHint + onHiddenChanged</code> 这两个函数，而在 Androidx 模式下，我们可以使用 <code>FragmentTransaction.setMaxLifecycle()</code> 的方式来处理 Fragment 的懒加载。</p>
+<p>在本文章中，我会详细介绍不同使用场景下两种方案的差异。大家快拿好小板凳。一起来学习新知识吧！</p>
+<blockquote>
+<p>本篇文章涉及到的 Demo，已上传至Github—-&gt;<span class="exturl"><a class="exturl__link"   href="https://github.com/AndyJennifer/AndroidxLazyLoad"  target="_blank" rel="noopener">传送门</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+
+        <h3 id="老的懒加载处理方案"   >
+          <a href="#老的懒加载处理方案" class="heading-link"><i class="fas fa-link"></i></a>老的懒加载处理方案</h3>
+      <blockquote>
+<p>如果你熟悉老一套的 Fragment 懒加载机制，你可以直接查看 Androix 懒加载相关章节</p>
+</blockquote>
+
+        <h4 id="add-show-hide-模式下的老方案"   >
+          <a href="#add-show-hide-模式下的老方案" class="heading-link"><i class="fas fa-link"></i></a>add+show+hide 模式下的老方案</h4>
+      <p>在没有添加懒加载之前，只要使用 <code>add+show+hide</code> 的方式控制并显示 Fragment, 那么不管 Fragment 是否嵌套，在初始化后，如果<code>只调用了add+show</code>，同级下的 Fragment 的相关生命周期函数都会被调用。且调用的生命周期函数如下所示：</p>
+<pre><code>onAttach -&gt; onCreate -&gt; onCreatedView -&gt; onActivityCreated -&gt; onStart -&gt; onResume</code></pre><blockquote>
+<p>Fragment 完整生命周期：onAttach -&gt; onCreate -&gt; onCreatedView -&gt; onActivityCreated -&gt; onStart -&gt; onResume -&gt; onPause -&gt; onStop -&gt; onDestroyView -&gt; onDestroy -&gt; onDetach</p>
+</blockquote>
+<p>什么是同级 Frament 呢？看下图</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96781bfcafeb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="同级Fragment.jpg"></p>
+<blockquote>
+<p>上图中，都是使用 <code>add+show+hide</code> 的方式控制 Fragment,</p>
+</blockquote>
+<p>在上图两种模式中:</p>
+<ul>
+<li>Fragment_1、Fragment_2、Fragment_3 属于同级 Fragment</li>
+<li>Fragment_a、Fragment_b、Fragment_c 属于同级 Fragment</li>
+<li>Fragment_d、Fragment_e、Fragment_f 属于同级 Fragment</li>
+</ul>
+<p>那这种方式会带来什么问题呢？结合下图我们来分别分析。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb967909b892db?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="show1.png"></p>
+<p>观察上图我们可以发现，同级的Fragment_1、Fragment_2、Fragment_3 都调用了 <code>onAttach...onResume</code> 系列方法，也就是说，如果我们没有对 Fragment 进行懒加载处理，那么我们就会无缘无故的加载一些并<code>不可见</code>的 Fragment , 也就会造成用户流量的无故消耗（我们会在 Fragment 相关生命周期函数中，请求网络或其他数据操作）。</p>
+<blockquote>
+<p>这里<code>&quot;不可见的Fragment&quot;</code>是指，实际不可见但是相关可见生命周期函数(如 <code>onResume</code> 方法）被调用的 Fragment</p>
+</blockquote>
+<p>如果使用嵌套 Fragment ，这种浪费流量的行为就更明显了。以本节的图一为例，当 Fragment_1 加载时，如果你在 Fragment_1 生命周期函数中使用 <code>show+add+hide</code> 的方式添加 <code>Fragment_a、Fragment_b、Fragment_c</code> , 那么 Fragment_b 又会在其生命周期函数中继续加载 <code>Fragment_d、Fragment_e、Fragment_f</code> 。</p>
+<p>那如何解决这种问题呢？我们继续接着上面的例子走，当我们 <code>show Fragment_2</code>，并 hide其他 Fragment 时，对应 Fragment 的生命周期调用如下：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782a90b81e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="show2.png"></p>
+<p>从上图中，我们可以看出 Fragment_2 与 Fragment_3 都调用了 <code>onHiddenChanged</code> 函数，该函数的官方 API 声明如下：</p>
+<pre><code>    /**
+     * Called when the hidden state (as returned by {@link #isHidden()} of
+     * the fragment has changed.  Fragments start out not hidden; this will
+     * be called whenever the fragment changes state from that.
+     * @param hidden True if the fragment is now hidden, false otherwise.
+     */
+    public void onHiddenChanged(boolean hidden) {
+    }
+</code></pre><p>根据官方 API 的注释，我们大概能知道，当 Fragment 隐藏的状态发生改变时，该函数将会被调用，如果当前 Fragment 隐藏， <code>hidden</code> 的值为 true, 反之为 false。最为重要的是<code>hidden</code> 的值，可以通过调用 <code>isHidden()</code> 函数获取。</p>
+<p>那么结合上述知识点，我们能推导出：</p>
+<ul>
+<li>因为 Fragment_1 的 <code>隐藏状态</code> 从<code>可见转为了不可见</code>，所以其 <code>onHiddenChanged</code> 函数被调用，同时 <code>hidden</code> 的值为 true。</li>
+<li>同理对于 Fragment_2 ，因为其 <code>隐藏状态</code> 从 <code>不可见转为了可见</code> ，所以其 hidden 值为 false。</li>
+<li>对于 Fragment_3 ,因为其隐藏状态从始至终都没有发生变化，所以其 onHiddenChanged 函数并不会调用。</li>
+</ul>
+<p>嗯，好像有点眉目了。不急，我们继续看下面的例子。</p>
+<p>show Fragment_3 并 hide 其他 Fragment ，对应生命周期函数调用如下所示：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb967928f23799?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="show3.png"></p>
+<p>从图中，我们可以看出，确实只有<code>隐藏状态</code>发生了改变的 Fragment 其 <code>onHiddenChanged</code> 函数才会调用，那么结合以上知识点，我们能得出如下重要结论：</p>
+<p><strong>只要通过 <code>show+hide</code> 方式控制 Fragment 的显隐，那么在第一次初始化后，Fragment 任何的生命周期方法都不会调用，只有 <code>onHiddenChanged</code> 方法会被调用。</strong></p>
+<p>那么，假如我们要在 <code>add+show+hide</code> 模式下控制 Fragment 的懒加载，我们只需要做这两步：</p>
+<ul>
+<li>我们需要在 <code>onResume()</code> 函数中调用 <code>isHidden()</code> 函数，来处理默认显示的 Fragment</li>
+<li>在 <code>onHiddenChanged</code> 函数中控制其他不可见的Fragment，</li>
+</ul>
+<p>也就是这样处理：</p>
+<pre><code>abstract class LazyFragment:Fragment(){
+
+    private var isLoaded = false //控制是否执行懒加载
+
+    override fun onResume() {
+        super.onResume()
+        judgeLazyInit()
+
+    }
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        isVisibleToUser = !hidden
+        judgeLazyInit()
+    }
+
+    private fun judgeLazyInit() {
+        if (!isLoaded &amp;&amp; !isHidden) {
+            lazyInit()
+            isLoaded = true
+        }
+    }
+
+     override fun onDestroyView() {
+        super.onDestroyView()
+        isLoaded = false
+    }
+
+    //懒加载方法
+    abstract fun lazyInit()
+}
+</code></pre><blockquote>
+<p>该懒加载的实现，是在 <code>onResume</code> 方法中操作，当然你可以在其他生命周期函数中控制。但是建议在该方法中执行懒加载。</p>
+</blockquote>
+
+        <h4 id="ViewPager-Fragment-模式下的老方案"   >
+          <a href="#ViewPager-Fragment-模式下的老方案" class="heading-link"><i class="fas fa-link"></i></a>ViewPager+Fragment 模式下的老方案</h4>
+      <p>使用传统方式处理 ViewPager 中 Fragment 的懒加载，我们需要控制 <code>setUserVisibleHint(boolean isVisibleToUser)</code> 函数，该函数的声明如下所示：</p>
+<pre><code>    public void setUserVisibleHint(boolean isVisibleToUser) {}
+</code></pre><p>该函数与之前我们介绍的 <code>onHiddenChanged()</code> 作用非常相似，都是通过传入的参数值来判断当前 Fragment 是否对用户可见，只是 <code>onHiddenChanged()</code> 是在 <code>add+show+hide</code> 模式下使用，而 <code>setUserVisibleHint</code> 是在 ViewPager+Fragment 模式下使用。</p>
+<p>在本节中，我们用 <code>FragmentPagerAdapter + ViewPager</code> 为例，向大家讲解如何实现 Fragment 的懒加载。</p>
+<blockquote>
+<p>注意：在本例中没有调用 <code>setOffscreenPageLimit</code> 方法去设置 ViewPager 预缓存的 Fragment 个数。默认情况下 ViewPager 预缓存 Fragment 的个数为 <code>1</code> 。</p>
+</blockquote>
+<p>初始化 ViewPager 查看内部 Fragment 生命周期函数调用情况：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb967817311da1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="viewpager1.png"></p>
+<p>观察上图，我们能发现 ViePager 初始化时，默认会调用其内部 Fragment 的 setUserVisibleHint 方法，因为其预缓存 Fragment 个数为 <code>1</code> 的原因，所以只有 Fragment_1 与 Fragment_2 的生命周期函数被调用。</p>
+<p>我们继续切换到 Fragment_2，查看各个Fragment的生命周期函数的调用变化。如下图所示：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb967825d4acb4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="viewpage2.png"></p>
+<p>观察上图，我们同样发现 Fragment 的 setUserVisibleHint 方法被调用了，并且 Fragment_3 的一系列生命周期函数被调用了。继续切换到 Fragment_3:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb9679081837f2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="viewpager_3.png"></p>
+<p>观察上图可以发现，Fragment_3 调用了 setUserVisibleHint 方法，继续又切换到 Fragment_1，查看调用函数的变化：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782048236e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="viewpager4.png"></p>
+<blockquote>
+<p>因为之前在切换到 Fragment_3 时，Frafgment_1 已经走了 onDestoryView(图二，蓝色标记处) 方法，所以 Fragment_1 需要重新走一次生命周期。</p>
+</blockquote>
+<p>那么结合本节的三幅图，我们能得出以下结论：</p>
+<ul>
+<li>使用 ViewPager，切换回上一个 Fragment 页面时（已经初始化完毕），不会回调任何生命周期方法以及onHiddenChanged()，只有 setUserVisibleHint(boolean isVisibleToUser) 会被回调。</li>
+<li>setUserVisibleHint(boolean isVisibleToUser) 方法总是会优先于 Fragment 生命周期函数的调用。</li>
+</ul>
+<p>所以如果我们想对 ViewPager 中的 Fragment 懒加载，我们需要这样处理：</p>
+<pre><code>abstract class LazyFragment : Fragment() {
+
+    /**
+     * 是否执行懒加载
+     */
+    private var isLoaded = false
+
+    /**
+     * 当前Fragment是否对用户可见
+     */
+    private var isVisibleToUser = false
+
+    /**
+     * 当使用ViewPager+Fragment形式会调用该方法时，setUserVisibleHint会优先Fragment生命周期函数调用，
+     * 所以这个时候就,会导致在setUserVisibleHint方法执行时就执行了懒加载，
+     * 而不是在onResume方法实际调用的时候执行懒加载。所以需要这个变量
+     */
+    private var isCallResume = false
+
+    override fun onResume() {
+        super.onResume()
+        isCallResume = true
+        judgeLazyInit()
+    }
+
+
+    private fun judgeLazyInit() {
+        if (!isLoaded &amp;&amp; isVisibleToUser &amp;&amp; isCallResume) {
+            lazyInit()
+            Log.d(TAG, &quot;lazyInit:!!!!!!!&quot;)
+            isLoaded = true
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        isVisibleToUser = !hidden
+        judgeLazyInit()
+    }
+
+    //在Fragment销毁View的时候，重置状态
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isLoaded = false
+        isVisibleToUser = false
+        isCallResume = false
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        this.isVisibleToUser = isVisibleToUser
+        judgeLazyInit()
+    }
+
+    abstract fun lazyInit()
+}
+</code></pre>
+        <h4 id="复杂-Fragment-嵌套的情况"   >
+          <a href="#复杂-Fragment-嵌套的情况" class="heading-link"><i class="fas fa-link"></i></a>复杂 Fragment 嵌套的情况</h4>
+      <p>当然，在实际项目中，我们可能会遇到更为复杂的 Fragment 嵌套组合。比如 Fragment+Fragment、Fragment+ViewPager、ViewPager+ViewPager….等等。 如下图所示：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96784fdd764d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="复杂嵌套Fragment.jpg"></p>
+<p>对于以上场景，我们就需要重写我们的懒加载，以支持不同嵌套组合模式下 Fragment 正确懒加载。我们需要将 LazyFragment 修改成如下这样：</p>
+<pre><code>abstract class LazyFragment : Fragment() {
+
+    /**
+     * 是否执行懒加载
+     */
+    private var isLoaded = false
+
+    /**
+     * 当前Fragment是否对用户可见
+     */
+    private var isVisibleToUser = false
+
+    /**
+     * 当使用ViewPager+Fragment形式会调用该方法时，setUserVisibleHint会优先Fragment生命周期函数调用，
+     * 所以这个时候就,会导致在setUserVisibleHint方法执行时就执行了懒加载，
+     * 而不是在onResume方法实际调用的时候执行懒加载。所以需要这个变量
+     */
+    private var isCallResume = false
+
+    /**
+     * 是否调用了setUserVisibleHint方法。处理show+add+hide模式下，默认可见 Fragment 不调用
+     * onHiddenChanged 方法，进而不执行懒加载方法的问题。
+     */
+    private var isCallUserVisibleHint = false
+
+    override fun onResume() {
+        super.onResume()
+        isCallResume = true
+        if (!isCallUserVisibleHint) isVisibleToUser = !isHidden
+        judgeLazyInit()
+    }
+
+
+    private fun judgeLazyInit() {
+        if (!isLoaded &amp;&amp; isVisibleToUser &amp;&amp; isCallResume) {
+            lazyInit()
+            Log.d(TAG, &quot;lazyInit:!!!!!!!&quot;)
+            isLoaded = true
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        isVisibleToUser = !hidden
+        judgeLazyInit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isLoaded = false
+        isVisibleToUser = false
+        isCallUserVisibleHint = false
+        isCallResume = false
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        this.isVisibleToUser = isVisibleToUser
+        isCallUserVisibleHint = true
+        judgeLazyInit()
+    }
+
+    abstract fun lazyInit()
+}
+</code></pre>
+        <h3 id="Androidx-下的懒加载"   >
+          <a href="#Androidx-下的懒加载" class="heading-link"><i class="fas fa-link"></i></a>Androidx 下的懒加载</h3>
+      <p>虽然之前的方案就能解决轻松的解决 Fragment 的懒加载，但这套方案有一个最大的弊端，<code>就是不可见的 Fragment 执行了 onResume() 方法</code>。onResume 方法设计的初衷，难道不是当前 Fragment 可以和用户进行交互吗？你他妈既不可见，又不能和用户进行交互，你执行 onResume 方法干嘛？</p>
+<p>基于此问题，Google 在 Androidx 在 <code>FragmentTransaction</code> 中增加了 <code>setMaxLifecycle</code> 方法来控制 Fragment 所能调用的最大的生命周期函数。如下所示：</p>
+<pre><code>   /**
+     * Set a ceiling for the state of an active fragment in this FragmentManager. If fragment is
+     * already above the received state, it will be forced down to the correct state.
+     *
+     * &lt;p&gt;The fragment provided must currently be added to the FragmentManager to have it&#39;s
+     * Lifecycle state capped, or previously added as part of this transaction. The
+     * {@link Lifecycle.State} passed in must at least be {@link Lifecycle.State#CREATED}, otherwise
+     * an {@link IllegalArgumentException} will be thrown.&lt;/p&gt;
+     *
+     * @param fragment the fragment to have it&#39;s state capped.
+     * @param state the ceiling state for the fragment.
+     * @return the same FragmentTransaction instance
+     */
+    @NonNull
+    public FragmentTransaction setMaxLifecycle(@NonNull Fragment fragment,
+            @NonNull Lifecycle.State state) {
+        addOp(new Op(OP_SET_MAX_LIFECYCLE, fragment, state));
+        return this;
+    }
+</code></pre><p>根据官方的注释，我们能知道，该方法可以设置活跃状态下 Fragment 最大的状态，如果该 Fragment 超过了设置的最大状态，那么会强制将 Fragment 降级到正确的状态。</p>
+<p>那如何使用该方法呢？我们先看该方法在 Androidx 模式下 ViewPager+Fragment 模式下的使用例子。</p>
+
+        <h4 id="ViewPager-Fragment-模式下的方案"   >
+          <a href="#ViewPager-Fragment-模式下的方案" class="heading-link"><i class="fas fa-link"></i></a>ViewPager+Fragment 模式下的方案</h4>
+      <p>在 FragmentPagerAdapter 与 FragmentStatePagerAdapter 新增了含有  <code>behavior</code> 字段的构造函数，如下所示：</p>
+<pre><code>  public FragmentPagerAdapter(@NonNull FragmentManager fm,
+            @Behavior int behavior) {
+        mFragmentManager = fm;
+        mBehavior = behavior;
+    }
+
+  public FragmentStatePagerAdapter(@NonNull FragmentManager fm,
+            @Behavior int behavior) {
+        mFragmentManager = fm;
+        mBehavior = behavior;
+    }
+
+</code></pre><p>其中 Behavior 的声明如下：</p>
+<pre><code>   @Retention(RetentionPolicy.SOURCE)
+    @IntDef({BEHAVIOR_SET_USER_VISIBLE_HINT, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT})
+    private @interface Behavior { }
+
+     /**
+     * Indicates that {@link Fragment#setUserVisibleHint(boolean)} will be called when the current
+     * fragment changes.
+     *
+     * @deprecated This behavior relies on the deprecated
+     * {@link Fragment#setUserVisibleHint(boolean)} API. Use
+     * {@link #BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT} to switch to its replacement,
+     * {@link FragmentTransaction#setMaxLifecycle}.
+     * @see #FragmentPagerAdapter(FragmentManager, int)
+     */
+    @Deprecated
+    public static final int BEHAVIOR_SET_USER_VISIBLE_HINT = 0;
+
+    /**
+     * Indicates that only the current fragment will be in the {@link Lifecycle.State#RESUMED}
+     * state. All other Fragments are capped at {@link Lifecycle.State#STARTED}.
+     *
+     * @see #FragmentPagerAdapter(FragmentManager, int)
+     */
+    public static final int BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT = 1;
+</code></pre><p>从官方的注释声明中，我们能得到如下两条结论：</p>
+<ul>
+<li>如果 behavior 的值为 <code>BEHAVIOR_SET_USER_VISIBLE_HINT</code>，那么当 Fragment 对用户的可见状态发生改变时，<code>setUserVisibleHint</code> 方法会被调用。</li>
+<li>如果 behavior 的值为 <code>BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT</code> ，那么当前选中的 Fragment 在 <code>Lifecycle.State#RESUMED</code> 状态 ，其他不可见的 Fragment 会被限制在 <code>Lifecycle.State#STARTED</code> 状态。</li>
+</ul>
+<p>那 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT 这个值到底有什么作用呢？我们看下面的例子：</p>
+<blockquote>
+<p>在该例子中设置了 ViewPager 的适配器为 FragmentPagerAdapter 且 behavior 值为 <code>BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT</code>。</p>
+</blockquote>
+<p>默认初始化ViewPager，Fragment 生命周期如下所示：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb967895238ac1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="androix1.png"></p>
+<p>切换到 Fragment_2 时，日志情况如下所示：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96782b025a2f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="androix2.png"></p>
+<p>切换到 Fragment_3 时，日志情况如下所示:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/19/16fb96788af81c73?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="androidx3.png"></p>
+<blockquote>
+<p>因为篇幅的原因，本文没有在讲解 FragmentStatePagerAdapter 设置 behavior 下的使用情况，但是原理以及生命周期函数调用情况一样，感兴趣的小伙伴，可以根据  <span class="exturl"><a class="exturl__link"   href="https://github.com/AndyJennifer/AndroidxLazyLoad"  target="_blank" rel="noopener">AndroidxLazyLoad</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 项目自行测试。</p>
+</blockquote>
+<p>观察上述例子，我们可以发现，使用了 <code>BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT</code> 后，确实只有当前可见的 Fragment 调用了 onResume 方法。而导致产生这种改变的原因，是因为 FragmentPagerAdapter 在其 <code>setPrimaryItem</code> 方法中调用了 <code>setMaxLifecycle</code> 方法，如下所示：</p>
+<pre><code>    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        Fragment fragment = (Fragment)object;
+        //如果当前的fragment不是当前选中并可见的Fragment,那么就会调用
+        // setMaxLifecycle 设置其最大生命周期为 Lifecycle.State.STARTED
+        if (fragment != mCurrentPrimaryItem) {
+            if (mCurrentPrimaryItem != null) {
+                mCurrentPrimaryItem.setMenuVisibility(false);
+                if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                    if (mCurTransaction == null) {
+                        mCurTransaction = mFragmentManager.beginTransaction();
+                    }
+                    mCurTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
+                } else {
+                    mCurrentPrimaryItem.setUserVisibleHint(false);
+                }
+            }
+        //对于其他非可见的Fragment,则设置其最大生命周期为
+        //Lifecycle.State.RESUMED
+            fragment.setMenuVisibility(true);
+            if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                if (mCurTransaction == null) {
+                    mCurTransaction = mFragmentManager.beginTransaction();
+                }
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+            } else {
+                fragment.setUserVisibleHint(true);
+            }
+
+            mCurrentPrimaryItem = fragment;
+        }
+    }
+</code></pre><p>既然在上述条件下，只有实际可见的 Fragment 会调用 onResume 方法， 那是不是为我们提供了 ViewPager 下实现懒加载的新思路呢？也就是我们可以这样实现 Fragment 的懒加载：</p>
+<pre><code>abstract class LazyFragment : Fragment() {
+
+    private var isLoaded = false
+
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            lazyInit()
+            Log.d(TAG, &quot;lazyInit:!!!!!!!&quot;)
+            isLoaded = true
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isLoaded = false
+    }
+
+    abstract fun lazyInit()
+}
+</code></pre>
+        <h4 id="add-show-hide-模式下的新方案"   >
+          <a href="#add-show-hide-模式下的新方案" class="heading-link"><i class="fas fa-link"></i></a>add+show+hide 模式下的新方案</h4>
+      <p>虽然我们实现了Androidx 包下 ViewPager下的懒加载，但是我们仍然要考虑 add+show+hide 模式下的 Fragment 懒加载的情况，基于 ViewPager 在 <code>setPrimaryItem</code> 方法中的思路，我们可以在调用 add+show+hide 时，这样处理：</p>
+<blockquote>
+<p>完整的代码请点击—&gt;<span class="exturl"><a class="exturl__link"   href="https://github.com/AndyJennifer/AndroidxLazyLoad/blob/master/app/src/main/java/com/jennifer/andy/androidxlazyload/ext/ShowHideExt.kt"  target="_blank" rel="noopener">ShowHideExt</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<pre><code>/**
+ * 使用add+show+hide模式加载fragment
+ *
+ * 默认显示位置[showPosition]的Fragment，最大Lifecycle为Lifecycle.State.RESUMED
+ * 其他隐藏的Fragment，最大Lifecycle为Lifecycle.State.STARTED
+ *
+ *@param containerViewId 容器id
+ *@param showPosition  fragments
+ *@param fragmentManager FragmentManager
+ *@param fragments  控制显示的Fragments
+ */
+private fun loadFragmentsTransaction(
+    @IdRes containerViewId: Int,
+    showPosition: Int,
+    fragmentManager: FragmentManager,
+    vararg fragments: Fragment
+) {
+    if (fragments.isNotEmpty()) {
+        fragmentManager.beginTransaction().apply {
+            for (index in fragments.indices) {
+                val fragment = fragments[index]
+                add(containerViewId, fragment, fragment.javaClass.name)
+                if (showPosition == index) {
+                    setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+                } else {
+                    hide(fragment)
+                    setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+                }
+            }
+
+        }.commit()
+    } else {
+        throw IllegalStateException(
+            &quot;fragments must not empty&quot;
+        )
+    }
+}
+
+/** 显示需要显示的Fragment[showFragment]，并设置其最大Lifecycle为Lifecycle.State.RESUMED。
+ *  同时隐藏其他Fragment,并设置最大Lifecycle为Lifecycle.State.STARTED
+ * @param fragmentManager
+ * @param showFragment
+ */
+private fun showHideFragmentTransaction(fragmentManager: FragmentManager, showFragment: Fragment) {
+    fragmentManager.beginTransaction().apply {
+        show(showFragment)
+        setMaxLifecycle(showFragment, Lifecycle.State.RESUMED)
+
+        //获取其中所有的fragment,其他的fragment进行隐藏
+        val fragments = fragmentManager.fragments
+        for (fragment in fragments) {
+            if (fragment != showFragment) {
+                hide(fragment)
+                setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+            }
+        }
+    }.commit()
+}
+</code></pre><p>上述代码的实现也非常简单：</p>
+<ul>
+<li>将需要显示的 Fragment ，在调用 add 或 show 方法后，<code>setMaxLifecycle(showFragment, Lifecycle.State.RESUMED)</code></li>
+<li>将需要隐藏的 Fragment ，在调用 hide 方法后，<code>setMaxLifecycle(fragment, Lifecycle.State.STARTED)</code></li>
+</ul>
+<p>结合上述操作模式，查看使用 setMaxLifecycle 后，Fragment 生命周期函数调用的情况。</p>
+<p>add Fragment_1、Fragment_2、Fragment_3，并 hide Fragment_2,Fragment_3 :</p>
+<p>show Fragment_2，hide 其他 Fragment:</p>
+<p>show Fragment_3 hide 其他 Fragment:</p>
+<p>不知道是否是谷歌大大没有考虑到 Fragment 嵌套的情况，所以这里我们要对之前的方案就行修改，也就是如下所示：</p>
+<pre><code>abstract class LazyFragment : Fragment() {
+
+    private var isLoaded = false
+
+    override fun onResume() {
+        super.onResume()
+        //增加了Fragment是否可见的判断
+        if (!isLoaded &amp;&amp; !isHidden) {
+            lazyInit()
+            Log.d(TAG, &quot;lazyInit:!!!!!!!&quot;)
+            isLoaded = true
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isLoaded = false
+    }
+
+    abstract fun lazyInit()
+
+}
+</code></pre><p>在上述代码中，因为同级的 Fragment 在嵌套模式下，仍然要调用 onResume 方法，所以我们增加了 Fragment 可见性的判断，这样就能保证嵌套模式下，新方案也能完美的支持 Fragment 的懒加载。</p>
+
+        <h5 id="ViewPager2-的处理方案"   >
+          <a href="#ViewPager2-的处理方案" class="heading-link"><i class="fas fa-link"></i></a>ViewPager2 的处理方案</h5>
+      <p>ViewPager2 本身就支持对实际可见的 Fragment 才调用 onResume 方法。关于 ViewPager2 的内部机制。感兴趣的小伙伴可以自行查看源码。</p>
+<p>关于 ViewPager2 的懒加载测试，已上传至 <span class="exturl"><a class="exturl__link"   href="https://github.com/AndyJennifer/AndroidxLazyLoad"  target="_blank" rel="noopener">AndroidxLazyLoad</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，大家可以结合项目查看Log日志。</p>
+
+        <h3 id="两种方式的对比与总结"   >
+          <a href="#两种方式的对比与总结" class="heading-link"><i class="fas fa-link"></i></a>两种方式的对比与总结</h3>
+      
+        <h4 id="老一套的懒加载"   >
+          <a href="#老一套的懒加载" class="heading-link"><i class="fas fa-link"></i></a>老一套的懒加载</h4>
+      <ul>
+<li>优点：不用去控制 FragmentManager的 add+show+hide 方法，所有的懒加载都是在Fragment 内部控制，也就是控制 <code>setUserVisibleHint + onHiddenChanged</code> 这两个函数。</li>
+<li>缺点：实际不可见的 Fragment，其 <code>onResume</code> 方法任然会被调用，这种反常规的逻辑，无法容忍。</li>
+</ul>
+
+        <h4 id="新一套的懒加载（Androidx下setMaxLifecycle）"   >
+          <a href="#新一套的懒加载（Androidx下setMaxLifecycle）" class="heading-link"><i class="fas fa-link"></i></a>新一套的懒加载（Androidx下setMaxLifecycle）</h4>
+      <ul>
+<li>优点：<code>在非特殊的情况下(缺点1)</code>，只有实际的可见 Fragment，其 <code>onResume</code> 方法才会被调用，这样才符合方法设计的初衷。</li>
+<li>缺点：<ol>
+<li>对于 Fragment 的嵌套，及时使用了 <code>setMaxLifecycle</code> 方法。同级不可见的Fragment， 仍然要调用 <code>onResume</code> 方法。</li>
+<li>需要在原有的 add+show+hide 方法中，继续调用 setMaxLifecycle 方法来控制Fragment 的最大生命状态。</li>
+</ol>
+</li>
+</ul>
+
+        <h3 id="最后"   >
+          <a href="#最后" class="heading-link"><i class="fas fa-link"></i></a>最后</h3>
+      <p>这两种方案的优缺点已经非常明显了，到底该选择何种懒加载模式，还是要基于大家的意愿，作者我更倾向于使用新的方案。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/14/FragmentTransaction/">https://jiyugithub.github.io/2020/06/14/FragmentTransaction/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/14/Top10/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">2020年GitHub 上那些优秀Android开源库</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/14/DayNight/"><span class="paginator-prev__text">暗黑模式适配</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#老的懒加载处理方案"><span class="toc-number">1.</span> <span class="toc-text">
+          老的懒加载处理方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#add-show-hide-模式下的老方案"><span class="toc-number">1.1.</span> <span class="toc-text">
+          add+show+hide 模式下的老方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewPager-Fragment-模式下的老方案"><span class="toc-number">1.2.</span> <span class="toc-text">
+          ViewPager+Fragment 模式下的老方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂-Fragment-嵌套的情况"><span class="toc-number">1.3.</span> <span class="toc-text">
+          复杂 Fragment 嵌套的情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Androidx-下的懒加载"><span class="toc-number">2.</span> <span class="toc-text">
+          Androidx 下的懒加载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewPager-Fragment-模式下的方案"><span class="toc-number">2.1.</span> <span class="toc-text">
+          ViewPager+Fragment 模式下的方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#add-show-hide-模式下的新方案"><span class="toc-number">2.2.</span> <span class="toc-text">
+          add+show+hide 模式下的新方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ViewPager2-的处理方案"><span class="toc-number">2.2.1.</span> <span class="toc-text">
+          ViewPager2 的处理方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种方式的对比与总结"><span class="toc-number">3.</span> <span class="toc-text">
+          两种方式的对比与总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#老一套的懒加载"><span class="toc-number">3.1.</span> <span class="toc-text">
+          老一套的懒加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新一套的懒加载（Androidx下setMaxLifecycle）"><span class="toc-number">3.2.</span> <span class="toc-text">
+          新一套的懒加载（Androidx下setMaxLifecycle）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">
+          最后</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

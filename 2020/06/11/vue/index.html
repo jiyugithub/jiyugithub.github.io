@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="前言       随着vue&#x2F;react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0到1教你搭建前端团队的组件系统（高级进阶必备）">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/11/vue/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="前言       随着vue&#x2F;react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://gank.io/images/fb7164945fc946e59b9fe29c7a11c1c1">
+<meta property="og:image" content="http://gank.io/images/d82118e1278a48ac9009f048f9221457">
+<meta property="og:image" content="http://gank.io/images/fb3d6de8f3924f49b35f0d0839c0f618">
+<meta property="og:image" content="http://gank.io/images/1149d1d05de94a9e8ab98c2e553da3be">
+<meta property="og:image" content="http://gank.io/images/6ba3bf2de70844878738cf24ec5359af">
+<meta property="og:image" content="http://gank.io/images/cf7ec6693a6e42ccad8cbd0f1ee606f8">
+<meta property="og:image" content="http://gank.io/images/e50a95c09cdf4efb8a51d3aa5a23b04c">
+<meta property="og:image" content="http://gank.io/images/06f63fe8890b41519df05f3f19453d0c">
+<meta property="og:image" content="http://gank.io/images/88c1791e8ff34523906081b881ed0edb">
+<meta property="og:image" content="http://gank.io/images/ccd3a2255c954714ad04e14db2b69059">
+<meta property="og:image" content="http://gank.io/images/641bd29ad38740b3950b5158a2b1fd69">
+<meta property="og:image" content="http://gank.io/images/f00f468d974445048153efe2825c054b">
+<meta property="og:image" content="http://gank.io/images/80676812e7b944a28e498dc8926a9866">
+<meta property="og:image" content="http://gank.io/images/34b349be69ef4d9c9446fbcb35aa06e5">
+<meta property="article:published_time" content="2020-06-11T04:57:45.000Z">
+<meta property="article:modified_time" content="2020-06-11T21:29:30.522Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gank.io/images/fb7164945fc946e59b9fe29c7a11c1c1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>从0到1教你搭建前端团队的组件系统（高级进阶必备） | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/11/vue/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">从0到1教你搭建前端团队的组件系统（高级进阶必备）</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/11/vue/" data-flag-title="从0到1教你搭建前端团队的组件系统（高级进阶必备）"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h2 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h2>
+      <p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
+<a id="more"></a>
+
+<p>我们在开发管理系统或者中台产品时，完全可以使用这种第三方库来开发，因为首先其服务的用户群体比较小众，一般是企业或者运营人员来使用，重点在于功能和业务，所以在B端产品比较适合；另一点就是设计要求相对于C端产品会低一些，因为B端产品或者管理系统风格统一简单反而会降低使用者的学习成本。所以对于上述情况，我们完全可以使用ant-design-pro或者element-admin-vue这类集成管理框架开开发。</p>
+<p>我们使用第三方组件库搭建一个企业级应用是完全没有问题的，但是另一方面，随着我们对用户体验以及网站性能的要求越来越高，流量及金钱，速度即王道，对于专注于做C端的企业来说，尽可能的减少用户等待才能留住更多的用户，比如我们在某宝，某东上买一个商品，结果我们花了一分钟商品列表还没有出来（形容的有点夸张），这种情况下客户可有可能直接选择某拼了。很明显像ant-design和elementUI这样的组件不适合做C端产品，因为体积太大了，除非用高性能服务器或者其他方式弥补。所以说采用轻量级组件库对于C端项目来说有以下几点好处：</p>
+<ul>
+<li>打包体积小，高度可控</li>
+<li>采用内部组件库安全性更高，防止嵌入攻击</li>
+<li>构建和开发更灵活，且组合型更高</li>
+</ul>
+<p>但是开发组件库还是需要投入时间和成本的，毕竟这东西不是每个团队都玩的起的。说了这么多，接下来我们就来分析和实现一个团队内部的组件库吧。</p>
+
+        <h2 id="你将收获"   >
+          <a href="#你将收获" class="heading-link"><i class="fas fa-link"></i></a>你将收获</h2>
+      <ul>
+<li>如何从0搭建一个组件库</li>
+<li>前端组件系统设计思路和模式</li>
+<li>组件库的划分及设计思路</li>
+<li>组件库的package.json文件配置说明</li>
+<li>将组件库部署到github并发布到npm上</li>
+</ul>
+
+        <h2 id="正文"   >
+          <a href="#正文" class="heading-link"><i class="fas fa-link"></i></a>正文</h2>
+      
+        <h3 id="1-开发组件库的几种方式"   >
+          <a href="#1-开发组件库的几种方式" class="heading-link"><i class="fas fa-link"></i></a>1. 开发组件库的几种方式</h3>
+      <p><img src="http://gank.io/images/fb7164945fc946e59b9fe29c7a11c1c1" alt="img"></p>
+<p>目前我们开发组件库的方式有很多，只要根据npm发包原则去配置就好了，我们可以用webpack自己大家一个library，也可以直接使用create-react-app/vue-cli3来快速改造一个组件库的脚手架，或者采用之前比较火且自动集成tree-shaking的rollup，这些方式都可以搭建我们组件库的脚手架。关于如何使用webpack4.0和rollup，可以参考笔者的以下几篇文章：</p>
+<ul>
+<li><span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5dab0cc1e51d4524df35b7b4"  target="_blank" rel="noopener">前端组件/库打包利器rollup使用与配置实战</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5dacee1c6fb9a04de04d94e0"  target="_blank" rel="noopener">基于create-react-app打包编译自己的第三方UI组件库并发布到npm</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5d078cc16fb9a07ef37668d0"  target="_blank" rel="noopener">用 webpack 4.0 撸单页/多页脚手架 (jquery, react, vue, typescript)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+<p>其实还有一种最快的方式就是直接去ant-design或者elementUI的github仓库，把代码copy下来改成自己的组件库脚手架，当然，这也不是随便就能改好的，如果想尝试这种方案，建议大家先学好typescript和webpack。</p>
+<p>笔者这里采用的是目前比较流行的工具链umi，umi的father专门是提供组件库或者工具库打包的集成工具，我们只需要更改配置文件就能轻松搭建一款自带说明文档的组件库。笔者接下来会具来教大家如何使用它。</p>
+
+        <h3 id="2-前端组件系统设计思路和模式"   >
+          <a href="#2-前端组件系统设计思路和模式" class="heading-link"><i class="fas fa-link"></i></a>2. 前端组件系统设计思路和模式</h3>
+      <p><img src="http://gank.io/images/d82118e1278a48ac9009f048f9221457" alt="img"></p>
+<p>以上是笔者画的一个简陋的分层图，我们可以看到最底层的是我们的基础视图组件，它是上层建筑的基石。对于一个包含很多子系统的复杂的项目系统来说，要想设计一个好的架构，第一步就是合理划分组件，组件的粒度拆成的足够细，这样才能最大限度的复用组件。</p>
+<p>对于任何一个复杂系统来说，最重要的就是实现错综复杂的业务功能，但是不同模块或者子系统之间很多业务往往是相通的或者相似的，如果这个时候我们每个页面对于实现类似的业务场景都去重复去写一遍业务代码，那完全是没必要的，对于可维护性来说也是一种打击，所以基于这种场景我们的 <strong>业务组件</strong> 就很有必要出场了。<strong>我们可以把功能或者需求类似的有机体封装成一个业务组件，并对外暴露接口来实现灵活的可定制性，这样的话我们就可以再不同页面不同子系统中复用同样的逻辑和功能了。</strong></p>
+<p>同理，不同页面中往往有可能出现视觉或者交互完全相同或者类似的<strong>区块</strong>，为了提高可复用性和提高开发效率，<strong>我们往往会基于基础组件和业务组件再进行一次封装，让其成为一个独立的区块以便直接复用。</strong></p>
+<p>通过这样一层层封装，我们就逐渐搭建了一套完整的组件化系统，基于这种模式的开发往往也是一个好的前端架构的开始。但要注意一点就是高层次的组件一定会依赖低层次的组件，但是低层次的组件不可以包含高层次的组件。（听起来有点像rudex的单向数据流法则），他们的关系就好像下图：</p>
+<p><img src="http://gank.io/images/fb3d6de8f3924f49b35f0d0839c0f618" alt="img"></p>
+
+        <h3 id="3-组件库的划分及设计思路"   >
+          <a href="#3-组件库的划分及设计思路" class="heading-link"><i class="fas fa-link"></i></a>3. 组件库的划分及设计思路</h3>
+      <p>组件库的划分其实可以参考成熟组件库划分。由于业务组件和区块划分完全取决于不同公司的实际项目情况，这里不能形成一套统一的思维框架，所以我这里说的组件库划分主要指基础组件库的划分。我们先来看看antd的划分，它划分为：<strong>通用组件，布局组件，导航组件，数据录入和数据展示组件，反馈型组件和其他</strong>。elementUI的组件划分为：<strong>基础组件，表单组件，数据呈现组件，通知类组件，导航类组件和其他</strong>，这些分类发都是非常合理的划分，所以我们在设计组件库时也可以参考或者直接使用，具体总结如下：</p>
+<ul>
+<li>通用型组件: 比如Button, Icon等.</li>
+<li>布局型组件: 比如Grid, Layout布局等.</li>
+<li>导航型组件: 比如面包屑Breadcrumb, 下拉菜单Dropdown, 菜单Menu等.</li>
+<li>数据录入型组件: 比如form表单, Switch开关, Upload文件上传等.</li>
+<li>数据展示型组件: 比如Avator头像, Table表格, List列表等.</li>
+<li>反馈型组件: 比如Progress进度条, Drawer抽屉, Modal对话框等.</li>
+<li>其他业务类型</li>
+</ul>
+<p>至于组件实现的设计思路，其实笔者之前也写过很多文章来做铺垫，第一要义就是需求，一切要从需求出发。不仅仅是react的组件设计，vue或者angular等都是类似的方法和思路，这里简单给大家举一个组件开发的例子—— 弹窗组件（Modal）的开发思路：</p>
+<ol>
+<li><p>需求分析</p>
+<p><img src="http://gank.io/images/1149d1d05de94a9e8ab98c2e553da3be" alt="img"></p>
+</li>
+<li><p>功能设计及实现思路</p>
+<p><img src="http://gank.io/images/6ba3bf2de70844878738cf24ec5359af" alt="img"></p>
+</li>
+<li><p>健壮性与组件测试</p>
+<p><img src="http://gank.io/images/cf7ec6693a6e42ccad8cbd0f1ee606f8" alt="img"></p>
+<p>因为Modal设计是组件设计里一个很典型的案例，如果想学习具体实现细节，可以在读完本文之后移步</p>
+<p>手摸手实现一个轻量级可扩展的模态框(Modal)组件</p>
+</li>
+</ol>
+
+        <h3 id="4-从0搭建一个组件库"   >
+          <a href="#4-从0搭建一个组件库" class="heading-link"><i class="fas fa-link"></i></a>4. 从0搭建一个组件库</h3>
+      <p>这一步是文章的重点，我们将会了解到如何使用umi/father来搭建团队的组件库。至于umi这个前端集成解决方案，笔者从它的架构中受到了很多启发，并且基于umi+dva+react的前端开发流程应用非常广泛，感兴趣的朋友可以研究学习一下。</p>
+
+        <h4 id="4-1-father介绍"   >
+          <a href="#4-1-father介绍" class="heading-link"><i class="fas fa-link"></i></a>4.1 father介绍</h4>
+      <p>官方介绍就一句话：基于rollup和docz的库打包工具。它的特点主要有：</p>
+<ul>
+<li>基于 docz 的文档功能</li>
+<li>基于 rollup 和 babel 的组件打包功能</li>
+<li>支持 TypeScript</li>
+<li>支持 cjs、esm 和 umd 三种格式的打包</li>
+<li>esm 支持生成 mjs，直接为浏览器使用</li>
+<li>支持用 babel 或 rollup 打包 cjs 和 esm</li>
+<li>支持多 entry</li>
+<li>支持 lerna</li>
+<li>支持 css 和 less，支持开启 css modules</li>
+<li>支持 test</li>
+<li>支持用 prettier 和 eslint 做 pre-commit 检查</li>
+</ul>
+<p>所以作为一个开箱即用的组件库打包工具，已经为我们省去了很多中间步骤，比如说组件的测试，不同环境下的模块打包，而且还支持ts和文档功能，我们只需要掌握babel和rollup的知识，就能用它轻松配置出一个强大的组件库脚手架。如果对docz不太了解的可以在<span class="exturl"><a class="exturl__link"   href="https://www.docz.site/"  target="_blank" rel="noopener">docz官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>学习使用非常简单,只要你对markdown和react熟悉，分分钟入门。</p>
+
+        <h4 id="4-2-使用father搭建组件库"   >
+          <a href="#4-2-使用father搭建组件库" class="heading-link"><i class="fas fa-link"></i></a>4.2 使用father搭建组件库</h4>
+      <p>其实father的使用非常简单，首先我们先安装一下father：</p>
+<pre><code>npm install father -D
+</code></pre><p>或者使用yarn安装：</p>
+<pre><code>yarn add father
+</code></pre><p>接下来我们可以在package.json里配置如下脚本来使用：</p>
+<pre><code># 打包库
+$ father build
+
+# 开发环境下启动文档服务
+$ father doc dev
+
+# 打包编译文档
+$ father doc build
+
+# 将文档部署到github
+$ father doc deploy
+
+# 组件库测试及测试覆盖率
+$ father test
+$ father test --coverage
+</code></pre><p>这里拿笔者之前已经发布到npm的组件库<span class="exturl"><a class="exturl__link"   href="https://www.npmjs.com/package/@alex_xu/xui"  target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>来举例。 首先我们看看<span class="exturl"><a class="exturl__link"   href="https://www.npmjs.com/package/@alex_xu/xui"  target="_blank" rel="noopener">xui</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的package.json中的script脚本如何配置的：</p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;npx --max_old_space_size=8096 father doc dev --host 0.0.0.0&quot;,
+    &quot;build&quot;: &quot;father build&quot;,
+    &quot;build:doc&quot;: &quot;father doc build&quot;,
+    &quot;deploy&quot;: &quot;father doc deploy&quot;
+  }
+</code></pre><p>当我们执行npm run dev或者yarn dev时，father自动帮我们启动了doc服务器，我们接下来就能看到我们组件的测试文档了：</p>
+<p><img src="http://gank.io/images/e50a95c09cdf4efb8a51d3aa5a23b04c" alt="img"></p>
+<p><img src="http://gank.io/images/06f63fe8890b41519df05f3f19453d0c" alt="img"></p>
+<p>这些内容都是我们提前写好的mdx文档，语法类似于markdown，只不过增加了对react组件的编译支持，其实使用起来很简单，我们只需要把react组件包裹在Playground容器里就好了，具体使用可以参考以下方式：</p>
+<pre><code>---
+name: Button
+route: /Button
+order: 3
+sidebar: true
+---
+
+import { Playground } from &#39;docz&#39;
+import Button from &#39;./index&#39;
+
+# Button
+
+#### 基本用法
+&lt;Playground&gt;
+    &lt;Button&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;primary&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;warning&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;info&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;pure&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;primary&quot; shape=&quot;circle&quot;&gt;按钮的命运&lt;/Button&gt;&lt;br /&gt;
+&lt;/Playground&gt;
+</code></pre><p>头部的信息我需要介绍一下：</p>
+<ul>
+<li>name 组件的名称，也就是显示在左部导航栏里的导航文本</li>
+<li>route 组件页面的路由</li>
+<li>order 组件在导航条中显示的顺序</li>
+<li>siderbar 当前页面是否显示导航条</li>
+</ul>
+<p>我们根据案例可以知道mdx里面可以使用es6的导入方式来引入组件或者变量，其实还有很多配置，这里就不一一举例了，感兴趣的可以到docz官网学习。以下是官网的截图：</p>
+<p><img src="http://gank.io/images/88c1791e8ff34523906081b881ed0edb" alt="img"></p>
+<p>接下来介绍我们最重要的部分，<strong>.fatherrc.js</strong>文件的配置。初始化father项目时会自动生成一个默认配置，但是大多数情况下我们都需要自定义配置，官网的配置参数也很多，可以找到适合自己团队的配置，这里我主要介绍<span class="exturl"><a class="exturl__link"   href="https://www.npmjs.com/package/@alex_xu/xui"  target="_blank" rel="noopener">xui</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>组件库的配置细节。先看看配置代码：</p>
+<pre><code>// .fatherrc.js
+const options = {
+  entry: &#39;src/index.js&#39;,
+  doc: {
+    title: &#39;xu_ui&#39;,
+    themeConfig: { mode: &#39;light&#39; },
+    base: &#39;/xu_ui&#39;
+  },
+  extraBabelPlugins: [
+      [&#39;babel-plugin-import&#39;, {
+          libraryName: &#39;antd&#39;,
+          libraryDirectory: &#39;es&#39;,
+          style: true,
+      }]
+  ],
+  // cssModules: true,
+  extractCSS: true,
+  lessInBabelMode: true,
+  runtimeHelpers: true,
+  esm: &#39;babel&#39;, 
+  cjs: &#39;babel&#39;,
+  autoprefixer: {
+      browsers: [&#39;ie&gt;9&#39;, &#39;Safari &gt;= 6&#39;],
+  }
+};
+
+export default options;
+</code></pre><ul>
+<li>entry</li>
+</ul>
+<p>  主要用来定义组件库的入口位置，通常我们会放在src目录下，以下是xui项目中src的目录结构：</p>
+<p>  <img src="http://gank.io/images/ccd3a2255c954714ad04e14db2b69059" alt="img"></p>
+<p>  <img src="http://gank.io/images/641bd29ad38740b3950b5158a2b1fd69" alt="img"></p>
+<p>  大家可以参考以下，我们还可以在组件目录下加测试代码，这里就不举例了。</p>
+<ul>
+<li><p><strong>doc</strong> 主要用来配置文档的标题，主题色以及根路由</p>
+</li>
+<li><p><strong>extraBabelPlugins</strong> 主要用来配置额外的babel插件，比如组件库的按需导入。xui虽然没用用到antd，但是大家如果有基于antd二次开发业务组件或者区块时，可以按照如上配置去按需导入第三方组件库，这样可以极大的降低代码体积</p>
+</li>
+<li><p><strong>cssModules</strong> 是否开启css Module，这个按团队需求来定制，可以不用配置</p>
+</li>
+<li><p><strong>extractCSS</strong> 是否将css抽离成单独的css文件，这个也是看组件库的体量，不过建议最好配置上</p>
+</li>
+<li><p><strong>lessInBabelMode</strong> 在 babel 模式下做 less 编译，基于 gulp-less，默认不开启</p>
+</li>
+<li><p><strong>runtimeHelpers</strong> 是否把 helper 方法提取到 @babel/runtime 里，推荐开启，能节约不少代码体积</p>
+</li>
+<li><p><strong>esm</strong> 是否输出 esm 格式，以及指定 esm 格式的打包方式等，笔者这里使用babel的打包方式</p>
+</li>
+<li><p><strong>cjs</strong> 是否输出 cjs 格式，以及指定 cjs 格式的打包方式等，笔者这里使用babel的打包方式</p>
+</li>
+<li><p><strong>autoprefixer</strong> 主要用来配置打包后的组件对浏览器的兼容版本</p>
+</li>
+</ul>
+<p>通过以上的配置，我们就能愉快的开发组件啦。</p>
+
+        <h4 id="4-3-编写组件说明文档"   >
+          <a href="#4-3-编写组件说明文档" class="heading-link"><i class="fas fa-link"></i></a>4.3 编写组件说明文档</h4>
+      <p>组件说明文档是让其他人了解组件库的关键环节，包括组件库的适用范围（pc端，移动端，轻量级还是重量级），兼容浏览器的版本，设计原则和背景，以及社区生态，使用方法等。所以组件库说明文档的编写也是非常重要的，大家具体可以参考antd或者element的说明文档，可以说是写的非常专业了。如下是antd的例子：</p>
+<p><img src="http://gank.io/images/f00f468d974445048153efe2825c054b" alt="img"></p>
+<p>大家可以参考以上笔者整理的核心部分去写组件说明文档。</p>
+
+        <h3 id="5-组件库的package-json文件配置说明"   >
+          <a href="#5-组件库的package-json文件配置说明" class="heading-link"><i class="fas fa-link"></i></a>5. 组件库的package.json文件配置说明</h3>
+      <p>如果你在为团队开发私有组件库，那么完全不需要在意接下来笔者写的内容，但是如果你要开发一个开源的，大家都能使用的组件库，一定要注意以下几点的编写：</p>
+<ul>
+<li><strong>name</strong> package的包名，让人一眼就能知道这个库是用来做什么的</li>
+<li><strong>description</strong> 库的描述，一个精准而具体的组件库的描述有利于人们在npm或者github上的搜索，有点类似于SEO的感觉，没错，这就是组件库的SEO</li>
+<li><strong>keywords</strong> 组件库的关键字说明，这一点也很重要，直接影响者用户对我们组件库的搜索排名</li>
+<li><strong>homepage</strong> 组件库的主页地址，更有利于用户了解组件库的用法，功能等 完整的在线例子可以参考： <span class="exturl"><a class="exturl__link"   href="https://www.npmjs.com/package/@alex_xu/xui"  target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+
+        <h3 id="6-将组件库部署到github并发布到npm上"   >
+          <a href="#6-将组件库部署到github并发布到npm上" class="heading-link"><i class="fas fa-link"></i></a>6. 将组件库部署到github并发布到npm上</h3>
+      <p><strong>首先</strong>我们需要在package.json中配置github的地址：</p>
+<pre><code>&quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;git+https://github.com:MrXujiang/xu_ui.git&quot;
+  }
+</code></pre><p>大家可以复制以上代码改成自己的仓库地址。</p>
+<p><strong>其次</strong>我们需要登录进npm官网，如果你还没有账号可以直接申请一个，也很简单，然后在终端通过命令行登录。</p>
+<p><strong>接下来</strong>我们执行以下几个命令就能将自己的组件库打包发布到npm上了：</p>
+<pre><code>// 打包编译组件库
+yarn build
+
+// 编译组件库文档，该步骤可省略
+yarn build:doc
+
+// 部署组件库文档到github, 该步骤可省略
+yarn deploy
+
+// 发布到npm上
+npm publish --access public
+</code></pre><p>以上的yarn命令具体实现可参考<span class="exturl"><a class="exturl__link"   href="https://www.npmjs.com/package/@alex_xu/xui"  target="_blank" rel="noopener">xui</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的package.json,也可以自己配置。经过上述步骤我们就成功将自己的组件库发布到npm上了，是不是很简单呢？</p>
+<p>笔者已经将实现过的组件发布到npm上了,大家如果感兴趣可以直接用npm安装后使用,方式如下:</p>
+<pre><code>npm i @alex_xu/xui
+
+// 导入xui
+import { 
+  Button, Skeleton, Empty, Progress,
+  Message, Tag, Switch, Drawer, Badge, Alert
+} from &#39;@alex_xu/xui&#39;
+</code></pre><p>该组件库支持按需导入,我们只需要在项目里配置babel-plugin-import即可,具体配置如下:</p>
+<pre><code>// .babelrc
+&quot;plugins&quot;: [
+  [&quot;import&quot;, { &quot;libraryName&quot;: &quot;@alex_xu/xui&quot;, &quot;style&quot;: true }]
+]
+</code></pre><p>npm库截图如下:</p>
+<p><img src="http://gank.io/images/80676812e7b944a28e498dc8926a9866" alt="img"></p>
+
+        <h2 id="组件系统与微前端架构初探"   >
+          <a href="#组件系统与微前端架构初探" class="heading-link"><i class="fas fa-link"></i></a>组件系统与微前端架构初探</h2>
+      <p>笔者本篇文章并不会将微前端架构的知识，但是既然涉及到组件库，就一定要形成一个知识闭环，笔者特意画了如下脑图，供前端朋友或者正准备走向微前端架构的团队一些参考：</p>
+<p><img src="http://gank.io/images/34b349be69ef4d9c9446fbcb35aa06e5" alt="img"></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/11/vue/">https://jiyugithub.github.io/2020/06/11/vue/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/12/multitype/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android 复杂的列表视图新写法 MultiType</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/09/handler/"><span class="paginator-prev__text">Handler 机制</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">
+          前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你将收获"><span class="toc-number">2.</span> <span class="toc-text">
+          你将收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">3.</span> <span class="toc-text">
+          正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-开发组件库的几种方式"><span class="toc-number">3.1.</span> <span class="toc-text">
+          1. 开发组件库的几种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-前端组件系统设计思路和模式"><span class="toc-number">3.2.</span> <span class="toc-text">
+          2. 前端组件系统设计思路和模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组件库的划分及设计思路"><span class="toc-number">3.3.</span> <span class="toc-text">
+          3. 组件库的划分及设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-从0搭建一个组件库"><span class="toc-number">3.4.</span> <span class="toc-text">
+          4. 从0搭建一个组件库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-father介绍"><span class="toc-number">3.4.1.</span> <span class="toc-text">
+          4.1 father介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-使用father搭建组件库"><span class="toc-number">3.4.2.</span> <span class="toc-text">
+          4.2 使用father搭建组件库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-编写组件说明文档"><span class="toc-number">3.4.3.</span> <span class="toc-text">
+          4.3 编写组件说明文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-组件库的package-json文件配置说明"><span class="toc-number">3.5.</span> <span class="toc-text">
+          5. 组件库的package.json文件配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-将组件库部署到github并发布到npm上"><span class="toc-number">3.6.</span> <span class="toc-text">
+          6. 将组件库部署到github并发布到npm上</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件系统与微前端架构初探"><span class="toc-number">4.</span> <span class="toc-text">
+          组件系统与微前端架构初探</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

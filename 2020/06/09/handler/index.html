@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Handler 机制">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/09/handler/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://gank.io/images/fb0ad74ad4df4ad4be358282fea3cd7b">
+<meta property="article:published_time" content="2020-06-09T02:19:36.000Z">
+<meta property="article:modified_time" content="2020-06-11T21:28:17.459Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gank.io/images/fb0ad74ad4df4ad4be358282fea3cd7b"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Handler 机制 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/09/handler/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Handler 机制</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/09/handler/" data-flag-title="Handler 机制"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”"   >
+          <a href="#面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”" class="heading-link"><i class="fas fa-link"></i></a>面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”</h1>
+      <a id="more"></a>
+
+
+        <h2 id="一-序"   >
+          <a href="#一-序" class="heading-link"><i class="fas fa-link"></i></a>一. 序</h2>
+      <p>Handler 机制算是 Android 基本功，面试常客。但现在面试，多数已经不会直接让你讲讲 Handler 的机制，Looper 是如何循环的，MessageQueue 是如何管理 Message 等，而是基于场景去提问，看看你对 Handler 机制的掌握是否扎实。</p>
+<p>本文就来聊聊 Handler 中的 IdleHandler，这个我们比较少用的功能。它能干什么？怎么使用？有什么合适的使用场景？哪些不是合适的使用场景？在 Android Framework 中有哪些地方用到了它？</p>
+
+        <h2 id="二-IdleHandler"   >
+          <a href="#二-IdleHandler" class="heading-link"><i class="fas fa-link"></i></a>二. IdleHandler</h2>
+      
+        <h3 id="2-1-简单说说-Handler-机制"   >
+          <a href="#2-1-简单说说-Handler-机制" class="heading-link"><i class="fas fa-link"></i></a>2.1 简单说说 Handler 机制</h3>
+      <p>在说 IdleHandler 之前，先简单了解一下 Handler 机制。</p>
+<p>Handler 是标准的事件驱动模型，存在一个消息队列 MessageQueue，它是一个基于消息触发时间的优先级队列，还有一个基于此消息队列的事件循环 Looper，Looper 通过循环，不断的从 MessageQueue 中取出待处理的 Message，再交由对应的事件处理器 Handler/callback 来处理。</p>
+<p>其中 MessageQueue 被 Looper 管理，Looper 在构造时同步会创建 MessageQueue，并利用 ThreadLocal 这种 TLS，将其与当前线程绑定。而 App 的主线程在启动时，已经构造并准备好主线程的 Looper 对象，开发者只需要直接使用即可。</p>
+<p>Handler 类中封装了大部分「Handler 机制」对外的操作接口，可以通过它的 send/post 相关的方法，向消息队列 MessageQueue 中插入一条 Message。在 Looper 循环中，又会不断的从 MessageQueue 取出下一条待处理的 Message 进行处理。</p>
+<p>IdleHandler 使用相关的逻辑，就在 MessageQueue 取消息的 <code>next()</code> 方法中。</p>
+
+        <h3 id="2-2-IdleHandler-是什么？怎么用？"   >
+          <a href="#2-2-IdleHandler-是什么？怎么用？" class="heading-link"><i class="fas fa-link"></i></a>2.2 IdleHandler 是什么？怎么用？</h3>
+      <p><strong>IdleHandler 说白了，就是 Handler 机制提供的一种，可以在 Looper 事件循环的过程中，当出现空闲的时候，允许我们执行任务的一种机制。</strong></p>
+<p>IdleHandler 被定义在 MessageQueue 中，它是一个接口。</p>
+<pre><code>// MessageQueue.java
+public static interface IdleHandler {
+  boolean queueIdle();
+}
+</code></pre><p>可以看到，定义时需要实现其 <code>queueIdle()</code> 方法。同时返回值为 true 表示是一个持久的 IdleHandler 会重复使用，返回 false 表示是一个一次性的 IdleHandler。</p>
+<p>既然 IdleHandler 被定义在 MessageQueue 中，使用它也需要借助 MessageQueue。在 MessageQueue 中定义了对应的 add 和 remove 方法。</p>
+<pre><code>// MessageQueue.java
+public void addIdleHandler(@NonNull IdleHandler handler) {
+    // ...
+  synchronized (this) {
+    mIdleHandlers.add(handler);
+  }
+}
+public void removeIdleHandler(@NonNull IdleHandler handler) {
+  synchronized (this) {
+    mIdleHandlers.remove(handler);
+  }
+}
+</code></pre><p>可以看到 add 或 remove 其实操作的都是 <code>mIdleHandlers</code>，它的类型是一个 ArrayList。</p>
+<p><strong>既然 IdleHandler 主要是在 MessageQueue 出现空闲的时候被执行，那么何时出现空闲？</strong></p>
+<p>MessageQueue 是一个基于消息触发时间的优先级队列，所以队列出现空闲存在两种场景。</p>
+<ol>
+<li>MessageQueue 为空，没有消息；</li>
+<li>MessageQueue 中最近需要处理的消息，是一个延迟消息（when&gt;currentTime），需要滞后执行；</li>
+</ol>
+<p>这两个场景，都会尝试执行 IdleHandler。</p>
+<p>处理 IdleHandler 的场景，就在 <code>Message.next()</code> 这个获取消息队列下一个待执行消息的方法中，我们跟一下具体的逻辑。</p>
+<pre><code>Message next() {
+    // ...
+  int pendingIdleHandlerCount = -1; 
+  int nextPollTimeoutMillis = 0;
+  for (;;) {
+    nativePollOnce(ptr, nextPollTimeoutMillis);
+
+    synchronized (this) {
+      // ...
+      if (msg != null) {
+        if (now &lt; msg.when) {
+          // 计算休眠的时间
+          nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);
+        } else {
+          // Other code
+          // 找到消息处理后返回
+          return msg;
+        }
+      } else {
+        // 没有更多的消息
+        nextPollTimeoutMillis = -1;
+      }
+
+      if (pendingIdleHandlerCount &lt; 0
+          &amp;&amp; (mMessages == null || now &lt; mMessages.when)) {
+        pendingIdleHandlerCount = mIdleHandlers.size();
+      }
+      if (pendingIdleHandlerCount &lt;= 0) {
+        mBlocked = true;
+        continue;
+      }
+
+      if (mPendingIdleHandlers == null) {
+        mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];
+      }
+      mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);
+    }
+
+    for (int i = 0; i &lt; pendingIdleHandlerCount; i++) {
+      final IdleHandler idler = mPendingIdleHandlers[i];
+      mPendingIdleHandlers[i] = null; 
+
+      boolean keep = false;
+      try {
+        keep = idler.queueIdle();
+      } catch (Throwable t) {
+        Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);
+      }
+
+      if (!keep) {
+        synchronized (this) {
+          mIdleHandlers.remove(idler);
+        }
+      }
+    }
+
+    pendingIdleHandlerCount = 0;
+    nextPollTimeoutMillis = 0;
+  }
+}
+</code></pre><p>我们先解释一下 <code>next()</code> 中关于 IdleHandler 执行的主逻辑：</p>
+<ol>
+<li>准备执行 IdleHandler 时，说明当前待执行的消息为 null，或者这条消息的执行时间未到；</li>
+<li>当 <code>pendingIdleHandlerCount &lt; 0</code> 时，根据 <code>mIdleHandlers.size()</code> 赋值给 <code>pendingIdleHandlerCount</code>，它是后期循环的基础；</li>
+<li>将 <code>mIdleHandlers</code> 中的 IdleHandler 拷贝到 <code>mPendingIdleHandlers</code> 数组中，这个数组是临时的，之后进入 for 循环；</li>
+<li>循环中从数组中取出 IdleHandler，并调用其 <code>queueIdle()</code> 记录返回值存到 <code>keep</code> 中；</li>
+<li>当 <code>keep</code> 为 false 时，从 <code>mIdleHandler</code> 中移除当前循环的 IdleHandler，反之则保留；</li>
+</ol>
+<p>可以看到 IdleHandler 机制中，最核心的就是在 <code>next()</code> 中，当队列空闲的时候，循环 mIdleHandler 中记录的 IdleHandler 对象，如果其 <code>queueIdle()</code> 返回值为 <code>false</code> 时，将其从 <code>mIdleHander</code> 中移除。</p>
+<p>需要注意的是，对 <code>mIdleHandler</code> 这个 List 的所有操作，都通过 synchronized 来保证线程安全，这一点无需担心。</p>
+
+        <h3 id="2-3-IdleHander-是如何保证不进入死循环的？"   >
+          <a href="#2-3-IdleHander-是如何保证不进入死循环的？" class="heading-link"><i class="fas fa-link"></i></a>2.3 IdleHander 是如何保证不进入死循环的？</h3>
+      <p>当队列空闲时，会循环执行一遍 <code>mIdleHandlers</code> 数组并执行 <code>IdleHandler.queueIdle()</code> 方法。而如果数组中有一些 IdleHander 的 <code>queueIdle()</code> 返回了 <code>true</code>，则会保留在 <code>mIdleHanders</code> 数组中，下次依然会再执行一遍。</p>
+<p>注意现在代码逻辑还在 <code>MessageQueue.next()</code> 的循环中，在这个场景下 IdleHandler 机制是如何保证不会进入死循环的？</p>
+<p>有些文章会说 IdleHandler 不会死循环，是因为下次循环调用了 <code>nativePollOnce()</code> 借助 epoll 机制进入休眠状态，下次有新消息入队的时候会重新唤醒，但这是不对的。</p>
+<p>注意看前面 <code>next()</code> 中的代码，在方法的末尾会重置 pendingIdleHandlerCount 和 nextPollTimeoutMillis。</p>
+<pre><code>Message next() {
+    // ...
+  int pendingIdleHandlerCount = -1; 
+  int nextPollTimeoutMillis = 0;
+  for (;;) {
+        nativePollOnce(ptr, nextPollTimeoutMillis);
+    // ...
+    // 循环执行 mIdleHandlers
+    // ...
+    pendingIdleHandlerCount = 0;
+    nextPollTimeoutMillis = 0;
+  }
+}
+</code></pre><p>nextPollTimeoutMillis 决定了下次进入 <code>nativePollOnce()</code> 超时的时间，它传递 0 的时候等于不会进入休眠，所以说 <code>natievPollOnce()</code> 进入休眠所以不会死循环是不对的。</p>
+<p>这很好理解，毕竟 <code>IdleHandler.queueIdle()</code> 运行在主线程，它执行的时间是不可控的，那么 MessageQueue 中的消息情况可能会变化，所以需要再处理一遍。</p>
+<p>实际不会死循环的关键是在于 pendingIdleHandlerCount，我们看看下面的代码。</p>
+<pre><code>Message next() {
+    // ...
+  // Step 1
+  int pendingIdleHandlerCount = -1; 
+  int nextPollTimeoutMillis = 0;
+  for (;;) {
+    nativePollOnce(ptr, nextPollTimeoutMillis);
+
+    synchronized (this) {
+      // ...
+      // Step 2
+      if (pendingIdleHandlerCount &lt; 0
+          &amp;&amp; (mMessages == null || now &lt; mMessages.when)) {
+        pendingIdleHandlerCount = mIdleHandlers.size();
+      }
+         // Step 3
+      if (pendingIdleHandlerCount &lt;= 0) {
+        mBlocked = true;
+        continue;
+      }
+      // ...
+    }
+        // Step 4
+    pendingIdleHandlerCount = 0;
+    nextPollTimeoutMillis = 0;
+  }
+}
+</code></pre><p>我们梳理一下：</p>
+<ul>
+<li>Step 1，循环开始前，<code>pendingIdleHandlerCount</code> 的初始值为 -1；</li>
+<li>Step 2，在 <code>pendingIdleHandlerCount&lt;0</code> 时，才会通过 <code>mIdleHandlers.size()</code> 赋值。也就是说只有第一次循环才会改变 <code>pendingIdleHandlerCount</code> 的值；</li>
+<li>Step 3，如果 <code>pendingIdleHandlerCount&lt;=0</code> 时，则循环 continus；</li>
+<li>Step 4，重置 <code>pendingIdleHandlerCount</code> 为 0；</li>
+</ul>
+<p>在第二次循环时，<code>pendingIdleHandlerCount</code> 等于 0，在 Step 2 不会改变它的值，那么在 Step 3 中会直接 continus 继续下一次循环，此时没有机会修改 <code>nextPollTimeoutMillis</code>。</p>
+<p>那么 <code>nextPollTimeoutMillis</code> 有两种可能：-1 或者下次唤醒的等待间隔时间，在执行到 <code>nativePollOnce()</code> 时就会进入休眠，等待再次被唤醒。</p>
+<p>下次唤醒时，<code>mMessage</code> 必然会有一个待执行的 Message，则 <code>MessageQueue.next()</code> 返回到 <code>Looper.loop()</code> 的循环中，分发处理这个 Message，之后又是一轮新的 <code>next()</code> 中去循环。</p>
+
+        <h3 id="2-4-framework-中如何使用-IdleHander？"   >
+          <a href="#2-4-framework-中如何使用-IdleHander？" class="heading-link"><i class="fas fa-link"></i></a>2.4 framework 中如何使用 IdleHander？</h3>
+      <p>到这里基本上就讲清楚 IdleHandler 如何使用以及一些细节，接下来我们来看看，在系统中，有哪些地方会用到 IdleHandler 机制。</p>
+<p>在 AS 中搜索一下 IdleHandler。</p>
+<p><img src="http://gank.io/images/fb0ad74ad4df4ad4be358282fea3cd7b" alt="img"></p>
+<p>简单解释一下：</p>
+<ol>
+<li>ActivityThread.Idler 在 <code>ActivityThread.handleResumeActivity()</code> 中调用。</li>
+<li>ActivityThread.GcIdler 是在内存不足时，强行 GC；</li>
+<li>Instrumentation.ActivityGoing 在 Activity onCreate() 执行前添加；</li>
+<li>Instrumentation.Idler 调用的时机就比较多了，是键盘相关的调用；</li>
+<li>TextToSpeechService.SynthThread 是在 TTS 合成完成之后发送广播；</li>
+</ol>
+<p>有兴趣可以自己追一下源码，这些都是使用的场景，具体用 IdleHander 干什么，还是要看业务。</p>
+
+        <h2 id="三-一些面试问题"   >
+          <a href="#三-一些面试问题" class="heading-link"><i class="fas fa-link"></i></a>三.一些面试问题</h2>
+      <p>到这里我们就讲清楚 IdleHandler 干什么？怎么用？有什么问题？以及使用中一些原理的讲解。</p>
+<p>下面准备一些基本的问题，供大家理解。</p>
+<p><strong>Q：IdleHandler 有什么用？</strong></p>
+<ol>
+<li>IdleHandler 是 Handler 提供的一种在消息队列空闲时，执行任务的时机；</li>
+<li>当 MessageQueue 当前没有立即需要处理的消息时，会执行 IdleHandler；</li>
+</ol>
+<p><strong>Q：MessageQueue 提供了 add/remove IdleHandler 的方法，是否需要成对使用？</strong></p>
+<ol>
+<li>不是必须；</li>
+<li>IdleHandler.queueIdle() 的返回值，可以移除加入 MessageQueue 的 IdleHandler；</li>
+</ol>
+<p><strong>Q：当 mIdleHanders 一直不为空时，为什么不会进入死循环？</strong></p>
+<ol>
+<li>只有在 pendingIdleHandlerCount 为 -1 时，才会尝试执行 mIdleHander；</li>
+<li>pendingIdlehanderCount 在 next() 中初始时为 -1，执行一遍后被置为 0，所以不会重复执行；</li>
+</ol>
+<p><strong>Q：是否可以将一些不重要的启动服务，搬移到 IdleHandler 中去处理？</strong></p>
+<ol>
+<li>不建议；</li>
+<li>IdleHandler 的处理时机不可控，如果 MessageQueue 一直有待处理的消息，那么 IdleHander 的执行时机会很靠后；</li>
+</ol>
+<p><strong>Q：IdleHandler 的 queueIdle() 运行在那个线程？</strong></p>
+<ol>
+<li>陷进问题，queueIdle() 运行的线程，只和当前 MessageQueue 的 Looper 所在的线程有关；</li>
+<li>子线程一样可以构造 Looper，并添加 IdleHandler；</li>
+</ol>
+
+        <h2 id="三-小结时刻"   >
+          <a href="#三-小结时刻" class="heading-link"><i class="fas fa-link"></i></a>三. 小结时刻</h2>
+      <p>到这里就把 IdleHandler 的使用和原理说清除了。</p>
+<p>IdleHandler 是 Handler 提供的一种在消息队列空闲时，执行任务的时机。但它执行的时机依赖消息队列的情况，那么如果 MessageQueue 一直有待执行的消息时，IdleHandler 就一直得不到执行，也就是它的执行时机是不可控的，不适合执行一些对时机要求比较高的任务。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/09/handler/">https://jiyugithub.github.io/2020/06/09/handler/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/11/vue/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">从0到1教你搭建前端团队的组件系统（高级进阶必备）</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/08/flutternm/"><span class="paginator-prev__text">Flutter高级玩法-贝塞尔曲线的表象认知</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”"><span class="toc-number">1.</span> <span class="toc-text">
+          面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-序"><span class="toc-number">1.1.</span> <span class="toc-text">
+          一. 序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-IdleHandler"><span class="toc-number">1.2.</span> <span class="toc-text">
+          二. IdleHandler</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-简单说说-Handler-机制"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          2.1 简单说说 Handler 机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-IdleHandler-是什么？怎么用？"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          2.2 IdleHandler 是什么？怎么用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-IdleHander-是如何保证不进入死循环的？"><span class="toc-number">1.2.3.</span> <span class="toc-text">
+          2.3 IdleHander 是如何保证不进入死循环的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-framework-中如何使用-IdleHander？"><span class="toc-number">1.2.4.</span> <span class="toc-text">
+          2.4 framework 中如何使用 IdleHander？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-一些面试问题"><span class="toc-number">1.3.</span> <span class="toc-text">
+          三.一些面试问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-小结时刻"><span class="toc-number">1.4.</span> <span class="toc-text">
+          三. 小结时刻</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

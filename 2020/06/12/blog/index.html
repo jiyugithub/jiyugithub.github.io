@@ -1,0 +1,573 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="如何快速搭建好看的个人博客(完整配置与源码)        博客地址 程序员成长指北 就是这样搭建出来的! 可以先体验下。                      为什么选择vuepress       之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比  从阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何快速搭建好看的个人博客">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/blog/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="如何快速搭建好看的个人博客(完整配置与源码)        博客地址 程序员成长指北 就是这样搭建出来的! 可以先体验下。                      为什么选择vuepress       之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比  从阅读">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59c8e15587e40?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cc52c658352?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cca4e693662?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cce0571a8df?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd3042159f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd92669ea17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59cdd5ce60931?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59d08fa824ffd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59d13ffd4d3b8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-06-11T22:04:28.000Z">
+<meta property="article:modified_time" content="2020-06-11T22:38:13.350Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2019/12/31/16f59c8e15587e40?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>如何快速搭建好看的个人博客 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/12/blog/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">如何快速搭建好看的个人博客</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/blog/" data-flag-title="如何快速搭建好看的个人博客"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="如何快速搭建好看的个人博客-完整配置与源码"   >
+          <a href="#如何快速搭建好看的个人博客-完整配置与源码" class="heading-link"><i class="fas fa-link"></i></a>如何快速搭建好看的个人博客(完整配置与源码)</h1>
+      <blockquote>
+<p>博客地址 <span class="exturl"><a class="exturl__link"   href="http://www.inode.club/"  target="_blank" rel="noopener">程序员成长指北</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 就是这样搭建出来的! 可以先体验下。</p>
+</blockquote>
+
+        <h2 id="为什么选择vuepress"   >
+          <a href="#为什么选择vuepress" class="heading-link"><i class="fas fa-link"></i></a>为什么选择vuepress</h2>
+      <p>之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比</p>
+<ul>
+<li><p>从阅读体验来说(个人感觉): gitbook &gt; docsify =vuepress</p>
+</li>
+<li><p>从配置上来说, docsify相比于vuepress和gitbook都要简单一些.</p>
+</li>
+<li><p>从性能上来说: vuepress &gt; docsify</p>
+<p>虽然docsify也是基于vue的, docsify是运行时解析, vuepress是预先渲染HTML</p>
+</li>
+<li><p>灵活性上, vuepress也是相当占优势的, 对vue熟悉的朋友可以编写vue组件实现你想要的功能样式</p>
+</li>
+</ul>
+
+        <h3 id="vuepress特性"   >
+          <a href="#vuepress特性" class="heading-link"><i class="fas fa-link"></i></a>vuepress特性</h3>
+      <ul>
+<li>为技术文档而优化的内置Markdown拓展</li>
+<li>在Markdown文件中使用Vue组件的能力</li>
+<li>Vue驱动的自定义主题系统</li>
+<li>自动生成Service Worker(支持PWA)</li>
+<li>Google Analytics集成</li>
+<li>基于Git的”最后更新时间</li>
+<li>多语言支持</li>
+<li>响应式布局</li>
+<li>支持PWA模式</li>
+</ul>
+<p>总的来说, 使用vuepress优势有挺多的, 特别是我之前使用docsify搭建的网站, 是一点也没有被浏览器收录啊, 怎么都搜不到,受到一万点打击,所以决心改一改</p>
+<p>其实<span class="exturl"><a class="exturl__link"   href="https://v1.vuepress.vuejs.org/zh/guide/"  target="_blank" rel="noopener">vuepress的官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>已经写的挺好的了, 但是我这篇文章也有优势啊,是一步步的教你搭建, 这样就不用来回在文档中去找什么配置.(当然如果你想直接通过官网来学习, 可以直接看官网,点击链接就可以喔)</p>
+
+        <h2 id="项目搭建"   >
+          <a href="#项目搭建" class="heading-link"><i class="fas fa-link"></i></a>项目搭建</h2>
+      
+        <h3 id="安装vuepress"   >
+          <a href="#安装vuepress" class="heading-link"><i class="fas fa-link"></i></a>安装vuepress</h3>
+      <p>第一步就是进行vuepress进行安装: 如果使用npm来安装, Node.js版本需要 &gt;=8 才可以</p>
+<pre><code>yarn global add vuepress # 或者：npm install -g vuepress
+</code></pre><blockquote>
+
+        <h4 id="注意"   >
+          <a href="#注意" class="heading-link"><i class="fas fa-link"></i></a>注意</h4>
+      <p>如果你的现有项目依赖了 webpack 3.x，推荐使用 Yarn而不是 npm 来安装 VuePress。因为在这种情形下，npm 会生成错误的依赖树。</p>
+</blockquote>
+
+        <h3 id="初始化项目"   >
+          <a href="#初始化项目" class="heading-link"><i class="fas fa-link"></i></a>初始化项目</h3>
+      <p>创建项目目录<code>blog</code></p>
+<pre><code>mkdir blog
+cd blog
+</code></pre><p>初始化</p>
+<pre><code>yarn init -y # 或者 npm init -y
+</code></pre><p>初始化完成后, 会创建一个package.json</p>
+<pre><code>{
+  &quot;name&quot;:&quot;blog&quot;,  
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;license&quot;: &quot;MIT&quot;
+  &quot;scripts&quot;: {
+     &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  }
+}
+</code></pre><p>在package.json中, 配置启动命令</p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;docs:dev&quot;: &quot;vuepress dev docs&quot;,
+    &quot;docs:build&quot;: &quot;vuepress build docs&quot;
+  }
+</code></pre><p>启动项目: <code>npm run docs:dev</code>这条命令就等于<code>vuepress dev docs</code></p>
+<p>打包项目: <code>npm run build</code> 这条命令就等于 <code>vuepress build docs</code></p>
+<p>创建docs目录, 主要用于放置我们写的<code>.md</code>类型的文章以及<code>.vuepress</code>相关的配置</p>
+<pre><code>mkdir docs
+</code></pre><p>接着在docs文件夹中创建<code>.vuepress</code>文件夹</p>
+<pre><code>cd docs
+mkdir .vuepress
+</code></pre><p>这个文件主要就是放vuepress相关的<span class="exturl"><a class="exturl__link"   href="https://v1.vuepress.vuejs.org/zh/config/#基本配置"  target="_blank" rel="noopener">配置</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>到这一步, 我们的项目大体架子已经搭建出来了,接下来进行配置.</p>
+
+        <h2 id="页面具体内容配置"   >
+          <a href="#页面具体内容配置" class="heading-link"><i class="fas fa-link"></i></a>页面具体内容配置</h2>
+      
+        <h3 id="基本配置"   >
+          <a href="#基本配置" class="heading-link"><i class="fas fa-link"></i></a>基本配置</h3>
+      <p>接下来要让页面显示内容, 就需要进行配置, 新建一个总的配置文件<code>config.js</code>, 这个文件的名字是固定的.</p>
+<pre><code>cd .vuepress
+touch config.js
+</code></pre><p><code>config.js</code>最基础的配置文件内容如下:</p>
+<pre><code>module.exports = {
+    title: &#39;koala的博客&#39;,
+    description: &#39;专注 Node.js 技术栈分享，从前端到Node.js再到数据库&#39;,
+}
+</code></pre><p>如果这时运行<code>npm run docs:dev</code>或者<code>yarn docs:dev</code>, 会出现页面404页面,vuepress默认打开的是docs下的<code>readme.md</code>文件, 由于你没有创建,所以找到的是vuepress默认提供的404页面, 关于这有点,我们借助<span class="exturl"><a class="exturl__link"   href="https://github.com/vuejs/vue-devtools"  target="_blank" rel="noopener">vue-devtools</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>工具来查看一下vue的结构</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59c8e15587e40?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>在docs目录下创建<code>README.md</code>文件, 再运行,就可以看到运行起来的效果, 如下图所示:</p>
+<ul>
+<li>blog001.jpg</li>
+</ul>
+
+        <h3 id="设置封面页"   >
+          <a href="#设置封面页" class="heading-link"><i class="fas fa-link"></i></a>设置封面页</h3>
+      <p>此时<code>README</code>文件中没有内容,封面页是空的, 我们可以通过在这个markdown文件中写一些内容, 同时官方也给我们提供了封面页的模板(个人觉得还是比较实用的):</p>
+<pre><code>---
+home: true
+heroImage: /home.png
+actionText: Get Started →
+actionLink: /node/
+features:
+- title: day day up
+  details: 记录每一天的进步, 一分耕耘，一分收获.
+- title: 程序员成长指北
+  details: 专注 Node.js 技术栈分享，从 前端 到 Node.js 再到 后端数据库，祝您成为优秀的高级 Node.js 全栈工程师
+- title: koala
+  details: 一个有趣的且乐于分享的人。座右铭：今天未完成的，明天更不会完成。
+footer: MIT Licensed | Copyright © 2018-present Evan You
+
+---
+</code></pre><p>效果图如下:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cc52c658352?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h3 id="配置导航栏nav"   >
+          <a href="#配置导航栏nav" class="heading-link"><i class="fas fa-link"></i></a>配置导航栏nav</h3>
+      <p>在<code>config.js</code>中添加:</p>
+<pre><code>themeConfig:{
+  nav: [{text: &quot;主页&quot;, link: &quot;/&quot;      },
+      { text: &quot;node&quot;, link: &quot;/node/&quot; },
+      { text: &quot;前端&quot;, link: &quot;/webframe/&quot;},
+      { text: &quot;数据库&quot;, link: &quot;/database/&quot;   },
+      { text: &quot;android&quot;, link: &quot;/android/&quot;   },
+      { text: &quot;面试问题&quot;, link: &quot;/interview/&quot; }
+    ],
+}
+
+</code></pre><p>效果如下图:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cca4e693662?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>如果想要展示二级导航, 可以这样配置:</p>
+<pre><code>themeConfig:{
+  nav: [{text: &quot;主页&quot;, link: &quot;/&quot;      },
+      { text: &quot;node&quot;, link: &quot;/node/&quot; },
+      { text: &quot;前端&quot;, 
+        items: [ 
+          { text: &quot;html&quot;, link:&quot;/web/html/&quot;},
+          { text: &quot;css&quot;, link:&quot;/web/css/&quot;},
+          ]
+      },
+      { text: &quot;数据库&quot;, link: &quot;/database/&quot;   },
+      { text: &quot;android&quot;, link: &quot;/android/&quot;   },
+      { text: &quot;面试问题&quot;, link: &quot;/interview/&quot; }
+    ],
+}
+</code></pre><p>效果如图所示:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cce0571a8df?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<blockquote>
+<p>当你使用上面的方式配置nav时, 目录结构最好和我创建的一样 项目目录结构如下:</p>
+</blockquote>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd3042159f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>导航栏创建好了, 接下来就是配置页面内容中的侧边栏slider</p>
+
+        <h3 id="配置侧边栏slider"   >
+          <a href="#配置侧边栏slider" class="heading-link"><i class="fas fa-link"></i></a>配置侧边栏slider</h3>
+      
+        <h4 id="1-自动获取侧边栏内容"   >
+          <a href="#1-自动获取侧边栏内容" class="heading-link"><i class="fas fa-link"></i></a>1.自动获取侧边栏内容</h4>
+      <p>如果你希望自动生成当前页面标题的侧边栏, 可以在<code>config.js</code>中配置来启用</p>
+<pre><code>// .vuepress/config.js
+module.exports = {
+  themeConfig:{
+    sidebar: &#39;auto&#39;,
+    // sidebarDepth: 1 
+  }
+}
+</code></pre>
+        <h4 id="2-展示每个页面的侧边栏"   >
+          <a href="#2-展示每个页面的侧边栏" class="heading-link"><i class="fas fa-link"></i></a>2.展示每个页面的侧边栏</h4>
+      <p>如果你希望为不同的页面组显示不同的侧边栏, 就和官网一样, 点击<code>指南</code>显示的是对应的侧边栏,目前目录有<code>node \ database \ web</code>等, 这些目录下都存放着多个md文件:</p>
+<pre><code>module.exports = {
+  themeConfig:{
+    sidebar:{
+      &quot;/node/&quot;:[
+        [&quot;&quot;, &quot;node目录&quot;],
+        [&quot;path&quot;, &quot;作为前端也需要知道的路径知识&quot;],
+        [&quot;stream&quot;, &quot;node核心模块-stream&quot;]
+      ],
+      &quot;/web/&quot;:[
+        [&quot;&quot;, &quot;前端&quot;],
+        {
+          title: &quot;css&quot;,
+          name: &quot;css&quot;,
+          collabsable: false,
+          children: [
+            [&quot;css/&quot;, &quot;目录&quot;],
+            [&#39;css/1&#39;, &quot;css常考面试题&quot;]
+          ]
+        }
+      ]
+    }
+  }
+}
+</code></pre><p>设置的效果图如下: 在<code>node</code>导航下:<img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd92669ea17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>在<code>前端</code>导航下的效果:<img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cdd5ce60931?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>上面采用了两个方式配置侧边栏, 一个侧边栏是<code>node</code>目录下直接是写的markdown文章, 而在<code>web</code>下又有多个分类, 所有有进行了分栏配置, 其实这两种方式在我们博客中都是比较常见的</p>
+
+        <h2 id="自定义布局内容"   >
+          <a href="#自定义布局内容" class="heading-link"><i class="fas fa-link"></i></a>自定义布局内容</h2>
+      <p>网站的导航和侧边栏都已经配置好之后, 如果你觉得页面不是很符合你的预期, 你也可以自定修改成你想要的效果。比如就像我的博客中左侧固定的内容, 就是自定义的全局组件. 这里使用vuepress提供的插件机制来实现</p>
+<p>在.vuepress文件夹下创建components文件夹, 在components下再创建<code>fixed.vue</code>文件</p>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;fixed_container&quot;&gt;
+    &lt;div class=&quot;tencent_code&quot;&gt;
+      &lt;h4&gt;关注作者公众&lt;/h4&gt;
+      &lt;p&gt;和万千小伙伴一起学习&lt;/p&gt;
+      &lt;img src=&quot;/ggh.jpg&quot; alt=&quot;&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;group_code&quot;&gt;
+      &lt;h4&gt;加入技术交流群&lt;/h4&gt;
+      &lt;p&gt;扫描二维码 备注
+        &lt;span&gt; 加群&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;img src=&quot;/wechat.jpg&quot; alt=&quot;&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: &#39;fixed&#39;
+}
+&lt;/script&gt;
+ ....
+ // 这里省略了部分样式代码, 想看全部的小伙伴点开github地址就可以了
+
+</code></pre><p>然后在配置文件中以插件的形式配置即可:</p>
+<pre><code>  // 插件
+  plugins:[
+    {
+      name:&quot;page-plugin&quot;,
+      globalUIComponents:[&quot;fixed&quot;], 
+    }
+  ]
+</code></pre><p><code>globalUIComponents</code>是用于注入全局的UI, 它以数组的形式接收参数名字, 这里的名字必须与components文件夹下的<code>.vue</code>文件同名, <strong>全局UI就是一个Vue组件</strong>; 其实vuepress也提供了一些内置的全局UI组件, 例如:<code>back-to-top</code>, <code>popup</code>, <code>nprogress</code>等.</p>
+
+        <h3 id="配置插件"   >
+          <a href="#配置插件" class="heading-link"><i class="fas fa-link"></i></a>配置插件</h3>
+      
+        <h3 id="UI插件"   >
+          <a href="#UI插件" class="heading-link"><i class="fas fa-link"></i></a>UI插件</h3>
+      <p>配置内置的全局UI,首先需要插件:</p>
+<pre><code>yarn add -D @vuepress/plugin-back-to-top @vuepress/plugin-nprogress
+# OR npm install -D @vuepress/plugin-back-to-top  @vuepress/plugin-nprogress
+</code></pre><p>在config.js中配置:</p>
+<pre><code>  plugins:[
+   [&quot;@vuepress/back-to-top&quot;], // 返回顶部
+   [&quot;@vuepress/nprogress&quot;],   // 加载进度条
+  ]
+
+</code></pre><blockquote>
+<p>这里需要注意一点就是看你项目中是否安装了<code>vuepress</code>, 由于我之前是全局安装的, 在项目下还没有安装, 插件是依赖于<code>vuepress</code>的, 所有没有安装的需要安装上, 插件才有效.</p>
+</blockquote>
+
+        <h3 id="支持PWA"   >
+          <a href="#支持PWA" class="heading-link"><i class="fas fa-link"></i></a>支持PWA</h3>
+      <p>vuepress还有一个我比较看重的优势, 就是支持PWA, 当用户没有网的情况下,一样能继续的访问我们的网站</p>
+<p>在<code>0.x</code> 版本中我们只要配置<code>serviceWorker: true</code> 即可, 但是我们现在使用的是<code>1.2.0</code>版本, 这个版本中已经将这个功能抽离出来作为插件的方式使用, 下面就看一下具体如何使用的:</p>
+<p>首先需要安装插件:</p>
+<pre><code>yarn add -D @vuepress/plugin-pwa
+# 或者 npm install -D @vuepress/plugin-pwa
+</code></pre><p>在<code>config.js</code>中配置:</p>
+<pre><code>module.exports = {
+  plugins: [&#39;@vuepress/pwa&#39;, {
+    serviceWorker: true,
+    updatePopup: true
+  }]
+}
+</code></pre><p>注意点:</p>
+<blockquote>
+
+        <h4 id="为了让你的网站完全地兼容-PWA，你需要"   >
+          <a href="#为了让你的网站完全地兼容-PWA，你需要" class="heading-link"><i class="fas fa-link"></i></a>为了让你的网站完全地兼容 PWA，你需要:</h4>
+      <ul>
+<li>在 .vuepress/public 提供 Manifest 和 icons</li>
+<li>在 <code>.vuepress/config.js</code> 添加正确的 <code>head links</code></li>
+</ul>
+</blockquote>
+<pre><code>// 配置
+module.exports = {
+  head: [
+    [&#39;link&#39;, { rel: &#39;icon&#39;, href: `/favicon.ico` }],
+    //增加manifest.json
+    [&#39;link&#39;, { rel: &#39;manifest&#39;, href: &#39;/manifest.json&#39; }],
+  ],
+}
+</code></pre><p>manifest.json 文件</p>
+<pre><code>{
+  &quot;name&quot;: &quot;koala_blog&quot;,
+  &quot;short_name&quot;: &quot;blog&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;程序员成长指北博主, koala的博客&quot;,
+  &quot;manifest_version&quot;: 2
+}
+</code></pre>
+        <h3 id="配置评论"   >
+          <a href="#配置评论" class="heading-link"><i class="fas fa-link"></i></a>配置评论</h3>
+      <p>由于之前有小伙伴说过,『程序员成长指北』公众号上不能评论，所有这次我在博客中增加了评论功能，刚开始本来打算使用gitTalk, 但是我的博客采用的是部署到自己的服务器, 并没有部署成 GitHub Pages, 所有我使用的是<code>valine</code>, 它除了评论功能还可以统计阅读量, 请大家看:</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59d08fa824ffd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>但是我后面也会将gitTalk配置方式写出来, 方便使用gitTalk的小伙伴</p>
+
+        <h4 id="valine-使用"   >
+          <a href="#valine-使用" class="heading-link"><i class="fas fa-link"></i></a>valine 使用</h4>
+      <p>点击进入 <span class="exturl"><a class="exturl__link"   href="https://leancloud.cn/dashboard/login.html#/signin"  target="_blank" rel="noopener">Valine官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，需要先注册才能使用.</p>
+<p>然后创建应用, 获取APP ID 和APP KEY</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2019/12/31/16f59d13ffd4d3b8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>应用创建好以后，进入刚刚创建的应用，选择左下角的<code>设置 &gt; 应用Key</code>，然后就能看到你的APP ID 和APP Key了</p>
+<ul>
+<li>安装:</li>
+</ul>
+<pre><code>yarn add vuepress-plugin-comment -D</code></pre><ul>
+<li>快速使用</li>
+</ul>
+<p>在<code>.vuepress</code>下的config.js插件配置中:</p>
+<pre><code>module.exports = {
+  plugins: [
+    [
+      &#39;vuepress-plugin-comment&#39;,
+      {
+        choosen: &#39;valine&#39;, 
+        // options选项中的所有参数，会传给Valine的配置
+        options: {
+          el: &#39;#valine-vuepress-comment&#39;,
+          appId: &#39;Your own appId&#39;,
+          appKey: &#39;Your own appKey&#39;
+        }
+      }
+    ]
+  ]
+}
+</code></pre><p>appid和appkey为你创建的应用的APP ID 和APP Key</p>
+
+        <h4 id="gitTalk-使用"   >
+          <a href="#gitTalk-使用" class="heading-link"><i class="fas fa-link"></i></a>gitTalk 使用</h4>
+      
+        <h3 id="主题样式修改"   >
+          <a href="#主题样式修改" class="heading-link"><i class="fas fa-link"></i></a>主题样式修改</h3>
+      <p>vuepress默认是主题颜色是绿色, 如果你不喜欢可以对其进行更改. 如果要对默认设置的样式进行简单颜色替换, 或者自定义一些颜色变量供以后使用, 可以在<code>.vuepress/styles</code>下创建<code>palette.styl</code>文件.</p>
+<p>你可以调整的颜色变量:</p>
+<pre><code>// 颜色
+$textColor ?= #2c3e50
+$accentColor ?= #1e90ff
+$grayTextColor ?= #666
+$lightTextColor ?= #999
+$borderColor ?= #eaecef
+$codeBgColor ?= #282c34
+$arrowBgColor ?= #ccc
+$navbarColor ?= #fff
+$headerColor ?= #fff
+$headerTitleColor ?= #fff
+$nprogressColor ?= $accentColor
+// 布局
+bannerHeight ?= 12rem // 响应式 breakpoints
+MQNarrow ?= 1024px
+MQMobileNarrow ?= 480px
+</code></pre><blockquote>
+
+        <h4 id="注意点"   >
+          <a href="#注意点" class="heading-link"><i class="fas fa-link"></i></a>注意点:</h4>
+      <p>你应该只在这个文件中写入颜色变量。因为 <code>palette.styl</code> 将在根的 stylus 配置文件的末尾引入，作为配置，它将被多个文件使用，所以一旦你在这里写了样式，你的样式就会被多次复制</p>
+</blockquote>
+<p>如果要添加额外的样式, vuepress也是提供了简便方法的, 只要在<code>.vuepress/styles</code>文件下创建一个 <code>index.styl</code>, 在里面写css样式即可, 注意文件命名是固定的.</p>
+
+        <h2 id="部署"   >
+          <a href="#部署" class="heading-link"><i class="fas fa-link"></i></a>部署</h2>
+      
+        <h3 id="nginx部署"   >
+          <a href="#nginx部署" class="heading-link"><i class="fas fa-link"></i></a>nginx部署</h3>
+      <p>我的博客采用的是静态文件部署, 感觉方便又便捷, 之前部署在Github Pages上, 访问速度不是很理想.</p>
+<p><strong>第一步: 确保你满足下面几个条件</strong></p>
+<ul>
+<li>你有一台服务器</li>
+<li>已经安装好nginx, 如果不会的小伙伴请看<span class="exturl"><a class="exturl__link"   href="https://www.jianshu.com/p/320a48fcef57"  target="_blank" rel="noopener">如何安装nginx</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>解析了一个可用的域名</li>
+</ul>
+<p><strong>第二步: 打包你的项目</strong></p>
+<p>运行<code>npm run docs:build</code>将项目打包, 默认打包文件在<code>docs/.vuepress/dist</code>目录下</p>
+<p><strong>第三步: 配置nginx</strong></p>
+<p>进入到nginx 配置目录, 找到conf.d文件, 添加下面的配置:</p>
+<pre><code>server {
+    listen       80;
+    server_name  www.inode.club;
+
+    root     /usr/web/inode/dist;
+
+    error_log   /var/log/nginx/inode-error.log;
+    access_log  /var/log/nginx/inode-access.log;
+
+    #        deny all;
+    index  index.php index.html index.htm;
+}
+</code></pre><ul>
+<li>server_name 是你解析的域名地址</li>
+<li>root 配置文件将访问的静态资源文件的路径</li>
+</ul>
+<p>*<em>第四步: 上传静态资源文件 *</em></p>
+<p>将静态资源文件放置到服务器上, 路径为配置的<code>/usr/web/inode/dist</code>, 可以借助xftp工具上传也可以通过git克隆, 选择适合自己的方式就可以</p>
+<p>*<em>第五步: 重启nginx *</em></p>
+<pre><code># 重启之前务必检查配置是否正确
+sudo nginx -t  // 检查配置
+sudo nginx -s reload  // 重启
+</code></pre><p>然后你就可以通过域名来访问你的网站啦!</p>
+
+        <h3 id="github部署"   >
+          <a href="#github部署" class="heading-link"><i class="fas fa-link"></i></a>github部署</h3>
+      <p>将代码部署到 Github Pages, 你可以看vuepress文档: <span class="exturl"><a class="exturl__link"   href="https://vuepress.vuejs.org/zh/guide/deploy.html#github-pages"  target="_blank" rel="noopener">vuepress部署</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>, 也参照我这里写的的步骤来部署</p>
+<p><strong>第一步: 首先确保你的项目满足以下几个条件:</strong></p>
+<ul>
+<li>文档放置在docs目录中</li>
+<li>使用的是默认的构建输出位置</li>
+<li>vuepress以本地依赖的形式被安装到你的项目中, 在根目录<code>package.json</code>文件中包含如下代码:</li>
+</ul>
+<pre><code>// 配置npm scripts
+&quot;scripts&quot;: {
+    &quot;docs:dev&quot;: &quot;vuepress dev docs&quot;,
+    &quot;docs:build&quot;: &quot;vuepress build docs&quot;
+ }
+
+// VuePress 以本地依赖的形式被安装
+&quot;devDependencies&quot;: {
+  &quot;vuepress&quot;: &quot;^1.2.0&quot;
+}
+</code></pre><p><strong>第二步: 创建github仓库</strong></p>
+<p>在github上创建一个名为blog的仓库, 并将代码提交到github上</p>
+<p><strong>第三步: 配置仓库名称</strong></p>
+<p>配置<code>docs/.vuepress/config.js</code>文件中的base, 如果打算发布到<code>https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;/</code>(也就是说你的仓库在: <code>https://github.com/&lt;USERNAME&gt;/&lt;REPO&gt;</code> ), 此处我的仓库为: blog, 则将base按照如下配置即可:</p>
+<pre><code>module.exports = {
+  base: &quot;/blog/&quot;
+}
+</code></pre><p><strong>第四步: 在项目根目录中,创建一个如下的脚本文件<code>deploy.sh</code></strong></p>
+<pre><code>#!/usr/bin/env sh
+
+# 确保脚本抛出遇到的错误
+set -e
+
+# 生成静态文件
+npm run docs:build
+
+# 进入生成的文件夹
+cd docs/.vuepress/dist
+
+git init
+git add -A
+git commit -m &#39;deploy&#39;
+
+# 如果发布到 https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;
+git push -f git@github.com:&lt;USERNAME&gt;/&lt;REPO&gt;.git master:gh-pages
+# 例如 git push -f git@github.com:koala-coding/blog.git master:gh-pages 
+cd -
+</code></pre><p><strong>第五步: 双击 deploy.sh 运行脚本</strong></p>
+<p>会自动在我们的 GitHub 仓库中，创建一个名为 gh-pages 的分支，而我们要部署到 GitHub Pages 的正是这个分支</p>
+<p><strong>**第六步: setting Github Pages</strong> 这是最后一步了，在 GitHub 项目点击 Setting 按钮，找到 GitHub Pages - Source，选择 gh-pages 分支，点击 Save 按钮后，静静地等待它部署完成即可。</p>
+
+        <h2 id="项目地址"   >
+          <a href="#项目地址" class="heading-link"><i class="fas fa-link"></i></a>项目地址</h2>
+      <p>我的网站 <span class="exturl"><a class="exturl__link"   href="http://www.inode.club"  target="_blank" rel="noopener">程序员成长指北</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 就是这样搭建出来的!</p>
+<p>本文章实现的内容都已经上传到github, 如果不想一步步进行配置的, 可以直接下载下来使用,就不用重复造轮子啦!</p>
+<blockquote>
+<p>需要博客源码的小伙伴可以直接<strong>公众后台</strong>回复【<strong>博客</strong>】领取，或者直接联系我。</p>
+</blockquote>
+<p>参考文章</p>
+<ul>
+<li><span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5c94ddf35188252d65344cfe"  target="_blank" rel="noopener">https://juejin.im/post/5c94ddf35188252d65344cfe</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/12/blog/">https://jiyugithub.github.io/2020/06/12/blog/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/12/typescript/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">TypeScript泛型及应用</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/agent/"><span class="paginator-prev__text">动态代理设计模式</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何快速搭建好看的个人博客-完整配置与源码"><span class="toc-number">1.</span> <span class="toc-text">
+          如何快速搭建好看的个人博客(完整配置与源码)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么选择vuepress"><span class="toc-number">1.1.</span> <span class="toc-text">
+          为什么选择vuepress</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vuepress特性"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+          vuepress特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目搭建"><span class="toc-number">1.2.</span> <span class="toc-text">
+          项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装vuepress"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          安装vuepress</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">
+          注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化项目"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          初始化项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#页面具体内容配置"><span class="toc-number">1.3.</span> <span class="toc-text">
+          页面具体内容配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本配置"><span class="toc-number">1.3.1.</span> <span class="toc-text">
+          基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置封面页"><span class="toc-number">1.3.2.</span> <span class="toc-text">
+          设置封面页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置导航栏nav"><span class="toc-number">1.3.3.</span> <span class="toc-text">
+          配置导航栏nav</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置侧边栏slider"><span class="toc-number">1.3.4.</span> <span class="toc-text">
+          配置侧边栏slider</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-自动获取侧边栏内容"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">
+          1.自动获取侧边栏内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-展示每个页面的侧边栏"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">
+          2.展示每个页面的侧边栏</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义布局内容"><span class="toc-number">1.4.</span> <span class="toc-text">
+          自定义布局内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置插件"><span class="toc-number">1.4.1.</span> <span class="toc-text">
+          配置插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI插件"><span class="toc-number">1.4.2.</span> <span class="toc-text">
+          UI插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持PWA"><span class="toc-number">1.4.3.</span> <span class="toc-text">
+          支持PWA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为了让你的网站完全地兼容-PWA，你需要"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">
+          为了让你的网站完全地兼容 PWA，你需要:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置评论"><span class="toc-number">1.4.4.</span> <span class="toc-text">
+          配置评论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#valine-使用"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">
+          valine 使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gitTalk-使用"><span class="toc-number">1.4.4.2.</span> <span class="toc-text">
+          gitTalk 使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题样式修改"><span class="toc-number">1.4.5.</span> <span class="toc-text">
+          主题样式修改</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注意点"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">
+          注意点:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">1.5.</span> <span class="toc-text">
+          部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx部署"><span class="toc-number">1.5.1.</span> <span class="toc-text">
+          nginx部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github部署"><span class="toc-number">1.5.2.</span> <span class="toc-text">
+          github部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目地址"><span class="toc-number">1.6.</span> <span class="toc-text">
+          项目地址</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

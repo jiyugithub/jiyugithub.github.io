@@ -1,0 +1,1623 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="Apocalypse&#39;s Blog">
+<meta property="og:url" content="https://jiyugithub.github.io/page/3/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/page/3/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/11/vue/">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/11/vue/" data-flag-title="从0到1教你搭建前端团队的组件系统（高级进阶必备）"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h2>
+      <p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/11/vue/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/09/handler/">Handler 机制</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/09/handler/" data-flag-title="Handler 机制"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h1 id="面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”"   >
+          <a href="#面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”" class="heading-link"><i class="fas fa-link"></i></a>面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”</h1></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/09/handler/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/08/flutternm/">Flutter高级玩法-贝塞尔曲线的表象认知</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/08/flutternm/" data-flag-title="Flutter高级玩法-贝塞尔曲线的表象认知"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><pre><code>先看看本文要干嘛:</code></pre><div class="table-container"><table>
+<thead>
+<tr>
+<th>–</th>
+<th>–</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="http://gank.io/images/647eaa29f2f14d26b7bf42d9875ffc2a" alt="img"></td>
+<td><img src="http://gank.io/images/8f21d55dce424b1da3dc25bbc3f7bc47" alt="img"></td>
+</tr>
+<tr>
+<td><img src="http://gank.io/images/79740d4480c34df9b73f102821a9ee19" alt="img"></td>
+<td><img src="http://gank.io/images/9246c62fe76a447a8b115979b98cbfbc" alt="img"></td>
+</tr>
+</tbody></table></div>
+<hr>
+<blockquote>
+<p>在玩贝塞尔之前先做点准备活动热热身。打个网格对学习贝塞尔曲线是很有帮助的。如下是以中心为原点的坐标系，<code>x向右</code>，<code>y向下</code></p>
+</blockquote>
+<p><img src="http://gank.io/images/0e0a93a14967429aaf7acd9372126edf" alt="img"></p>
+
+        <h5 id="0-1-主程序"   >
+          <a href="#0-1-主程序" class="heading-link"><i class="fas fa-link"></i></a>0.1 : 主程序</h5>
+      <pre><code>void main() =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:Paper());
+  }
+}</code></pre><hr>
+
+        <h5 id="0-2-自定义Paper组件显示画布"   >
+          <a href="#0-2-自定义Paper组件显示画布" class="heading-link"><i class="fas fa-link"></i></a>0.2 : 自定义Paper组件显示画布</h5>
+      <blockquote>
+<p>为了绘制的纯粹和雅观，这里把状态量去掉，并且手机横向。</p>
+</blockquote>
+<pre><code>
+class Paper extends StatefulWidget {
+  @override
+  _PaperState createState() =&gt; _PaperState();
+}
+
+class _PaperState extends State&lt;Paper&gt; {
+  @override
+  void initState() {
+    //横屏
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    //全屏显示
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return  CustomPaint(
+        painter: BezierPainter(),
+    );
+  }
+}</code></pre><hr>
+
+        <h5 id="0-3-绘制网格"   >
+          <a href="#0-3-绘制网格" class="heading-link"><i class="fas fa-link"></i></a>0.3 : 绘制网格</h5>
+      <blockquote>
+<p>注意: 这里永久的将画布原点移到画布的中心点，之后所以的绘制都将以中心为(0,0)点。</p>
+</blockquote>
+<p><img src="http://gank.io/images/d1357484cc274491b0a02a7f33354796" alt="img"></p>
+<pre><code>
+class BezierPainter extends CustomPainter {
+  Paint _gridPaint;
+  Path _gridPath;
+
+  BezierPainter() {
+    _gridPaint = Paint()..style=PaintingStyle.stroke;
+    _gridPath = Path();
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawColor(Colors.white, BlendMode.color);
+    canvas.translate(size.width/2, size.height/2);
+    _drawGrid(canvas,size);//绘制格线
+    _drawAxis(canvas, size);//绘制轴线
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) =&gt; true;
+
+  void _drawGrid(Canvas canvas, Size size) {
+    _gridPaint
+    ..color = Colors.grey
+    ..strokeWidth = 0.5;
+    _gridPath = _buildGridPath(_gridPath, size);
+    canvas.drawPath(_buildGridPath(_gridPath, size), _gridPaint);
+
+    canvas.save();
+    canvas.scale(1, -1); //沿x轴镜像
+    canvas.drawPath(_gridPath, _gridPaint);
+    canvas.restore();
+
+    canvas.save();
+    canvas.scale(-1, 1); //沿y轴镜像
+    canvas.drawPath(_gridPath, _gridPaint);
+    canvas.restore();
+
+    canvas.save();
+    canvas.scale(-1, -1); //沿原点镜像
+    canvas.drawPath(_gridPath, _gridPaint);
+    canvas.restore();
+
+  }
+
+  void _drawAxis(Canvas canvas, Size size) {
+    canvas.drawPoints(PointMode.lines, [
+      Offset(-size.width/2, 0) , Offset(size.width/2, 0),
+      Offset( 0,-size.height/2) , Offset( 0,size.height/2),
+      Offset( 0,size.height/2) , Offset( 0-7.0,size.height/2-10),
+      Offset( 0,size.height/2) , Offset( 0+7.0,size.height/2-10),
+      Offset(size.width/2, 0) , Offset(size.width/2-10, 7),
+      Offset(size.width/2, 0) , Offset(size.width/2-10, -7),
+    ], _gridPaint..color=Colors.blue..strokeWidth=1.5);
+  }
+
+  Path _buildGridPath(Path path, Size size,{step = 20.0}) {
+    for (int i = 0; i &lt; size.height / 2 / step; i++) {
+      path.moveTo(0, step * i);
+      path.relativeLineTo(size.width / 2, 0);
+    }
+    for (int i = 0; i &lt; size.width / 2 / step; i++) {
+      path.moveTo( step * i,0);
+      path.relativeLineTo(0,size.height / 2, );
+    }
+    return path;
+  }
+}</code></pre><hr>
+
+        <h5 id="0-4、人生至美莫初见"   >
+          <a href="#0-4、人生至美莫初见" class="heading-link"><i class="fas fa-link"></i></a>0.4、人生至美莫初见</h5>
+      <blockquote>
+<p>先不看哪些花里胡哨的贝塞尔曲线的动画。让我们从实践中一点点去摸索。如此美丽的初见，为何要这么复杂？当你渐渐去认识她，了解她，熟悉她，便会明白:<code>哦，原来如此如此，这般这般...</code></p>
+</blockquote>
+<ul>
+<li>看到<code>贝塞尔</code>三个字，也不用觉得压力太大，满打满算也就两个函数而已。</li>
+</ul>
+<pre><code>----&gt;[二次贝塞尔曲线]----
+void quadraticBezierTo(double x1, double y1, double x2, double y2)
+void relativeQuadraticBezierTo(double x1, double y1, double x2, double y2)
+
+----&gt;[三次贝塞尔曲线]----
+void cubicTo(double x1, double y1, double x2, double y2, double x3, double y3)
+void relativeCubicTo(double x1, double y1, double x2, double y2, double x3, double y3)</code></pre><hr>
+
+        <h4 id="一、二次贝塞尔曲线"   >
+          <a href="#一、二次贝塞尔曲线" class="heading-link"><i class="fas fa-link"></i></a>一、二次贝塞尔曲线</h4>
+      <blockquote>
+<p>二次贝塞尔曲线需要传入四个<code>double</code>类型的值。</p>
+</blockquote>
+
+        <h5 id="1-先画一笔看看"   >
+          <a href="#1-先画一笔看看" class="heading-link"><i class="fas fa-link"></i></a>1. 先画一笔看看</h5>
+      <blockquote>
+<p>首先新准备个画笔和路径，在构造函数里初始化。准备两个测试点<code>p1,p2</code>,<br>然后轻轻的用<code>quadraticBezierTo</code>描一笔，就出来一个曲线。</p>
+</blockquote>
+<p><img src="http://gank.io/images/7d58caeaa5e5476497dbcf2deaa2e7b4" alt="img"></p>
+<pre><code>class BezierPainter extends CustomPainter {
+  // 英雄所见...
+  Paint _mainPaint;
+  Path _mainPath;
+
+  BezierPainter() {
+    // 英雄所见...
+
+    _mainPaint = Paint()..color=Colors.orange..style=PaintingStyle.stroke..strokeWidth=2;
+    _mainPath = Path();
+  }
+  Offset p0 =Offset(0, 0);
+  Offset p1 =Offset(100, 100);
+  Offset p2 =Offset( 120, -60);
+
+    @override
+  void paint(Canvas canvas, Size size) {
+    // 英雄所见...
+    _mainPath.moveTo(p0.dx, p0.dy);
+    _mainPath.quadraticBezierTo(p1.dx, p1.dy, p2.dx, p2.dy);
+    canvas.drawPath(_mainPath, _mainPaint);
+  }</code></pre><hr>
+
+        <h5 id="2-为什么曲线会是这样的"   >
+          <a href="#2-为什么曲线会是这样的" class="heading-link"><i class="fas fa-link"></i></a>2.为什么曲线会是这样的?</h5>
+      <blockquote>
+<p>为了更好的理解贝塞尔曲线，现在我们需要绘制辅助帮我们理解。现在想将与贝塞尔曲线有关系的三个点画出来。同样，我不想弄脏画笔，所以新拿一个<code>_helpPaint</code>。在<code>_drawHelp</code>方法里进行绘制辅助线。</p>
+</blockquote>
+<p><img src="http://gank.io/images/6bca0a8271914cd08b8f0120617a1903" alt="img"></p>
+<pre><code>class BezierPainter extends CustomPainter {
+  // 英雄所见...
+  Paint _helpPaint;
+
+  BezierPainter() {
+      // 英雄所见...
+    _helpPaint = Paint()
+    ..color=Colors.purple
+    ..style=PaintingStyle.stroke
+    ..strokeCap=StrokeCap.round;
+  }
+
+ void _drawHelp(Canvas canvas) {
+  canvas.drawPoints(PointMode.points,[p0, p1, p1,p2], _helpPaint..strokeWidth=8);
+}</code></pre><ul>
+<li>看到上图，你是不是发现的什么?如果还比较懵，再画一道辅助线</li>
+</ul>
+<p><img src="http://gank.io/images/1341d59b35b9425c9172d82e2bd17fa8" alt="img"></p>
+<pre><code>void _drawHelp(Canvas canvas) {
+  canvas.drawPoints(PointMode.lines,[p0, p1, p1,p2], _helpPaint..strokeWidth=1);
+  canvas.drawPoints(PointMode.points,[p0, p1, p1,p2], _helpPaint..strokeWidth=8);
+}</code></pre><hr>
+
+        <h5 id="3-来玩一下这个曲线"   >
+          <a href="#3-来玩一下这个曲线" class="heading-link"><i class="fas fa-link"></i></a>3. 来玩一下这个曲线</h5>
+      <blockquote>
+<p>这不就是三个点嘛，要能拖拖看就好了。没问题，应你所求</p>
+</blockquote>
+<p><img src="http://gank.io/images/1dcb873e3caf4dfdbd0fdd430e5b1db6" alt="img"></p>
+<blockquote>
+<p>现在有两个要点: 【1】 如何获取触点 【2】如何通过一个触点控制三个点位</p>
+</blockquote>
+<hr>
+<ul>
+<li><code>简单讲解</code></li>
+</ul>
+<p>由于点位需要变化，BezierPainter<code>只承担绘制的责任</code>，这里在组件中定义<code>点位信息_pos</code>和<code>选中索引_selectIndex</code> ，通过构造函数传入BezierPainter。为了方便大家玩耍，我单独写个文件<code>play_bezier2.dart</code>里面有个PlayBezier2Page组件。</p>
+<pre><code>----&gt;[_PaperState]----
+class PlayBezier2Page extends StatefulWidget {
+  @override
+  _PlayBezier2PageState createState() =&gt; _PlayBezier2PageState();
+}
+
+class _PlayBezier2PageState extends State&lt;PlayBezier2Page&gt; {
+  List _pos = [];
+  int _selectPos;
+
+  @override
+  void initState() {
+    //横屏
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    //全屏显示
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    _initPoints();//初始化点
+    super.initState();
+  }</code></pre><hr>
+<ul>
+<li><code>获取触点信息</code><br>通过<code>GestureDetector组件</code>可以获取触点信息，然后传给画布即可。<br>这里的思路很清晰: 在点击时需要判断点击了哪个点，抬起时取消选中点，移动时变化选中点。</li>
+</ul>
+<pre><code>@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onPanDown: (detail){
+     // Todo
+    },
+    onPanEnd: (detail){
+    // Todo
+    },
+    onPanUpdate: (detail) {
+        // Todo
+    },
+    child: CustomPaint(
+      painter: BezierPainter(pos: _pos,selectPos:selectPos),
+    ),
+  );
+}</code></pre><hr>
+<ul>
+<li><code>一个触点控制三个点位</code></li>
+</ul>
+<blockquote>
+<p>这就有点技术含量了。需要进行<code>点域的判断</code>来确定当前点击的是哪个点。<br>比如在半径为6的区域内算作<code>命中</code>，就需要在点击时判断是否命中某个点。具体逻辑为:</p>
+</blockquote>
+<pre><code>///判断出是否在某点的半径为r圆范围内
+bool judgeCircleArea(Offset src, Offset dst, double r) =&gt;
+    (src - dst).distance &lt;= r;
+
+void judgeSelect(Offset src, {double x = 0, double y = 0}) {
+  var p = src.translate(-x, -y);
+  for (int i = 0; i &lt; _pos.length; i++) {
+    if (judgeCircleArea(p, _pos[i], 15)) {
+      selectPos = i;
+    }
+  }
+}
+void judgeZone(Offset src, {double x = 0, double y = 0}) {
+  for (int i = 0; i &lt; _pos.length; i++) {
+    if (judgeCircleArea(src, _pos[i], 15)) {
+      selectPos = i;
+      _pos[i] = src;
+    }
+  }
+}</code></pre><blockquote>
+<p>前三个点需要用户点击，然后画出一段二贝曲线，之后再点击不会添加点，而是判断是否触点在期望的圆域内。这样数据的处理就完成了。根基【捷特第二定理】<code>一切的界面交互和动态视觉效果都是连续时间点状态量的变化和刷新的结合。</code>现在所有的状态量和刷新都已经实现，剩下的就是将这些量显示在界面上。</p>
+</blockquote>
+<pre><code>@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onPanDown: (detail) {
+      if (_pos.length &lt; 3) {
+        _pos.add(detail.localPosition);
+      }
+      setState(() =&gt; judgeSelect(detail.localPosition));
+    },
+    onPanEnd: (detail) {
+      setState(() =&gt; selectPos = null);
+    },
+    onPanUpdate: (detail) {
+      setState(() =&gt; judgeZone(detail.localPosition));
+    },
+    child: CustomPaint(
+      painter: BezierPainter(pos: _pos, selectPos: selectPos),
+    ),
+  );
+}</code></pre><hr>
+<ul>
+<li><code>绘制</code></li>
+</ul>
+<blockquote>
+<p>网格和辅助的和上面逻辑基本一致，详见源码，这里就不贴了。当点数小于三个时，仅绘制触点，否则绘制曲线和辅助线。</p>
+</blockquote>
+<p><img src="http://gank.io/images/13ee839cb7f343be8da4d5e378f0b4c4" alt="img"></p>
+<blockquote>
+<p>有一点需要注意: 我们的点位是相对于屏幕左上角的，需要平移到画布中心</p>
+</blockquote>
+<pre><code>class BezierPainter extends CustomPainter {
+
+  Paint _mainPaint;
+  Path _mainPath;
+  int selectPos;
+
+  List pos;
+
+  BezierPainter({this.pos, this.selectPos}) {
+    _mainPaint = Paint()
+      ..color = Colors.orange
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    _mainPath = Path();
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    pos = pos.map((e)=&gt;e.translate(-size.width / 2, -size.height / 2)).toList();
+    canvas.drawColor(Colors.white, BlendMode.color);
+    canvas.translate(size.width / 2, size.height / 2);
+    _drawGrid(canvas, size); //绘制格线
+    _drawAxis(canvas, size); //绘制轴线
+
+    if(pos.length&lt;3){
+      canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth = 8);
+    }else{
+      _mainPath.moveTo(pos[0].dx, pos[0].dy);
+      _mainPath.quadraticBezierTo(pos[1].dx, pos[1].dy, pos[2].dx, pos[2].dy);
+      canvas.drawPath(_mainPath, _mainPaint);
+      _drawHelp(canvas);
+      _drawSelectPos(canvas);
+    }
+  }
+
+  // 英雄所见...
+  void _drawSelectPos(Canvas canvas) {
+    if (selectPos == null) return;
+    canvas.drawCircle(
+        pos[selectPos],
+        10,
+        _helpPaint
+          ..color = Colors.green
+          ..strokeWidth = 2);
+  }
+}</code></pre><blockquote>
+<p>通过前面的介绍，一段二次的贝塞尔曲线有三个点决定，<code>起点</code>、<code>控制点</code>、<code>终点</code><br>关于起点，默认是（0，0），你也在绘制之前moveTo设置起点，当绘制连续的贝塞尔曲线，下一段曲线的起点就是上一段的终点。所以二次贝塞尔曲线至关重要的是两个点: <code>也就是入参中的控制点和终点</code>。</p>
+</blockquote>
+<hr>
+
+        <h4 id="二、三次贝塞尔曲线"   >
+          <a href="#二、三次贝塞尔曲线" class="heading-link"><i class="fas fa-link"></i></a>二、三次贝塞尔曲线</h4>
+      <blockquote>
+<p>前面的二次贝塞尔实现了，那现在来看三次的<code>cubicTo</code>。需要六个参数，也就是三个点。<br>我们可以使用之前的代码，很快捷的生成如下效果。源代码在<code>play_bezier3.dart</code></p>
+</blockquote>
+<p><img src="http://gank.io/images/d5e7761fc3cc46ce9a6a6ffb33498e7f" alt="img"></p>
+<hr>
+
+        <h5 id="1-实现三贝单线操作"   >
+          <a href="#1-实现三贝单线操作" class="heading-link"><i class="fas fa-link"></i></a>1.实现三贝单线操作</h5>
+      <blockquote>
+<p>前面点集在<code>_pos</code>中维护,现在需要四个点，so easy</p>
+</blockquote>
+<ul>
+<li><code>点击时将限制数改为4个</code></li>
+</ul>
+<pre><code>----&gt;[_PlayBezier3PageState]----
+onPanDown: (detail) {
+  if (_pos.length &lt; 4) {
+    _pos.add(detail.localPosition);
+  }
+  setState(() =&gt; judgeSelect(detail.localPosition));
+}</code></pre><hr>
+<ul>
+<li><code>绘制将限制数改为4个</code></li>
+</ul>
+<pre><code>if(pos.length&lt;4){
+  canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth = 8);
+}else{
+  _mainPath.moveTo(pos[0].dx, pos[0].dy);
+  _mainPath.cubicTo(pos[1].dx, pos[1].dy, pos[2].dx, pos[2].dy, pos[3].dx, pos[3].dy);
+  canvas.drawPath(_mainPath, _mainPaint);
+  _drawHelp(canvas);
+  _drawSelectPos(canvas);
+}</code></pre><p><code>That is all</code> ,这就是分工明确的好处，变化时只变需变化待变化的，整体的流程和思路是恒定的。</p>
+<hr>
+
+        <h5 id="2-三贝中的拟圆"   >
+          <a href="#2-三贝中的拟圆" class="heading-link"><i class="fas fa-link"></i></a>2.三贝中的拟圆</h5>
+      <blockquote>
+<p>三贝很厉害，可以说无所不能。只有你想不到，没有她做不到<br>Ps中的钢笔路径就是多段的三贝曲线。所以还是很有玩头的。</p>
+</blockquote>
+<p><img src="http://gank.io/images/ac322126fb5d41fa84c8732598bf66cd" alt="img"></p>
+<p>--</p>
+<ul>
+<li><code>绘制拟圆</code></li>
+</ul>
+<blockquote>
+<p>下面的图看着像个圆，但其实是四段三贝拟合而成的。目前我们的代码中最在意的就是点位数据。所以关键就是寻找点。本小节源码在:<code>circle_bezier.dart</code>中</p>
+</blockquote>
+<p><img src="http://gank.io/images/0128149f1cca4670960eb5ef47625f09" alt="img"></p>
+<ul>
+<li><code>第一段-左下</code></li>
+</ul>
+<blockquote>
+<p>这里直接给出点，至于<code>0.551915024494</code>是什么，后面有机会会带你一起推导。有兴趣的话，你也可以自己查一查资料。和之前一样，核心的绘制就是那么一句。</p>
+</blockquote>
+<p><img src="http://gank.io/images/35063e85917b4a0781194b67e52866c5" alt="img"></p>
+<pre><code>----&gt;[CircleBezierPage]----
+class CircleBezierPage extends StatefulWidget {
+  @override
+  _CircleBezierPageState createState() =&gt; _CircleBezierPageState();
+}
+
+class _CircleBezierPageState extends State {
+  List _pos = [];
+  int selectPos;
+
+  //单位圆(即半径为1)控制线长
+  final rate = 0.551915024494;
+  double _radius=150;
+  @override
+  void initState() {
+    //横屏
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    //全屏显示
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    _initPoints();
+    super.initState();
+  }
+
+  void _initPoints() {
+    _pos = List();
+    //第一段线
+    _pos.add(Offset(0,rate)*_radius);
+    _pos.add(Offset(1 - rate, 1)*_radius);
+    _pos.add(Offset(1, 1)*_radius);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: BezierPainter(pos: _pos, selectPos: selectPos),
+        ),
+    );
+  }
+
+----&gt;[BezierPainter#paint]----
+_mainPath.moveTo(0, 0);
+for (int i = 0; i &lt; pos.length / 3; i++) {
+  _mainPath.cubicTo(
+       pos[3*i+0].dx,  pos[3*i+0].dy,
+       pos[3*i+1].dx, pos[3*i+1].dy,
+       pos[3*i+2].dx,  pos[3*i+2].dy);
+}</code></pre><hr>
+<ul>
+<li><code>其他三段</code></li>
+</ul>
+<blockquote>
+<p>初始点时，将这12点放入列表。然后将赋值的点线绘制出来。</p>
+</blockquote>
+<p><img src="http://gank.io/images/c6fb91536d634fec8d47b872e1436d29" alt="img"></p>
+<pre><code>----&gt;[CircleBezierPage#_initPoints]----
+void _initPoints() {
+  _pos = List();
+  //第一段线
+  _pos.add(Offset(0,rate)*_radius);
+  _pos.add(Offset(1 - rate, 1)*_radius);
+  _pos.add(Offset(1, 1)*_radius);
+  //第二段线
+  _pos.add(Offset(1 + rate, 1)*_radius);
+  _pos.add(Offset(2, rate)*_radius);
+  _pos.add(Offset(2, 0)*_radius);
+  //第三段线
+  _pos.add(Offset(2, -rate)*_radius);
+  _pos.add(Offset(1 + rate, -1)*_radius);
+  _pos.add(Offset(1, -1)*_radius);
+  //第四段线
+  _pos.add(Offset(1 - rate, -1)*_radius);
+  _pos.add(Offset(0, -rate)*_radius);
+  _pos.add(Offset(0, 0));
+}
+
+----&gt;[BezierPainter#_drawHelp]----
+void _drawHelp(Canvas canvas) {
+  _helpPaint..strokeWidth = 1;
+  canvas.drawLine(pos[0], pos[11],_helpPaint);
+  canvas.drawLine(pos[1], pos[2],_helpPaint);
+  canvas.drawLine(pos[2], pos[3],_helpPaint);
+  canvas.drawLine(pos[4], pos[5],_helpPaint);
+  canvas.drawLine(pos[5], pos[6],_helpPaint);
+  canvas.drawLine(pos[7], pos[8],_helpPaint);
+  canvas.drawLine(pos[8], pos[9],_helpPaint);
+  canvas.drawLine(pos[10], pos[11],_helpPaint);
+  canvas.drawLine(pos[11], pos[0],_helpPaint);
+  canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth = 8);
+}</code></pre><hr>
+
+        <h5 id="3-三贝中的拟圆的操作"   >
+          <a href="#3-三贝中的拟圆的操作" class="heading-link"><i class="fas fa-link"></i></a>3.三贝中的拟圆的操作</h5>
+      <blockquote>
+<p>看这控制柄，满满的拖动欲望，来实现一下吧<br>有了之前的铺垫，下面的代码应该很容易接受吧。</p>
+</blockquote>
+<p><img src="http://gank.io/images/9900a9df8a2b45d39f1d2569ce8164b3" alt="img"></p>
+<pre><code>@override
+Widget build(BuildContext context) {
+  var x = MediaQuery.of(context).size.width/2;
+  var y = MediaQuery.of(context).size.height/2;
+  return GestureDetector(
+    onPanDown: (detail) {
+      setState(() =&gt; judgeSelect(detail.localPosition,x: x,y: y));
+    },
+    onPanEnd: (detail) {
+      setState(() =&gt; selectPos = null);
+    },
+    onPanUpdate: (detail) {
+      setState(() =&gt; judgeZone(detail.localPosition,x: x,y: y));
+    },
+    child: CustomPaint(
+      painter: BezierPainter(pos: _pos, selectPos: selectPos),
+    ),
+  );
+}
+///判断出是否在某点的半径为r圆范围内
+bool judgeCircleArea(Offset src, Offset dst, double r) =&gt;
+    (src - dst).distance &lt;= r;
+void judgeSelect(Offset src, {double x = 0, double y = 0}) {
+  print(src);
+  var p = src.translate(-x, -y);
+  print(p);
+  for (int i = 0; i &lt; _pos.length; i++) {
+    if (judgeCircleArea(p, _pos[i], 15)) {
+      selectPos = i;
+    }
+  }
+}
+void judgeZone(Offset src, {double x = 0, double y = 0}) {
+  var p = src.translate(-x, -y);
+  for (int i = 0; i &lt; _pos.length; i++) {
+    if (judgeCircleArea(p, _pos[i], 15)) {
+      selectPos = i;
+      _pos[i] = p;
+    }
+  }
+}</code></pre><hr>
+
+        <h4 id="三、贝塞尔曲线与路径操作"   >
+          <a href="#三、贝塞尔曲线与路径操作" class="heading-link"><i class="fas fa-link"></i></a>三、贝塞尔曲线与路径操作</h4>
+      <blockquote>
+<p>也许你觉得贝塞尔曲线也就那样。那么你忽略了一个很重要的东西。<br><code>贝塞尔曲线</code>是一条路径。路径是个什么东西，之前写了一篇关于路径使用的冰山一角<br><span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5e6196066fb9a07c8b5bbdf5"  target="_blank" rel="noopener">【Flutter高级玩法-shape】Path在手，天下我有</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<blockquote>
+<p>现在再准备一条路径，看看路径间的如何操作</p>
+</blockquote>
+<p><img src="http://gank.io/images/08fc785cae1648b3a75980aa9710a746" alt="img"></p>
+<pre><code>class BezierPainter extends CustomPainter {
+
+  Path _clipPath;
+  //英雄所见...
+
+  BezierPainter({this.pos, this.selectPos}) {
+    _clipPath=Path();
+  //英雄所见...
+
+ @override
+void paint(Canvas canvas, Size size) {
+   //英雄所见...
+  _clipPath.addOval(Rect.fromCenter(center: Offset(0, 0),width: 100,height: 100));
+  canvas.drawPath(_clipPath, _mainPaint);
+//英雄所见...
+}</code></pre><hr>
+
+        <h5 id="1-路径的相减-PathOperation-difference"   >
+          <a href="#1-路径的相减-PathOperation-difference" class="heading-link"><i class="fas fa-link"></i></a>1.路径的相减: PathOperation.difference</h5>
+      <p><img src="http://gank.io/images/5cf646966a164ddf935441b3444782c3" alt="img"></p>
+<pre><code>  @override
+  void paint(Canvas canvas, Size size) {
+    //英雄所见...
+    var drawPath = Path.combine(PathOperation.difference, _mainPath, _clipPath);
+    canvas.drawPath(drawPath, _mainPaint);</code></pre><hr>
+
+        <h5 id="2-路径的相加-PathOperation-union"   >
+          <a href="#2-路径的相加-PathOperation-union" class="heading-link"><i class="fas fa-link"></i></a>2.路径的相加: PathOperation.union</h5>
+      <p><img src="http://gank.io/images/44eaa6e604b046c99c7dcbea757327b6" alt="img"></p>
+<pre><code>  @override
+  void paint(Canvas canvas, Size size) {
+    //英雄所见...
+    var drawPath = Path.combine(PathOperation.union, _mainPath, _clipPath);
+    canvas.drawPath(drawPath, _mainPaint);</code></pre><hr>
+
+        <h5 id="3-路径的反减-PathOperation-reverseDifference"   >
+          <a href="#3-路径的反减-PathOperation-reverseDifference" class="heading-link"><i class="fas fa-link"></i></a>3.路径的反减: PathOperation.reverseDifference</h5>
+      <p><img src="http://gank.io/images/8e8a1ccb1bc9463786f2c806a10d9b3a" alt="img"></p>
+<pre><code>  @override
+  void paint(Canvas canvas, Size size) {
+    //英雄所见...
+    var drawPath = Path.combine(PathOperation.reverseDifference, _mainPath, _clipPath);
+    canvas.drawPath(drawPath, _mainPaint);
+</code></pre><hr>
+
+        <h5 id="4-路径的交集-PathOperation-intersect"   >
+          <a href="#4-路径的交集-PathOperation-intersect" class="heading-link"><i class="fas fa-link"></i></a>4.路径的交集: PathOperation.intersect</h5>
+      <p><img src="http://gank.io/images/ed41d9840a95400fb103f5d5f08d4e1a" alt="img"></p>
+<pre><code>  @override
+  void paint(Canvas canvas, Size size) {
+    //英雄所见...
+    var drawPath = Path.combine(PathOperation.intersect, _mainPath, _clipPath);
+    canvas.drawPath(drawPath, _mainPaint);
+</code></pre><hr>
+
+        <h5 id="5-路径的反交集-PathOperation-xor"   >
+          <a href="#5-路径的反交集-PathOperation-xor" class="heading-link"><i class="fas fa-link"></i></a>5.路径的反交集: PathOperation.xor</h5>
+      <blockquote>
+<p>当然路径并非是线条,也可以进行填色。</p>
+</blockquote>
+<p><img src="http://gank.io/images/f198da981a224c78bb70e1f59684da75" alt="img"></p>
+<pre><code>  @override
+  void paint(Canvas canvas, Size size) {
+    //英雄所见...
+    var drawPath = Path.combine(PathOperation.xor, _mainPath, _clipPath);
+    canvas.drawPath(drawPath, _mainPaint..style=PaintingStyle.fill);
+</code></pre><blockquote>
+<p>OK,本篇到这里就告一段落，下一篇会找几个实际的用途，来看看贝塞尔曲线的妙用。 敬请期待。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/06/hexo-zhuan/">hexo撰写文章</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/06/hexo-zhuan/" data-flag-title="hexo撰写文章"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>在利用 Hexo 框架搭建一个属于我们自己的博客网站后，下面我们就来谈谈怎样在网站上书写我们的第一篇博客吧</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/06/hexo-zhuan/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/03/14/TopKotlin/">快速入门 Kotlin</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-03-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/03/14/TopKotlin/" data-flag-title="快速入门 Kotlin"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="1-变量与函数"   >
+          <a href="#1-变量与函数" class="heading-link"><i class="fas fa-link"></i></a>1.变量与函数</h2>
+      <ul>
+<li>val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 <code>Java</code> 中的 <code>final</code> 变量。</li>
+<li>var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重新赋值，对应 <code>Java</code> 中的非 <code>final</code> 变量。</li>
+</ul>
+
+        <h3 id="1-1-使用-val"   >
+          <a href="#1-1-使用-val" class="heading-link"><i class="fas fa-link"></i></a>1.1 使用 val</h3>
+      <pre><code>fun main() {
+    val a = 10
+    println(&quot;a = &quot; + a)
+}
+</code></pre><p>运行结果：</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/7/17154ee3ef1e09ea?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><code>Kotlin</code> 在赋值时会进行自动推导，可以根据值的类型推导出变量的类型，如果使用下面这种<strong>延迟赋值</strong>的方式，那么 <code>Kotlin</code> 将无法推到值得类型，这样程序就变报错</p>
+<pre><code>fun main() {
+    val a: Int = 10
+    println(&quot;a = &quot; + a)
+}
+</code></pre><p><img   src="http://user-gold-cdn.xitu.io/2020/4/7/17154ee7b64753a2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h3 id="1-2-使用-var"   >
+          <a href="#1-2-使用-var" class="heading-link"><i class="fas fa-link"></i></a>1.2 使用 var</h3>
+      <p>由于上面使用的是不可变的变量，所以想要更改变量的值就会报错，所以需要将 <code>val</code> 改成 <code>var</code> 类型</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/7/17154eeac8630102?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<pre><code>fun main() {
+    var a: Int = 10
+    a = a * 10
+    println(&quot;a = &quot; + a)
+}
+</code></pre><p><strong>总结</strong>：永远优先使用 <code>val</code> 来声明变量，当 <code>val</code> 无法满足你的需求时再使用 <code>var</code>，这样设计出来的程序更加健壮，也更加符合高质量的编码规范。</p>
+
+        <h3 id="1-3-使用函数"   >
+          <a href="#1-3-使用函数" class="heading-link"><i class="fas fa-link"></i></a>1.3 使用函数</h3>
+      <pre><code>/**
+ * 创建一个有两个参数的 Int 返回类型的方法
+ */
+fun methodName(param1: Int, param2: Int): Int {
+    return 0
+}
+
+fun main() {
+    val a = 37
+    val b = 40
+    val value = largerNumber(a, b)
+    println(&quot;larger number is &quot; + value)
+}
+
+/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int): Int {
+    return max(param1, param2)
+}
+</code></pre><p><img   src="http://user-gold-cdn.xitu.io/2020/4/7/17154fe683ff5836?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h4 id="1-3-1-使用-Kotlin-语法糖"   >
+          <a href="#1-3-1-使用-Kotlin-语法糖" class="heading-link"><i class="fas fa-link"></i></a>1.3.1 使用 Kotlin 语法糖</h4>
+      <pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int): Int = max(param1, param2)
+</code></pre><p>进一步简化版：</p>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int) = max(param1, param2)
+</code></pre>
+        <h2 id="2-程序的逻辑控制"   >
+          <a href="#2-程序的逻辑控制" class="heading-link"><i class="fas fa-link"></i></a>2.程序的逻辑控制</h2>
+      
+        <h3 id="2-1-if-条件语句"   >
+          <a href="#2-1-if-条件语句" class="heading-link"><i class="fas fa-link"></i></a>2.1 if 条件语句</h3>
+      <blockquote>
+<p>Kotlin 中的条件语句有 if 和 when，其中 if 和 Java 中的 if 没有区别，这里简单了解一下。</p>
+</blockquote>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int): Int {
+    var value = 0
+    if (param1 &gt; param2) {
+        value = param1
+    } else {
+        value = param2
+    }
+    return value
+}
+</code></pre>
+        <h4 id="2-1-1-if-的另一个用法"   >
+          <a href="#2-1-1-if-的另一个用法" class="heading-link"><i class="fas fa-link"></i></a>2.1.1 if 的另一个用法</h4>
+      <blockquote>
+<p>Kotlin 中的 if 用法和 Java 相比有一个额外的功能，它可以有返回值，返回值就是 if 语句每一个条件中最后一行代码的返回值，因此可以进行如下格式的书写:</p>
+</blockquote>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int): Int {
+    val value = if (param1 &gt; param2) {
+        param1
+    } else {
+        param2
+    }
+    return value
+}
+</code></pre><p>在这里由于 <code>value</code> 只需要进行一次赋值，所以可以将 <code>var</code> 更改为 <code>val</code>。</p>
+<p>进一步简写：</p>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int): Int {
+    return if (param1 &gt; param2) {
+        param1
+    } else {
+        param2
+    }
+}
+</code></pre><p>再一次精简：</p>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int) = if (param1 &gt; param2) {
+    param1
+} else {
+    param2
+}
+</code></pre><p>或者</p>
+<pre><code>/**
+ * 对比 param1 和 param2 返回较大的那个数
+ */
+fun largerNumber(param1: Int, param2: Int) = if (param1 &gt; param2) param1 else param2
+</code></pre>
+        <h3 id="2-2-when-条件语句"   >
+          <a href="#2-2-when-条件语句" class="heading-link"><i class="fas fa-link"></i></a>2.2 when 条件语句</h3>
+      <blockquote>
+<p>Kotlin 中的 when 语句有点类似于 Java 中的 switch 语句，但是比 switch 更加精简。</p>
+</blockquote>
+<p>使用格式：<code>匹配值 -&gt; {执行逻辑}</code></p>
+<pre><code>/**
+ * 通过名字返回分数
+ */
+fun getScore(name: String) = if (name == &quot;Tom&quot;) {
+    86
+} else if (name == &quot;Jim&quot;) {
+    77
+} else if (name == &quot;Jack&quot;) {
+    95
+} else if (name == &quot;Lily&quot;) {
+    100
+} else {
+    0
+}
+
+/**
+ * 使用 when 语句实现通过名字返回分数
+ */
+fun getScore(name: String) = when (name) {
+    &quot;Tom&quot; -&gt; 86
+    &quot;Jim&quot; -&gt; 77
+    &quot;Jack&quot; -&gt; 95
+    &quot;Lily&quot; -&gt; 100
+    else -&gt; 0
+}
+</code></pre><p><strong>注意</strong>：Java 中的 <code>switch</code>语句支持的类型有限，再 JDK1.7 中支持了字符串类型，但是有些类型却仍然不支持，但是 <code>when</code> 语句却解决了以上 痛点。</p>
+
+        <h4 id="2-2-1-使用-when-语句进行类型匹配"   >
+          <a href="#2-2-1-使用-when-语句进行类型匹配" class="heading-link"><i class="fas fa-link"></i></a>2.2.1 使用 when 语句进行类型匹配</h4>
+      <pre><code>/**
+ * 判断传入的 number 是什么数据类型
+ */
+fun checkNumber(num: Number) {
+    when (num) {
+        is Int -&gt; println(&quot;number is Int&quot;)
+        is Double -&gt; println(&quot;number is Double&quot;)
+        else -&gt; println(&quot;number not support&quot;)
+    }
+}
+</code></pre><p>上述代码中，<code>is</code>关键字是匹配类型的核心，它相当于 Java 中的 <code>instanceof</code> 关键字。由于 <code>checkNumber()</code> 函数接收一个 <code>Number</code> 类型的参数，这是 Kotlin 中内置的抽象类，比如 Int、Double、Float、Long 都属于它的子类。</p>
+
+        <h4 id="2-2-2-when-语句的不常用用法"   >
+          <a href="#2-2-2-when-语句的不常用用法" class="heading-link"><i class="fas fa-link"></i></a>2.2.2 when 语句的不常用用法</h4>
+      <pre><code>/**
+ * 使用 when 表达式实现通过名字返回分数
+ */
+fun getScore(name: String) = when {
+    name == &quot;Tom&quot; -&gt; 86
+    name == &quot;Jim&quot; -&gt; 77
+    name == &quot;Jack&quot; -&gt; 95
+    name == &quot;Lily&quot; -&gt; 100
+    else -&gt; 0
+}
+</code></pre><p>通常 <code>when</code> 语句的括号里都是有参数的，如果不在括号里写参数就要再匹配项前面添加参数。</p>
+
+        <h2 id="3-循环语句"   >
+          <a href="#3-循环语句" class="heading-link"><i class="fas fa-link"></i></a>3.循环语句</h2>
+      <blockquote>
+<p>在 Java 中提供了 for、while 新欢，在 Kotlin 中同样也提供了这两种循环，其中 while 循环没有一点差异，所以这里直接讲解 for 循环。</p>
+</blockquote>
+
+        <h3 id="3-1-使用-Kotlin-中的-for-in-循环"   >
+          <a href="#3-1-使用-Kotlin-中的-for-in-循环" class="heading-link"><i class="fas fa-link"></i></a>3.1 使用 Kotlin 中的 for-in 循环</h3>
+      <p>在使用循环之前先说明一下如何声明区间，例如在 Kotlin 中声明 [0, 10] 之间的区间使用<code>val range = 0..10</code>的形式，其中 .. 是创建两端闭区间的关键字。</p>
+<pre><code>val range = 0..10
+for (i in range) {
+    println(i)
+}
+</code></pre><p>如果想声明[0, 10)这个区间可以使用 <code>until</code> 替代 <code>..</code></p>
+<pre><code>for (i in 0 until 10) {
+    println(i)
+}
+</code></pre><p>默认情况下，i 会每次自增 1，如果想让 i 一次加 2 的话可以使用 <code>step 2</code>实现，3，4，5.。。n 也是同样的道理。</p>
+<pre><code>for (i in 0 until 10 step 2) {
+    println(i)
+}
+</code></pre><p><strong>注意</strong>：在进行遍历时左边的数值必须小于右边的数值，如果想实现降序的话要使用<code>downTo</code>替代。</p>
+<pre><code>for (i in 20 downTo 10 step 2) {
+    println(i)
+}
+</code></pre>
+        <h2 id="4-面向对象编程"   >
+          <a href="#4-面向对象编程" class="heading-link"><i class="fas fa-link"></i></a>4.面向对象编程</h2>
+      
+        <h3 id="4-1-类和对象"   >
+          <a href="#4-1-类和对象" class="heading-link"><i class="fas fa-link"></i></a>4.1 类和对象</h3>
+      <pre><code>/**
+ * 创建 Person 实体类，由于需要创建对象后再给属性赋值，
+ * 所以这里使用 var 而不是 val
+ */
+class Person {
+    var name = &quot;&quot;
+    var age = 0
+    fun eat() {
+        println(name + &quot; is eating. He is &quot; + age + &quot; years old&quot;)
+    }
+}
+
+fun main() {
+    val p = Person()
+    p.name = &quot;Jack&quot;
+    p.age = 19
+    p.eat()
+}
+</code></pre><p>在 Kotlin 中取消了 new 关键字，因为调用构造函数就是为了实例化，所以进行了精简。</p>
+
+        <h3 id="4-2-继承和构造函数"   >
+          <a href="#4-2-继承和构造函数" class="heading-link"><i class="fas fa-link"></i></a>4.2 继承和构造函数</h3>
+      <blockquote>
+<p>如果定义一个学生类他的里面会包含如学号、年级等属性，但学生也是人，也需要姓名、年龄等属性，如果再重新添加姓名和年龄属性会有冗余代码。所以这里可以使用<strong>继承</strong>的概念，这样Student类就自动拥有了Person类的属性。</p>
+</blockquote>
+
+        <h4 id="4-2-1-创建学生类"   >
+          <a href="#4-2-1-创建学生类" class="heading-link"><i class="fas fa-link"></i></a>4.2.1 创建学生类</h4>
+      <pre><code>class Student {
+    var sno = &quot;&quot;
+    var grade = 0
+}
+</code></pre><p>要是想继承 Person 类，必须让 Person 类具有可以被继承的能力，这也是 Kotlin 与 Java 不同的地方，这么设计的原因和 val 的设计理念时相同的，因为如果一个类可以随便被继承就有可能会产生风险，在 <em>Effective Java</em> 一书中就指出，如果一个类不是专门为继承而设计的，那么就应该主动加上 <code>final</code> 关键字，禁止它可以被继承。</p>
+<p>很明显 Kotlin 在设计时就遵循了这个规范，默认所有非抽象类时不可以被继承的，之所以一直说非抽象类，是因为抽象类本身是无法创建实例的，一定要由子类去继承它才可以创建实例，因此抽象类必须要被继承，否则就没有意义了。</p>
+<p>在 Kotlin 中要想让一个类有被继承的能力，只需要在类前面添加 <code>open</code> 关键字。</p>
+<pre><code>open class Student {
+    var sno = &quot;&quot;
+    var grade = 0
+}
+</code></pre>
+        <h4 id="4-2-2-继承-Person-类"   >
+          <a href="#4-2-2-继承-Person-类" class="heading-link"><i class="fas fa-link"></i></a>4.2.2 继承 Person 类</h4>
+      <pre><code>/**
+ * 创建 Person 实体类，由于需要创建对象后再给属性赋值，
+ * 所以这里使用 var 而不是 val。
+ * 添加 open 让类可以被继承
+ */
+open class Person {
+    var name = &quot;&quot;
+    var age = 0
+    fun eat() {
+        println(name + &quot; is eating. He is &quot; + age + &quot; years old&quot;)
+    }
+}
+
+/**
+ * Kotlin 中的继承与 Java 不同，Java 中使用 extends 关键字，
+ * 在 Kotlin 中使用 : 代替，被继承的类必须要调用它的构造函数，
+ * 否则会报错
+ */
+class Student : Person() {
+    var sno = &quot;&quot;
+    var grade = 0
+}
+</code></pre><p>在 Kotlin 中每个类都默认自带一个无参的主构造函数（在 Kotlin 中有主构造函数和次构造函数之分），你也可以主动的指明参数，主构造函数是最常用的构造函数，它没有函数体，直接定义在类名后面即可。</p>
+
+        <h4 id="4-2-3-使用主构造函数"   >
+          <a href="#4-2-3-使用主构造函数" class="heading-link"><i class="fas fa-link"></i></a>4.2.3 使用主构造函数</h4>
+      <pre><code>class Student(val sno: String, val grade: Int) : Person() {}
+
+val student = Student(&quot;a123&quot;, 5)
+</code></pre><p>构造函数的参数直接写在类后面即可，如果想在主构造函数中编写一些逻辑的话，可以使用 <code>init</code> 声明结构体，</p>
+<pre><code>class Student(val sno: String, val grade: Int) : Person() {
+    // 将主构造函数的逻辑写在 init 结构体中
+    init {
+        println(&quot;sno is &quot; + sno)
+        println(&quot;grade is &quot; + grade)
+    }
+}
+
+val student = Student(&quot;a123&quot;, 5)
+</code></pre><p>这样书写后可以在初始化 <code>Student</code> 类时打印 <code>sno</code> 和 <code>grade</code> 的值，这里的一个规范与 Java 中相同，就是在<strong>初始化子类时必须调用父类的构造函数</strong>。但是这么写会调用父类的哪个构造方法呢，<strong>这取决于 <code>Person()</code> 中的括号中有几个参数</strong>，这里没有传入参数，所以会调用父类的无参构造函数。</p>
+<p>将 Person 和 Student 的构造函数进行一下修改</p>
+<pre><code>open class Person(val name: String, val age: Int) {
+
+}
+
+class Student(val sno: String, val grade: Int, name: String, age: Int)
+    : Person(name, age) {
+}
+
+val student = Student(&quot;a123&quot;, 5, &quot;Jack&quot;, 19)
+</code></pre><p><strong>注意</strong>：在 Student 的主构造函数中添加 name 和 age 字段时，不能再将它们声明为 val，因为在主构造函数中声明成 val 或者 var 的参数会自动成为该类的字段，这回导致和父类中同名的 name 和 age 字段造成冲突，因此在这里的 name 和 age 前面不需要加任何关键字，让它的作用域仅限定在主构造函数中即可。</p>
+
+        <h4 id="4-2-4-使用次构造函数"   >
+          <a href="#4-2-4-使用次构造函数" class="heading-link"><i class="fas fa-link"></i></a>4.2.4 使用次构造函数</h4>
+      <p>Kotlin 提供了一个给函数设定参数默认值的功能，基本上可以替代次构造函数的作用，但是考虑到知识结构的完整性，还是说一下此构造函数的相关知识并探讨一下括号的问题在次构造函数上的区别。</p>
+<p><strong>一个类只能有一个主构造函数，但是可以有多个次构造函数</strong>，次构造函数也可以用于实例化一个类，这一点和主构造函数没有什么不同，只不过它<strong>有函数体</strong>。</p>
+<p>Kotlin 规定，当一个类既有主构造函数又有次构造函数时，所有的次构造函数都必须调用主构造函数（包括间接调用），这里通过一个例子进行简单的阐明。</p>
+<pre><code>class Student(val sno: String, val grade: Int, name: String, age: Int)
+    : Person(name, age) {
+    constructor(name: String, age: Int) : this(&quot;&quot;, 0, name, age) {
+    }
+
+    constructor() : this(&quot;&quot;, 0){
+    }
+}
+</code></pre><p>这里定义了两个次构造函数，第一个次构造函数接收 name 和 age 参数，然后又通过 <code>this</code> 调用主构造函数，并将 <code>sno</code> 和 <code>grade</code> 参数赋值，第二个次构造函数不接收任何参数，通过 this 调用了上面的次构造函数，并将 <code>name</code> 和 <code>age</code> 参数也成功进行了赋值，由于第二个次构造函数间接的调用了主构造函数，所以这也是合法的。</p>
+<p>这么写完之后就拥有了三种初始化 Student 类的方式</p>
+<pre><code>val student1 = Student()
+val student2 = Student(&quot;Jack&quot;, 19)
+val student3 = Student(&quot;a123&quot;, 5, &quot;Jack&quot;, 19)
+</code></pre><p>在一个类中显式的设置了次构造函数并且没有显式的设置主构造函数，此时是没有主构造函数的，这种操作在 Kotlin 中是允许的。</p>
+<pre><code>class Student : Person {
+    constructor(name: String, age: Int) : super(name, age) {
+
+    }
+}
+</code></pre><p>这里的 Student 类的后面没有显式的定义主构造函数，同时又因为定义了次构造函数，所以现在 Student 类是没有主构造函数的，那么在继承 Person 类是就不需要再添加括号了，另外由于没有主构造函数，次构造函数只能显式的调用父类的构造函数，所以可以将 <code>this</code> 换成 <code>super</code>。</p>
+
+        <h3 id="4-3-接口"   >
+          <a href="#4-3-接口" class="heading-link"><i class="fas fa-link"></i></a>4.3 接口</h3>
+      <blockquote>
+<p>Kotlin 中的接口和 Java 几乎完全一样，我们都知道 Java 是单继承结构的语言，任何一个类最多只能继承一个父类，但是却可以实现多个接口，Kotlin 也是如此。我们可以定义一系列抽象行为，然后由具体的类去实现。下面还是通过代码进行演示。</p>
+</blockquote>
+
+        <h4 id="4-3-1-使用接口"   >
+          <a href="#4-3-1-使用接口" class="heading-link"><i class="fas fa-link"></i></a>4.3.1 使用接口</h4>
+      <pre><code>interface Study {
+    fun readBooks()
+    fun doHomework()
+}
+</code></pre><p>让 Student 类实现 Study 接口</p>
+<pre><code>class Student(name: String, age: Int) : Person(name, age), Study {
+    override fun readBooks() {
+        println(name + &quot; is reading.&quot;)
+    }
+
+    override fun doHomework() {
+        println(name + &quot; is doing homework&quot;)
+    }
+}
+</code></pre><p>在 Java 中实现接口使用 <code>implements</code> 关键字，在 Kotlin 中无论是继承还是实现接口都是用 “:” 替代，中间使用逗号（,）隔开即可，另外在实现接口时不需要在接口后面加括号，因为接口没有构造函数。</p>
+<p>在 main 方法中调用方法</p>
+<pre><code>fun main() {
+    val student = Student(&quot;Jack&quot;, 19)
+    doStudy(student)
+}
+
+fun doStudy(study: Study) {
+    study.readBooks()
+    study.doHomework()
+}
+</code></pre>
+        <h4 id="4-3-2-对接口中的函数默认实现"   >
+          <a href="#4-3-2-对接口中的函数默认实现" class="heading-link"><i class="fas fa-link"></i></a>4.3.2 对接口中的函数默认实现</h4>
+      <pre><code>interface Study {
+    fun readBooks()
+    fun doHomework() {
+        println(&quot;do homework default implementation.&quot;)
+    }
+}
+</code></pre><p>如果像之前那么写，在实现接口时里面的两个方法都必须实现，如果改成这样的话，只需要强制实现 <code>readBooks()</code> 函数了，<code>doHomework()</code>可以选择写或者不写，不写的话则会打印<code>do homework default implementation.</code>。</p>
+
+        <h4 id="4-3-3-访问修饰符"   >
+          <a href="#4-3-3-访问修饰符" class="heading-link"><i class="fas fa-link"></i></a>4.3.3 访问修饰符</h4>
+      <blockquote>
+<p>在 Java 中一共由 public、private、protected、default（什么都不写）这四种修饰符，在 Kotlin 中有 public、private、protected、internal 这四种修饰符，想要使用那种修饰符时直接将修饰符写在 fun 前面即可。</p>
+</blockquote>
+<p>首先 private 修饰符在两种语言中的作用一模一样，都表示只对当前类内部可见，public 修饰符的作用也是一致的，标识对所有类可见，但是<strong>在 Kotlin 中 public 修饰符是默认项</strong>，而在 Java 中是 default，前面书写的函数都没有加访问修饰符，那么这些函数的访问权限全部是 public。protected 在 Java 中表示对当前类，子类和同一个包路径下的类可见，<strong>在 Kotlin 中则表示只对当前类和子类可见</strong>。Kotlin 抛弃了 Java 中的 default 可见性（同一包路径下的类可见）。引入了一种新的可见性概念，<strong>只对同一模块中的类可见</strong>，使用的是 <code>internal</code> 修饰符。</p>
+<p>比如我们开发了一个模块给别人使用，但是有一些函数只允许在模块内部调用，不想暴露给外部，就可以将函数声明为 <code>internal</code>修饰的。</p>
+<p>Java 和 Kotlin 可见性修饰符对照表</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/8/1715827060833f2c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h3 id="4-4-数据类和单例类"   >
+          <a href="#4-4-数据类和单例类" class="heading-link"><i class="fas fa-link"></i></a>4.4 数据类和单例类</h3>
+      <blockquote>
+<p>在一个规范的系统中，数据类通常占据者非常重要的角色，它们用于将服务器端或数据库中的数据映射到内存中，为编程逻辑提供数据模型的支持。其中常用的 MVC、MVP、MVVM 这些架构模式中的 M 值得就是数据类。</p>
+</blockquote>
+
+        <h4 id="4-4-1-Java-中的数据类"   >
+          <a href="#4-4-1-Java-中的数据类" class="heading-link"><i class="fas fa-link"></i></a>4.4.1 Java 中的数据类</h4>
+      <p>在 Java 中数据类需要重写 <code>equals()</code>、<code>hashCode()</code>、<code>toString()</code>方法，其中<code>equals()</code>用于判断两个数据类是否相等，<code>hashCode()</code>和 <code>equals()</code> 方法配套使用，<code>toString()</code>方法可以让输出打印更加清晰。</p>
+<pre><code>public class Cellphone {
+    String brand;
+    double price;
+
+    public Cellphone(String brand, double price) {
+        this.brand = brand;
+        this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Cellphone) {
+            Cellphone other = (Cellphone) obj;
+            return other.brand.equals(brand) &amp;&amp;
+                    other.price == price;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return brand.hashCode() + (int) price;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Cellphone(brand=&quot; + brand + &quot;, price&quot; + price + &quot;)&quot;;
+    }
+}
+</code></pre>
+        <h4 id="4-4-2-Kotlin-中的数据类"   >
+          <a href="#4-4-2-Kotlin-中的数据类" class="heading-link"><i class="fas fa-link"></i></a>4.4.2 Kotlin 中的数据类</h4>
+      <pre><code>data class Cellphone(val brand: String, val price: Double)
+</code></pre><p>在 Kotlin 中只需要这一行代码即可，其中神奇的地方在于 class 前面的 data 关键字，有了这个关键字就表明我们想要声明一个数据类，Kotlin 会根据主构造函数中的参数帮你将 <code>equals()</code>、<code>hashCode()</code>、<code>toString()</code>方法自动生成，从而减少了开发的工作量。</p>
+<p>编写 main 函数进行测试</p>
+<pre><code>fun main() {
+    val cellphone1 = Cellphone(&quot;Samsung&quot;, 1299.99)
+    val cellphone2 = Cellphone(&quot;Samsung&quot;, 1299.99)
+    println(cellphone1)
+    println(&quot;cellphone1 equals cellphone2 &quot; + (cellphone1 == cellphone2))
+}
+</code></pre><p><strong>注意</strong>：如果将 class 前面的 data 去掉，那么它们的返回值就会变为 false。</p>
+
+        <h4 id="4-4-3-单例类"   >
+          <a href="#4-4-3-单例类" class="heading-link"><i class="fas fa-link"></i></a>4.4.3 单例类</h4>
+      <blockquote>
+<p>在讲解单例类之前先说一下 Java 中的单例模式，单例模式主要是为了防止为一个对象创建多个实例，在 Kotlin 中如果想实现类似功能可以使用单例类</p>
+</blockquote>
+
+        <h4 id="4-4-4-Java-中的单例类"   >
+          <a href="#4-4-4-Java-中的单例类" class="heading-link"><i class="fas fa-link"></i></a>4.4.4 Java 中的单例类</h4>
+      <pre><code>public class Singleton {
+
+    private static Singleton INSTANCE = null;
+    private Singleton() {}
+
+    public synchronized static Singleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Singleton();
+        }
+        return INSTANCE;
+    }
+
+    public void singletonTest() {
+        System.out.println(&quot;singletonTest is called.&quot;);
+    }
+}
+</code></pre>
+        <h4 id="4-4-5-Kotlin-中的单例类"   >
+          <a href="#4-4-5-Kotlin-中的单例类" class="heading-link"><i class="fas fa-link"></i></a>4.4.5 Kotlin 中的单例类</h4>
+      <pre><code>object Singleton {
+    fun singletonTest() {
+        println(&quot;singletonTest is called.&quot;)
+    }
+}
+</code></pre><p>在 Kotlin 中实现单例要比 Java 中简单的多，只需要使用 <code>object</code> 关键字即可，在这其中 Kotlin 帮我们创建了一个 Singleton 类的实例，并且保证全局只存在一个 Singleton 实例。</p>
+
+        <h2 id="5-Lambda-表达式"   >
+          <a href="#5-Lambda-表达式" class="heading-link"><i class="fas fa-link"></i></a>5.Lambda 表达式</h2>
+      <blockquote>
+<p>在 JDK1.8 中引入了 lambda 表达式，实现相同的功能时 lambda 表达式写法会使用更少的代码，从而提升开发效率。在 Kotlin 中也有 lambda 表达式，下面将对此进行介绍。</p>
+</blockquote>
+
+        <h3 id="5-1-集合的创建和遍历"   >
+          <a href="#5-1-集合的创建和遍历" class="heading-link"><i class="fas fa-link"></i></a>5.1 集合的创建和遍历</h3>
+      <p>现在有一个需求，创建一个包含许多水果名称的集合，如果在 Java 中会创建一个 ArrayList 然将水果的名称一个个的添加进集合中，当然在 Kotlin 中也可以这么做。</p>
+<pre><code>fun main() {
+    val list = ArrayList&lt;String&gt;()
+    list.add(&quot;Apple&quot;)
+    list.add(&quot;Banana&quot;)
+    list.add(&quot;Orange&quot;)
+    list.add(&quot;Pear&quot;)
+    list.add(&quot;Grape&quot;)
+}
+</code></pre><p>数据少的时候这么写一点问题都没有，但是问题在于数据量多的时候这么写就会显得很罗嗦，所以可以使用 Kotlin 中内置的 <code>listOf()</code> 函数来简化初始化集合的写法，写法如下：</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+for (fruit in list) {
+    println(fruit)
+}
+</code></pre><p><strong>注意</strong>：在这里使用 <code>listOf()</code>函数创建的是一个不可变的集合。在 Java 中没有不可变的集合，但是在 Kotlin 中不可变的集合指的是，该集合中的元素只能用于读取，不能进行添加、修改或者删除。</p>
+<p>这么设计的理由和 val、类默认不可继承是一样的，可见 Kotlin 在不可变性方面的控制及其严格。那么如果我们确实需要创建一个可变的集合，可以使用<code>mutableListOf()</code>函数即可。</p>
+<pre><code>val list = mutableListOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+list.add(&quot;Watermelon&quot;)
+for (fruit in list) {
+    println(fruit)
+}
+</code></pre><p>前面介绍的 List 集合的用法其实和 Set 一模一样，只需要将创建集合的方法换成 <code>setOf()</code>和 <code>mutableSetOf()</code> 即可。</p>
+<pre><code>val set = setOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+for (fruit in set) {
+    println(fruit)
+}
+
+println(&quot;==========================&quot;)
+val mutableSet = mutableSetOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+mutableSet.add(&quot;Watermelon&quot;)
+for (fruit in mutableSet) {
+    println(fruit)
+}
+</code></pre><p>接下来讲解的 Map 和前面的 List 和 Set 有很大的不同，传统的 Map 用法是先创建一个 HashMap 的实例，然后将一个个的键值对添加到 Map 中，比如给每个水果一个对应的编号。</p>
+<pre><code>val map = HashMap&lt;String, Int&gt;()
+map.put(&quot;Apple&quot;, 1)
+map.put(&quot;Banana&quot;, 2)
+map.put(&quot;Orange&quot;, 3)
+map.put(&quot;Pear&quot;, 4)
+map.put(&quot;Grape&quot;, 5)
+</code></pre><p>这种写法与 Java 中的写法相似，但是在 Kotlin 中并不建议使用 <code>put()</code> 和 <code>get()</code> 方法对 Map 进行添加和读取操作，而是更加建议使用一种类似于数组下标的语法结构，比如向 Map 中添加一条数据可以这么写：</p>
+<pre><code>map[&quot;Apple&quot;] = 1
+</code></pre><p>从 Map 中读取一条数据可以这么写</p>
+<pre><code>val number = map[&quot;Apple&quot;]
+</code></pre><p>因此可以将代码优化为一下形式</p>
+<pre><code>val map = HashMap&lt;String, Int&gt;()
+map[&quot;Apple&quot;] = 1
+map[&quot;Banana&quot;] = 2
+map[&quot;Orange&quot;] = 3
+map[&quot;Pear&quot;] = 4
+map[&quot;Grape&quot;] = 5
+</code></pre><p>这样的写法也不是最简便的，在 Kotlin 中提供了一个 <code>mapOf()</code> 和 <code>mutableMapOf()</code> 函数来继续简化 Map 的用法。在 <code>mapOf()</code> 函数中，我们可以直接传入初始化的键值对组合来完成对 Map 集合的创建：</p>
+<pre><code>val map = mapOf(&quot;Apple&quot; to 1, &quot;Banana&quot; to 2, &quot;Orange&quot; to 3, &quot;Pear&quot; to 4, &quot;Grape&quot; to 5)
+//    for (entry in map) {
+//        println(entry.key + &quot;\t&quot; + entry.value)
+//    }
+for ((fruit, number) in map) {
+    println(&quot;fruit is &quot; + fruit + &quot;, number is &quot; + number)
+}
+</code></pre>
+        <h3 id="5-2-集合的函数式-API"   >
+          <a href="#5-2-集合的函数式-API" class="heading-link"><i class="fas fa-link"></i></a>5.2 集合的函数式 API</h3>
+      <p><strong>需求</strong>：如何在一个水果集合中找到单词最长的哪个水果？</p>
+<ul>
+<li>传统实现方式</li>
+</ul>
+<pre><code>val list = mutableListOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+var maxLengthFruit = &quot;&quot;;
+for (fruit in list) {
+    if (fruit.length &gt; maxLengthFruit.length) {
+        maxLengthFruit = fruit
+    }
+}
+println(&quot;max length fruit is &quot; + maxLengthFruit)
+</code></pre><ul>
+<li>使用集合 API 实现</li>
+</ul>
+<pre><code>val list = mutableListOf(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;)
+val maxLengthFruit = list.maxBy { it.length }
+println(&quot;max length fruit is &quot; + maxLengthFruit)
+</code></pre>
+        <h4 id="5-2-1-Lambda-表达式语法结构"   >
+          <a href="#5-2-1-Lambda-表达式语法结构" class="heading-link"><i class="fas fa-link"></i></a>5.2.1 Lambda 表达式语法结构</h4>
+      <pre><code>{参数名1： 参数类型, 参数名2: 参数类型 -&gt; 函数体}
+</code></pre><p>这是 Lambda 表达式最完整的语法结构定义，首先最外层是一对大括号，如果有参数传入到 Lambda 表达式中的话，还需要声明参数列表，参数列表的结尾使用 <code>-&gt;</code> 符号，表示参数列表的结束以及函数体的开始，函数体中可以编写任意行代码，<strong>并且最后一行代码自动作为返回值</strong>。</p>
+
+        <h4 id="5-2-2-Lambda-表达式写法演进"   >
+          <a href="#5-2-2-Lambda-表达式写法演进" class="heading-link"><i class="fas fa-link"></i></a>5.2.2 Lambda 表达式写法演进</h4>
+      <ul>
+<li><p>最初写法</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val lambda = { fruit: String -&gt; fruit.length }
+val maxLengthFruit = list.maxBy(lambda)
+</code></pre></li>
+<li><p>简化版本1</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val maxLengthFruit = list.maxBy({ fruit: String -&gt; fruit.length })
+</code></pre></li>
+<li><p>简化版本2</p>
+<p>Kotlin 规定当函数的最后一个参数是 Lambda 时，可以将 Lambda 表达式写在最外面.</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val maxLengthFruit = list.maxBy() { fruit: String -&gt; fruit.length }
+</code></pre></li>
+<li><p>简化版本3</p>
+<p>当 Lambda 参数是函数的唯一一个参数的话，可以省略函数的括号。</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val maxLengthFruit = list.maxBy { fruit: String -&gt; fruit.length }
+</code></pre></li>
+<li><p>简化版本4</p>
+<p>由于 Kotlin 的推导机制，Lambda 的参数列表在大多数情况下不必声明参数类型，因此代码可以进一步简化。</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val maxLengthFruit = list.maxBy { fruit -&gt; fruit.length }
+</code></pre></li>
+<li><p>简化版本5</p>
+<p>当 Lambda 表达式的参数列表中只有一个参数时，可以不必声明参数名，可以用 <code>it</code> 代替。</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val maxLengthFruit = list.maxBy { it.length }
+</code></pre></li>
+</ul>
+
+        <h4 id="5-2-3-使用-map-函数"   >
+          <a href="#5-2-3-使用-map-函数" class="heading-link"><i class="fas fa-link"></i></a>5.2.3 使用 map 函数</h4>
+      <blockquote>
+<p>集合中的 map 函数时最常用的一种函数式 API，它用于将集合中的每一个元素都映射成一个另外的值，映射的规则在 Lambda 表达式中指出，最终生成一个新的集合。</p>
+</blockquote>
+<p>需求：让所有的水果命都变成大写模式</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val newList = list.map { it.toUpperCase() }
+for (fruit in newList) {
+    println(fruit)
+}
+</code></pre>
+        <h4 id="5-2-4-使用-filter-函数"   >
+          <a href="#5-2-4-使用-filter-函数" class="heading-link"><i class="fas fa-link"></i></a>5.2.4 使用 filter 函数</h4>
+      <blockquote>
+<p>filter 函数是用来过滤集合中的数据的，它可以单独使用。</p>
+</blockquote>
+<p>需求：只保留集合中字符长度大于5的水果名，并将符合条件的水果名转换为大写</p>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val newList = list.filter { it.length &lt;= 5 }.map { it.toUpperCase() }
+for (fruit in newList) {
+    println(fruit)
+}
+</code></pre><p>在这个例子中如果先调用 <code>map()</code> 再调用 <code>filter()</code> 也是可以的，但是效率会有影响，因为这么做会让转换的次数增加。</p>
+
+        <h4 id="5-2-5-使用-any-和-all-函数"   >
+          <a href="#5-2-5-使用-any-和-all-函数" class="heading-link"><i class="fas fa-link"></i></a>5.2.5 使用 any 和 all 函数</h4>
+      <blockquote>
+<p>any 函数用于判断集合种是否至少存在一个元素满足指定条件，all 函数用于判断集合中是否所有元素都满足给定条件。</p>
+</blockquote>
+<pre><code>val list = listOf(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;, &quot;Grape&quot;, &quot;Watermelon&quot;)
+val anyResult = list.any { it.length &lt;= 5 }
+val allResult = list.all {it.length &lt;= 5 }
+println(&quot;anyResult is &quot; + anyResult + &quot;, allResult is &quot; + allResult)
+</code></pre>
+        <h3 id="5-3-Java-函数式-API-的使用"   >
+          <a href="#5-3-Java-函数式-API-的使用" class="heading-link"><i class="fas fa-link"></i></a>5.3 Java 函数式 API 的使用</h3>
+      <blockquote>
+<p>如果我们再 Kotlin 代码中调用了一个 Java 方法，并且该方法接收一个 Java 单抽象方法接口参数，就可以使用函数式 API。</p>
+</blockquote>
+
+        <h4 id="5-3-1-演示单抽象接口"   >
+          <a href="#5-3-1-演示单抽象接口" class="heading-link"><i class="fas fa-link"></i></a>5.3.1 演示单抽象接口</h4>
+      <ul>
+<li><p>Java 中</p>
+<pre><code>@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}
+</code></pre><p>对于任何一个 Java 方法，只要它接收 <code>Runnable</code> 参数，就可以使用函数时 API。不过 <code>Runnable</code> 接口主要还是结合线程来一起使用的，因此这里就通过 Java 的线程类 <code>Thread</code> 进行学习。</p>
+<pre><code>new Thread(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println(&quot;Thread is running.&quot;);
+    }
+}).start();
+</code></pre></li>
+<li><p>Kotlin 中</p>
+<pre><code>Thread(object : Runnable {
+    override fun run() {
+        println(&quot;Thread is running.&quot;)
+    }
+}).start()
+</code></pre><p>与 Java 写法不同的是，Kotlin 中使用 <code>object</code> 关键字代替了 <code>new</code> 关键字。</p>
+<ul>
+<li><p>简化1</p>
+<pre><code>Thread(Runnable {
+    println(&quot;Thread is running.&quot;)
+}).start()
+</code></pre><p>由于 <code>Runnable</code> 接口中只有一个方法，所以没有手动实现的话，Kotlin 就会推导出 Lambda 表达式里要写的是 <code>run()</code> 方法中的内容。</p>
+</li>
+<li><p>简化2</p>
+<p>由于 Java 方法的参数列表中不存在一个以上 Java 单抽象方法接口参数，所以可以将接口名省略。</p>
+<pre><code>Thread({
+    println(&quot;Thread is running.&quot;)
+}).start()
+</code></pre></li>
+<li><p>简化3</p>
+<p>由于 Lambda 中只有一个参数，所以可以将括号花括号内的内容移动到外面，并且还可以将函数的括号省略，所以简写成如下形式：</p>
+<pre><code>Thread {
+    println(&quot;Thread is running.&quot;)
+}.start()
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<p><strong>总结</strong>：本小节学习的 Java 函数式 API 的使用都现定于 Kotlin 中调用 Java 方法，并且单抽象方法接口也必须是用 Java 语言定义的，这么设计是因为 Kotlin 中有专门的高阶函数来实现更加强大的自定义函数式 API 功能，从而不需要像 Java 这样借助单抽象方法接口来实现。</p>
+
+        <h2 id="6-空指针检查"   >
+          <a href="#6-空指针检查" class="heading-link"><i class="fas fa-link"></i></a>6.空指针检查</h2>
+      <blockquote>
+<p>Java 程序在运行时遇到空指针异常导致运行崩溃的例子数不胜数，究其原因是因为空指针异常时一种运行时异常，需要开发者手动进行检测。</p>
+</blockquote>
+
+        <h3 id="6-1-处理空指针异常"   >
+          <a href="#6-1-处理空指针异常" class="heading-link"><i class="fas fa-link"></i></a>6.1 处理空指针异常</h3>
+      <pre><code>public void doStudy(Study study) {
+    study.readBooks();
+    study.doHomework();
+}
+</code></pre><p>以上的代码就很有可能出现空指针异常，具体能否出现完全要看传入的 <code>study</code> 是否为空，为 了避免空指针异常的发生，通常都会做如下操作：</p>
+<pre><code>public void doStudy(Study study) {
+    if (study != null) {
+        study.readBooks();
+        study.doHomework();
+    }
+}
+</code></pre><p>这只是一小段代码，如果在一个比较大的工程中要想完全避免空指针异常并不现实。</p>
+
+        <h3 id="6-2-可空类型系统"   >
+          <a href="#6-2-可空类型系统" class="heading-link"><i class="fas fa-link"></i></a>6.2 可空类型系统</h3>
+      <blockquote>
+<p>Kotlin 就很科学的解决了这个问题，它利用编译时判空检查的机制几乎杜绝了空指针异常。虽然编译时判空检查的机制会导致代码变得比较难写，但是不用担心，Kotlin 提供了一整套辅助工具，让我们可以轻松的完成判空任务。</p>
+</blockquote>
+
+        <h4 id="6-2-1-回到-Kotlin-代码"   >
+          <a href="#6-2-1-回到-Kotlin-代码" class="heading-link"><i class="fas fa-link"></i></a>6.2.1 回到 Kotlin 代码</h4>
+      <pre><code>fun doStudy(study: Study) {
+    study.readBooks()
+    study.doHomework()
+}
+</code></pre><p>这段代码看上去和 Java 的没有什么区别，但是在 Kotlin 中所有参数和变量都不能为空，所以这段代码不可能出现空指针。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/12/1716d7c471e4cd21?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>经过 Kotlin 的检测，避免了所有对象为空的可能，但是有时候就是需要传入空对象，这该怎么办呢？</p>
+<p>Kotlin 提供了一套可为空的类型系统，只不过在使用可为空的类型系统时，我们需要在编译时期就将所有潜在的空指针异常处理掉。</p>
+<p>使用可为空类型的系统时只需要在类型参数后面添加一个 <code>?</code> 即可，例如</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/12/1716d81585ea5d87?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h3 id="6-3-判空辅助工具"   >
+          <a href="#6-3-判空辅助工具" class="heading-link"><i class="fas fa-link"></i></a>6.3 判空辅助工具</h3>
+      
+        <h4 id="6-3-1-操作符"   >
+          <a href="#6-3-1-操作符" class="heading-link"><i class="fas fa-link"></i></a>6.3.1 ?. 操作符</h4>
+      <p>当对象不为空时进行正常调用，为空就什么都不做</p>
+<ul>
+<li><p>传统写法：</p>
+<pre><code>fun doStudy(study: Study?) {
+    if (study != null) {
+        study.readBooks()
+        study.doHomework()
+    }
+}
+</code></pre></li>
+<li><p>优化写法：</p>
+<pre><code>fun doStudy(study: Study?) {
+    study?.readBooks()
+    study?.doHomework()
+}
+</code></pre></li>
+</ul>
+
+        <h4 id="6-3-2-操作符"   >
+          <a href="#6-3-2-操作符" class="heading-link"><i class="fas fa-link"></i></a>6.3.2 ?: 操作符</h4>
+      <p>这个操作符两边都接收一个表达式，如果左边表达式的结果不为空就返回左边的结果，否则返回右边的。</p>
+<ul>
+<li><p>传统写法</p>
+<pre><code>val c = if (a != null) {
+    a
+} else {
+    b
+}
+</code></pre></li>
+<li><p>优化写法</p>
+<pre><code>val c = a ?: b
+</code></pre></li>
+</ul>
+<p>需求：编写一个函数用来获得一段文本的长度</p>
+<ul>
+<li><p>传统写法：</p>
+<pre><code>fun getTextLength(text: String?): Int {
+    if (text != null) {
+        return text.length
+    }
+    return 0
+}
+</code></pre></li>
+<li><p>优化写法：</p>
+<pre><code>fun getTextLength(text: String?) = text?.length ?: 0
+</code></pre></li>
+</ul>
+
+        <h4 id="6-3-3-操作符"   >
+          <a href="#6-3-3-操作符" class="heading-link"><i class="fas fa-link"></i></a>6.3.3 !!. 操作符</h4>
+      <p>Kotlin 有的时候也不很智能，比如已经做了非空判断，但是调用时依然无法通过编译，那么此时可以使用非空断言工具<code>!!。</code>即可。</p>
+<p><strong>注意</strong>：这种写法存在风险，这样写意在告诉 Kotlin，我这里一定不为空，如果为空后果我自己承担。</p>
+
+        <h4 id="6-3-4-let-函数"   >
+          <a href="#6-3-4-let-函数" class="heading-link"><i class="fas fa-link"></i></a>6.3.4 let 函数</h4>
+      <blockquote>
+<p>let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。</p>
+</blockquote>
+<pre><code>obj.let { obj2 -&gt; 
+    // 编写具体的业务逻辑
+}
+</code></pre><p>可以看到这里调用了 <code>obj</code> 对象的 <code>let</code> 函数，然后 Lambda 表达式中的代码就会立即执行，并且这个 <code>obj</code> 对象本身还会作为参数传递到 Lambda 表达式中。不过为了防止变量重名，我将 <code>obj</code> 改为了 <code>obj2</code> ，但是它们是同一个对象。</p>
+<ul>
+<li><p>使用 let 函数配合 ?. 操作符检查空指针</p>
+<ul>
+<li><p>原代码</p>
+<pre><code>fun doStudy(study: Study?) {
+    study?.readBooks()
+    study?.doHomework()
+}
+</code></pre><p>这种写法与传统的 <code>if</code> 判断的写法的区别在于使用 <code>?.</code> 替代了 <code>if</code>，但是这里要调用的方法很多的话就需要写多次 <code>?.</code>，这种重复的操作就可以使用 <code>let</code> 函数配合解决。</p>
+</li>
+<li><p>优化版本1：</p>
+<pre><code>fun doStudy(study: Study?) {
+    study?.let { stu -&gt;
+        stu.readBooks()
+        stu.doHomework()
+    }
+}
+</code></pre><p>这样会在对象不为空时调用 <code>let</code> 函数，并且只需要写一遍 <code>?.</code>。</p>
+</li>
+<li><p>优化版本2：</p>
+<p>在 Kotlin 中，Lambda 表达式如果只有一个参数，可以省略，使用 <code>it</code> 代替。</p>
+<pre><code>fun doStudy(study: Study?) {
+    study?.let {
+        it.readBooks()
+        it.doHomework()
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="7-Kotlin-中的小魔术"   >
+          <a href="#7-Kotlin-中的小魔术" class="heading-link"><i class="fas fa-link"></i></a>7.Kotlin 中的小魔术</h2>
+      
+        <h3 id="7-1-字符串内嵌表达式"   >
+          <a href="#7-1-字符串内嵌表达式" class="heading-link"><i class="fas fa-link"></i></a>7.1 字符串内嵌表达式</h3>
+      <p>使用字符串表达式再也不需要傻傻的拼接 字符串了，在 Kotlin 中，可以直接使用字符串内嵌表达式，即使是非常复杂的字符串也可以轻而易举地完成。</p>
+
+        <h4 id="7-1-1-内嵌表达式语法"   >
+          <a href="#7-1-1-内嵌表达式语法" class="heading-link"><i class="fas fa-link"></i></a>7.1.1 内嵌表达式语法</h4>
+      <pre><code>&quot;hello, ${obj.name}. nice to meet you!&quot;
+</code></pre><p>在 Kotlin 中允许我们在字符串里嵌入 <code>${}</code>这种语法结构的表达式，并在运行时使用表达式的执行结果替代这一部分的内容。另外，当表达式中只有一个变量的时候，可以直接使用 <code>$name</code> 的形式进行简写，无需添加花括号了。</p>
+<pre><code>val brand = &quot;Samsung&quot;
+val price = 1299.00
+println(&quot;Cellphone(brand=$brand, price=$price)&quot;)    // 使用字符串表达式
+println(&quot;Cellphone(brand = &quot;+ brand +&quot;, price = &quot; + price + &quot;)&quot;)    // 不使用
+</code></pre>
+        <h3 id="7-2-函数的参数默认值"   >
+          <a href="#7-2-函数的参数默认值" class="heading-link"><i class="fas fa-link"></i></a>7.2 函数的参数默认值</h3>
+      <blockquote>
+<p>前面学习次构造函数的用法时提到过，次构造函数在 Kotlin 中很少使用，因为 Kotlin 提供了给函数设定参数默认值的功能，它在很大程度上能够替代次构造函数的作用。</p>
+</blockquote>
+<blockquote>
+<p>具体来讲，我们可以在定义函数的时候给任意参数设定一个默认值，这样当调用此函数时就不会强制要求调用方为此参数传值，在没有传值的情况下会自动使用参数的默认值。</p>
+</blockquote>
+
+        <h4 id="7-2-1-给函数设定默认值"   >
+          <a href="#7-2-1-给函数设定默认值" class="heading-link"><i class="fas fa-link"></i></a>7.2.1 给函数设定默认值</h4>
+      <pre><code>fun printParams(num: Int, str: String = &quot;hello&quot;) {
+    println(&quot;num is $num, str is $str&quot;)
+}
+printParams(1)
+printParams(1, &quot;哈哈&quot;)
+</code></pre><p><img   src="http://user-gold-cdn.xitu.io/2020/4/12/1716dd27afdded17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<pre><code>fun printParams(num: Int = 100, str: String) {
+    println(&quot;num is $num, str is $str&quot;)
+}
+</code></pre><p>如果我们想为 <code>num</code> 设置默认值，只传字符串的参数值的话，像上面那么写就会报错了</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/4/12/1716dd68e27bc16c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><strong>解决</strong>：将传递的参数指定参数名</p>
+<pre><code>fun printParams(num: Int = 100, str: String) {
+    println(&quot;num is $num, str is $str&quot;)
+}
+printParams(str = &quot;world&quot;)
+</code></pre><p><img   src="http://user-gold-cdn.xitu.io/2020/4/12/1716dd7e78935bc4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+
+        <h4 id="7-2-2-用默认值替代次构造函数"   >
+          <a href="#7-2-2-用默认值替代次构造函数" class="heading-link"><i class="fas fa-link"></i></a>7.2.2 用默认值替代次构造函数</h4>
+      <ul>
+<li><p>原来的代码</p>
+<pre><code>class Student(val sno: String, val grade: Int, name: String, age: Int)
+    : Person(name, age) {
+    constructor(name: String, age: Int) : this(&quot;&quot;, 0, name, age) {
+    }
+
+    constructor() : this(&quot;&quot;, 0){
+    }
+}
+</code></pre><p>这个构造函数的功能主要就是在调用无参构造函数时会对两个参数的构造函数进行调用，并赋初始值，两个参数的构造函数会调用四个参数的构造函数，并赋初始值，这完全可以使用函数默认值的方式进行替代。</p>
+</li>
+<li><p>优化后的代码</p>
+<pre><code>class Student(val sno: String = &quot;&quot;, val grade: Int = 0, name: String = &quot;&quot;, age: Int = 0) :
+    Person(name, age) {
+}</code></pre></li>
+</ul>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

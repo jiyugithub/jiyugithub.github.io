@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。                     一. 存储结构       1.JDK1.8之前 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)） 2.JDK1.8之后 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)  关于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap原理技术知识整理">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/hashmap/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。                     一. 存储结构       1.JDK1.8之前 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)） 2.JDK1.8之后 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)  关于">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3de6cbaf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3f39c141?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-06-11T21:47:26.000Z">
+<meta property="article:modified_time" content="2020-06-11T22:33:57.934Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>HashMap原理技术知识整理 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/12/hashmap/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">HashMap原理技术知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/hashmap/" data-flag-title="HashMap原理技术知识整理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p><img   src="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。</p>
+
+        <h3 id="一-存储结构"   >
+          <a href="#一-存储结构" class="heading-link"><i class="fas fa-link"></i></a>一. 存储结构</h3>
+      <p>1.JDK1.8之前 HashMap = 数组(O(1)）+ 单向链表（O(n)）</p>
+<p>2.JDK1.8之后 HashMap = 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3de6cbaf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="HashMap结构图.png"></p>
+<p>关于结构的几个关键数字：</p>
+<p>1.默认初始化数组容量大小是16。</p>
+<p>2.数组扩容刚好是2的次幂。</p>
+<p>3.默认的加载因子是0.75。</p>
+<p>4.链表长度超过8时将链表转化成红黑树结构。 5.红黑树节点数减少到6的时候退化成链表。</p>
+<p>以上几个数字关系，又为什么是上边的几个数字接下来一个个分析。</p>
+
+        <h3 id="二-操作原理"   >
+          <a href="#二-操作原理" class="heading-link"><i class="fas fa-link"></i></a>二. 操作原理</h3>
+      
+        <h5 id="1-put储存流程"   >
+          <a href="#1-put储存流程" class="heading-link"><i class="fas fa-link"></i></a>1. put储存流程</h5>
+      <p>①计算桶的位置，根据key的hashcode求出hash值，位置index = hash%length。</p>
+<p>②判断是否达到扩容条件，threshold=DEFAULT_INITIAL_CAPACITY * loadFactor（16*0.75=12）大于这个阀门值就需要扩容，否则下一步。</p>
+<p>③判断桶位置是否为空，如果为空直接在数据插入数据。如果不为空，下一步。</p>
+<p>④判断是链表还是红黑树，链表是否到达转化红黑树，当前链表节点数&lt;=8，插入节点；如果是红黑树插入节点，否则下一步。</p>
+<p>⑤链表转化成红黑树，插入节点。</p>
+<p>⑥插入节点后计算当前size是否需要扩容，如果大于阀门值需要扩容resize。</p>
+<pre><code>/**
+ * Implements Map.put and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @param value the value to put
+ * @param onlyIfAbsent if true, don&#39;t change existing value
+ * @param evict if false, the table is in creation mode.
+ * @return previous value, or null if none
+ */
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) &amp; hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node&lt;K,V&gt; e; K k;
+        if (p.hash == hash &amp;&amp;
+            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+            e = p;
+        else if (p instanceof TreeNode)
+            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+        else {
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    if (++size &gt; threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
+
+        <h5 id="2-get获取过程"   >
+          <a href="#2-get获取过程" class="heading-link"><i class="fas fa-link"></i></a>2. get获取过程</h5>
+      <p>①计算桶的位置，根据key的hashcode求出hash值，位置index = hash%length。</p>
+<p>②无论是数值，链表还是红黑树，for循环判断hash值冲突就比对key是否相等，相等就返回对应的value。</p>
+<pre><code>/**
+ * Implements Map.get and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @return the node, or null if none
+ */
+final Node&lt;K,V&gt; getNode(int hash, Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (first = tab[(n - 1) &amp; hash]) != null) {
+        if (first.hash == hash &amp;&amp; // always check first node
+            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return first;
+        if ((e = first.next) != null) {
+            if (first instanceof TreeNode)
+                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    return e;
+            } while ((e = e.next) != null);
+        }
+    }
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
+
+        <h3 id="三-数据结构和算法思考"   >
+          <a href="#三-数据结构和算法思考" class="heading-link"><i class="fas fa-link"></i></a>三. 数据结构和算法思考</h3>
+      
+        <h5 id="1-为什么选择数组和链表结构？"   >
+          <a href="#1-为什么选择数组和链表结构？" class="heading-link"><i class="fas fa-link"></i></a>1.为什么选择数组和链表结构？</h5>
+      <p>①数组内存连续块分配，效率体现查询更快。HashMap中用作查找数组桶的位置，利用元素的key的hash值对数组长度取模得到。</p>
+<p>②链表效率体现增加和删除。HashMap中链表是用来解决hash冲突，增删空间消耗平衡。</p>
+<p><strong>扩展：</strong> 为什么不是ArrayList而是使用Node&lt;K,V&gt;[] tab？因为ArrayList的扩容机制是1.5倍扩容，而HashMap扩容是2的次幂。</p>
+
+        <h5 id="2-为什么扩容是2次幂，根据key的hashcode再求hash值？"   >
+          <a href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？" class="heading-link"><i class="fas fa-link"></i></a>2.为什么扩容是2次幂，根据key的hashcode再求hash值？</h5>
+      
+        <h5 id="①key的hash值计算"   >
+          <a href="#①key的hash值计算" class="heading-link"><i class="fas fa-link"></i></a>①key的hash值计算</h5>
+      <pre><code>static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+}
+</code></pre><p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
+
+        <h5 id="②计算桶的位置代码"   >
+          <a href="#②计算桶的位置代码" class="heading-link"><i class="fas fa-link"></i></a>②计算桶的位置代码</h5>
+      <pre><code>index = (n - 1) &amp; hash
+</code></pre><p><strong>思想：</strong></p>
+<p>一是，为了减少hash冲突使用hash%length计算，求模计算保证了得到的结果一定在0-length范围之内。</p>
+<p>二是，为了提高运算速度，模运算比不上位运算，当n是2的次幂才满足hash%length == （n-1）&amp;hash。</p>
+<p>确定公式中（n-1）符合最优等式，剩下考虑hash值的最优，hash值这个因子考虑影响结果尽可能不冲突。</p>
+<p>因为计算速度体现在位运算上，条件n是2的次幂，那么n-1的换算成二进制前边都是连续的0，后边都是连续的1,。比如n=16，则n-1=15，15的二进制1111。hash &amp; 1111 = 只要关注的hash的二进制的最后四位数进行&amp;运算。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3f39c141?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="（n-1）&amp; length.png"></p>
+<p>如上图，最终会与15的二进制进行1111四位运算，如果与key.hashcode进行与运算的话，只要key的hashcode最后四位为0000前边无论是什么都没关系，这样出现相同值的概率高很多。所以，引入hashcode先高低16位进行异或运算，减少hash冲突。</p>
+<p><strong>扩展：</strong> hashcode与equals相等判断对比： 两个key的hashcode相等，key不一定equals。 两个key的equals，hashcode一定相等。</p>
+
+        <h5 id="3-为什么加载因子为0-75，链表长度大于8转成红黑树？"   >
+          <a href="#3-为什么加载因子为0-75，链表长度大于8转成红黑树？" class="heading-link"><i class="fas fa-link"></i></a>3.为什么加载因子为0.75，链表长度大于8转成红黑树？</h5>
+      <p><strong>思想：</strong></p>
+<p>上边问题不是两个独立问题而是相互相关，<strong>目的尽量减少冲突前提提高空间利用率和减少查询成本的折中。</strong></p>
+<p>加载因子决定了HashMap的扩容的阀门值，如果桶是16，那么扩容值16* 0.75=12，也就是12的时候就要考虑扩容，还有4个没有被利用到，牺牲的空间。如果加载因子是1，空间利用率高，但是查询速度变慢。</p>
+<p><strong>原理：</strong></p>
+<p>权衡依据是以上情况符合泊松分布（一种统计与概率学里常见到的离散概率分布，适合于描述单位时间（或空间）内随机事件发生的次数），<strong>用0.75作为加载因子，每个碰撞位置的链表长度超过８个概率非常低，少于千万分之一。</strong></p>
+<p><strong>源码说明：</strong></p>
+<pre><code> * Because TreeNodes are about twice the size of regular nodes, we
+ * use them only when bins contain enough nodes to warrant use
+ * (see TREEIFY_THRESHOLD). And when they become too small (due to
+ * removal or resizing) they are converted back to plain bins.  In
+ * usages with well-distributed user hashCodes, tree bins are
+ * rarely used.  Ideally, under random hashCodes, the frequency of
+ * nodes in bins follows a Poisson distribution
+ * (http://en.wikipedia.org/wiki/Poisson_distribution) with a
+ * parameter of about 0.5 on average for the default resizing
+ * threshold of 0.75, although with a large variance because of
+ * resizing granularity. Ignoring variance, the expected
+ * occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
+ * factorial(k)). The first values are:
+ *
+ * 0:    0.60653066
+ * 1:    0.30326533
+ * 2:    0.07581633
+ * 3:    0.01263606
+ * 4:    0.00157952
+ * 5:    0.00015795
+ * 6:    0.00001316
+ * 7:    0.00000094
+ * 8:    0.00000006
+ * more: less than 1 in ten million 
+</code></pre><p><strong>扩展：</strong></p>
+<p>为什么不一开始选择红黑树？</p>
+<p>红黑树近乎于平衡二叉树，结构适合均匀分布节点，减少树的深度像链表长度情况。原因主要是插入效率上，红黑树增加节点很可能需要进行左旋，右旋，着色操作，这些时间效率并没有链表形式高。</p>
+
+        <h5 id="4-HashMap的key选择"   >
+          <a href="#4-HashMap的key选择" class="heading-link"><i class="fas fa-link"></i></a>4.HashMap的key选择</h5>
+      <p>1）选择不可变的对象，比如字符串或int类型。</p>
+<p>2）如果要用一个自定义实体类作为key：</p>
+<p>①类添加final修饰符，保证类不被继承。</p>
+<p>②保证所有成员变量必须私有，并且加上final修饰。</p>
+<p>③不提供改变成员变量的方法，包括setter。</p>
+<p>④通过构造器初始化所有成员，进行深拷贝(deep copy)。</p>
+
+        <h5 id="5-String类中的hashcode计算"   >
+          <a href="#5-String类中的hashcode计算" class="heading-link"><i class="fas fa-link"></i></a>5.String类中的hashcode计算</h5>
+      <pre><code>public int hashCode() {
+    int h = hash;
+    if (h == 0 &amp;&amp; value.length &gt; 0) {
+    char val[] = value;
+        for (int i = 0; i &lt; value.length; i++) {
+              h = 31 * h + val[i];
+          }
+          hash = h;
+      }
+      return h;
+}
+</code></pre><p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
+
+        <h3 id="四-横向扩展"   >
+          <a href="#四-横向扩展" class="heading-link"><i class="fas fa-link"></i></a>四. 横向扩展</h3>
+      
+        <h5 id="1-HashMap出现线程问题"   >
+          <a href="#1-HashMap出现线程问题" class="heading-link"><i class="fas fa-link"></i></a>1.HashMap出现线程问题</h5>
+      <p>①多线程扩容，引起的死循环问题（jdk1.8中，死循环问题已经解决）。</p>
+<p>②多线程put的时候可能导致元素丢失。</p>
+<p>③put非null元素后get出来的却是null。</p>
+
+        <h5 id="2-使用线程安全Map"   >
+          <a href="#2-使用线程安全Map" class="heading-link"><i class="fas fa-link"></i></a>2.使用线程安全Map</h5>
+      <p>①HashMap并不是线程安全，要实现线程安全可以用Collections.synchronizedMap(m)获取一个线程安全的HashMap。</p>
+<p>②CurrentHashMap和HashTable是线程安全的。CurrentHashMap使用分段锁技术，要操作节点先获取段锁，在修改节点。</p>
+
+        <h5 id="3-Android提倡使用ArrayMap"   >
+          <a href="#3-Android提倡使用ArrayMap" class="heading-link"><i class="fas fa-link"></i></a>3.Android提倡使用ArrayMap</h5>
+      <p>①ArrayMap数据结构是两个数组，一个存放hash值，另一个存放key和value。</p>
+<p>②根据key的hash值利用二分查找在hash数组中找出index。</p>
+<p>③根据index在key-value数组中对应位置查找，如果不相等认为冲突了，会以key为中心，分别上下展开，逐一查找。</p>
+<p>优势，数据量少时（少于1000）相比HashMap更节省内存。劣势，删除和插入时效率要比HashMap要低。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/12/hashmap/">https://jiyugithub.github.io/2020/06/12/hashmap/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/12/javafs/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Java反射真的很慢吗</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/Rxjava/"><span class="paginator-prev__text">Rxjava只看这一篇文章就够了</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-存储结构"><span class="toc-number">1.</span> <span class="toc-text">
+          一. 存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-操作原理"><span class="toc-number">2.</span> <span class="toc-text">
+          二. 操作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-put储存流程"><span class="toc-number">2.0.1.</span> <span class="toc-text">
+          1. put储存流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-get获取过程"><span class="toc-number">2.0.2.</span> <span class="toc-text">
+          2. get获取过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-数据结构和算法思考"><span class="toc-number">3.</span> <span class="toc-text">
+          三. 数据结构和算法思考</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-为什么选择数组和链表结构？"><span class="toc-number">3.0.1.</span> <span class="toc-text">
+          1.为什么选择数组和链表结构？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？"><span class="toc-number">3.0.2.</span> <span class="toc-text">
+          2.为什么扩容是2次幂，根据key的hashcode再求hash值？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#①key的hash值计算"><span class="toc-number">3.0.3.</span> <span class="toc-text">
+          ①key的hash值计算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#②计算桶的位置代码"><span class="toc-number">3.0.4.</span> <span class="toc-text">
+          ②计算桶的位置代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-为什么加载因子为0-75，链表长度大于8转成红黑树？"><span class="toc-number">3.0.5.</span> <span class="toc-text">
+          3.为什么加载因子为0.75，链表长度大于8转成红黑树？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-HashMap的key选择"><span class="toc-number">3.0.6.</span> <span class="toc-text">
+          4.HashMap的key选择</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-String类中的hashcode计算"><span class="toc-number">3.0.7.</span> <span class="toc-text">
+          5.String类中的hashcode计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-横向扩展"><span class="toc-number">4.</span> <span class="toc-text">
+          四. 横向扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-HashMap出现线程问题"><span class="toc-number">4.0.1.</span> <span class="toc-text">
+          1.HashMap出现线程问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-使用线程安全Map"><span class="toc-number">4.0.2.</span> <span class="toc-text">
+          2.使用线程安全Map</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Android提倡使用ArrayMap"><span class="toc-number">4.0.3.</span> <span class="toc-text">
+          3.Android提倡使用ArrayMap</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>
