@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="前言       最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="前言       最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov 译者：依然范特稀西">
 <meta property="og:type" content="article">
 <meta property="og:title" content="炫酷！从未见过如此Q弹的Switcher">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/switcher/index.html">
 <meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="前言       最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov">
+<meta property="og:description" content="前言       最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov 译者：依然范特稀西">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1f123a19?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c209a787a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c223d523d?imageslim">
 <meta property="article:published_time" content="2020-06-13T18:40:38.000Z">
-<meta property="article:modified_time" content="2020-06-13T18:52:57.208Z">
+<meta property="article:modified_time" content="2020-06-13T20:44:26.122Z">
 <meta property="article:author" content="Apocalypse">
 <meta property="article:tag" content="Tag1">
 <meta property="article:tag" content="Tag2">
@@ -45,6 +45,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <blockquote>
 <p>原作者：<span class="exturl"><a class="exturl__link"   href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------"  target="_blank" rel="noopener">Alexander Kolpakov</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 译者：<span class="exturl"><a class="exturl__link"   href="https://www.jianshu.com/u/35167a70aa39"  target="_blank" rel="noopener">依然范特稀西</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 地址：<span class="exturl"><a class="exturl__link"   href="http://suo.im/60UJjT"  target="_blank" rel="noopener">http://suo.im/60UJjT</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>
+<a id="more"></a>
+
 
         <h3 id="正文开始"   >
           <a href="#正文开始" class="heading-link"><i class="fas fa-link"></i></a>正文开始</h3>
@@ -53,48 +55,17 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <p><img   src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim" style=""  alt="swicher.gif">swicher.gif</p>
 <p>乍一看，实现这样的切换似乎并不简单，但我认为那是因为动画非常漂亮。如 你所见，创建相同的动画并不难。让我们一步一步地来实现它。</p>
 <p>第一步，我们需要自定义View,并且实现它的3个构造方法：</p>
-<pre><code>class Switcher @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet ? = null,
-        defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Switcher @JvmOverloads constructor(</span><br><span class="line">        context: Context,</span><br><span class="line">        attrs: AttributeSet ? &#x3D; null,</span><br><span class="line">        defStyleAttr: Int &#x3D; 0</span><br><span class="line">) : View(context, attrs, defStyleAttr) &#123;</span><br><span class="line">      </span><br><span class="line">    init &#123;</span><br><span class="line">        attrs?.let &#123; retrieveAttributes(attrs, defStyleAttr) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    private fun retrieveAttributes(attrs: AttributeSet, defStyleAttr: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; retrieve cutom attributes</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; setup switcher width and height</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; setup helper sizes every time switcher size changed (radius, icon width...)</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    override fun onDraw(canvas: Canvas ?) &#123;</span><br><span class="line">        &#x2F;&#x2F; just draw</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-    init {
-        attrs?.let { retrieveAttributes(attrs, defStyleAttr) }
-    }
 
-    private fun retrieveAttributes(attrs: AttributeSet, defStyleAttr: Int) {
-        // retrieve cutom attributes
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        // setup switcher width and height
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        // setup helper sizes every time switcher size changed (radius, icon width...)
-    }
-
-    override fun onDraw(canvas: Canvas ?) {
-        // just draw
-    }
-}
-</code></pre>
         <h3 id="接下来开始绘制"   >
           <a href="#接下来开始绘制" class="heading-link"><i class="fas fa-link"></i></a>接下来开始绘制</h3>
       <p>在默认（选中）状态下，我们的开关由2个圆角矩形（绿色和白色）组成</p>
 <p><img   src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1f123a19?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
 <p>绘制它们非常简单，我们只需要计算白色矩形的位置并将偏移量<code>iconTranslateX</code>传递给Android KTX <code>Canvas.withTranslation</code>扩展即可：</p>
-<pre><code>override fun onDraw(canvas: Canvas ?) {
-  // draw switcher (green rect)
-  canvas?.drawRoundRect(switcherRect, switcherCornerRadius, switcherCornerRadius, switcherPaint)
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">override fun onDraw(canvas: Canvas ?) &#123;</span><br><span class="line">  &#x2F;&#x2F; draw switcher (green rect)</span><br><span class="line">  canvas?.drawRoundRect(switcherRect, switcherCornerRadius, switcherCornerRadius, switcherPaint)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; draw icon (white rect)</span><br><span class="line">  canvas?.withTranslation(x &#x3D; iconTranslateX) &#123;</span><br><span class="line">      drawRoundRect(iconRect, switcherCornerRadius, switcherCornerRadius, iconPaint)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-  // draw icon (white rect)
-  canvas?.withTranslation(x = iconTranslateX) {
-      drawRoundRect(iconRect, switcherCornerRadius, switcherCornerRadius, iconPaint)
-  }
-}
-</code></pre>
+
         <h3 id="开始分解动画"   >
           <a href="#开始分解动画" class="heading-link"><i class="fas fa-link"></i></a>开始分解动画</h3>
       <p>动画部分，我们使用<code>ValueAnimator</code>来实现，使用它的<code>ofFloat(float... values)</code>方法,我们需要三个动画：</p>
@@ -104,40 +75,13 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <li>3、<code>colorAnimator</code>: 将颜色从绿色（选中）更改为红色，反之亦然。</li>
 </ul>
 <p>让我们先看一下<code>switcherAnimator</code>动画，设置<code>0</code>为动画的开始值，<code>1</code>为动画的结束值。</p>
-<pre><code>// ...
-var amplitude = BOUNCE_ANIM_AMPLITUDE_IN
-var frequency = BOUNCE_ANIM_FREQUENCY_IN
-var newProgress = 1f
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">var amplitude &#x3D; BOUNCE_ANIM_AMPLITUDE_IN</span><br><span class="line">var frequency &#x3D; BOUNCE_ANIM_FREQUENCY_IN</span><br><span class="line">var newProgress &#x3D; 1f</span><br><span class="line"></span><br><span class="line">if (!checked) &#123;</span><br><span class="line">    amplitude &#x3D; BOUNCE_ANIM_AMPLITUDE_OUT</span><br><span class="line">    frequency &#x3D; BOUNCE_ANIM_FREQUENCY_OUT</span><br><span class="line">    newProgress &#x3D; 0f</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val switcherAnimator &#x3D; ValueAnimator.ofFloat(iconProgress, newProgress).apply &#123;</span><br><span class="line">    addUpdateListener &#123;</span><br><span class="line">        iconProgress &#x3D; it.animatedValue as Float</span><br><span class="line">    &#125;</span><br><span class="line">    interpolator &#x3D; BounceInterpolator(amplitude, frequency)</span><br><span class="line">    duration &#x3D; SWITCHER_ANIMATION_DURATION</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></div></figure>
 
-if (!checked) {
-    amplitude = BOUNCE_ANIM_AMPLITUDE_OUT
-    frequency = BOUNCE_ANIM_FREQUENCY_OUT
-    newProgress = 0f
-}
-
-val switcherAnimator = ValueAnimator.ofFloat(iconProgress, newProgress).apply {
-    addUpdateListener {
-        iconProgress = it.animatedValue as Float
-    }
-    interpolator = BounceInterpolator(amplitude, frequency)
-    duration = SWITCHER_ANIMATION_DURATION
-}
-// ...
-</code></pre><p>我们可以使用 <span class="exturl"><a class="exturl__link"   href="https://github.com/evgenyneu"  target="_blank" rel="noopener">Evgenii Neumerzhitckii</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<span class="exturl"><a class="exturl__link"   href="https://evgenii.com/blog/spring-button-animation-on-android/"  target="_blank" rel="noopener">evgenii.com/blog/spring…</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
+<p>我们可以使用 <span class="exturl"><a class="exturl__link"   href="https://github.com/evgenyneu"  target="_blank" rel="noopener">Evgenii Neumerzhitckii</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<span class="exturl"><a class="exturl__link"   href="https://evgenii.com/blog/spring-button-animation-on-android/"  target="_blank" rel="noopener">evgenii.com/blog/spring…</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
 <p>在Android KTX <code>addUpdateListener</code>扩展中，我们更新了<code>progress</code>的值，然后触发<code>invalidate</code>方法，最后重新绘制了视图。</p>
-<pre><code>private var iconProgress = 0f
-  set(value) {
-      if (field != value) {
-          field = value
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private var iconProgress &#x3D; 0f</span><br><span class="line">  set(value) &#123;</span><br><span class="line">      if (field !&#x3D; value) &#123;</span><br><span class="line">          field &#x3D; value</span><br><span class="line">        </span><br><span class="line">          val iconOffset &#x3D; lerp(0f, iconRadius - iconCollapsedWidth &#x2F; 2, value)</span><br><span class="line">          iconRect.left &#x3D; width - switcherCornerRadius - iconCollapsedWidth &#x2F; 2 - iconOffset</span><br><span class="line">          iconRect.right &#x3D; width - switcherCornerRadius + iconCollapsedWidth &#x2F; 2 + iconOffset</span><br><span class="line"></span><br><span class="line">          postInvalidateOnAnimation()</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></div></figure>
 
-          val iconOffset = lerp(0f, iconRadius - iconCollapsedWidth / 2, value)
-          iconRect.left = width - switcherCornerRadius - iconCollapsedWidth / 2 - iconOffset
-          iconRect.right = width - switcherCornerRadius + iconCollapsedWidth / 2 + iconOffset
-
-          postInvalidateOnAnimation()
-      }
-  }
-</code></pre><p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
+<p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
 <blockquote>
 <p>我们使用了<code>postInvalidateOnAnimation()</code>代替<code>postIvalidate</code>,是因为我们需要平滑的动画，并且第一个方法有优势，详情请看：<span class="exturl"><a class="exturl__link"   href="https://stackoverflow.com/questions/29219372/postinvalidateonanimation-vs-postinvalidate/42648958#42648958"  target="_blank" rel="noopener">stackoverflow.com/questions/2…</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 </blockquote>

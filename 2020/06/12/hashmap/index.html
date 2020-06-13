@@ -1,15 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。                     一. 存储结构       1.JDK1.8之前 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)） 2.JDK1.8之后 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)  关于">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap原理技术知识整理">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/hashmap/index.html">
 <meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。                     一. 存储结构       1.JDK1.8之前 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)） 2.JDK1.8之后 HashMap &#x3D; 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)  关于">
+<meta property="og:description" content="HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3de6cbaf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f815af3f39c141?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="article:published_time" content="2020-06-11T21:47:26.000Z">
-<meta property="article:modified_time" content="2020-06-11T22:33:57.934Z">
+<meta property="article:modified_time" content="2020-06-13T20:40:50.411Z">
 <meta property="article:author" content="Apocalypse">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>HashMap原理技术知识整理 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/12/hashmap/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
@@ -35,8 +35,10 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">HashMap原理技术知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/hashmap/" data-flag-title="HashMap原理技术知识整理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p><img   src="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">HashMap原理技术知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/hashmap/" data-flag-title="HashMap原理技术知识整理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p><img   src="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
 <p>HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。</p>
+<a id="more"></a>
+
 
         <h3 id="一-存储结构"   >
           <a href="#一-存储结构" class="heading-link"><i class="fas fa-link"></i></a>一. 存储结构</h3>
@@ -61,91 +63,17 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <p>④判断是链表还是红黑树，链表是否到达转化红黑树，当前链表节点数&lt;=8，插入节点；如果是红黑树插入节点，否则下一步。</p>
 <p>⑤链表转化成红黑树，插入节点。</p>
 <p>⑥插入节点后计算当前size是否需要扩容，如果大于阀门值需要扩容resize。</p>
-<pre><code>/**
- * Implements Map.put and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @param value the value to put
- * @param onlyIfAbsent if true, don&#39;t change existing value
- * @param evict if false, the table is in creation mode.
- * @return previous value, or null if none
- */
-final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
-               boolean evict) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
-    if ((tab = table) == null || (n = tab.length) == 0)
-        n = (tab = resize()).length;
-    if ((p = tab[i = (n - 1) &amp; hash]) == null)
-        tab[i] = newNode(hash, key, value, null);
-    else {
-        Node&lt;K,V&gt; e; K k;
-        if (p.hash == hash &amp;&amp;
-            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
-            e = p;
-        else if (p instanceof TreeNode)
-            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
-        else {
-            for (int binCount = 0; ; ++binCount) {
-                if ((e = p.next) == null) {
-                    p.next = newNode(hash, key, value, null);
-                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
-                        treeifyBin(tab, hash);
-                    break;
-                }
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    break;
-                p = e;
-            }
-        }
-        if (e != null) { // existing mapping for key
-            V oldValue = e.value;
-            if (!onlyIfAbsent || oldValue == null)
-                e.value = value;
-            afterNodeAccess(e);
-            return oldValue;
-        }
-    }
-    ++modCount;
-    if (++size &gt; threshold)
-        resize();
-    afterNodeInsertion(evict);
-    return null;
-}
-</code></pre><p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Implements Map.put and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @param value the value to put</span><br><span class="line"> * @param onlyIfAbsent if true, don&#39;t change existing value</span><br><span class="line"> * @param evict if false, the table is in creation mode.</span><br><span class="line"> * @return previous value, or null if none</span><br><span class="line"> *&#x2F;</span><br><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">               boolean evict) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</span><br><span class="line">    if ((tab &#x3D; table) &#x3D;&#x3D; null || (n &#x3D; tab.length) &#x3D;&#x3D; 0)</span><br><span class="line">        n &#x3D; (tab &#x3D; resize()).length;</span><br><span class="line">    if ((p &#x3D; tab[i &#x3D; (n - 1) &amp; hash]) &#x3D;&#x3D; null)</span><br><span class="line">        tab[i] &#x3D; newNode(hash, key, value, null);</span><br><span class="line">    else &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        if (p.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">            ((k &#x3D; p.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">            e &#x3D; p;</span><br><span class="line">        else if (p instanceof TreeNode)</span><br><span class="line">            e &#x3D; ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">        else &#123;</span><br><span class="line">            for (int binCount &#x3D; 0; ; ++binCount) &#123;</span><br><span class="line">                if ((e &#x3D; p.next) &#x3D;&#x3D; null) &#123;</span><br><span class="line">                    p.next &#x3D; newNode(hash, key, value, null);</span><br><span class="line">                    if (binCount &gt;&#x3D; TREEIFY_THRESHOLD - 1) &#x2F;&#x2F; -1 for 1st</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (e.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">                    ((k &#x3D; e.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">                    break;</span><br><span class="line">                p &#x3D; e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (e !&#x3D; null) &#123; &#x2F;&#x2F; existing mapping for key</span><br><span class="line">            V oldValue &#x3D; e.value;</span><br><span class="line">            if (!onlyIfAbsent || oldValue &#x3D;&#x3D; null)</span><br><span class="line">                e.value &#x3D; value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    if (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
 
         <h5 id="2-get获取过程"   >
           <a href="#2-get获取过程" class="heading-link"><i class="fas fa-link"></i></a>2. get获取过程</h5>
       <p>①计算桶的位置，根据key的hashcode求出hash值，位置index = hash%length。</p>
 <p>②无论是数值，链表还是红黑树，for循环判断hash值冲突就比对key是否相等，相等就返回对应的value。</p>
-<pre><code>/**
- * Implements Map.get and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @return the node, or null if none
- */
-final Node&lt;K,V&gt; getNode(int hash, Object key) {
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
-    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
-        (first = tab[(n - 1) &amp; hash]) != null) {
-        if (first.hash == hash &amp;&amp; // always check first node
-            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
-            return first;
-        if ((e = first.next) != null) {
-            if (first instanceof TreeNode)
-                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
-            do {
-                if (e.hash == hash &amp;&amp;
-                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
-                    return e;
-            } while ((e = e.next) != null);
-        }
-    }
-    return null;
-}
-</code></pre><p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Implements Map.get and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @return the node, or null if none</span><br><span class="line"> *&#x2F;</span><br><span class="line">final Node&lt;K,V&gt; getNode(int hash, Object key) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;</span><br><span class="line">    if ((tab &#x3D; table) !&#x3D; null &amp;&amp; (n &#x3D; tab.length) &gt; 0 &amp;&amp;</span><br><span class="line">        (first &#x3D; tab[(n - 1) &amp; hash]) !&#x3D; null) &#123;</span><br><span class="line">        if (first.hash &#x3D;&#x3D; hash &amp;&amp; &#x2F;&#x2F; always check first node</span><br><span class="line">            ((k &#x3D; first.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">            return first;</span><br><span class="line">        if ((e &#x3D; first.next) !&#x3D; null) &#123;</span><br><span class="line">            if (first instanceof TreeNode)</span><br><span class="line">                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">            do &#123;</span><br><span class="line">                if (e.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">                    ((k &#x3D; e.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">                    return e;</span><br><span class="line">            &#125; while ((e &#x3D; e.next) !&#x3D; null);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
 
         <h3 id="三-数据结构和算法思考"   >
           <a href="#三-数据结构和算法思考" class="heading-link"><i class="fas fa-link"></i></a>三. 数据结构和算法思考</h3>
@@ -161,16 +89,15 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
       
         <h5 id="①key的hash值计算"   >
           <a href="#①key的hash值计算" class="heading-link"><i class="fas fa-link"></i></a>①key的hash值计算</h5>
-      <pre><code>static final int hash(Object key) {
-    int h;
-    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
-}
-</code></pre><p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key &#x3D;&#x3D; null) ? 0 : (h &#x3D; key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
 
         <h5 id="②计算桶的位置代码"   >
           <a href="#②计算桶的位置代码" class="heading-link"><i class="fas fa-link"></i></a>②计算桶的位置代码</h5>
-      <pre><code>index = (n - 1) &amp; hash
-</code></pre><p><strong>思想：</strong></p>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index &#x3D; (n - 1) &amp; hash</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>思想：</strong></p>
 <p>一是，为了减少hash冲突使用hash%length计算，求模计算保证了得到的结果一定在0-length范围之内。</p>
 <p>二是，为了提高运算速度，模运算比不上位运算，当n是2的次幂才满足hash%length == （n-1）&amp;hash。</p>
 <p>确定公式中（n-1）符合最优等式，剩下考虑hash值的最优，hash值这个因子考虑影响结果尽可能不冲突。</p>
@@ -187,31 +114,9 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
 <p><strong>原理：</strong></p>
 <p>权衡依据是以上情况符合泊松分布（一种统计与概率学里常见到的离散概率分布，适合于描述单位时间（或空间）内随机事件发生的次数），<strong>用0.75作为加载因子，每个碰撞位置的链表长度超过８个概率非常低，少于千万分之一。</strong></p>
 <p><strong>源码说明：</strong></p>
-<pre><code> * Because TreeNodes are about twice the size of regular nodes, we
- * use them only when bins contain enough nodes to warrant use
- * (see TREEIFY_THRESHOLD). And when they become too small (due to
- * removal or resizing) they are converted back to plain bins.  In
- * usages with well-distributed user hashCodes, tree bins are
- * rarely used.  Ideally, under random hashCodes, the frequency of
- * nodes in bins follows a Poisson distribution
- * (http://en.wikipedia.org/wiki/Poisson_distribution) with a
- * parameter of about 0.5 on average for the default resizing
- * threshold of 0.75, although with a large variance because of
- * resizing granularity. Ignoring variance, the expected
- * occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
- * factorial(k)). The first values are:
- *
- * 0:    0.60653066
- * 1:    0.30326533
- * 2:    0.07581633
- * 3:    0.01263606
- * 4:    0.00157952
- * 5:    0.00015795
- * 6:    0.00001316
- * 7:    0.00000094
- * 8:    0.00000006
- * more: less than 1 in ten million 
-</code></pre><p><strong>扩展：</strong></p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">* Because TreeNodes are about twice the size of regular nodes, we</span><br><span class="line">* use them only when bins contain enough nodes to warrant use</span><br><span class="line">* (see TREEIFY_THRESHOLD). And when they become too small (due to</span><br><span class="line">* removal or resizing) they are converted back to plain bins.  In</span><br><span class="line">* usages with well-distributed user hashCodes, tree bins are</span><br><span class="line">* rarely used.  Ideally, under random hashCodes, the frequency of</span><br><span class="line">* nodes in bins follows a Poisson distribution</span><br><span class="line">* (http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Poisson_distribution) with a</span><br><span class="line">* parameter of about 0.5 on average for the default resizing</span><br><span class="line">* threshold of 0.75, although with a large variance because of</span><br><span class="line">* resizing granularity. Ignoring variance, the expected</span><br><span class="line">* occurrences of list size k are (exp(-0.5) * pow(0.5, k) &#x2F;</span><br><span class="line">* factorial(k)). The first values are:</span><br><span class="line">*</span><br><span class="line">* 0:    0.60653066</span><br><span class="line">* 1:    0.30326533</span><br><span class="line">* 2:    0.07581633</span><br><span class="line">* 3:    0.01263606</span><br><span class="line">* 4:    0.00157952</span><br><span class="line">* 5:    0.00015795</span><br><span class="line">* 6:    0.00001316</span><br><span class="line">* 7:    0.00000094</span><br><span class="line">* 8:    0.00000006</span><br><span class="line">* more: less than 1 in ten million</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>扩展：</strong></p>
 <p>为什么不一开始选择红黑树？</p>
 <p>红黑树近乎于平衡二叉树，结构适合均匀分布节点，减少树的深度像链表长度情况。原因主要是插入效率上，红黑树增加节点很可能需要进行左旋，右旋，着色操作，这些时间效率并没有链表形式高。</p>
 
@@ -226,18 +131,9 @@ final Node&lt;K,V&gt; getNode(int hash, Object key) {
 
         <h5 id="5-String类中的hashcode计算"   >
           <a href="#5-String类中的hashcode计算" class="heading-link"><i class="fas fa-link"></i></a>5.String类中的hashcode计算</h5>
-      <pre><code>public int hashCode() {
-    int h = hash;
-    if (h == 0 &amp;&amp; value.length &gt; 0) {
-    char val[] = value;
-        for (int i = 0; i &lt; value.length; i++) {
-              h = 31 * h + val[i];
-          }
-          hash = h;
-      }
-      return h;
-}
-</code></pre><p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int hashCode() &#123;</span><br><span class="line">    int h &#x3D; hash;</span><br><span class="line">    if (h &#x3D;&#x3D; 0 &amp;&amp; value.length &gt; 0) &#123;</span><br><span class="line">    char val[] &#x3D; value;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; value.length; i++) &#123;</span><br><span class="line">              h &#x3D; 31 * h + val[i];</span><br><span class="line">          &#125;</span><br><span class="line">          hash &#x3D; h;</span><br><span class="line">      &#125;</span><br><span class="line">      return h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
 
         <h3 id="四-横向扩展"   >
           <a href="#四-横向扩展" class="heading-link"><i class="fas fa-link"></i></a>四. 横向扩展</h3>
