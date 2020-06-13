@@ -1,45 +1,197 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="暗黑模式       在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析">
-<meta property="og:type" content="article">
-<meta property="og:title" content="暗黑模式适配">
-<meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/DayNight/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="暗黑模式       在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487a61d7b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487e14870?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48cca9fad?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48e65b69c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4abaea406?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4ae8d9bc0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="article:published_time" content="2020-06-13T17:32:15.000Z">
-<meta property="article:modified_time" content="2020-06-13T20:39:26.738Z">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>暗黑模式适配 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/14/DayNight/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
-  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
-  postWidget: {"endText":true},
-  nightMode: {"enable":true},
-  back2top: {"enable":true},
-  codeblock: {"style":"default","highlight":"light","wordWrap":false},
-  reward: false,
-  fancybox: false,
-  zoomImage: {"gapAside":"20px"},
-  galleryWaterfall: undefined,
-  lazyload: false,
-  pjax: undefined,
-  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
-  shortcuts: undefined,
-  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
-  sourcePath: {"js":"js","css":"css","images":"images"},
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">暗黑模式适配</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/DayNight/" data-flag-title="暗黑模式适配"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+    <meta name="author" content="Apocalypse">
+
+
+
+
+
+<title>暗黑模式适配 | Apocalypse&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">暗黑模式适配</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 14, 2020&nbsp;&nbsp;1:32:15</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            
         <h1 id="暗黑模式"   >
           <a href="#暗黑模式" class="heading-link"><i class="fas fa-link"></i></a>暗黑模式</h1>
       <p>在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：</p>
@@ -202,51 +354,71 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
         <h1 id="总结"   >
           <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
       <p>使用 DayNight 主题可以实现暗黑模式的适配，但这种方法在实际项目中可操作性不高。 Android 10 新增的暗黑模式特性叫 Force Dark 强制暗黑，只需给主题添加一个允许开启的配置即可。 Force Dark 的实现方式是降低背景亮度，提高字体亮度，本质是对色值进行亮度取反。 最后，在 Android 10 的设备上，可以开启开发者选项中的「强制启用 SmartDark」，提前用 Force Dark 适配。</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/14/DayNight/">https://jiyugithub.github.io/2020/06/14/DayNight/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/14/FragmentTransaction/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Androidx 下 Fragment 懒加载的新实现</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/0_kotlin/"><span class="paginator-prev__text">使用Kotlin从零开始写一个现代Android</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#暗黑模式"><span class="toc-number">1.</span> <span class="toc-text">
-          暗黑模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态开启"><span class="toc-number">2.</span> <span class="toc-text">
-          动态开启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NightMode"><span class="toc-number">2.1.</span> <span class="toc-text">
-          NightMode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DayNight"><span class="toc-number">3.</span> <span class="toc-text">
-          DayNight</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-主题适配"><span class="toc-number">3.1.</span> <span class="toc-text">
-          DayNight 主题适配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬编码"><span class="toc-number">3.2.</span> <span class="toc-text">
-          硬编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#value-night"><span class="toc-number">3.3.</span> <span class="toc-text">
-          value-night</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-弊端"><span class="toc-number">3.4.</span> <span class="toc-text">
-          DayNight 弊端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark"><span class="toc-number">4.</span> <span class="toc-text">
-          Force Dark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#forceDarkAllowed"><span class="toc-number">4.1.</span> <span class="toc-text">
-          forceDarkAllowed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Force-Dark-自定义适配"><span class="toc-number">4.2.</span> <span class="toc-text">
-          Force Dark 自定义适配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark-源码解析"><span class="toc-number">5.</span> <span class="toc-text">
-          Force Dark 源码解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#updateForceDarkMode"><span class="toc-number">5.1.</span> <span class="toc-text">
-          updateForceDarkMode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handleForceDark"><span class="toc-number">5.2.</span> <span class="toc-text">
-          handleForceDark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transformColor"><span class="toc-number">5.3.</span> <span class="toc-text">
-          transformColor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#适配流程建议"><span class="toc-number">6.</span> <span class="toc-text">
-          适配流程建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Debug-Force-Dark"><span class="toc-number">6.1.</span> <span class="toc-text">
-          Debug Force Dark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配流程"><span class="toc-number">6.2.</span> <span class="toc-text">
-          适配流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">
-          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#valine-container',
-    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
-    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
-    notify: true,
-    verify: true,
-    placeholder: 'Just go go',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: '' || 'zh-cn',
-    path: window.location.pathname
-  });
-}
+        </div>
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Apocalypse</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://jiyugithub.github.io/2020/06/14/DayNight/">https://jiyugithub.github.io/2020/06/14/DayNight/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/06/14/FragmentTransaction/">Androidx 下 Fragment 懒加载的新实现</a>
+            
+            
+            <a class="next" rel="next" href="/2020/06/12/0_kotlin/">使用Kotlin从零开始写一个现代Android</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

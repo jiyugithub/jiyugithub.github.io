@@ -1,89 +1,169 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta property="og:type" content="website">
-<meta property="og:title" content="Apocalypse&#39;s Blog">
-<meta property="og:url" content="https://jiyugithub.github.io/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
-  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
-  postWidget: {"endText":true},
-  nightMode: {"enable":true},
-  back2top: {"enable":true},
-  codeblock: {"style":"default","highlight":"light","wordWrap":false},
-  reward: false,
-  fancybox: false,
-  zoomImage: {"gapAside":"20px"},
-  galleryWaterfall: undefined,
-  lazyload: false,
-  pjax: undefined,
-  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
-  shortcuts: undefined,
-  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
-  sourcePath: {"js":"js","css":"css","images":"images"},
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/KotlinJava/">Kotlin与Java的异同</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/KotlinJava/" data-flag-title="Kotlin与Java的异同"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h3 id="打印日志"   >
-          <a href="#打印日志" class="heading-link"><i class="fas fa-link"></i></a>打印日志</h3>
-      <blockquote>
-<p>Java</p>
-</blockquote>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.print(&quot;hello world&quot;);</span><br><span class="line">System.out.println(&quot;hello world&quot;);</span><br></pre></td></tr></table></div></figure>
+    <meta name="author" content="Apocalypse">
 
-<blockquote>
-<p>Kotlin</p>
-</blockquote>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello world&quot;)</span><br><span class="line">println(&quot;hello world&quot;)</span><br></pre></td></tr></table></div></figure></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/KotlinJava/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/switcher/">炫酷！从未见过如此Q弹的Switcher</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/switcher/" data-flag-title="炫酷！从未见过如此Q弹的Switcher"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h3 id="前言"   >
-          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h3>
-      <p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
-<blockquote>
-<p>原作者：<span class="exturl"><a class="exturl__link"   href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------"  target="_blank" rel="noopener">Alexander Kolpakov</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 译者：<span class="exturl"><a class="exturl__link"   href="https://www.jianshu.com/u/35167a70aa39"  target="_blank" rel="noopener">依然范特稀西</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 地址：<span class="exturl"><a class="exturl__link"   href="http://suo.im/60UJjT"  target="_blank" rel="noopener">http://suo.im/60UJjT</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</blockquote></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/switcher/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/Kotlinyf/">Kotlin实战 | 语法糖</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/Kotlinyf/" data-flag-title="Kotlin实战 | 语法糖"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/Kotlinyf/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/Top10/">2020年GitHub 上那些优秀Android开源库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/Top10/" data-flag-title="2020年GitHub 上那些优秀Android开源库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>2020年有哪些优秀的开源库呢？本期就为大家带精选的10个，排名不分先后。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/Top10/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/FragmentTransaction/">Androidx 下 Fragment 懒加载的新实现</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/FragmentTransaction/" data-flag-title="Androidx 下 Fragment 懒加载的新实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>以前处理 Fragment 的懒加载，我们通常会在 Fragment 中处理 <code>setUserVisibleHint + onHiddenChanged</code> 这两个函数，而在 Androidx 模式下，我们可以使用 <code>FragmentTransaction.setMaxLifecycle()</code> 的方式来处理 Fragment 的懒加载。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/FragmentTransaction/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/14/DayNight/">暗黑模式适配</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/DayNight/" data-flag-title="暗黑模式适配"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h1 id="暗黑模式"   >
-          <a href="#暗黑模式" class="heading-link"><i class="fas fa-link"></i></a>暗黑模式</h1>
-      <p>在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：</p>
-<ul>
-<li>动态开启暗黑模式</li>
-<li>使用 DayNight 适配暗黑模式</li>
-<li>使用 Force Dark 适配暗黑模式</li>
-<li>Force Dark 系统源码解析</li>
-<li>适配流程建议</li>
-</ul>
-<p>相信本文会让你对暗黑模式有一个更全面的了解。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/14/DayNight/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/12/0_kotlin/">使用Kotlin从零开始写一个现代Android</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/0_kotlin/" data-flag-title="使用Kotlin从零开始写一个现代Android"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h3 id="前言"   >
-          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h3>
-      <p>经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/12/0_kotlin/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/12/android11/">Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/android11/" data-flag-title="Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="Android-11-Beta-版现已发布"   >
-          <a href="#Android-11-Beta-版现已发布" class="heading-link"><i class="fas fa-link"></i></a>Android 11 Beta 版现已发布</h2>
-      <p>自二月以来，大家通过 Android 11 开发者预览版为我们提供了众多反馈。今天发布的 Android 11 第一个 Beta 版聚焦于三个主题: <strong>以人为本</strong>、<strong>灵活控制</strong>以及<strong>隐私安全</strong>。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/12/android11/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/12/vue_js/">10+个很酷的Vue.js组件，模板和demo示例</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/vue_js/" data-flag-title="10+个很酷的Vue.js组件，模板和demo示例"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>众所周知，<strong>Vue.js</strong> 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/12/vue_js/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/06/12/typescript/">TypeScript泛型及应用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/typescript/" data-flag-title="TypeScript泛型及应用"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>觉得 TypeScript 泛型有点难，想系统学习 TypeScript 泛型相关知识的小伙伴们看过来，<strong>本文从八个方面入手，全方位带你一步步学习 TypeScript 中泛型</strong>，详细的内容大纲请看下图：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/6/10/1729b3d970e872ef?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="master-ts-generic"></p>
-<p><strong>动静（图）结合</strong>，在泛型学习之路助你一臂之力，还在犹豫什么，赶紧开启 TypeScript 泛型的学习之旅吧！</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/06/12/typescript/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#valine-container',
-    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
-    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
-    notify: true,
-    verify: true,
-    placeholder: 'Just go go',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: '' || 'zh-cn',
-    path: window.location.pathname
-  });
-}
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>
+
+
+<title>Apocalypse&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            
+    <div class="container">
+    <div class="intro">
+        <div class="avatar">
+            <a href="/archives"><img src="http://q1.qlogo.cn/g?b=qq&nk=2391624941&s=640"></a>
+        </div>
+        <div class="nickname">Apocalypse</div>
+        <div class="description"><p>Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> <br>People also have words and are uncertain.</p>
+</div>
+        <div class="links">
+            
+                
+                    <a class="link-item" title="Blog" href="/archives">
+                        
+                        
+                            <i class="iconfont icon-blog"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Instagram" href="">
+                        
+                        
+                            <i class="iconfont icon-instagram"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Reddit" href="">
+                        
+                        
+                            <i class="iconfont icon-reddit"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="QQ" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2391624941&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">
+                        
+                        
+                            <i class="iconfont icon-qq"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Github" href="https://github.com/jiyugithub" target="_blank" rel="noopener">
+                        
+                        
+                            <i class="iconfont icon-github"></i>
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
