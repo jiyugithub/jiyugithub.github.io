@@ -98,13 +98,13 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>Words count</i>
-                    37k
+                    14k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                    33 mins.
+                    13 mins.
                 </span>
                 
                 
@@ -138,101 +138,364 @@
         <div class="content markdown animated fadeIn">
             <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
 <h2 id="将-px-值转换成-dp-值"><a href="#将-px-值转换成-dp-值" class="headerlink" title="将 px 值转换成 dp 值"></a>将 px 值转换成 dp 值</h2><p>在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在<code>Util</code>类中新增一个静态函数。利用 Kotlin 的扩展属性可以更简洁地实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val Int.dp: Int</span><br><span class="line">    get() &#123;</span><br><span class="line">        return TypedValue.applyDimension(</span><br><span class="line">            TypedValue.COMPLEX_UNIT_DIP,</span><br><span class="line">            this.toFloat(),</span><br><span class="line">            Resources.getSystem().displayMetrics</span><br><span class="line">        ).toInt()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>为 Int 扩展一个属性<code>dp</code>，它的类型是 Int。在<code>get()</code>中定义该属性的取值算法。</p>
+<pre><code>val Int.dp: Int
+    get() {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            Resources.getSystem().displayMetrics
+        ).toInt()
+    }
+</code></pre><p>为 Int 扩展一个属性<code>dp</code>，它的类型是 Int。在<code>get()</code>中定义该属性的取值算法。</p>
 <p>然后就可以像这样动态地将 Int 值 dp 化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewGroup.addView( textView, LayoutParam( 40.dp, 50.dp ) )</span><br></pre></td></tr></table></figure>
-
-<h2 id="弃用Builder模式"><a href="#弃用Builder模式" class="headerlink" title="弃用Builder模式"></a>弃用Builder模式</h2><p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
+<pre><code>viewGroup.addView( textView, LayoutParam( 40.dp, 50.dp ) )
+</code></pre><h2 id="弃用Builder模式"><a href="#弃用Builder模式" class="headerlink" title="弃用Builder模式"></a>弃用Builder模式</h2><p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
 <p>在 Java 中 Builder模式 代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;必选参数&#39;</span><br><span class="line">    private String name;</span><br><span class="line">    &#x2F;&#x2F;&#39;以下都是可选参数&#39;</span><br><span class="line">    private int gender;</span><br><span class="line">    private int age;</span><br><span class="line">    private int height;</span><br><span class="line">    private int weight;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;私有构造函数，限制必须通过构造者构建对象&#39;</span><br><span class="line">    private Person(Builder builder) &#123;</span><br><span class="line">        this.name &#x3D; builder.name;</span><br><span class="line">        this.gender &#x3D; builder.gender;</span><br><span class="line">        this.age &#x3D; builder.age;</span><br><span class="line">        this.height &#x3D; builder.height;</span><br><span class="line">        this.weight &#x3D; builder.weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;构造者&#39;</span><br><span class="line">    public static class Builder &#123;</span><br><span class="line">        private String name;</span><br><span class="line">        private int gender;</span><br><span class="line">        private int age;</span><br><span class="line">        private int height;</span><br><span class="line">        private int weight;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;必选参数必须在构造函数中传入&#39;</span><br><span class="line">        public Builder(String name) &#123;</span><br><span class="line">            this.name &#x3D; name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用&#39;</span><br><span class="line">        public Builder age(int age) &#123;</span><br><span class="line">            this.age &#x3D; age;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder gender(int gender) &#123;</span><br><span class="line">            this.gender &#x3D; gender;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder height(int height) &#123;</span><br><span class="line">            this.height &#x3D; height;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder weight(int weight) &#123;</span><br><span class="line">            this.weight &#x3D; weight;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;构建对象&#39;</span><br><span class="line">        public Person build() &#123;</span><br><span class="line">            return new Person(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>public class Person {
+    //&#39;必选参数&#39;
+    private String name;
+    //&#39;以下都是可选参数&#39;
+    private int gender;
+    private int age;
+    private int height;
+    private int weight;
 
-<p>然后就可以像这样构建<code>Person</code>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;使用 Builder模式&#39;</span><br><span class="line">Person p &#x3D; new Person.Builder(&quot;taylor&quot;)</span><br><span class="line">            .age(50)</span><br><span class="line">            .gender(1)</span><br><span class="line">            .weight(43)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用构造函数&#39;</span><br><span class="line">Person p2 &#x3D; new Person(&quot;taylor&quot;, 50, 1, 0, 43);</span><br></pre></td></tr></table></figure>
+    //&#39;私有构造函数，限制必须通过构造者构建对象&#39;
+    private Person(Builder builder) {
+        this.name = builder.name;
+        this.gender = builder.gender;
+        this.age = builder.age;
+        this.height = builder.height;
+        this.weight = builder.weight;
+    }
 
-<p>对比之下，Builder模式 有两个优势：</p>
+    //&#39;构造者&#39;
+    public static class Builder {
+        private String name;
+        private int gender;
+        private int age;
+        private int height;
+        private int weight;
+
+        //&#39;必选参数必须在构造函数中传入&#39;
+        public Builder(String name) {
+            this.name = name;
+        }
+
+        //&#39;以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用&#39;
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder gender(int gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Builder weight(int weight) {
+            this.weight = weight;
+            return this;
+        }
+
+        //&#39;构建对象&#39;
+        public Person build() {
+            return new Person(this);
+        }
+    }
+
+</code></pre><p>然后就可以像这样构建<code>Person</code>实例：</p>
+<pre><code>//&#39;使用 Builder模式&#39;
+Person p = new Person.Builder(&quot;taylor&quot;)
+            .age(50)
+            .gender(1)
+            .weight(43)
+            .build();
+
+//&#39;使用构造函数&#39;
+Person p2 = new Person(&quot;taylor&quot;, 50, 1, 0, 43);
+</code></pre><p>对比之下，Builder模式 有两个优势：</p>
 <ol>
 <li>为参数标注语义：在Builder模式中，每个属性的赋值都是一个函数，函数名标注了属性语义。而直接使用构造函数时，很难分辨<code>50</code>，<code>43</code>哪个是年龄，哪个是体重。</li>
 <li>可选参数：Builder模式中，除了必选参数，其他参数是可选的。但直接使用构造函数必须为所有参数赋值，比如上例中第四个参数身高被赋值为0。</li>
 </ol>
 <p>但 Builder模式 也有代价，新增了一个中间类<code>Builder</code>。</p>
 <p>使用 Kotlin 的<code>命名参数</code>+<code>参数默认值</code>+<code>数据类</code>语法，在没有任何副作用的情况下就能实现 Builder模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;将Person定义为数据类&#39;</span><br><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    &#x2F;&#x2F;&#39;为以下可选参数设置默认值&#39;</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用命名参数构建Person实例&#39;</span><br><span class="line">val p  &#x3D; Person(name &#x3D; “taylor”,gender &#x3D; 1,weight &#x3D; 43)</span><br></pre></td></tr></table></figure>
+<pre><code>//&#39;将Person定义为数据类&#39;
+data class Person(
+    var name: String,
+    //&#39;为以下可选参数设置默认值&#39;
+    var gender: Int = 1,
+    var age: Int= 0,
+    var height: Int = 0,
+    var weight: Int = 0
+)
 
-<p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<a href="https://juejin.im/post/5cdb9536e51d456e5c5babd4" target="_blank" rel="noopener">这里</a></p>
+//&#39;使用命名参数构建Person实例&#39;
+val p  = Person(name = “taylor”,gender = 1,weight = 43)
+</code></pre><p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<a href="https://juejin.im/post/5cdb9536e51d456e5c5babd4" target="_blank" rel="noopener">这里</a></p>
 <p>如果想增加参数约束条件可以调用<code>require()</code>方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)&#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;在构造函数被调用的时候执行参数合法检查&#39;</span><br><span class="line">    init &#123;</span><br><span class="line">        require(name.isNotEmpty())&#123;”name cant be empty“&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此时如果像下面这样构造 Person，则会抛出异常：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val p &#x3D; Person(name&#x3D;&quot;&quot;,gender &#x3D; 1)</span><br><span class="line">java.lang.IllegalArgumentException: name cant be empty</span><br></pre></td></tr></table></figure>
-
-<h2 id="打印列表、map"><a href="#打印列表、map" class="headerlink" title="打印列表、map"></a>打印列表、map</h2><p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (String str:list) &#123;</span><br><span class="line">    Log.v(&quot;test&quot;, &quot;str&#x3D;&quot;+str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不同业务界面的数据类型不同，为了调试，这样的 for 循环就会散落在各处，而且列表内容会分若干条 log 输出，中间极有可能被别的log打断。</p>
+<pre><code>data class Person(
+    var name: String,
+    var gender: Int = 1,
+    var age: Int= 0,
+    var height: Int = 0,
+    var weight: Int = 0
+){
+    //&#39;在构造函数被调用的时候执行参数合法检查&#39;
+    init {
+        require(name.isNotEmpty()){”name cant be empty“}
+    }
+}
+</code></pre><p>此时如果像下面这样构造 Person，则会抛出异常：</p>
+<pre><code>val p = Person(name=&quot;&quot;,gender = 1)
+java.lang.IllegalArgumentException: name cant be empty
+</code></pre><h2 id="打印列表、map"><a href="#打印列表、map" class="headerlink" title="打印列表、map"></a>打印列表、map</h2><p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
+<pre><code>for (String str:list) {
+    Log.v(&quot;test&quot;, &quot;str=&quot;+str);
+}
+</code></pre><p>不同业务界面的数据类型不同，为了调试，这样的 for 循环就会散落在各处，而且列表内容会分若干条 log 输出，中间极有可能被别的log打断。</p>
 <p><strong>有没有一个函数可以打印包含任意数据类型的列表，并将列表内容组织成更具可读性的字符串？</strong></p>
 <p>用 Kotlin  的<code>扩展函数</code>+<code>泛型</code>+<code>高阶函数</code>就能优雅地做到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;T&gt; Collection&lt;T&gt;.print(map: (T) -&gt; String) &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n[&quot;).also &#123; sb -&gt;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行&#39;</span><br><span class="line">        this.forEach &#123; e -&gt; sb.append(&quot;\n\t$&#123;map(e)&#125;,&quot;) &#125;</span><br><span class="line">        sb.append(&quot;\n]&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></figure>
-
-<p>为集合的基类<code>Collection</code>新增一个扩展函数，它是一个高阶函数，因为它的参数是另一个函数，该函数用 lambda 表示。再把集合元素抽象成泛型。通过<code>StringBuilder</code>将所有集合内容拼接成一个自动换行的字符串。</p>
+<pre><code>fun &lt;T&gt; Collection&lt;T&gt;.print(map: (T) -&gt; String) =
+    StringBuilder(&quot;\n[&quot;).also { sb -&gt;
+        //&#39;遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行&#39;
+        this.forEach { e -&gt; sb.append(&quot;\n\t${map(e)},&quot;) }
+        sb.append(&quot;\n]&quot;)
+    }.toString()
+</code></pre><p>为集合的基类<code>Collection</code>新增一个扩展函数，它是一个高阶函数，因为它的参数是另一个函数，该函数用 lambda 表示。再把集合元素抽象成泛型。通过<code>StringBuilder</code>将所有集合内容拼接成一个自动换行的字符串。</p>
 <p>写段测试代码看下效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">val persons &#x3D; listOf(</span><br><span class="line">    Person(&quot;Peter&quot;, 16),</span><br><span class="line">    Person(&quot;Anna&quot;, 28),</span><br><span class="line">    Person(&quot;Anna&quot;, 23),</span><br><span class="line">    Person(&quot;Sonya&quot;, 39)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">persons.print &#123; &quot;$&#123;it.name&#125;_$&#123;it.age&#125;&quot; &#125;.let &#123; Log.v(&quot;test&quot;,it) &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>打印结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test: [</span><br><span class="line">    	Peter_16,</span><br><span class="line">    	Anna_28,</span><br><span class="line">    	Anna_23,</span><br><span class="line">    	Sonya_39,</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+val persons = listOf(
+    Person(&quot;Peter&quot;, 16),
+    Person(&quot;Anna&quot;, 28),
+    Person(&quot;Anna&quot;, 23),
+    Person(&quot;Sonya&quot;, 39)
+)
 
-<p>同样地，可以如法炮制一个打印 map 的扩展函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(map: (V?) -&gt; String): String &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            sb.append(&quot;\n\t[$&#123;entry.key&#125;] &#x3D; $&#123;map(entry.value)&#125;&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></figure>
+persons.print { &quot;${it.name}_${it.age}&quot; }.let { Log.v(&quot;test&quot;,it) }
+</code></pre><p>打印结果如下：</p>
+<pre><code>V/test: [
+        Peter_16,
+        Anna_28,
+        Anna_23,
+        Sonya_39,
+    ]
+</code></pre><p>同样地，可以如法炮制一个打印 map 的扩展函数：</p>
+<pre><code>fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(map: (V?) -&gt; String): String =
+    StringBuilder(&quot;\n{&quot;).also { sb -&gt;
+        this.iterator().forEach { entry -&gt;
+            sb.append(&quot;\n\t[${entry.key}] = ${map(entry.value)}&quot;)
+        }
+        sb.append(&quot;\n}&quot;)
+    }.toString()
+</code></pre><h2 id="将-data-类转换成-map"><a href="#将-data-类转换成-map" class="headerlink" title="将 data 类转换成 map"></a>将 data 类转换成 map</h2><p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
+<pre><code>public class Person {
+    private String name;
+    private int age;
 
-<h2 id="将-data-类转换成-map"><a href="#将-data-类转换成-map" class="headerlink" title="将 data 类转换成 map"></a>将 data 类转换成 map</h2><p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return ”Person&#123;“ +</span><br><span class="line">                ”name&#x3D;‘“ + name + ’\” +</span><br><span class="line">                ”, age&#x3D;“ + age +</span><br><span class="line">                ‘&#125;’;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是每新建一个数据类都要手动生成一个<code>toString()</code>方法也挺麻烦。</p>
+    @Override
+    public String toString() {
+        return ”Person{“ +
+                ”name=‘“ + name + ’\” +
+                ”, age=“ + age +
+                ‘}’;
+    }
+}
+</code></pre><p>但是每新建一个数据类都要手动生成一个<code>toString()</code>方法也挺麻烦。</p>
 <p>利用 Kotlin 的 <code>data class</code>可以省去这一步，但打印效果是所有字段都在同一行中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Log.v(“test”, “person&#x3D;$&#123;Person(&quot;Peter&quot;, 16)&#125;”)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出如下：</span><br><span class="line">V&#x2F;test: person&#x3D;Person(name&#x3D;Peter, age&#x3D;16)</span><br></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>如果字段很多，把它们都打印在一行中可读性很差。</p>
+Log.v(“test”, “person=${Person(&quot;Peter&quot;, 16)}”)
+
+//输出如下：
+V/test: person=Person(name=Peter, age=16)
+</code></pre><p>如果字段很多，把它们都打印在一行中可读性很差。</p>
 <p><strong>有没有一种方法，可以读取一个类中所有的字段信息？</strong> 这样我们就可以将他们组织成想要的形状。请看下面这个方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap() &#x3D;</span><br><span class="line">    &#x2F;&#x2F;&#39;过滤掉除data class以外的其他类&#39;</span><br><span class="line">    this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历类的所有成员，过滤掉成员方法，只考虑成员属性&#39;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        &#x2F;&#x2F;&#39;将成员属性名和值存储在Pair中&#39;</span><br><span class="line">        ?.map &#123; it.name to it.call(this) &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;将Pair转换成map&#39;</span><br><span class="line">        ?.toMap()</span><br></pre></td></tr></table></figure>
-
-<p>为任意 Kotlin 中的类添加一个<code>扩展函数</code>，它的功能是将<code>data class</code>中所有的字段名及其对应值存在一个 map 中。其中用到的 Kotlin 语法糖如下：</p>
+<pre><code>fun Any.ofMap() =
+    //&#39;过滤掉除data class以外的其他类&#39;
+    this::class.takeIf { it.isData }
+        //&#39;遍历类的所有成员，过滤掉成员方法，只考虑成员属性&#39;
+        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()
+        //&#39;将成员属性名和值存储在Pair中&#39;
+        ?.map { it.name to it.call(this) }
+        //&#39;将Pair转换成map&#39;
+        ?.toMap()
+</code></pre><p>为任意 Kotlin 中的类添加一个<code>扩展函数</code>，它的功能是将<code>data class</code>中所有的字段名及其对应值存在一个 map 中。其中用到的 Kotlin 语法糖如下：</p>
 <ul>
 <li><code>isData</code>是<code>KClass</code>中的一个属性，用于判断该类是不是一个<code>data class</code>。<code>KClass</code>是 Kotlin 中用来描述 <strong>类的类型</strong>，<code>KClass</code>可以通过<code>对象::class</code>语法获得。</li>
 <li><code>members</code>也是<code>KClass</code>中的一个属性，它包含了所有类的方法和属性。</li>
 <li><code>filterIsInstance()</code>是<code>Iterable</code>接口的扩展函数，用于过滤出集合中指定的类型。</li>
 <li><code>to</code>是一个<code>infix</code>扩展函数，它的定义如下：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; &#x3D; Pair(this, that)</span><br></pre></td></tr></table></figure>
-
-<ul>
+<pre><code>public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; = Pair(this, that)
+</code></pre><ul>
 <li>带有<code>infix</code>标识的函数只允许带有一个参数，并且在调用时可以省略包裹参数的括号。这种语法叫<code>中缀表达式</code></li>
 </ul>
 <p>写段测试代码，结合上一节的打印 map 函数看下效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;,&quot;$it&quot;) &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>测试代码先将<code>Person</code>实例转换成 map，然后打印 map。输出结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test:</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16).ofMap()?.print { it.toString() }.let { Log.v(&quot;test&quot;,&quot;$it&quot;) }
+</code></pre><p>测试代码先将<code>Person</code>实例转换成 map，然后打印 map。输出结果如下：</p>
+<pre><code>V/test:
+    {
+        [age] = 16
+        [name] = Peter
+    }
+</code></pre><p>若<code>data class</code>嵌套会发生什么？</p>
+<pre><code>//&#39;位置，嵌套在Person类中&#39;
+data class Location(var x: Int, var y: Int)
+data class Person(var name: String, var age: Int, var locaton: Location? = null)
 
-<p>若<code>data class</code>嵌套会发生什么？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;位置，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var x: Int, var y: Int)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(20, 30)).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印结果如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[locaton] &#x3D; Location(x&#x3D;20, y&#x3D;30)</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16, Location(20, 30)).ofMap()?.print { it.toString() }.let { Log.v(&quot;test&quot;, &quot;$it&quot;) }
 
-<p>期望得到类似 Json 的打印效果，但输出结果还差一点。是因为将<code>Person</code>转化成<code>Map</code>时并没有将嵌套的<code>Location</code>也转化成键值对。</p>
+//&#39;打印结果如下&#39;
+    {
+        [age] = 16
+        [locaton] = Location(x=20, y=30)
+        [name] = Peter
+    }
+</code></pre><p>期望得到类似 Json 的打印效果，但输出结果还差一点。是因为将<code>Person</code>转化成<code>Map</code>时并没有将嵌套的<code>Location</code>也转化成键值对。</p>
 <p>需要将<code>ofMap()</code>方法重构成递归调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap(): Map&lt;String, Any?&gt;? &#123;</span><br><span class="line">    return this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        ?.map &#123; member -&gt;</span><br><span class="line">            val value &#x3D; member.call(this)?.let &#123; v-&gt;</span><br><span class="line">                &#x2F;&#x2F;&#39;若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值&#39;</span><br><span class="line">                if (v::class.isData) v.ofMap()</span><br><span class="line">                else v</span><br><span class="line">            &#125;</span><br><span class="line">            member.name to value</span><br><span class="line">        &#125;</span><br><span class="line">        ?.toMap()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>fun Any.ofMap(): Map&lt;String, Any?&gt;? {
+    return this::class.takeIf { it.isData }
+        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()
+        ?.map { member -&gt;
+            val value = member.call(this)?.let { v-&gt;
+                //&#39;若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值&#39;
+                if (v::class.isData) v.ofMap()
+                else v
+            }
+            member.name to value
+        }
+        ?.toMap()
+}
+</code></pre><p>为了让打印结果也有嵌套缩进效果，打印 Map 的函数也需要相应地重构：</p>
+<pre><code>/**
+ * 打印 Map，生成结构化键值对子串
+ * @param space 行缩进量
+ */
+fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(space: Int = 0): String {
+    //&#39;生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进&#39;
+    val indent = StringBuilder().apply {
+        repeat(space) { append(&quot; &quot;) }
+    }.toString()
+    return StringBuilder(&quot;\n${indent}{&quot;).also { sb -&gt;
+        this.iterator().forEach { entry -&gt;
+            //&#39;如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身&#39;
+            val value = entry.value.let { v -&gt;
+                (v as? Map&lt;*, *&gt;)?.print(&quot;${indent}${entry.key} = &quot;.length) ?: v.toString()
+            }
+            sb.append(&quot;\n\t${indent}[${entry.key}] = $value,&quot;)
+        }
+        sb.append(&quot;\n${indent}}&quot;)
+    }.toString()
+}
+</code></pre><p>写段测试代码，看看效果：</p>
+<pre><code>//&#39;坐标类，嵌套在Location类中&#39;
+data class Coordinate(var x: Int, var y: Int)
+//&#39;位置类，嵌套在Person类中&#39;
+data class Location(var country: String, var city: String, var coordinate: Coordinate)
+data class Person(var name: String, var age: Int, var locaton: Location? = null)
 
-<p>为了让打印结果也有嵌套缩进效果，打印 Map 的函数也需要相应地重构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 打印 Map，生成结构化键值对子串</span><br><span class="line"> * @param space 行缩进量</span><br><span class="line"> *&#x2F;</span><br><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(space: Int &#x3D; 0): String &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进&#39;</span><br><span class="line">    val indent &#x3D; StringBuilder().apply &#123;</span><br><span class="line">        repeat(space) &#123; append(&quot; &quot;) &#125;</span><br><span class="line">    &#125;.toString()</span><br><span class="line">    return StringBuilder(&quot;\n$&#123;indent&#125;&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            &#x2F;&#x2F;&#39;如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身&#39;</span><br><span class="line">            val value &#x3D; entry.value.let &#123; v -&gt;</span><br><span class="line">                (v as? Map&lt;*, *&gt;)?.print(&quot;$&#123;indent&#125;$&#123;entry.key&#125; &#x3D; &quot;.length) ?: v.toString()</span><br><span class="line">            &#125;</span><br><span class="line">            sb.append(&quot;\n\t$&#123;indent&#125;[$&#123;entry.key&#125;] &#x3D; $value,&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n$&#123;indent&#125;&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16, Location(&quot;china&quot;, &quot;shanghai&quot;, Coordinate(10, 20))).ofMap()?.print().let { Log.v(&quot;test&quot;, &quot;$it&quot;) }
 
-<p>写段测试代码，看看效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;坐标类，嵌套在Location类中&#39;</span><br><span class="line">data class Coordinate(var x: Int, var y: Int)</span><br><span class="line">&#x2F;&#x2F;&#39;位置类，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var country: String, var city: String, var coordinate: Coordinate)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(&quot;china&quot;, &quot;shanghai&quot;, Coordinate(10, 20))).ofMap()?.print().let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16,</span><br><span class="line">    	[locaton] &#x3D; </span><br><span class="line">              &#123;</span><br><span class="line">    	          [city] &#x3D; shanghai,</span><br><span class="line">    	          [coordinate] &#x3D; </span><br><span class="line">                           &#123;</span><br><span class="line">    	                       [x] &#x3D; 10,</span><br><span class="line">    	                       [y] &#x3D; 20,</span><br><span class="line">                           &#125;,</span><br><span class="line">    	          [country] &#x3D; china,</span><br><span class="line">              &#125;,</span><br><span class="line">    	[name] &#x3D; Peter,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取当前周一和周日"><a href="#获取当前周一和周日" class="headerlink" title="获取当前周一和周日"></a>获取当前周一和周日</h2><p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
+//&#39;打印如下&#39;
+    {
+        [age] = 16,
+        [locaton] = 
+              {
+                  [city] = shanghai,
+                  [coordinate] = 
+                           {
+                               [x] = 10,
+                               [y] = 20,
+                           },
+                  [country] = china,
+              },
+        [name] = Peter,
+    }
+</code></pre><h2 id="获取当前周一和周日"><a href="#获取当前周一和周日" class="headerlink" title="获取当前周一和周日"></a>获取当前周一和周日</h2><p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
 <p>若需要做类似“一周一次提醒”的功能，就可以本地化提醒时间，然后在每次触发提醒时把它和当前周一作比较，大于则说明本周已提醒。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">fun thisMondayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果当前是周天，则减一天，计算周六所在周的周一&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) &#x3D;&#x3D; Calendar.SUNDAY) c.add(Calendar.DATE, -1)</span><br><span class="line">    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun thisSundayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果不是周天，则将日期调整到当前周的周六，然后在加一天&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) !&#x3D; Calendar.SUNDAY) &#123;</span><br><span class="line">        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)</span><br><span class="line">        c.add(Calendar.DATE, 1)</span><br><span class="line">    &#125;</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>fun thisMondayInMillis() = Calendar.getInstance().let { c -&gt;
+    //&#39;如果当前是周天，则减一天，计算周六所在周的周一&#39;
+    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) c.add(Calendar.DATE, -1)
+    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+    c.set(Calendar.HOUR_OF_DAY, 0)
+    c.set(Calendar.MINUTE, 0)
+    c.set(Calendar.SECOND, 0)
+    c.set(Calendar.MILLISECOND, 0)
+    c.timeInMillis
+}
 
-<h2 id="RecyclerView表项点击监听器"><a href="#RecyclerView表项点击监听器" class="headerlink" title="RecyclerView表项点击监听器"></a>RecyclerView表项点击监听器</h2><p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;为 RecyclerView 扩展表项点击监听器&#39;</span><br><span class="line">fun RecyclerView.setOnItemClickListener(listener: (View, Int) -&gt; Unit) &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;为 RecyclerView 子控件设置触摸监听器&#39;</span><br><span class="line">    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener &#123;</span><br><span class="line">        &#x2F;&#x2F;&#39;构造手势探测器，用于解析单击事件&#39;</span><br><span class="line">        val gestureDetector &#x3D; GestureDetector(context, object : GestureDetector.OnGestureListener &#123;</span><br><span class="line">            override fun onShowPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onSingleTapUp(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                &#x2F;&#x2F;&#39;当单击事件发生时，寻找单击坐标下的子控件，并回调监听器&#39;</span><br><span class="line">                e?.let &#123;</span><br><span class="line">                    findChildViewUnder(it.x, it.y)?.let &#123; child -&gt;</span><br><span class="line">                        listener(child, getChildAdapterPosition(child))</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onDown(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onLongPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;在拦截触摸事件时，解析触摸事件&#39;</span><br><span class="line">        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean &#123;</span><br><span class="line">            gestureDetector.onTouchEvent(e)</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+fun thisSundayInMillis() = Calendar.getInstance().let { c -&gt;
+    //&#39;如果不是周天，则将日期调整到当前周的周六，然后在加一天&#39;
+    if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+        c.add(Calendar.DATE, 1)
+    }
+    c.set(Calendar.HOUR_OF_DAY, 0)
+    c.set(Calendar.MINUTE, 0)
+    c.set(Calendar.SECOND, 0)
+    c.set(Calendar.MILLISECOND, 0)
+    c.timeInMillis
+}
+</code></pre><h2 id="RecyclerView表项点击监听器"><a href="#RecyclerView表项点击监听器" class="headerlink" title="RecyclerView表项点击监听器"></a>RecyclerView表项点击监听器</h2><p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
+<pre><code>//&#39;为 RecyclerView 扩展表项点击监听器&#39;
+fun RecyclerView.setOnItemClickListener(listener: (View, Int) -&gt; Unit) {
+    //&#39;为 RecyclerView 子控件设置触摸监听器&#39;
+    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+        //&#39;构造手势探测器，用于解析单击事件&#39;
+        val gestureDetector = GestureDetector(context, object : GestureDetector.OnGestureListener {
+            override fun onShowPress(e: MotionEvent?) {
+            }
+
+            override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                //&#39;当单击事件发生时，寻找单击坐标下的子控件，并回调监听器&#39;
+                e?.let {
+                    findChildViewUnder(it.x, it.y)?.let { child -&gt;
+                        listener(child, getChildAdapterPosition(child))
+                    }
+                }
+                return false
+            }
+
+            override fun onDown(e: MotionEvent?): Boolean {
+                return false
+            }
+
+            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+                return false
+            }
+
+            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+                return false
+            }
+
+            override fun onLongPress(e: MotionEvent?) {
+            }
+        })
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+
+        }
+
+        //&#39;在拦截触摸事件时，解析触摸事件&#39;
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            gestureDetector.onTouchEvent(e)
+            return false
+        }
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+        }
+    })
+}</code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls"
                 data-autoplay="false">
@@ -268,9 +531,9 @@
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">24 <p>Articles</p></a></li>
-                    <li><a href="/categories">0 <p>Categories</p></a></li>
-                    <li><a href="/tags">0 <p>Tags</p></a></li>
+                    <li><a href="/">25 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
                 </ul>
             </div>
             

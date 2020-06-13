@@ -100,13 +100,13 @@ HashMap涉及的技术点非常多，典型的数据结构和算法有机结合�
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>Words count</i>
-                    18k
+                    9.8k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                    16 mins.
+                    9 mins.
                 </span>
                 
                 
@@ -155,23 +155,98 @@ HashMap涉及的技术点非常多，典型的数据结构和算法有机结合�
 <p>④判断是链表还是红黑树，链表是否到达转化红黑树，当前链表节点数&lt;=8，插入节点；如果是红黑树插入节点，否则下一步。</p>
 <p>⑤链表转化成红黑树，插入节点。</p>
 <p>⑥插入节点后计算当前size是否需要扩容，如果大于阀门值需要扩容resize。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Implements Map.put and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @param value the value to put</span><br><span class="line"> * @param onlyIfAbsent if true, don&#39;t change existing value</span><br><span class="line"> * @param evict if false, the table is in creation mode.</span><br><span class="line"> * @return previous value, or null if none</span><br><span class="line"> *&#x2F;</span><br><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">               boolean evict) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;</span><br><span class="line">    if ((tab &#x3D; table) &#x3D;&#x3D; null || (n &#x3D; tab.length) &#x3D;&#x3D; 0)</span><br><span class="line">        n &#x3D; (tab &#x3D; resize()).length;</span><br><span class="line">    if ((p &#x3D; tab[i &#x3D; (n - 1) &amp; hash]) &#x3D;&#x3D; null)</span><br><span class="line">        tab[i] &#x3D; newNode(hash, key, value, null);</span><br><span class="line">    else &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        if (p.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">            ((k &#x3D; p.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">            e &#x3D; p;</span><br><span class="line">        else if (p instanceof TreeNode)</span><br><span class="line">            e &#x3D; ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">        else &#123;</span><br><span class="line">            for (int binCount &#x3D; 0; ; ++binCount) &#123;</span><br><span class="line">                if ((e &#x3D; p.next) &#x3D;&#x3D; null) &#123;</span><br><span class="line">                    p.next &#x3D; newNode(hash, key, value, null);</span><br><span class="line">                    if (binCount &gt;&#x3D; TREEIFY_THRESHOLD - 1) &#x2F;&#x2F; -1 for 1st</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (e.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">                    ((k &#x3D; e.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">                    break;</span><br><span class="line">                p &#x3D; e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (e !&#x3D; null) &#123; &#x2F;&#x2F; existing mapping for key</span><br><span class="line">            V oldValue &#x3D; e.value;</span><br><span class="line">            if (!onlyIfAbsent || oldValue &#x3D;&#x3D; null)</span><br><span class="line">                e.value &#x3D; value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    if (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
+<pre><code>/**
+ * Implements Map.put and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @param value the value to put
+ * @param onlyIfAbsent if true, don&#39;t change existing value
+ * @param evict if false, the table is in creation mode.
+ * @return previous value, or null if none
+ */
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) &amp; hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node&lt;K,V&gt; e; K k;
+        if (p.hash == hash &amp;&amp;
+            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+            e = p;
+        else if (p instanceof TreeNode)
+            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+        else {
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    if (++size &gt; threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
 <h5 id="2-get获取过程"><a href="#2-get获取过程" class="headerlink" title="2. get获取过程"></a>2. get获取过程</h5><p>①计算桶的位置，根据key的hashcode求出hash值，位置index = hash%length。</p>
 <p>②无论是数值，链表还是红黑树，for循环判断hash值冲突就比对key是否相等，相等就返回对应的value。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Implements Map.get and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @return the node, or null if none</span><br><span class="line"> *&#x2F;</span><br><span class="line">final Node&lt;K,V&gt; getNode(int hash, Object key) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;</span><br><span class="line">    if ((tab &#x3D; table) !&#x3D; null &amp;&amp; (n &#x3D; tab.length) &gt; 0 &amp;&amp;</span><br><span class="line">        (first &#x3D; tab[(n - 1) &amp; hash]) !&#x3D; null) &#123;</span><br><span class="line">        if (first.hash &#x3D;&#x3D; hash &amp;&amp; &#x2F;&#x2F; always check first node</span><br><span class="line">            ((k &#x3D; first.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">            return first;</span><br><span class="line">        if ((e &#x3D; first.next) !&#x3D; null) &#123;</span><br><span class="line">            if (first instanceof TreeNode)</span><br><span class="line">                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">            do &#123;</span><br><span class="line">                if (e.hash &#x3D;&#x3D; hash &amp;&amp;</span><br><span class="line">                    ((k &#x3D; e.key) &#x3D;&#x3D; key || (key !&#x3D; null &amp;&amp; key.equals(k))))</span><br><span class="line">                    return e;</span><br><span class="line">            &#125; while ((e &#x3D; e.next) !&#x3D; null);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
+<pre><code>/**
+ * Implements Map.get and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @return the node, or null if none
+ */
+final Node&lt;K,V&gt; getNode(int hash, Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (first = tab[(n - 1) &amp; hash]) != null) {
+        if (first.hash == hash &amp;&amp; // always check first node
+            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return first;
+        if ((e = first.next) != null) {
+            if (first instanceof TreeNode)
+                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    return e;
+            } while ((e = e.next) != null);
+        }
+    }
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
 <h3 id="三-数据结构和算法思考"><a href="#三-数据结构和算法思考" class="headerlink" title="三. 数据结构和算法思考"></a>三. 数据结构和算法思考</h3><h5 id="1-为什么选择数组和链表结构？"><a href="#1-为什么选择数组和链表结构？" class="headerlink" title="1.为什么选择数组和链表结构？"></a>1.为什么选择数组和链表结构？</h5><p>①数组内存连续块分配，效率体现查询更快。HashMap中用作查找数组桶的位置，利用元素的key的hash值对数组长度取模得到。</p>
 <p>②链表效率体现增加和删除。HashMap中链表是用来解决hash冲突，增删空间消耗平衡。</p>
 <p><strong>扩展：</strong> 为什么不是ArrayList而是使用Node&lt;K,V&gt;[] tab？因为ArrayList的扩容机制是1.5倍扩容，而HashMap扩容是2的次幂。</p>
-<h5 id="2-为什么扩容是2次幂，根据key的hashcode再求hash值？"><a href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？" class="headerlink" title="2.为什么扩容是2次幂，根据key的hashcode再求hash值？"></a>2.为什么扩容是2次幂，根据key的hashcode再求hash值？</h5><h5 id="①key的hash值计算"><a href="#①key的hash值计算" class="headerlink" title="①key的hash值计算"></a>①key的hash值计算</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key &#x3D;&#x3D; null) ? 0 : (h &#x3D; key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
-<h5 id="②计算桶的位置代码"><a href="#②计算桶的位置代码" class="headerlink" title="②计算桶的位置代码"></a>②计算桶的位置代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index &#x3D; (n - 1) &amp; hash</span><br></pre></td></tr></table></figure>
-
-<p><strong>思想：</strong></p>
+<h5 id="2-为什么扩容是2次幂，根据key的hashcode再求hash值？"><a href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？" class="headerlink" title="2.为什么扩容是2次幂，根据key的hashcode再求hash值？"></a>2.为什么扩容是2次幂，根据key的hashcode再求hash值？</h5><h5 id="①key的hash值计算"><a href="#①key的hash值计算" class="headerlink" title="①key的hash值计算"></a>①key的hash值计算</h5><pre><code>static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+}
+</code></pre><p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
+<h5 id="②计算桶的位置代码"><a href="#②计算桶的位置代码" class="headerlink" title="②计算桶的位置代码"></a>②计算桶的位置代码</h5><pre><code>index = (n - 1) &amp; hash
+</code></pre><p><strong>思想：</strong></p>
 <p>一是，为了减少hash冲突使用hash%length计算，求模计算保证了得到的结果一定在0-length范围之内。</p>
 <p>二是，为了提高运算速度，模运算比不上位运算，当n是2的次幂才满足hash%length == （n-1）&amp;hash。</p>
 <p>确定公式中（n-1）符合最优等式，剩下考虑hash值的最优，hash值这个因子考虑影响结果尽可能不冲突。</p>
@@ -185,9 +260,31 @@ HashMap涉及的技术点非常多，典型的数据结构和算法有机结合�
 <p><strong>原理：</strong></p>
 <p>权衡依据是以上情况符合泊松分布（一种统计与概率学里常见到的离散概率分布，适合于描述单位时间（或空间）内随机事件发生的次数），<strong>用0.75作为加载因子，每个碰撞位置的链表长度超过８个概率非常低，少于千万分之一。</strong></p>
 <p><strong>源码说明：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">* Because TreeNodes are about twice the size of regular nodes, we</span><br><span class="line">* use them only when bins contain enough nodes to warrant use</span><br><span class="line">* (see TREEIFY_THRESHOLD). And when they become too small (due to</span><br><span class="line">* removal or resizing) they are converted back to plain bins.  In</span><br><span class="line">* usages with well-distributed user hashCodes, tree bins are</span><br><span class="line">* rarely used.  Ideally, under random hashCodes, the frequency of</span><br><span class="line">* nodes in bins follows a Poisson distribution</span><br><span class="line">* (http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Poisson_distribution) with a</span><br><span class="line">* parameter of about 0.5 on average for the default resizing</span><br><span class="line">* threshold of 0.75, although with a large variance because of</span><br><span class="line">* resizing granularity. Ignoring variance, the expected</span><br><span class="line">* occurrences of list size k are (exp(-0.5) * pow(0.5, k) &#x2F;</span><br><span class="line">* factorial(k)). The first values are:</span><br><span class="line">*</span><br><span class="line">* 0:    0.60653066</span><br><span class="line">* 1:    0.30326533</span><br><span class="line">* 2:    0.07581633</span><br><span class="line">* 3:    0.01263606</span><br><span class="line">* 4:    0.00157952</span><br><span class="line">* 5:    0.00015795</span><br><span class="line">* 6:    0.00001316</span><br><span class="line">* 7:    0.00000094</span><br><span class="line">* 8:    0.00000006</span><br><span class="line">* more: less than 1 in ten million</span><br></pre></td></tr></table></figure>
-
-<p><strong>扩展：</strong></p>
+<pre><code> * Because TreeNodes are about twice the size of regular nodes, we
+ * use them only when bins contain enough nodes to warrant use
+ * (see TREEIFY_THRESHOLD). And when they become too small (due to
+ * removal or resizing) they are converted back to plain bins.  In
+ * usages with well-distributed user hashCodes, tree bins are
+ * rarely used.  Ideally, under random hashCodes, the frequency of
+ * nodes in bins follows a Poisson distribution
+ * (http://en.wikipedia.org/wiki/Poisson_distribution) with a
+ * parameter of about 0.5 on average for the default resizing
+ * threshold of 0.75, although with a large variance because of
+ * resizing granularity. Ignoring variance, the expected
+ * occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
+ * factorial(k)). The first values are:
+ *
+ * 0:    0.60653066
+ * 1:    0.30326533
+ * 2:    0.07581633
+ * 3:    0.01263606
+ * 4:    0.00157952
+ * 5:    0.00015795
+ * 6:    0.00001316
+ * 7:    0.00000094
+ * 8:    0.00000006
+ * more: less than 1 in ten million 
+</code></pre><p><strong>扩展：</strong></p>
 <p>为什么不一开始选择红黑树？</p>
 <p>红黑树近乎于平衡二叉树，结构适合均匀分布节点，减少树的深度像链表长度情况。原因主要是插入效率上，红黑树增加节点很可能需要进行左旋，右旋，着色操作，这些时间效率并没有链表形式高。</p>
 <h5 id="4-HashMap的key选择"><a href="#4-HashMap的key选择" class="headerlink" title="4.HashMap的key选择"></a>4.HashMap的key选择</h5><p>1）选择不可变的对象，比如字符串或int类型。</p>
@@ -196,9 +293,18 @@ HashMap涉及的技术点非常多，典型的数据结构和算法有机结合�
 <p>②保证所有成员变量必须私有，并且加上final修饰。</p>
 <p>③不提供改变成员变量的方法，包括setter。</p>
 <p>④通过构造器初始化所有成员，进行深拷贝(deep copy)。</p>
-<h5 id="5-String类中的hashcode计算"><a href="#5-String类中的hashcode计算" class="headerlink" title="5.String类中的hashcode计算"></a>5.String类中的hashcode计算</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int hashCode() &#123;</span><br><span class="line">    int h &#x3D; hash;</span><br><span class="line">    if (h &#x3D;&#x3D; 0 &amp;&amp; value.length &gt; 0) &#123;</span><br><span class="line">    char val[] &#x3D; value;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; value.length; i++) &#123;</span><br><span class="line">              h &#x3D; 31 * h + val[i];</span><br><span class="line">          &#125;</span><br><span class="line">          hash &#x3D; h;</span><br><span class="line">      &#125;</span><br><span class="line">      return h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
+<h5 id="5-String类中的hashcode计算"><a href="#5-String类中的hashcode计算" class="headerlink" title="5.String类中的hashcode计算"></a>5.String类中的hashcode计算</h5><pre><code>public int hashCode() {
+    int h = hash;
+    if (h == 0 &amp;&amp; value.length &gt; 0) {
+    char val[] = value;
+        for (int i = 0; i &lt; value.length; i++) {
+              h = 31 * h + val[i];
+          }
+          hash = h;
+      }
+      return h;
+}
+</code></pre><p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
 <h3 id="四-横向扩展"><a href="#四-横向扩展" class="headerlink" title="四. 横向扩展"></a>四. 横向扩展</h3><h5 id="1-HashMap出现线程问题"><a href="#1-HashMap出现线程问题" class="headerlink" title="1.HashMap出现线程问题"></a>1.HashMap出现线程问题</h5><p>①多线程扩容，引起的死循环问题（jdk1.8中，死循环问题已经解决）。</p>
 <p>②多线程put的时候可能导致元素丢失。</p>
 <p>③put非null元素后get出来的却是null。</p>
@@ -244,9 +350,9 @@ HashMap涉及的技术点非常多，典型的数据结构和算法有机结合�
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/">24 <p>Articles</p></a></li>
-                    <li><a href="/categories">0 <p>Categories</p></a></li>
-                    <li><a href="/tags">0 <p>Tags</p></a></li>
+                    <li><a href="/">25 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
                 </ul>
             </div>
             
