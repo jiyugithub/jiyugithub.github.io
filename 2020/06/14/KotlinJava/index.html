@@ -1,1320 +1,351 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- title -->
-
-
-
-
-<!-- keywords -->
-
-
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Apocalypse">
-    <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Apocalypse">
-    
-    <meta name="keywords" content="android,java,kotlin">
-    
-    <meta name="description" content="">
-    <meta name="description" content="打印日志 Java  12System.out.print(&quot;hello world&quot;);System.out.println(&quot;hello world&quot;);   Kotlin  12print(&quot;hello world&quot;)println(&quot;hello world&quot;)">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="打印日志        Java  12System.out.print(&quot;hello world&quot;);System.out.println(&quot;hello world&quot;);   Kotlin  12print(&quot;hello world&quot;)println(&quot;hello world&quot;)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin与Java的异同">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/KotlinJava/index.html">
 <meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="打印日志 Java  12System.out.print(&quot;hello world&quot;);System.out.println(&quot;hello world&quot;);   Kotlin  12print(&quot;hello world&quot;)println(&quot;hello world&quot;)">
+<meta property="og:description" content="打印日志        Java  12System.out.print(&quot;hello world&quot;);System.out.println(&quot;hello world&quot;);   Kotlin  12print(&quot;hello world&quot;)println(&quot;hello world&quot;)">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-13T21:47:39.000Z">
 <meta property="article:modified_time" content="2020-06-13T21:49:57.604Z">
 <meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    
-    <title>Kotlin与Java的异同 · Apocalypse&#39;s Blog</title>
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
-    }
+<meta name="twitter:card" content="summary"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Kotlin与Java的异同 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/14/KotlinJava/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-    body {
-        margin: 0;
-    }
-
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
-
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
-
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s infinite;
-    }
-
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-</style>
-
-    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    
-    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-/* This file is meant as a standalone workflow for
-- testing support for link[rel=preload]
-- enabling async CSS loading in browsers that do not support rel=preload
-- applying rel preload css once loaded, whether supported or not.
-*/ -->
-<script>
-(function( w ){
-	"use strict";
-	// rel=preload support test
-	if( !w.loadCSS ){
-		w.loadCSS = function(){};
-	}
-	// define on the loadCSS obj
-	var rp = loadCSS.relpreload = {};
-	// rel=preload feature support test
-	// runs once and returns a function for compat purposes
-	rp.support = (function(){
-		var ret;
-		try {
-			ret = w.document.createElement( "link" ).relList.supports( "preload" );
-		} catch (e) {
-			ret = false;
-		}
-		return function(){
-			return ret;
-		};
-	})();
-
-	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-	// then change that media back to its intended value on load
-	rp.bindMediaToggle = function( link ){
-		// remember existing media attr for ultimate state, or default to 'all'
-		var finalMedia = link.media || "all";
-
-		function enableStylesheet(){
-			link.media = finalMedia;
-		}
-
-		// bind load handlers to enable media
-		if( link.addEventListener ){
-			link.addEventListener( "load", enableStylesheet );
-		} else if( link.attachEvent ){
-			link.attachEvent( "onload", enableStylesheet );
-		}
-
-		// Set rel and non-applicable media type to start an async request
-		// note: timeout allows this to happen async to let rendering continue in IE
-		setTimeout(function(){
-			link.rel = "stylesheet";
-			link.media = "only x";
-		});
-		// also enable media after 3 seconds,
-		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-		setTimeout( enableStylesheet, 3000 );
-	};
-
-	// loop through link elements in DOM
-	rp.poly = function(){
-		// double check this to prevent external calls from running
-		if( rp.support() ){
-			return;
-		}
-		var links = w.document.getElementsByTagName( "link" );
-		for( var i = 0; i < links.length; i++ ){
-			var link = links[ i ];
-			// qualify links to those with rel=preload and as=style attrs
-			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-				// prevent rerunning on link
-				link.setAttribute( "data-loadcss", true );
-				// bind listeners to toggle media back
-				rp.bindMediaToggle( link );
-			}
-		}
-	};
-
-	// if unsupported, run the polyfill
-	if( !rp.support() ){
-		// run once at least
-		rp.poly();
-
-		// rerun poly on an interval until onload
-		var run = w.setInterval( rp.poly, 500 );
-		if( w.addEventListener ){
-			w.addEventListener( "load", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		} else if( w.attachEvent ){
-			w.attachEvent( "onload", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		}
-	}
-
-
-	// commonjs
-	if( typeof exports !== "undefined" ){
-		exports.loadCSS = loadCSS;
-	}
-	else {
-		w.loadCSS = loadCSS;
-	}
-}( typeof global !== "undefined" ? global : this ) );
-</script>
-
-    <link rel="icon" href= "/assets/favicon.ico" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
-    <link rel="preload" href="/scripts/main.js" as="script" />
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
-    
-    <!-- fancybox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    
-        <body class="post-body">
-    
-    
-<header class="header">
-
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Apocalypse&#39;s Blog.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Kotlin与Java的异同</a>
-            </div>
-    </div>
-    
-    <a class="home-link" href=/>Apocalypse's Blog.</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro" style="
-
-
-
-
-
-
-
-height:50vh;
-">
-    
-    <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
-            
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            Kotlin与Java的异同
-            <!-- 404 -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-            <!-- 404 -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.2k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/06/14</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        
-    </div>
-</div>
-        <script>
- 
-  // get user agent
-  var browser = {
-    versions: function () {
-      var u = window.navigator.userAgent;
-      return {
-        userAgent: u,
-        trident: u.indexOf('Trident') > -1, //IE内核
-        presto: u.indexOf('Presto') > -1, //opera内核
-        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-        iPad: u.indexOf('iPad') > -1, //是否为iPad
-        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-      };
-    }()
-  }
-  console.log("userAgent:" + browser.versions.userAgent);
-
-  // callback
-  function fontLoaded() {
-    console.log('font loaded');
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-      var postIntros = document.getElementsByClassName('post-intros')[0]
-      if (postIntros) {
-        postIntros.classList.add('post-fade-in');
-      }
-    }
-  }
-
-  // UC不支持跨域，所以直接显示
-  function asyncCb(){
-    if (browser.versions.uc) {
-      console.log("UCBrowser");
-      fontLoaded();
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular']
-        },
-        loading: function () {  //所有字体开始加载
-          // console.log('loading');
-        },
-        active: function () {  //所有字体已渲染
-          fontLoaded();
-        },
-        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout');
-          fontLoaded();
-        },
-        timeout: 5000 // Set the timeout to two seconds
-      });
-    }
-  }
-
-  function asyncErr(){
-    console.warn('script load from CDN failed, will load local script')
-  }
-
-  // load webfont-loader async, and add callback function
-  function async(u, cb, err) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
-    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
-
-  var asyncLoadWithFallBack = function(arr, success, reject) {
-      var currReject = function(){
-        reject()
-        arr.shift()
-        if(arr.length)
-          async(arr[0], success, currReject)
-        }
-
-      async(arr[0], success, currReject)
-  }
-
-  asyncLoadWithFallBack([
-    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
-    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
-    "/lib/webfontloader.min.js"
-  ], asyncCb, asyncErr)
-</script>        
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h3 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h3><blockquote>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Kotlin与Java的异同</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/KotlinJava/" data-flag-title="Kotlin与Java的异同"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h3 id="打印日志"   >
+          <a href="#打印日志" class="heading-link"><i class="fas fa-link"></i></a>打印日志</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.print(&quot;hello world&quot;);</span><br><span class="line">System.out.println(&quot;hello world&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.print(&quot;hello world&quot;);</span><br><span class="line">System.out.println(&quot;hello world&quot;);</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello world&quot;)</span><br><span class="line">println(&quot;hello world&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello world&quot;)</span><br><span class="line">println(&quot;hello world&quot;)</span><br></pre></td></tr></table></div></figure>
 
 <a id="more"></a>
 
-<h3 id="定义变量与常量常"><a href="#定义变量与常量常" class="headerlink" title="定义变量与常量常"></a>定义变量与常量常</h3><blockquote>
+
+        <h3 id="定义变量与常量常"   >
+          <a href="#定义变量与常量常" class="heading-link"><i class="fas fa-link"></i></a>定义变量与常量常</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String name &#x3D; &quot;hello world&quot;;</span><br><span class="line">final String name &#x3D; &quot;hello world&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String name &#x3D; &quot;hello world&quot;;</span><br><span class="line">final String name &#x3D; &quot;hello world&quot;;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;hello world&quot;</span><br><span class="line">val name &#x3D; &quot;hello world&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;hello world&quot;</span><br><span class="line">val name &#x3D; &quot;hello world&quot;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="null声明"><a href="#null声明" class="headerlink" title="null声明"></a>null声明</h3><blockquote>
+
+        <h3 id="null声明"   >
+          <a href="#null声明" class="heading-link"><i class="fas fa-link"></i></a>null声明</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String otherName;</span><br><span class="line">otherName &#x3D; null;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String otherName;</span><br><span class="line">otherName &#x3D; null;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var otherName : String?</span><br><span class="line">otherName &#x3D; null</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var otherName : String?</span><br><span class="line">otherName &#x3D; null</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="空判断"><a href="#空判断" class="headerlink" title="空判断"></a>空判断</h3><blockquote>
+
+        <h3 id="空判断"   >
+          <a href="#空判断" class="heading-link"><i class="fas fa-link"></i></a>空判断</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (text !&#x3D; null) &#123;</span><br><span class="line">    int length &#x3D; text.length();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (text !&#x3D; null) &#123;</span><br><span class="line">    int length &#x3D; text.length();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">text?.let &#123;</span><br><span class="line">    val length &#x3D; text.length</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; or simply</span><br><span class="line">val length &#x3D; text?.length</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">text?.let &#123;</span><br><span class="line">    val length &#x3D; text.length</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; or simply</span><br><span class="line">val length &#x3D; text?.length</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><blockquote>
+
+        <h3 id="字符串拼接"   >
+          <a href="#字符串拼接" class="heading-link"><i class="fas fa-link"></i></a>字符串拼接</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String firstName &#x3D; &quot;Android&quot;;</span><br><span class="line">String lastName &#x3D; &quot;Architect&quot;;</span><br><span class="line">String message &#x3D; &quot;My name is: &quot; + firstName + &quot; &quot; + lastName;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String firstName &#x3D; &quot;Android&quot;;</span><br><span class="line">String lastName &#x3D; &quot;Architect&quot;;</span><br><span class="line">String message &#x3D; &quot;My name is: &quot; + firstName + &quot; &quot; + lastName;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val firstName &#x3D; &quot;Android&quot;</span><br><span class="line">val lastName &#x3D; &quot;Architect&quot;</span><br><span class="line">val message &#x3D; &quot;My name is: $firstName $lastName&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val firstName &#x3D; &quot;Android&quot;</span><br><span class="line">val lastName &#x3D; &quot;Architect&quot;</span><br><span class="line">val message &#x3D; &quot;My name is: $firstName $lastName&quot;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h3><blockquote>
+
+        <h3 id="换行"   >
+          <a href="#换行" class="heading-link"><i class="fas fa-link"></i></a>换行</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String text &#x3D; &quot;First Line\n&quot; +</span><br><span class="line">              &quot;Second Line\n&quot; +</span><br><span class="line">              &quot;Third Line&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String text &#x3D; &quot;First Line\n&quot; +</span><br><span class="line">              &quot;Second Line\n&quot; +</span><br><span class="line">              &quot;Third Line&quot;;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val text &#x3D; &quot;&quot;&quot;</span><br><span class="line">        |First Line</span><br><span class="line">        |Second Line</span><br><span class="line">        |Third Line</span><br><span class="line">        &quot;&quot;&quot;.trimMargin()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val text &#x3D; &quot;&quot;&quot;</span><br><span class="line">        |First Line</span><br><span class="line">        |Second Line</span><br><span class="line">        |Third Line</span><br><span class="line">        &quot;&quot;&quot;.trimMargin()</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h3><blockquote>
+
+        <h3 id="三元表达式"   >
+          <a href="#三元表达式" class="heading-link"><i class="fas fa-link"></i></a>三元表达式</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String text &#x3D; x &gt; 5 ? &quot;x &gt; 5&quot; : &quot;x &lt;&#x3D; 5&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String text &#x3D; x &gt; 5 ? &quot;x &gt; 5&quot; : &quot;x &lt;&#x3D; 5&quot;;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val text &#x3D; if (x &gt; 5)</span><br><span class="line">              &quot;x &gt; 5&quot;</span><br><span class="line">           else &quot;x &lt;&#x3D; 5&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val text &#x3D; if (x &gt; 5)</span><br><span class="line">              &quot;x &gt; 5&quot;</span><br><span class="line">           else &quot;x &lt;&#x3D; 5&quot;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><blockquote>
+
+        <h3 id="操作符"   >
+          <a href="#操作符" class="heading-link"><i class="fas fa-link"></i></a>操作符</h3>
+      <blockquote>
 <p>java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final int andResult  &#x3D; a &amp; b;</span><br><span class="line">final int orResult   &#x3D; a | b;</span><br><span class="line">final int xorResult  &#x3D; a ^ b;</span><br><span class="line">final int rightShift &#x3D; a &gt;&gt; 2;</span><br><span class="line">final int leftShift  &#x3D; a &lt;&lt; 2;</span><br><span class="line">final int unsignedRightShift &#x3D; a &gt;&gt;&gt; 2;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final int andResult  &#x3D; a &amp; b;</span><br><span class="line">final int orResult   &#x3D; a | b;</span><br><span class="line">final int xorResult  &#x3D; a ^ b;</span><br><span class="line">final int rightShift &#x3D; a &gt;&gt; 2;</span><br><span class="line">final int leftShift  &#x3D; a &lt;&lt; 2;</span><br><span class="line">final int unsignedRightShift &#x3D; a &gt;&gt;&gt; 2;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val andResult  &#x3D; a and b</span><br><span class="line">val orResult   &#x3D; a or b</span><br><span class="line">val xorResult  &#x3D; a xor b</span><br><span class="line">val rightShift &#x3D; a shr 2</span><br><span class="line">val leftShift  &#x3D; a shl 2</span><br><span class="line">val unsignedRightShift &#x3D; a ushr 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val andResult  &#x3D; a and b</span><br><span class="line">val orResult   &#x3D; a or b</span><br><span class="line">val xorResult  &#x3D; a xor b</span><br><span class="line">val rightShift &#x3D; a shr 2</span><br><span class="line">val leftShift  &#x3D; a shl 2</span><br><span class="line">val unsignedRightShift &#x3D; a ushr 2</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="类型判断和转换-声明式"><a href="#类型判断和转换-声明式" class="headerlink" title="类型判断和转换 (声明式)"></a>类型判断和转换 (声明式)</h3><blockquote>
+
+        <h3 id="类型判断和转换-声明式"   >
+          <a href="#类型判断和转换-声明式" class="heading-link"><i class="fas fa-link"></i></a>类型判断和转换 (声明式)</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Car car &#x3D; (Car) object;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Car car &#x3D; (Car) object;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var car &#x3D; object as Car</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var car &#x3D; object as Car</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="类型判断和转换-隐式"><a href="#类型判断和转换-隐式" class="headerlink" title="类型判断和转换 (隐式)"></a>类型判断和转换 (隐式)</h3><blockquote>
+
+        <h3 id="类型判断和转换-隐式"   >
+          <a href="#类型判断和转换-隐式" class="heading-link"><i class="fas fa-link"></i></a>类型判断和转换 (隐式)</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (object instanceof Car) &#123;</span><br><span class="line">   Car car &#x3D; (Car) object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (object instanceof Car) &#123;</span><br><span class="line">   Car car &#x3D; (Car) object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (object is Car) &#123;</span><br><span class="line">   var car &#x3D; object &#x2F;&#x2F; 自动识别</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (object is Car) &#123;</span><br><span class="line">   var car &#x3D; object &#x2F;&#x2F; 自动识别</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="多重条件"><a href="#多重条件" class="headerlink" title="多重条件"></a>多重条件</h3><blockquote>
+
+        <h3 id="多重条件"   >
+          <a href="#多重条件" class="heading-link"><i class="fas fa-link"></i></a>多重条件</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (score &gt;&#x3D; 0 &amp;&amp; score &lt;&#x3D; 300) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (score &gt;&#x3D; 0 &amp;&amp; score &lt;&#x3D; 300) &#123; &#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (score in 0..300) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (score in 0..300) &#123; &#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="更灵活的case语句"><a href="#更灵活的case语句" class="headerlink" title="更灵活的case语句"></a>更灵活的case语句</h3><blockquote>
+
+        <h3 id="更灵活的case语句"   >
+          <a href="#更灵活的case语句" class="heading-link"><i class="fas fa-link"></i></a>更灵活的case语句</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int score &#x3D; &#x2F;&#x2F; some score;</span><br><span class="line">String grade;</span><br><span class="line">switch (score) &#123;</span><br><span class="line">    case 10:</span><br><span class="line">    case 9:</span><br><span class="line">        grade &#x3D; &quot;Excellent&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 8:</span><br><span class="line">    case 7:</span><br><span class="line">    case 6:</span><br><span class="line">        grade &#x3D; &quot;Good&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 5:</span><br><span class="line">    case 4:</span><br><span class="line">        grade &#x3D; &quot;OK&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 3:</span><br><span class="line">    case 2:</span><br><span class="line">    case 1:</span><br><span class="line">        grade &#x3D; &quot;Fail&quot;;</span><br><span class="line">        break;</span><br><span class="line">    default:</span><br><span class="line">        grade &#x3D; &quot;Fail&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int score &#x3D; &#x2F;&#x2F; some score;</span><br><span class="line">String grade;</span><br><span class="line">switch (score) &#123;</span><br><span class="line">    case 10:</span><br><span class="line">    case 9:</span><br><span class="line">        grade &#x3D; &quot;Excellent&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 8:</span><br><span class="line">    case 7:</span><br><span class="line">    case 6:</span><br><span class="line">        grade &#x3D; &quot;Good&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 5:</span><br><span class="line">    case 4:</span><br><span class="line">        grade &#x3D; &quot;OK&quot;;</span><br><span class="line">        break;</span><br><span class="line">    case 3:</span><br><span class="line">    case 2:</span><br><span class="line">    case 1:</span><br><span class="line">        grade &#x3D; &quot;Fail&quot;;</span><br><span class="line">        break;</span><br><span class="line">    default:</span><br><span class="line">        grade &#x3D; &quot;Fail&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var score &#x3D; &#x2F;&#x2F; some score</span><br><span class="line">var grade &#x3D; when (score) &#123;</span><br><span class="line">    9, 10 -&gt; &quot;Excellent&quot;</span><br><span class="line">    in 6..8 -&gt; &quot;Good&quot;</span><br><span class="line">    4, 5 -&gt; &quot;OK&quot;</span><br><span class="line">    in 1..3 -&gt; &quot;Fail&quot;</span><br><span class="line">    else -&gt; &quot;Fail&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var score &#x3D; &#x2F;&#x2F; some score</span><br><span class="line">var grade &#x3D; when (score) &#123;</span><br><span class="line">    9, 10 -&gt; &quot;Excellent&quot;</span><br><span class="line">    in 6..8 -&gt; &quot;Good&quot;</span><br><span class="line">    4, 5 -&gt; &quot;OK&quot;</span><br><span class="line">    in 1..3 -&gt; &quot;Fail&quot;</span><br><span class="line">    else -&gt; &quot;Fail&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><blockquote>
+
+        <h3 id="for循环"   >
+          <a href="#for循环" class="heading-link"><i class="fas fa-link"></i></a>for循环</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (int i &#x3D; 1; i &lt;&#x3D; 10 ; i++) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 1; i &lt; 10 ; i++) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 10; i &gt;&#x3D; 0 ; i--) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 1; i &lt;&#x3D; 10 ; i+&#x3D;2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 10; i &gt;&#x3D; 0 ; i-&#x3D;2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (String item : collection) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (Map.Entry&lt;String, String&gt; entry: map.entrySet()) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (int i &#x3D; 1; i &lt;&#x3D; 10 ; i++) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 1; i &lt; 10 ; i++) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 10; i &gt;&#x3D; 0 ; i--) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 1; i &lt;&#x3D; 10 ; i+&#x3D;2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (int i &#x3D; 10; i &gt;&#x3D; 0 ; i-&#x3D;2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (String item : collection) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (Map.Entry&lt;String, String&gt; entry: map.entrySet()) &#123; &#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (i in 1..10) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 1 until 10) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 10 downTo 0) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 1..10 step 2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 10 downTo 0 step 2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (item in collection) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for ((key, value) in map) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (i in 1..10) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 1 until 10) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 10 downTo 0) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 1..10 step 2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (i in 10 downTo 0 step 2) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for (item in collection) &#123; &#125;</span><br><span class="line"></span><br><span class="line">for ((key, value) in map) &#123; &#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="更方便的集合操作"><a href="#更方便的集合操作" class="headerlink" title="更方便的集合操作"></a>更方便的集合操作</h3><blockquote>
+
+        <h3 id="更方便的集合操作"   >
+          <a href="#更方便的集合操作" class="heading-link"><i class="fas fa-link"></i></a>更方便的集合操作</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">final List&lt;Integer&gt; listOfNumber &#x3D; Arrays.asList(1, 2, 3, 4);</span><br><span class="line"></span><br><span class="line">final Map&lt;Integer, String&gt; keyValue &#x3D; new HashMap&lt;Integer, String&gt;();</span><br><span class="line">map.put(1, &quot;Android&quot;);</span><br><span class="line">map.put(2, &quot;Ali&quot;);</span><br><span class="line">map.put(3, &quot;Mindorks&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 9</span><br><span class="line">final List&lt;Integer&gt; listOfNumber &#x3D; List.of(1, 2, 3, 4);</span><br><span class="line"></span><br><span class="line">final Map&lt;Integer, String&gt; keyValue &#x3D; Map.of(1, &quot;Android&quot;,</span><br><span class="line">                                             2, &quot;Ali&quot;,</span><br><span class="line">                                             3, &quot;Mindorks&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">final List&lt;Integer&gt; listOfNumber &#x3D; Arrays.asList(1, 2, 3, 4);</span><br><span class="line"></span><br><span class="line">final Map&lt;Integer, String&gt; keyValue &#x3D; new HashMap&lt;Integer, String&gt;();</span><br><span class="line">map.put(1, &quot;Android&quot;);</span><br><span class="line">map.put(2, &quot;Ali&quot;);</span><br><span class="line">map.put(3, &quot;Mindorks&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 9</span><br><span class="line">final List&lt;Integer&gt; listOfNumber &#x3D; List.of(1, 2, 3, 4);</span><br><span class="line"></span><br><span class="line">final Map&lt;Integer, String&gt; keyValue &#x3D; Map.of(1, &quot;Android&quot;,</span><br><span class="line">                                             2, &quot;Ali&quot;,</span><br><span class="line">                                             3, &quot;Mindorks&quot;);</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val listOfNumber &#x3D; listOf(1, 2, 3, 4)</span><br><span class="line">val keyValue &#x3D; mapOf(1 to &quot;Android&quot;,</span><br><span class="line">                     2 to &quot;Ali&quot;,</span><br><span class="line">                     3 to &quot;Mindorks&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val listOfNumber &#x3D; listOf(1, 2, 3, 4)</span><br><span class="line">val keyValue &#x3D; mapOf(1 to &quot;Android&quot;,</span><br><span class="line">                     2 to &quot;Ali&quot;,</span><br><span class="line">                     3 to &quot;Mindorks&quot;)</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><blockquote>
+
+        <h3 id="遍历"   >
+          <a href="#遍历" class="heading-link"><i class="fas fa-link"></i></a>遍历</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Java 7 and below</span><br><span class="line">for (Car car : cars) &#123;</span><br><span class="line">  System.out.println(car.speed);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 8+</span><br><span class="line">cars.forEach(car -&gt; System.out.println(car.speed));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 7 and below</span><br><span class="line">for (Car car : cars) &#123;</span><br><span class="line">  if (car.speed &gt; 100) &#123;</span><br><span class="line">    System.out.println(car.speed);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 8+</span><br><span class="line">cars.stream().filter(car -&gt; car.speed &gt; 100).forEach(car -&gt; System.out.println(car.speed));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Java 7 and below</span><br><span class="line">for (Car car : cars) &#123;</span><br><span class="line">  System.out.println(car.speed);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 8+</span><br><span class="line">cars.forEach(car -&gt; System.out.println(car.speed));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 7 and below</span><br><span class="line">for (Car car : cars) &#123;</span><br><span class="line">  if (car.speed &gt; 100) &#123;</span><br><span class="line">    System.out.println(car.speed);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java 8+</span><br><span class="line">cars.stream().filter(car -&gt; car.speed &gt; 100).forEach(car -&gt; System.out.println(car.speed));</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cars.forEach &#123;</span><br><span class="line">    println(it.speed)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cars.filter &#123; it.speed &gt; 100 &#125;</span><br><span class="line">      .forEach &#123; println(it.speed)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cars.forEach &#123;</span><br><span class="line">    println(it.speed)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cars.filter &#123; it.speed &gt; 100 &#125;</span><br><span class="line">      .forEach &#123; println(it.speed)&#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h3><blockquote>
+
+        <h3 id="方法定义"   >
+          <a href="#方法定义" class="heading-link"><i class="fas fa-link"></i></a>方法定义</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void doSomething() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void doSomething(int... numbers) &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void doSomething() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void doSomething(int... numbers) &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun doSomething() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun doSomething(vararg numbers: Int) &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun doSomething() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun doSomething(vararg numbers: Int) &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="带返回值的方法"><a href="#带返回值的方法" class="headerlink" title="带返回值的方法"></a>带返回值的方法</h3><blockquote>
+
+        <h3 id="带返回值的方法"   >
+          <a href="#带返回值的方法" class="heading-link"><i class="fas fa-link"></i></a>带返回值的方法</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int getScore() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int getScore() &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun getScore(): Int &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return score</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; as a single-expression function</span><br><span class="line"></span><br><span class="line">fun getScore(): Int &#x3D; score</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun getScore(): Int &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return score</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; as a single-expression function</span><br><span class="line"></span><br><span class="line">fun getScore(): Int &#x3D; score</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="无结束符号"><a href="#无结束符号" class="headerlink" title="无结束符号"></a>无结束符号</h3><blockquote>
+
+        <h3 id="无结束符号"   >
+          <a href="#无结束符号" class="heading-link"><i class="fas fa-link"></i></a>无结束符号</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int getScore(int value) &#123;</span><br><span class="line">    &#x2F;&#x2F; logic here</span><br><span class="line">    return 2 * value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int getScore(int value) &#123;</span><br><span class="line">    &#x2F;&#x2F; logic here</span><br><span class="line">    return 2 * value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun getScore(value: Int): Int &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return 2 * value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; as a single-expression function</span><br><span class="line"></span><br><span class="line">fun getScore(value: Int): Int &#x3D; 2 * value</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun getScore(value: Int): Int &#123;</span><br><span class="line">   &#x2F;&#x2F; logic here</span><br><span class="line">   return 2 * value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; as a single-expression function</span><br><span class="line"></span><br><span class="line">fun getScore(value: Int): Int &#x3D; 2 * value</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="constructor-构造器"><a href="#constructor-构造器" class="headerlink" title="constructor 构造器"></a>constructor 构造器</h3><blockquote>
+
+        <h3 id="constructor-构造器"   >
+          <a href="#constructor-构造器" class="heading-link"><i class="fas fa-link"></i></a>constructor 构造器</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Utils &#123;</span><br><span class="line"></span><br><span class="line">    private Utils() &#123;</span><br><span class="line">      &#x2F;&#x2F; This utility class is not publicly instantiable</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int getScore(int value) &#123;</span><br><span class="line">        return 2 * value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Utils &#123;</span><br><span class="line"></span><br><span class="line">    private Utils() &#123;</span><br><span class="line">      &#x2F;&#x2F; This utility class is not publicly instantiable</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int getScore(int value) &#123;</span><br><span class="line">        return 2 * value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Utils private constructor() &#123;</span><br><span class="line"></span><br><span class="line">    companion object &#123;</span><br><span class="line"></span><br><span class="line">        fun getScore(value: Int): Int &#123;</span><br><span class="line">            return 2 * value</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; another way</span><br><span class="line"></span><br><span class="line">object Utils &#123;</span><br><span class="line"></span><br><span class="line">    fun getScore(value: Int): Int &#123;</span><br><span class="line">        return 2 * value</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Utils private constructor() &#123;</span><br><span class="line"></span><br><span class="line">    companion object &#123;</span><br><span class="line"></span><br><span class="line">        fun getScore(value: Int): Int &#123;</span><br><span class="line">            return 2 * value</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; another way</span><br><span class="line"></span><br><span class="line">object Utils &#123;</span><br><span class="line"></span><br><span class="line">    fun getScore(value: Int): Int &#123;</span><br><span class="line">        return 2 * value</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-<h3 id="Get-Set-构造器"><a href="#Get-Set-构造器" class="headerlink" title="Get Set 构造器"></a>Get Set 构造器</h3><blockquote>
+
+        <h3 id="Get-Set-构造器"   >
+          <a href="#Get-Set-构造器" class="heading-link"><i class="fas fa-link"></i></a>Get Set 构造器</h3>
+      <blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class Developer &#123;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    public Developer(String name, int age) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class Developer &#123;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    public Developer(String name, int age) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age &#x3D; age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data class Developer(val name: String, val age: Int)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data class Developer(val name: String, val age: Int)</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://class.imooc.com/sale/mobilearchitect" target="_blank" rel="noopener">慕课网移动端架构师成长体系课</a></li>
+
+        <h2 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <ul>
+<li><span class="exturl"><a class="exturl__link"   href="https://class.imooc.com/sale/mobilearchitect"  target="_blank" rel="noopener">慕课网移动端架构师成长体系课</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
 </ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/14/KotlinJava/">https://jiyugithub.github.io/2020/06/14/KotlinJava/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/14/switcher/"><span class="paginator-prev__text">炫酷！从未见过如此Q弹的Switcher</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打印日志"><span class="toc-number">1.</span> <span class="toc-text">
+          打印日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义变量与常量常"><span class="toc-number">2.</span> <span class="toc-text">
+          定义变量与常量常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null声明"><span class="toc-number">3.</span> <span class="toc-text">
+          null声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空判断"><span class="toc-number">4.</span> <span class="toc-text">
+          空判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串拼接"><span class="toc-number">5.</span> <span class="toc-text">
+          字符串拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行"><span class="toc-number">6.</span> <span class="toc-text">
+          换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三元表达式"><span class="toc-number">7.</span> <span class="toc-text">
+          三元表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作符"><span class="toc-number">8.</span> <span class="toc-text">
+          操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-声明式"><span class="toc-number">9.</span> <span class="toc-text">
+          类型判断和转换 (声明式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-隐式"><span class="toc-number">10.</span> <span class="toc-text">
+          类型判断和转换 (隐式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重条件"><span class="toc-number">11.</span> <span class="toc-text">
+          多重条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更灵活的case语句"><span class="toc-number">12.</span> <span class="toc-text">
+          更灵活的case语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">13.</span> <span class="toc-text">
+          for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更方便的集合操作"><span class="toc-number">14.</span> <span class="toc-text">
+          更方便的集合操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历"><span class="toc-number">15.</span> <span class="toc-text">
+          遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法定义"><span class="toc-number">16.</span> <span class="toc-text">
+          方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带返回值的方法"><span class="toc-number">17.</span> <span class="toc-text">
+          带返回值的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无结束符号"><span class="toc-number">18.</span> <span class="toc-text">
+          无结束符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor-构造器"><span class="toc-number">19.</span> <span class="toc-text">
+          constructor 构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Get-Set-构造器"><span class="toc-number">20.</span> <span class="toc-text">
+          Get Set 构造器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number"></span> <span class="toc-text">
+          参考</span></a></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
 
-    </article>
-    <!-- license  -->
-    
-        <div class="license-wrapper">
-            <p>Author：<a href="https://jiyugithub.github.io">Apocalypse</a>
-            <p>原文链接：<a href="https://jiyugithub.github.io/2020/06/14/KotlinJava/">https://jiyugithub.github.io/2020/06/14/KotlinJava/</a>
-            <p>发表日期：<a href="https://jiyugithub.github.io/2020/06/14/KotlinJava/">June 14th 2020, 5:47:39 am</a>
-            <p>更新日期：<a href="https://jiyugithub.github.io/2020/06/14/KotlinJava/">June 14th 2020, 5:49:57 am</a>
-            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
-        </div>
-    
-    <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/06/14/switcher/" title= "炫酷！从未见过如此Q弹的Switcher">
-                    <div class="prevTitle">炫酷！从未见过如此Q弹的Switcher</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
 
-<!-- City版安装代码已完成 -->
-    
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <div id="comment"></div>
-    <script>
-    new Valine({
-        el: '#comment' ,
-        notify:false, 
-        verify:false, 
-        appId: "GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz",
-        appKey: "FihoucantYlc5U1FQ9BzkO3l",
-        placeholder: "",
-        path:window.location.pathname, 
-        avatar:'mm' 
-    });
-    </script>
-
-
-    <!-- 评论 -->
-</main>
-            <!-- profile -->
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:2391624941@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/jiyugithub" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-    
-        
-            
-                <span class="iconfont-archer qq" title=qq>
-                  
-                  <img class="profile-qr" src="/assets/239.jpg" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
-    
-    <div class="busuanzi-container">
-    
-     
-    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
-    
-    </div>
-    
-</footer>
-    </div>
-    <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打印日志"><span class="toc-number">1.</span> <span class="toc-text">打印日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义变量与常量常"><span class="toc-number">2.</span> <span class="toc-text">定义变量与常量常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null声明"><span class="toc-number">3.</span> <span class="toc-text">null声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空判断"><span class="toc-number">4.</span> <span class="toc-text">空判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串拼接"><span class="toc-number">5.</span> <span class="toc-text">字符串拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行"><span class="toc-number">6.</span> <span class="toc-text">换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三元表达式"><span class="toc-number">7.</span> <span class="toc-text">三元表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作符"><span class="toc-number">8.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-声明式"><span class="toc-number">9.</span> <span class="toc-text">类型判断和转换 (声明式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-隐式"><span class="toc-number">10.</span> <span class="toc-text">类型判断和转换 (隐式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重条件"><span class="toc-number">11.</span> <span class="toc-text">多重条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更灵活的case语句"><span class="toc-number">12.</span> <span class="toc-text">更灵活的case语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">13.</span> <span class="toc-text">for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更方便的集合操作"><span class="toc-number">14.</span> <span class="toc-text">更方便的集合操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历"><span class="toc-number">15.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法定义"><span class="toc-number">16.</span> <span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带返回值的方法"><span class="toc-number">17.</span> <span class="toc-text">带返回值的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无结束符号"><span class="toc-number">18.</span> <span class="toc-text">无结束符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor-构造器"><span class="toc-number">19.</span> <span class="toc-text">constructor 构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Get-Set-构造器"><span class="toc-number">20.</span> <span class="toc-text">Get Set 构造器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number"></span> <span class="toc-text">参考</span></a>
-    </div>
-    
-    <div class="back-top iconfont-archer">&#xe639;</div>
-    <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
-    </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-panel-archives">
-    <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-and-search">
-        <div class="total-archive">
-        Total : 26
-        </div>
-        <!-- search  -->
-        
-    </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> 2020 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/KotlinJava/" >Kotlin与Java的异同</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Kotlinyf/" >Kotlin实战 | 语法糖</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/switcher/" >炫酷！从未见过如此Q弹的Switcher</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Top10/" >2020年GitHub 上那些优秀Android开源库</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/DayNight/" >暗黑模式适配</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/FragmentTransaction/" >Androidx 下 Fragment 懒加载的新实现</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/vue_js/" >10+个很酷的Vue.js组件，模板和demo示例</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/android11/" >Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/typescript/" >TypeScript泛型及应用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/0_kotlin/" >使用Kotlin从零开始写一个现代Android</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/agent/" >动态代理设计模式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/blog/" >如何快速搭建好看的个人博客</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/hashmap/" >HashMap原理技术知识整理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/undefined/" >Android目前最稳定和高效的UI适配方案</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/javafs/" >Java反射真的很慢吗</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view1/" >一文彻底了解Android自定义控件1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view3/" >一文彻底了解Android自定义控件3</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view2/" >一文彻底了解Android自定义控件2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/socket/" >手把手教你写Socket长连接</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/Rxjava/" >Rxjava只看这一篇文章就够了</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/multitype/" >Android 复杂的列表视图新写法 MultiType</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2020/06/11/vue/" >从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/09</span><a class="archive-post-title" href= "/2020/06/09/handler/" >Handler 机制</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/flutternm/" >Flutter高级玩法-贝塞尔曲线的表象认知</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/hexo-zhuan/" >hexo撰写文章</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/2020/03/14/TopKotlin/" >快速入门 Kotlin</a>
-        </li>
-    
-    </div>
-  </div>
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="Tag1"><span class="iconfont-archer">&#xe606;</span>Tag1</span>
-    
-        <span class="sidebar-tag-name" data-tags="Tag2"><span class="iconfont-archer">&#xe606;</span>Tag2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="Category1"><span class="iconfont-archer">&#xe60a;</span>Category1</span>
-    
-        <span class="sidebar-category-name" data-categories="Category1/Category2"><span class="iconfont-archer">&#xe60a;</span>Category1/Category2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: "/",
-        author: "Apocalypse"
-    }
-</script>
-    <!-- CDN failover -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ === 'undefined')
-        {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
-        }
-    </script>
-    <script src="/scripts/main.js"></script>
-    <!-- algolia -->
-    
-    <!-- busuanzi  -->
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
-     
-    </body>
-</html>
-
-
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

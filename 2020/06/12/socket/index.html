@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- title -->
-
-
-
-
-<!-- keywords -->
-
-
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Apocalypse">
-    <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Apocalypse">
-    
-    <meta name="keywords" content="android,java,kotlin">
-    
-    <meta name="description" content="">
-    <meta name="description" content="本篇我们先简单了解一下 TCP&#x2F;IP，然后通过实现一个 echo 服务器来学习 Java 的 Socket API。最后我们聊聊偏高级一点点的 socket 长连接和协议设计。">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="本篇我们先简单了解一下 TCP&#x2F;IP，然后通过实现一个 echo 服务器来学习 Java 的 Socket API。最后我们聊聊偏高级一点点的 socket 长连接和协议设计。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手把手教你写Socket长连接">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/socket/index.html">
@@ -32,394 +10,49 @@
 <meta property="article:modified_time" content="2020-06-13T20:44:11.336Z">
 <meta property="article:author" content="Apocalypse">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    
-    <title>手把手教你写Socket长连接 · Apocalypse&#39;s Blog</title>
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
-    }
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>手把手教你写Socket长连接 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/12/socket/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-    body {
-        margin: 0;
-    }
-
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
-
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
-
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s infinite;
-    }
-
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-</style>
-
-    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    
-    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-/* This file is meant as a standalone workflow for
-- testing support for link[rel=preload]
-- enabling async CSS loading in browsers that do not support rel=preload
-- applying rel preload css once loaded, whether supported or not.
-*/ -->
-<script>
-(function( w ){
-	"use strict";
-	// rel=preload support test
-	if( !w.loadCSS ){
-		w.loadCSS = function(){};
-	}
-	// define on the loadCSS obj
-	var rp = loadCSS.relpreload = {};
-	// rel=preload feature support test
-	// runs once and returns a function for compat purposes
-	rp.support = (function(){
-		var ret;
-		try {
-			ret = w.document.createElement( "link" ).relList.supports( "preload" );
-		} catch (e) {
-			ret = false;
-		}
-		return function(){
-			return ret;
-		};
-	})();
-
-	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-	// then change that media back to its intended value on load
-	rp.bindMediaToggle = function( link ){
-		// remember existing media attr for ultimate state, or default to 'all'
-		var finalMedia = link.media || "all";
-
-		function enableStylesheet(){
-			link.media = finalMedia;
-		}
-
-		// bind load handlers to enable media
-		if( link.addEventListener ){
-			link.addEventListener( "load", enableStylesheet );
-		} else if( link.attachEvent ){
-			link.attachEvent( "onload", enableStylesheet );
-		}
-
-		// Set rel and non-applicable media type to start an async request
-		// note: timeout allows this to happen async to let rendering continue in IE
-		setTimeout(function(){
-			link.rel = "stylesheet";
-			link.media = "only x";
-		});
-		// also enable media after 3 seconds,
-		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-		setTimeout( enableStylesheet, 3000 );
-	};
-
-	// loop through link elements in DOM
-	rp.poly = function(){
-		// double check this to prevent external calls from running
-		if( rp.support() ){
-			return;
-		}
-		var links = w.document.getElementsByTagName( "link" );
-		for( var i = 0; i < links.length; i++ ){
-			var link = links[ i ];
-			// qualify links to those with rel=preload and as=style attrs
-			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-				// prevent rerunning on link
-				link.setAttribute( "data-loadcss", true );
-				// bind listeners to toggle media back
-				rp.bindMediaToggle( link );
-			}
-		}
-	};
-
-	// if unsupported, run the polyfill
-	if( !rp.support() ){
-		// run once at least
-		rp.poly();
-
-		// rerun poly on an interval until onload
-		var run = w.setInterval( rp.poly, 500 );
-		if( w.addEventListener ){
-			w.addEventListener( "load", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		} else if( w.attachEvent ){
-			w.attachEvent( "onload", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		}
-	}
-
-
-	// commonjs
-	if( typeof exports !== "undefined" ){
-		exports.loadCSS = loadCSS;
-	}
-	else {
-		w.loadCSS = loadCSS;
-	}
-}( typeof global !== "undefined" ? global : this ) );
-</script>
-
-    <link rel="icon" href= "/assets/favicon.ico" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
-    <link rel="preload" href="/scripts/main.js" as="script" />
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
-    
-    <!-- fancybox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    
-        <body class="post-body">
-    
-    
-<header class="header">
-
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Apocalypse&#39;s Blog.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">手把手教你写Socket长连接</a>
-            </div>
-    </div>
-    
-    <a class="home-link" href=/>Apocalypse's Blog.</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro" style="
-
-
-
-
-
-
-
-height:50vh;
-">
-    
-    <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
-            
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            手把手教你写Socket长连接
-            <!-- 404 -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-            <!-- 404 -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">6.2k</span>Reading time: <span class="post-count reading-time">23 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/06/12</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        
-    </div>
-</div>
-        <script>
- 
-  // get user agent
-  var browser = {
-    versions: function () {
-      var u = window.navigator.userAgent;
-      return {
-        userAgent: u,
-        trident: u.indexOf('Trident') > -1, //IE内核
-        presto: u.indexOf('Presto') > -1, //opera内核
-        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-        iPad: u.indexOf('iPad') > -1, //是否为iPad
-        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-      };
-    }()
-  }
-  console.log("userAgent:" + browser.versions.userAgent);
-
-  // callback
-  function fontLoaded() {
-    console.log('font loaded');
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-      var postIntros = document.getElementsByClassName('post-intros')[0]
-      if (postIntros) {
-        postIntros.classList.add('post-fade-in');
-      }
-    }
-  }
-
-  // UC不支持跨域，所以直接显示
-  function asyncCb(){
-    if (browser.versions.uc) {
-      console.log("UCBrowser");
-      fontLoaded();
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular']
-        },
-        loading: function () {  //所有字体开始加载
-          // console.log('loading');
-        },
-        active: function () {  //所有字体已渲染
-          fontLoaded();
-        },
-        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout');
-          fontLoaded();
-        },
-        timeout: 5000 // Set the timeout to two seconds
-      });
-    }
-  }
-
-  function asyncErr(){
-    console.warn('script load from CDN failed, will load local script')
-  }
-
-  // load webfont-loader async, and add callback function
-  function async(u, cb, err) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
-    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
-
-  var asyncLoadWithFallBack = function(arr, success, reject) {
-      var currReject = function(){
-        reject()
-        arr.shift()
-        if(arr.length)
-          async(arr[0], success, currReject)
-        }
-
-      async(arr[0], success, currReject)
-  }
-
-  asyncLoadWithFallBack([
-    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
-    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
-    "/lib/webfontloader.min.js"
-  ], asyncCb, asyncErr)
-</script>        
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>本篇我们先简单了解一下 TCP/IP，然后通过实现一个 echo 服务器来学习 Java 的 Socket API。最后我们聊聊偏高级一点点的 socket 长连接和协议设计。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">手把手教你写Socket长连接</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/socket/" data-flag-title="手把手教你写Socket长连接"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>本篇我们先简单了解一下 TCP/IP，然后通过实现一个 echo 服务器来学习 Java 的 Socket API。最后我们聊聊偏高级一点点的 socket 长连接和协议设计。</p>
 <a id="more"></a>
 
-<h2 id="TCP-IP-协议简介"><a href="#TCP-IP-协议简介" class="headerlink" title="TCP/IP 协议简介"></a>TCP/IP 协议简介</h2><h4 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h4><p>首先我们看 IP（Internet Protocol）协议。IP 协议提供了<strong>主机和主机</strong>间的通信。</p>
+
+        <h2 id="TCP-IP-协议简介"   >
+          <a href="#TCP-IP-协议简介" class="heading-link"><i class="fas fa-link"></i></a>TCP/IP 协议简介</h2>
+      
+        <h4 id="IP"   >
+          <a href="#IP" class="heading-link"><i class="fas fa-link"></i></a>IP</h4>
+      <p>首先我们看 IP（Internet Protocol）协议。IP 协议提供了<strong>主机和主机</strong>间的通信。</p>
 <p>为了完成不同主机的通信，我们需要某种方式来唯一标识一台主机，这个标识，就是著名的<strong>IP地址</strong>。通过IP地址，IP 协议就能够帮我们把一个数据包发送给对方。</p>
-<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><p>前面我们说过，IP 协议提供了主机和主机间的通信。TCP 协议在 IP 协议提供的主机间通信功能的基础上，完成这两个主机上<strong>进程对进程</strong>的通信。</p>
+
+        <h4 id="TCP"   >
+          <a href="#TCP" class="heading-link"><i class="fas fa-link"></i></a>TCP</h4>
+      <p>前面我们说过，IP 协议提供了主机和主机间的通信。TCP 协议在 IP 协议提供的主机间通信功能的基础上，完成这两个主机上<strong>进程对进程</strong>的通信。</p>
 <p>有了 IP，不同主机就能够交换数据。但是，计算机收到数据后，并不知道这个数据属于哪个进程（简单讲，进程就是一个正在运行的应用程序）。TCP 的作用就在于，让我们能够知道这个数据属于哪个进程，从而完成进程间的通信。</p>
 <p>为了标识数据属于哪个进程，我们给需要进行 TCP 通信的进程分配一个唯一的数字来标识它。这个数字，就是我们常说的<strong>端口号</strong>。</p>
 <p>TCP 的全称是 Transmission Control Protocol，大家对它说得最多的，大概就是<strong>面向连接</strong>的特性了。之所以说它是有连接的，是说在进行通信前，通信双方需要先经过一个<em>三次握手</em>的过程。三次握手完成后，连接便建立了。这时候我们才可以开始发送/接收数据。（与之相对的是 UDP，不需要经过握手，就可以直接发送数据）。</p>
 <p>下面我们简单了解一下三次握手的过程。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="tcp-three-way-handshake"></p>
+<p><img   src="http://user-gold-cdn.xitu.io/2018/6/29/1644c0f951971fd5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="tcp-three-way-handshake"></p>
 <ol>
 <li>首先，客户向服务端发送一个 <code>SYN</code>，假设此时 sequence number 为 <code>x</code>。这个 <code>x</code> 是由操作系统根据一定的规则生成的，不妨认为它是一个随机数。</li>
 <li>服务端收到 <code>SYN</code> 后，会向客户端再发送一个 <code>SYN</code>，此时服务器的 <code>seq number = y</code>。与此同时，会 <code>ACK x+1</code>，告诉客户端“已经收到了 <code>SYN</code>，可以发送数据了”。</li>
@@ -433,7 +66,10 @@ height:50vh;
 </ol>
 <p>TCP/IP 相关的理论知识我们就先了解到这里。关于 TCP，还有诸如可靠性、流量控制、拥塞控制等非常有趣的特性，<strong>强烈推荐</strong>读者看一看 Richard 的名著《TCP/IP 详解 - 卷1》（注意，是<strong>第1版</strong>，不是第2版）。</p>
 <p>下面我们看一些偏实战的东西。</p>
-<h2 id="Socket-基本用法"><a href="#Socket-基本用法" class="headerlink" title="Socket 基本用法"></a>Socket 基本用法</h2><p>Socket 是 TCP 层的封装，通过 socket，我们就能进行 TCP 通信。</p>
+
+        <h2 id="Socket-基本用法"   >
+          <a href="#Socket-基本用法" class="heading-link"><i class="fas fa-link"></i></a>Socket 基本用法</h2>
+      <p>Socket 是 TCP 层的封装，通过 socket，我们就能进行 TCP 通信。</p>
 <p>在 Java 的 SDK 中，socket 的共有两个接口：用于监听客户连接的 <code>ServerSocket</code> 和用于通信的 <code>Socket</code>。使用 socket 的步骤如下：</p>
 <ol>
 <li>创建 <code>ServerSocket</code> 并监听客户连接</li>
@@ -442,25 +78,25 @@ height:50vh;
 </ol>
 <p>下面，我们通过实现一个简单的 echo 服务来学习 socket 的使用。所谓的 echo 服务，就是客户端向服务端写入任意数据，服务器都将数据原封不动地写回给客户端。</p>
 <p><strong>1. 创建 ServerSocket 并监听客户连接</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class EchoServer &#123;</span><br><span class="line"></span><br><span class="line">    private final ServerSocket mServerSocket;</span><br><span class="line"></span><br><span class="line">    public EchoServer(int port) throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 1. 创建一个 ServerSocket 并监听端口 port</span><br><span class="line">        mServerSocket &#x3D; new ServerSocket(port);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 2. 开始接受客户连接</span><br><span class="line">        Socket client &#x3D; mServerSocket.accept();</span><br><span class="line">        handleClient(client);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void handleClient(Socket socket) &#123;</span><br><span class="line">        &#x2F;&#x2F; 3. 使用 socket 进行通信 ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] argv) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            EchoServer server &#x3D; new EchoServer(9877);</span><br><span class="line">            server.run();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class EchoServer &#123;</span><br><span class="line"></span><br><span class="line">    private final ServerSocket mServerSocket;</span><br><span class="line"></span><br><span class="line">    public EchoServer(int port) throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 1. 创建一个 ServerSocket 并监听端口 port</span><br><span class="line">        mServerSocket &#x3D; new ServerSocket(port);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 2. 开始接受客户连接</span><br><span class="line">        Socket client &#x3D; mServerSocket.accept();</span><br><span class="line">        handleClient(client);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void handleClient(Socket socket) &#123;</span><br><span class="line">        &#x2F;&#x2F; 3. 使用 socket 进行通信 ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] argv) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            EchoServer server &#x3D; new EchoServer(9877);</span><br><span class="line">            server.run();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p><strong>2. 使用 Socket 连接服务端</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class EchoClient &#123;</span><br><span class="line"></span><br><span class="line">    private final Socket mSocket;</span><br><span class="line"></span><br><span class="line">    public EchoClient(String host, int port) throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 创建 socket 并连接服务器</span><br><span class="line">        mSocket &#x3D; new Socket(host, port);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F; 和服务端进行通信</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] argv) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F; 由于服务端运行在同一主机，这里我们使用 localhost</span><br><span class="line">            EchoClient client &#x3D; new EchoClient(&quot;localhost&quot;, 9877);</span><br><span class="line">            client.run();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class EchoClient &#123;</span><br><span class="line"></span><br><span class="line">    private final Socket mSocket;</span><br><span class="line"></span><br><span class="line">    public EchoClient(String host, int port) throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; 创建 socket 并连接服务器</span><br><span class="line">        mSocket &#x3D; new Socket(host, port);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F; 和服务端进行通信</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] argv) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F; 由于服务端运行在同一主机，这里我们使用 localhost</span><br><span class="line">            EchoClient client &#x3D; new EchoClient(&quot;localhost&quot;, 9877);</span><br><span class="line">            client.run();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p><strong>3. 通过 socket.getInputStream()/getOutputStream() 获取输入/输出流进行通信</strong></p>
 <p>首先，我们来实现服务端：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class EchoServer &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">    private void handleClient(Socket socket) throws IOException &#123;</span><br><span class="line">        InputStream in &#x3D; socket.getInputStream();</span><br><span class="line">        OutputStream out &#x3D; socket.getOutputStream();</span><br><span class="line">        byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">        int n;</span><br><span class="line">        while ((n &#x3D; in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">            out.write(buffer, 0, n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class EchoServer &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">    private void handleClient(Socket socket) throws IOException &#123;</span><br><span class="line">        InputStream in &#x3D; socket.getInputStream();</span><br><span class="line">        OutputStream out &#x3D; socket.getOutputStream();</span><br><span class="line">        byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">        int n;</span><br><span class="line">        while ((n &#x3D; in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">            out.write(buffer, 0, n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>可以看到，服务端的实现其实很简单，我们不停地读取输入数据，然后写回给客户端。</p>
 <p>下面我们看看客户端。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class EchoClient &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">    public void run() throws IOException &#123;</span><br><span class="line">        Thread readerThread &#x3D; new Thread(this::readResponse);</span><br><span class="line">        readerThread.start();</span><br><span class="line"></span><br><span class="line">        OutputStream out &#x3D; mSocket.getOutputStream();</span><br><span class="line">        byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">        int n;</span><br><span class="line">        while ((n &#x3D; System.in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">            out.write(buffer, 0, n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void readResponse() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            InputStream in &#x3D; mSocket.getInputStream();</span><br><span class="line">            byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">            int n;</span><br><span class="line">            while ((n &#x3D; in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">                System.out.write(buffer, 0, n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class EchoClient &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line"></span><br><span class="line">    public void run() throws IOException &#123;</span><br><span class="line">        Thread readerThread &#x3D; new Thread(this::readResponse);</span><br><span class="line">        readerThread.start();</span><br><span class="line"></span><br><span class="line">        OutputStream out &#x3D; mSocket.getOutputStream();</span><br><span class="line">        byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">        int n;</span><br><span class="line">        while ((n &#x3D; System.in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">            out.write(buffer, 0, n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void readResponse() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            InputStream in &#x3D; mSocket.getInputStream();</span><br><span class="line">            byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">            int n;</span><br><span class="line">            while ((n &#x3D; in.read(buffer)) &gt; 0) &#123;</span><br><span class="line">                System.out.write(buffer, 0, n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>客户端会稍微复杂一点点，在读取用户输入的同时，我们又想读取服务器的响应。所以，这里创建了一个线程来读服务器的响应。</p>
 <p>不熟悉 lambda 的读者，可以把 <code>Thread readerThread = new Thread(this::readResponse)</code> 换成下面这个代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Thread readerThread &#x3D; new Thread(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        readResponse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Thread readerThread &#x3D; new Thread(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        readResponse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></div></figure>
 
 <p>打开两个 terminal 分别执行如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ javac EchoServer.java</span><br><span class="line">$ java EchoServer</span><br><span class="line"> </span><br><span class="line">$ javac EchoClient.java</span><br><span class="line">$ java EchoClient</span><br><span class="line">hello Server</span><br><span class="line">hello Server</span><br><span class="line">foo</span><br><span class="line">foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ javac EchoServer.java</span><br><span class="line">$ java EchoServer</span><br><span class="line"> </span><br><span class="line">$ javac EchoClient.java</span><br><span class="line">$ java EchoClient</span><br><span class="line">hello Server</span><br><span class="line">hello Server</span><br><span class="line">foo</span><br><span class="line">foo</span><br></pre></td></tr></table></div></figure>
 
 <p>在客户端，我们会看到，输入的所有字符都打印了出来。</p>
 <p>最后需要注意的有几点：</p>
@@ -469,7 +105,10 @@ height:50vh;
 <li>在客户端，我们没有停止 <code>readThread</code>。实际应用中，我们可以通过关闭 socket 来让线程从阻塞读中返回。推荐读者阅读《Java并发编程实战》</li>
 <li>我们的服务端只处理了一个客户连接。如果需要同时处理多个客户端，可以创建线程来处理请求。这个作为练习留给读者来完全。</li>
 </ol>
-<h2 id="Socket、ServerSocket-傻傻分不清楚"><a href="#Socket、ServerSocket-傻傻分不清楚" class="headerlink" title="Socket、ServerSocket 傻傻分不清楚"></a>Socket、ServerSocket 傻傻分不清楚</h2><p>在进入这一节的主题前，读者不妨先考虑一个问题：在上一节的实例中，我们运行 echo 服务后，在客户端连接成功时，一个有多少个 socket 存在？</p>
+
+        <h2 id="Socket、ServerSocket-傻傻分不清楚"   >
+          <a href="#Socket、ServerSocket-傻傻分不清楚" class="heading-link"><i class="fas fa-link"></i></a>Socket、ServerSocket 傻傻分不清楚</h2>
+      <p>在进入这一节的主题前，读者不妨先考虑一个问题：在上一节的实例中，我们运行 echo 服务后，在客户端连接成功时，一个有多少个 socket 存在？</p>
 <p>答案是 3 个 socket。客户端一个，服务端有两个。跟这个问题的答案直接关联的是本节的主题——<code>Socket</code> 和 <code>ServerSocket</code> 的区别是什么。</p>
 <p>眼尖的读者，可能会注意到在上一节我是这样描述他们的：</p>
 <blockquote>
@@ -491,10 +130,13 @@ height:50vh;
 <p>如果数据是发送给一个已连接的 socket，内核会找到一个完全匹配的实例，所以数据准确发送给了对端。</p>
 <p>如果是客户端要发起连接，这时候只有 <code>&lt;*:*, *:9877&gt;</code> 会匹配成功，所以 <code>SYN</code> 也准确发送给了监听套接字。</p>
 <p><code>Socket/ServerSocket</code> 的区别我们就讲到这里。如果读者觉得不过瘾，可以参考《TCP/IP 详解》卷1、卷2。</p>
-<h2 id="Socket-长连接的实现"><a href="#Socket-长连接的实现" class="headerlink" title="Socket 长连接的实现"></a>Socket 长连接的实现</h2><p><strong>背景知识</strong></p>
+
+        <h2 id="Socket-长连接的实现"   >
+          <a href="#Socket-长连接的实现" class="heading-link"><i class="fas fa-link"></i></a>Socket 长连接的实现</h2>
+      <p><strong>背景知识</strong></p>
 <p>Socket 长连接，指的是在客户和服务端之间保持一个 socket 连接长时间不断开。</p>
 <p>比较熟悉 <code>Socket</code> 的读者，可能知道有这样一个 API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.setKeepAlive(true);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.setKeepAlive(true);</span><br></pre></td></tr></table></div></figure>
 
 <p>嗯……keep alive，“保持活着”，这个应该就是让 TCP 不断开的意思。那么，我们要实现一个 socket 的长连接，只需要这一个调用即可。</p>
 <p>遗憾的是，生活并不总是那么美好。对于 4.4BSD 的实现来说，Socket 的这个 keep alive 选项如果打开并且<strong>两个小时</strong>内没有通信，那么底层会发一个心跳，看看对方是不是还活着。</p>
@@ -509,48 +151,63 @@ height:50vh;
 <p>在上面的几种情形中，有一个共同点就是，只要去读、写 socket，只要 socket 连接不正常，我们就能够知道。基于这一点，要实现一个 socket 长连接，我们需要做的就是不断地给对方写数据，然后读取对方的数据，也就是所谓的<strong>心跳</strong>。只要心还在跳，socket 就是活的。写数据的间隔，需要根据实际的应用需求来决定。</p>
 <p>心跳包不是实际的业务数据，根据通信协议的不同，需要做不同的处理。</p>
 <p>比方说，我们使用 JSON 进行通信，那么，我们可以加一个 <code>type</code> 字段，表面这个 JSON 是心跳还是业务数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: 0,  &#x2F;&#x2F; 0 表示心跳</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;type&quot;: 0,  &#x2F;&#x2F; 0 表示心跳</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>使用二进制协议的情况类似。要求就是，我们能够区别一个数据包是心跳还是真实数据。这样，我们便实现了一个 socket 长连接。</p>
 <p><strong>实现示例</strong></p>
 <p>这一小节我们一起来实现一个带长连接的 Android echo 客户端。</p>
 <p>首先了接口部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public final class LongLiveSocket &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 错误回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface ErrorCallback &#123;</span><br><span class="line">        &#x2F;**</span><br><span class="line">         * 如果需要重连，返回 true</span><br><span class="line">         *&#x2F;</span><br><span class="line">        boolean onError();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 读数据回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface DataCallback &#123;</span><br><span class="line">        void onData(byte[] data, int offset, int len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 写数据回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface WritingCallback &#123;</span><br><span class="line">        void onSuccess();</span><br><span class="line">        void onFail(byte[] data, int offset, int len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public LongLiveSocket(String host, int port,</span><br><span class="line">                          DataCallback dataCallback, ErrorCallback errorCallback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void write(byte[] data, WritingCallback callback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void write(byte[] data, int offset, int len, WritingCallback callback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void close() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public final class LongLiveSocket &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 错误回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface ErrorCallback &#123;</span><br><span class="line">        &#x2F;**</span><br><span class="line">         * 如果需要重连，返回 true</span><br><span class="line">         *&#x2F;</span><br><span class="line">        boolean onError();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 读数据回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface DataCallback &#123;</span><br><span class="line">        void onData(byte[] data, int offset, int len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 写数据回调</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public interface WritingCallback &#123;</span><br><span class="line">        void onSuccess();</span><br><span class="line">        void onFail(byte[] data, int offset, int len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public LongLiveSocket(String host, int port,</span><br><span class="line">                          DataCallback dataCallback, ErrorCallback errorCallback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void write(byte[] data, WritingCallback callback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void write(byte[] data, int offset, int len, WritingCallback callback) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void close() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>我们这个支持长连接的类就叫 <code>LongLiveSocket</code> 好了。如果在 socket 断开后需要重连，只需要在对应的接口里面返回 true 即可（在真实场景里，我们还需要让客户设置重连的等待时间，还有读写、连接的 timeout等。为了简单，这里就直接不支持了。</p>
 <p>另外需要注意的一点是，如果要做一个完整的库，需要同时提供阻塞式和回调式API。同样由于篇幅原因，这里直接省掉了。</p>
 <p>首先我们看看 <code>write()</code> 方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public void write(byte[] data, int offset, int len, WritingCallback callback) &#123;</span><br><span class="line">    mWriterHandler.post(() -&gt; &#123;</span><br><span class="line">        Socket socket &#x3D; getSocket();</span><br><span class="line">        if (socket &#x3D;&#x3D; null) &#123;</span><br><span class="line">            &#x2F;&#x2F; initSocket 失败而客户说不需要重连，但客户又叫我们给他发送数据</span><br><span class="line">            throw new IllegalStateException(&quot;Socket not initialized&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            OutputStream outputStream &#x3D; socket.getOutputStream();</span><br><span class="line">            DataOutputStream out &#x3D; new DataOutputStream(outputStream);</span><br><span class="line">            out.writeInt(len);</span><br><span class="line">            out.write(data, offset, len);</span><br><span class="line">            callback.onSuccess();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            Log.e(TAG, &quot;write: &quot;, e);</span><br><span class="line">            &#x2F;&#x2F; 关闭 socket，避免资源泄露</span><br><span class="line">            closeSocket();</span><br><span class="line">            &#x2F;&#x2F; 这里我们把发生失败的数据返回给客户端，这样客户可以更方便地重新发送数据</span><br><span class="line">            callback.onFail(data, offset, len);</span><br><span class="line">            if (!closed() &amp;&amp; mErrorCallback.onError()) &#123;</span><br><span class="line">                &#x2F;&#x2F; 重连</span><br><span class="line">                initSocket();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public void write(byte[] data, int offset, int len, WritingCallback callback) &#123;</span><br><span class="line">    mWriterHandler.post(() -&gt; &#123;</span><br><span class="line">        Socket socket &#x3D; getSocket();</span><br><span class="line">        if (socket &#x3D;&#x3D; null) &#123;</span><br><span class="line">            &#x2F;&#x2F; initSocket 失败而客户说不需要重连，但客户又叫我们给他发送数据</span><br><span class="line">            throw new IllegalStateException(&quot;Socket not initialized&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            OutputStream outputStream &#x3D; socket.getOutputStream();</span><br><span class="line">            DataOutputStream out &#x3D; new DataOutputStream(outputStream);</span><br><span class="line">            out.writeInt(len);</span><br><span class="line">            out.write(data, offset, len);</span><br><span class="line">            callback.onSuccess();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            Log.e(TAG, &quot;write: &quot;, e);</span><br><span class="line">            &#x2F;&#x2F; 关闭 socket，避免资源泄露</span><br><span class="line">            closeSocket();</span><br><span class="line">            &#x2F;&#x2F; 这里我们把发生失败的数据返回给客户端，这样客户可以更方便地重新发送数据</span><br><span class="line">            callback.onFail(data, offset, len);</span><br><span class="line">            if (!closed() &amp;&amp; mErrorCallback.onError()) &#123;</span><br><span class="line">                &#x2F;&#x2F; 重连</span><br><span class="line">                initSocket();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>由于我们需要定时写心跳，这里使用一个 <code>HandlerThread</code> 来处理写请求。通信使用的协议，只是简单地在用户数据前加一个 len 字段，用于确定消息的长度。</p>
 <p>下面我们看心跳的发送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">private final Runnable mHeartBeatTask &#x3D; new Runnable() &#123;</span><br><span class="line">    private byte[] mHeartBeat &#x3D; new byte[0];</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F; 我们使用长度为 0 的数据作为 heart beat</span><br><span class="line">        write(mHeartBeat, new WritingCallback() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onSuccess() &#123;</span><br><span class="line">                &#x2F;&#x2F; 每隔 HEART_BEAT_INTERVAL_MILLIS 发送一次</span><br><span class="line">                mWriterHandler.postDelayed(mHeartBeatTask, HEART_BEAT_INTERVAL_MILLIS);</span><br><span class="line">                mUIHandler.postDelayed(mHeartBeatTimeoutTask, HEART_BEAT_TIMEOUT_MILLIS);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onFail(byte[] data, int offset, int len) &#123;</span><br><span class="line">                &#x2F;&#x2F; nop</span><br><span class="line">                &#x2F;&#x2F; write() 方法会处理失败</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">private final Runnable mHeartBeatTimeoutTask &#x3D; () -&gt; &#123;</span><br><span class="line">    Log.e(TAG, &quot;mHeartBeatTimeoutTask#run: heart beat timeout&quot;);</span><br><span class="line">    closeSocket();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">private final Runnable mHeartBeatTask &#x3D; new Runnable() &#123;</span><br><span class="line">    private byte[] mHeartBeat &#x3D; new byte[0];</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F; 我们使用长度为 0 的数据作为 heart beat</span><br><span class="line">        write(mHeartBeat, new WritingCallback() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onSuccess() &#123;</span><br><span class="line">                &#x2F;&#x2F; 每隔 HEART_BEAT_INTERVAL_MILLIS 发送一次</span><br><span class="line">                mWriterHandler.postDelayed(mHeartBeatTask, HEART_BEAT_INTERVAL_MILLIS);</span><br><span class="line">                mUIHandler.postDelayed(mHeartBeatTimeoutTask, HEART_BEAT_TIMEOUT_MILLIS);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onFail(byte[] data, int offset, int len) &#123;</span><br><span class="line">                &#x2F;&#x2F; nop</span><br><span class="line">                &#x2F;&#x2F; write() 方法会处理失败</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">private final Runnable mHeartBeatTimeoutTask &#x3D; () -&gt; &#123;</span><br><span class="line">    Log.e(TAG, &quot;mHeartBeatTimeoutTask#run: heart beat timeout&quot;);</span><br><span class="line">    closeSocket();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
 
 <p>发送心跳使用我们上面实现的 <code>write()</code> 方法。在发送成功后，post delay 一个 timeout task，如果到期后还没收到服务器的响应，我们将认为 socket 出现异常，这里直接关闭 socket。最后是对心跳的处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int nbyte &#x3D; in.readInt();</span><br><span class="line">if (nbyte &#x3D;&#x3D; 0) &#123;</span><br><span class="line">    Log.i(TAG, &quot;readResponse: heart beat received&quot;);</span><br><span class="line">    mUIHandler.removeCallbacks(mHeartBeatTimeoutTask);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int nbyte &#x3D; in.readInt();</span><br><span class="line">if (nbyte &#x3D;&#x3D; 0) &#123;</span><br><span class="line">    Log.i(TAG, &quot;readResponse: heart beat received&quot;);</span><br><span class="line">    mUIHandler.removeCallbacks(mHeartBeatTimeoutTask);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>由于用户数据的长度总是会大于 1，这里我们就使用 <code>len == 0</code> 的数据作为心跳。收到心跳后，移除 <code>mHeartBeatTimeoutTask</code>。</p>
-<p>剩余代码跟我们的主题没有太大关系，读者在<a href="https://github.com/Jekton/Echo" target="_blank" rel="noopener">这里</a>[3]可以找到完整的代码或者自己完成这个例子。</p>
+<p>剩余代码跟我们的主题没有太大关系，读者在<span class="exturl"><a class="exturl__link"   href="https://github.com/Jekton/Echo"  target="_blank" rel="noopener">这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>[3]可以找到完整的代码或者自己完成这个例子。</p>
 <p>最后需要说明的是，如果想节省资源，在有客户发送数据的时候可以省略 heart beat。</p>
 <p>我们对读出错时候的处理，可能也存在一些争议。读出错后，我们只是关闭了 socket。socket 需要等到下一次写动作发生时，才会重新连接。实际应用中，如果这是一个问题，在读出错后可以直接开始重连。这种情况下，还需要一些额外的同步，避免重复创建 socket。heart beat timeout 的情况类似。</p>
-<h2 id="跟-TCP-IP-学协议设计"><a href="#跟-TCP-IP-学协议设计" class="headerlink" title="跟 TCP/IP 学协议设计"></a>跟 TCP/IP 学协议设计</h2><p>如果仅仅是为了使用是 socket，我们大可以不去理会协议的细节。之所以推荐大家去看一看《TCP/IP 详解》，是因为它们有太多值得学习的地方。很多我们工作中遇到的问题，都可以在这里找到答案。</p>
+
+        <h2 id="跟-TCP-IP-学协议设计"   >
+          <a href="#跟-TCP-IP-学协议设计" class="heading-link"><i class="fas fa-link"></i></a>跟 TCP/IP 学协议设计</h2>
+      <p>如果仅仅是为了使用是 socket，我们大可以不去理会协议的细节。之所以推荐大家去看一看《TCP/IP 详解》，是因为它们有太多值得学习的地方。很多我们工作中遇到的问题，都可以在这里找到答案。</p>
 <p>以下每一个小节的标题都是一个小问题，建议读者独立思考一下，再继续往下看。如果你发现你的答案比我的更好，请一定发送邮件到 ljtong64 AT gmail DOT com 告诉我。</p>
-<h4 id="协议版本如何升级？"><a href="#协议版本如何升级？" class="headerlink" title="协议版本如何升级？"></a>协议版本如何升级？</h4><p>有这么一句流行的话：这个世界唯一不变的，就是变化。当我们对协议版本进行升级的时候，正确识别不同版本的协议对软件的兼容非常重要。那么，我们如何设计协议，才能够为将来的版本升级做准备呢？</p>
+
+        <h4 id="协议版本如何升级？"   >
+          <a href="#协议版本如何升级？" class="heading-link"><i class="fas fa-link"></i></a>协议版本如何升级？</h4>
+      <p>有这么一句流行的话：这个世界唯一不变的，就是变化。当我们对协议版本进行升级的时候，正确识别不同版本的协议对软件的兼容非常重要。那么，我们如何设计协议，才能够为将来的版本升级做准备呢？</p>
 <p>答案可以在 IP 协议找到。</p>
 <p>IP 协议的第一个字段叫 version，目前使用的是 4 或 6，分别表示 IPv4 和 IPv6。由于这个字段在协议的开头，接收端收到数据后，只要根据第一个字段的值就能够判断这个数据包是 IPv4 还是 IPv6。</p>
 <p>再强调一下，这个字段在两个版本的IP协议都位于第一个字段，为了做兼容处理，对应的这个字段必须位于同一位置。文本协议（如，JSON、HTML）的情况类似。</p>
-<h4 id="如何发送不定长数据的数据包"><a href="#如何发送不定长数据的数据包" class="headerlink" title="如何发送不定长数据的数据包"></a>如何发送不定长数据的数据包</h4><p>举个例子，我们用微信发送一条消息。这条消息的长度是不确定的，并且每条消息都有它的边界。我们如何来处理这个边界呢？</p>
+
+        <h4 id="如何发送不定长数据的数据包"   >
+          <a href="#如何发送不定长数据的数据包" class="heading-link"><i class="fas fa-link"></i></a>如何发送不定长数据的数据包</h4>
+      <p>举个例子，我们用微信发送一条消息。这条消息的长度是不确定的，并且每条消息都有它的边界。我们如何来处理这个边界呢？</p>
 <p>还是一样，看看 IP。IP 的头部有个 header length 和 data length 两个字段。通过添加一个 len 域，我们就能够把数据根据应用逻辑分开。</p>
 <p>跟这个相对的，还有另一个方案，那就是在数据的末尾放置终止符。比方说，想 C 语言的字符串那样，我们在每个数据的末尾放一个 <code>\0</code> 作为终止符，用以标识一条消息的尾部。这个方法带来的问题是，用户的数据也可能存在 <code>\0</code>。此时，我们就需要对用户的数据进行<strong>转义</strong>。比方说，把用户数据的所有 <code>\0</code> 都变成 <code>\0\0</code>。读消息的过程总，如果遇到 <code>\0\0</code>，那它就代表 <code>\0</code>，如果只有一个 <code>\0</code>，那就是消息尾部。</p>
 <p>使用 len 字段的好处是，我们不需要对数据进行转义。读取数据的时候，只要根据 len 字段，一次性把数据都读进来就好，效率会更高一些。</p>
 <p>终止符的方案虽然要求我们对数据进行扫描，但是如果我们可能从任意地方开始读取数据，就需要这个终止符来确定哪里才是消息的开头了。</p>
 <p>当然，这两个方法不是互斥的，可以一起使用。</p>
-<h4 id="上传多个文件，只有所有文件都上传成功时才算成功"><a href="#上传多个文件，只有所有文件都上传成功时才算成功" class="headerlink" title="上传多个文件，只有所有文件都上传成功时才算成功"></a>上传多个文件，只有所有文件都上传成功时才算成功</h4><p>现在我们有一个需求，需要一次上传多个文件到服务器，只有在所有文件都上传成功的情况下，才算成功。我们该如何来实现呢？</p>
+
+        <h4 id="上传多个文件，只有所有文件都上传成功时才算成功"   >
+          <a href="#上传多个文件，只有所有文件都上传成功时才算成功" class="heading-link"><i class="fas fa-link"></i></a>上传多个文件，只有所有文件都上传成功时才算成功</h4>
+      <p>现在我们有一个需求，需要一次上传多个文件到服务器，只有在所有文件都上传成功的情况下，才算成功。我们该如何来实现呢？</p>
 <p>IP 在数据报过大的时候，会把一个数据报拆分成多个，并设置一个 MF （more fragments）位，表示这个包只是被拆分后的数据的一部分。</p>
 <p>好，我们也学一学 IP。这里，我们可以给每个文件从 0 开始编号。上传文件的同时，也携带这个编号，并额外附带一个 MF 标志。除了编号最大的文件，所有文件的 MF 标志都置位。因为 MF 没有置位的是最后一个文件，服务器就可以根据这个得出总共有多少个文件。</p>
 <p>另一种不使用 MF 标志的方法是，我们在上传文件前，就告诉服务器总共有多少个文件。</p>
 <p>如果读者对数据库比较熟悉，学数据库用事务来处理，也是可以的。这里就不展开讨论了。</p>
-<h4 id="如何保证数据的有序性"><a href="#如何保证数据的有序性" class="headerlink" title="如何保证数据的有序性"></a>如何保证数据的有序性</h4><p>这里讲一个我曾经遇到过的面试题。现在有一个任务队列，多个工作线程从中取出任务并执行，执行结果放到一个结果队列中。先要求，放入结果队列的时候，顺序顺序需要跟从工作队列取出时的一样（也就是说，先取出的任务，执行结果需要先放入结果队列）。</p>
+
+        <h4 id="如何保证数据的有序性"   >
+          <a href="#如何保证数据的有序性" class="heading-link"><i class="fas fa-link"></i></a>如何保证数据的有序性</h4>
+      <p>这里讲一个我曾经遇到过的面试题。现在有一个任务队列，多个工作线程从中取出任务并执行，执行结果放到一个结果队列中。先要求，放入结果队列的时候，顺序顺序需要跟从工作队列取出时的一样（也就是说，先取出的任务，执行结果需要先放入结果队列）。</p>
 <p>我们看看 TCP/IP 是怎么处理的。IP 在发送数据的时候，不同数据报到达对端的时间是不确定的，后面发送的数据有可能较先到达。TCP 为了解决这个问题，给所发送数据的每个字节都赋了一个序列号，通过这个序列号，TCP 就能够把数据按原顺序重新组装。</p>
 <p>一样，我们也给每个任务赋一个值，根据进入工作队列的顺序依次递增。工作线程完成任务后，在将结果放入结果队列前，先检查要放入对象的写一个序列号是不是跟自己的任务相同，如果不同，这个结果就不能放进去。此时，最简单的做法是等待，知道下一个可以放入队列的结果是自己所执行的那一个。但是，这个线程就没办法继续处理任务了。</p>
 <p>更好的方法是，我们维护多一个结果队列的缓冲，这个缓冲里面的数据按序列号从小到大排序。工作线程要将结果放入，有两种可能：</p>
@@ -559,720 +216,53 @@ height:50vh;
 <li>所完成的任务不能放入结果队列，这个时候就插入结果队列。然后，跟上一种情况一样，需要检查缓冲。</li>
 </ol>
 <p>如果测试表明，这个结果缓冲的数据不多，那么使用普通的链表就可以。如果数据比较多，可以使用一个最小堆。</p>
-<h4 id="如何保证对方收到了消息"><a href="#如何保证对方收到了消息" class="headerlink" title="如何保证对方收到了消息"></a>如何保证对方收到了消息</h4><p>我们说，TCP 提供了可靠的传输。这样不就能够保证对方收到消息了吗？</p>
+
+        <h4 id="如何保证对方收到了消息"   >
+          <a href="#如何保证对方收到了消息" class="heading-link"><i class="fas fa-link"></i></a>如何保证对方收到了消息</h4>
+      <p>我们说，TCP 提供了可靠的传输。这样不就能够保证对方收到消息了吗？</p>
 <p>很遗憾，其实不能。在我们往 socket 写入的数据，只要对端的内核收到后，就会返回 <code>ACK</code>，此时，socket 就认为数据已经写入成功。然而要注意的是，这里只是对方所运行的系统的内核成功收到了数据，并不表示应用程序已经成功处理了数据。</p>
 <p>解决办法还是一样，我们学 <code>TCP</code>，添加一个应用层的 <code>APP ACK</code>。应用接收到消息并处理成功后，发送一个 <code>APP ACK</code> 给对方。</p>
 <p>有了 <code>APP ACK</code>，我们需要处理的另一个问题是，如果对方真的没有收到，需要怎么做？</p>
 <p>TCP 发送数据的时候，消息一样可能丢失。TCP 发送数据后，如果长时间没有收到对方的 <code>ACK</code>，就假设数据已经丢失，并重新发送。</p>
 <p>我们也一样，如果长时间没有收到 <code>APP ACK</code>，就假设数据丢失，重新发送一个。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/12/socket/">https://jiyugithub.github.io/2020/06/12/socket/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/12/agent/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">动态代理设计模式</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/undefined/"><span class="paginator-prev__text">Android目前最稳定和高效的UI适配方案</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP-协议简介"><span class="toc-number">1.</span> <span class="toc-text">
+          TCP&#x2F;IP 协议简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IP"><span class="toc-number">1.0.1.</span> <span class="toc-text">
+          IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP"><span class="toc-number">1.0.2.</span> <span class="toc-text">
+          TCP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket-基本用法"><span class="toc-number">2.</span> <span class="toc-text">
+          Socket 基本用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket、ServerSocket-傻傻分不清楚"><span class="toc-number">3.</span> <span class="toc-text">
+          Socket、ServerSocket 傻傻分不清楚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket-长连接的实现"><span class="toc-number">4.</span> <span class="toc-text">
+          Socket 长连接的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跟-TCP-IP-学协议设计"><span class="toc-number">5.</span> <span class="toc-text">
+          跟 TCP&#x2F;IP 学协议设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#协议版本如何升级？"><span class="toc-number">5.0.1.</span> <span class="toc-text">
+          协议版本如何升级？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何发送不定长数据的数据包"><span class="toc-number">5.0.2.</span> <span class="toc-text">
+          如何发送不定长数据的数据包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传多个文件，只有所有文件都上传成功时才算成功"><span class="toc-number">5.0.3.</span> <span class="toc-text">
+          上传多个文件，只有所有文件都上传成功时才算成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何保证数据的有序性"><span class="toc-number">5.0.4.</span> <span class="toc-text">
+          如何保证数据的有序性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何保证对方收到了消息"><span class="toc-number">5.0.5.</span> <span class="toc-text">
+          如何保证对方收到了消息</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
 
-    </article>
-    <!-- license  -->
-    
-        <div class="license-wrapper">
-            <p>Author：<a href="https://jiyugithub.github.io">Apocalypse</a>
-            <p>原文链接：<a href="https://jiyugithub.github.io/2020/06/12/socket/">https://jiyugithub.github.io/2020/06/12/socket/</a>
-            <p>发表日期：<a href="https://jiyugithub.github.io/2020/06/12/socket/">June 12th 2020, 5:55:57 am</a>
-            <p>更新日期：<a href="https://jiyugithub.github.io/2020/06/12/socket/">June 14th 2020, 4:44:11 am</a>
-            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
-        </div>
-    
-    <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/06/12/agent/" title= "动态代理设计模式">
-                    <div class="nextTitle">动态代理设计模式</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/06/12/undefined/" title= "Android目前最稳定和高效的UI适配方案">
-                    <div class="prevTitle">Android目前最稳定和高效的UI适配方案</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
 
-<!-- City版安装代码已完成 -->
-    
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <div id="comment"></div>
-    <script>
-    new Valine({
-        el: '#comment' ,
-        notify:false, 
-        verify:false, 
-        appId: "GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz",
-        appKey: "FihoucantYlc5U1FQ9BzkO3l",
-        placeholder: "",
-        path:window.location.pathname, 
-        avatar:'mm' 
-    });
-    </script>
-
-
-    <!-- 评论 -->
-</main>
-            <!-- profile -->
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:2391624941@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/jiyugithub" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-    
-        
-            
-                <span class="iconfont-archer qq" title=qq>
-                  
-                  <img class="profile-qr" src="/assets/239.jpg" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
-    
-    <div class="busuanzi-container">
-    
-     
-    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
-    
-    </div>
-    
-</footer>
-    </div>
-    <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP-协议简介"><span class="toc-number">1.</span> <span class="toc-text">TCP&#x2F;IP 协议简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IP"><span class="toc-number">1.0.1.</span> <span class="toc-text">IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP"><span class="toc-number">1.0.2.</span> <span class="toc-text">TCP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket-基本用法"><span class="toc-number">2.</span> <span class="toc-text">Socket 基本用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket、ServerSocket-傻傻分不清楚"><span class="toc-number">3.</span> <span class="toc-text">Socket、ServerSocket 傻傻分不清楚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket-长连接的实现"><span class="toc-number">4.</span> <span class="toc-text">Socket 长连接的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跟-TCP-IP-学协议设计"><span class="toc-number">5.</span> <span class="toc-text">跟 TCP&#x2F;IP 学协议设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#协议版本如何升级？"><span class="toc-number">5.0.1.</span> <span class="toc-text">协议版本如何升级？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何发送不定长数据的数据包"><span class="toc-number">5.0.2.</span> <span class="toc-text">如何发送不定长数据的数据包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传多个文件，只有所有文件都上传成功时才算成功"><span class="toc-number">5.0.3.</span> <span class="toc-text">上传多个文件，只有所有文件都上传成功时才算成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何保证数据的有序性"><span class="toc-number">5.0.4.</span> <span class="toc-text">如何保证数据的有序性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何保证对方收到了消息"><span class="toc-number">5.0.5.</span> <span class="toc-text">如何保证对方收到了消息</span></a></li></ol></li></ol></li></ol>
-    </div>
-    
-    <div class="back-top iconfont-archer">&#xe639;</div>
-    <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
-    </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-panel-archives">
-    <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-and-search">
-        <div class="total-archive">
-        Total : 26
-        </div>
-        <!-- search  -->
-        
-    </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> 2020 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/KotlinJava/" >Kotlin与Java的异同</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Kotlinyf/" >Kotlin实战 | 语法糖</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/switcher/" >炫酷！从未见过如此Q弹的Switcher</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Top10/" >2020年GitHub 上那些优秀Android开源库</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/DayNight/" >暗黑模式适配</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/FragmentTransaction/" >Androidx 下 Fragment 懒加载的新实现</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/vue_js/" >10+个很酷的Vue.js组件，模板和demo示例</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/android11/" >Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/typescript/" >TypeScript泛型及应用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/0_kotlin/" >使用Kotlin从零开始写一个现代Android</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/agent/" >动态代理设计模式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/blog/" >如何快速搭建好看的个人博客</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/hashmap/" >HashMap原理技术知识整理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/undefined/" >Android目前最稳定和高效的UI适配方案</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/javafs/" >Java反射真的很慢吗</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view1/" >一文彻底了解Android自定义控件1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view3/" >一文彻底了解Android自定义控件3</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view2/" >一文彻底了解Android自定义控件2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/socket/" >手把手教你写Socket长连接</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/Rxjava/" >Rxjava只看这一篇文章就够了</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/multitype/" >Android 复杂的列表视图新写法 MultiType</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2020/06/11/vue/" >从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/09</span><a class="archive-post-title" href= "/2020/06/09/handler/" >Handler 机制</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/flutternm/" >Flutter高级玩法-贝塞尔曲线的表象认知</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/hexo-zhuan/" >hexo撰写文章</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/2020/03/14/TopKotlin/" >快速入门 Kotlin</a>
-        </li>
-    
-    </div>
-  </div>
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="Tag1"><span class="iconfont-archer">&#xe606;</span>Tag1</span>
-    
-        <span class="sidebar-tag-name" data-tags="Tag2"><span class="iconfont-archer">&#xe606;</span>Tag2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="Category1"><span class="iconfont-archer">&#xe60a;</span>Category1</span>
-    
-        <span class="sidebar-category-name" data-categories="Category1/Category2"><span class="iconfont-archer">&#xe60a;</span>Category1/Category2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: "/",
-        author: "Apocalypse"
-    }
-</script>
-    <!-- CDN failover -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ === 'undefined')
-        {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
-        }
-    </script>
-    <script src="/scripts/main.js"></script>
-    <!-- algolia -->
-    
-    <!-- busuanzi  -->
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
-     
-    </body>
-</html>
-
-
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

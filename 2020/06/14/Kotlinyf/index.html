@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- title -->
-
-
-
-
-<!-- keywords -->
-
-
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Apocalypse">
-    <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Apocalypse">
-    
-    <meta name="keywords" content="android,java,kotlin">
-    
-    <meta name="description" content="">
-    <meta name="description" content="学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin实战 | 语法糖">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/Kotlinyf/index.html">
@@ -30,399 +8,51 @@
 <meta property="article:published_time" content="2020-06-13T18:15:46.000Z">
 <meta property="article:modified_time" content="2020-06-13T20:41:39.527Z">
 <meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    
-    <title>Kotlin实战 | 语法糖 · Apocalypse&#39;s Blog</title>
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
-    }
+<meta name="twitter:card" content="summary"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>Kotlin实战 | 语法糖 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-    body {
-        margin: 0;
-    }
-
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
-
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
-
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s infinite;
-    }
-
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-</style>
-
-    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    
-    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-/* This file is meant as a standalone workflow for
-- testing support for link[rel=preload]
-- enabling async CSS loading in browsers that do not support rel=preload
-- applying rel preload css once loaded, whether supported or not.
-*/ -->
-<script>
-(function( w ){
-	"use strict";
-	// rel=preload support test
-	if( !w.loadCSS ){
-		w.loadCSS = function(){};
-	}
-	// define on the loadCSS obj
-	var rp = loadCSS.relpreload = {};
-	// rel=preload feature support test
-	// runs once and returns a function for compat purposes
-	rp.support = (function(){
-		var ret;
-		try {
-			ret = w.document.createElement( "link" ).relList.supports( "preload" );
-		} catch (e) {
-			ret = false;
-		}
-		return function(){
-			return ret;
-		};
-	})();
-
-	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-	// then change that media back to its intended value on load
-	rp.bindMediaToggle = function( link ){
-		// remember existing media attr for ultimate state, or default to 'all'
-		var finalMedia = link.media || "all";
-
-		function enableStylesheet(){
-			link.media = finalMedia;
-		}
-
-		// bind load handlers to enable media
-		if( link.addEventListener ){
-			link.addEventListener( "load", enableStylesheet );
-		} else if( link.attachEvent ){
-			link.attachEvent( "onload", enableStylesheet );
-		}
-
-		// Set rel and non-applicable media type to start an async request
-		// note: timeout allows this to happen async to let rendering continue in IE
-		setTimeout(function(){
-			link.rel = "stylesheet";
-			link.media = "only x";
-		});
-		// also enable media after 3 seconds,
-		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-		setTimeout( enableStylesheet, 3000 );
-	};
-
-	// loop through link elements in DOM
-	rp.poly = function(){
-		// double check this to prevent external calls from running
-		if( rp.support() ){
-			return;
-		}
-		var links = w.document.getElementsByTagName( "link" );
-		for( var i = 0; i < links.length; i++ ){
-			var link = links[ i ];
-			// qualify links to those with rel=preload and as=style attrs
-			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-				// prevent rerunning on link
-				link.setAttribute( "data-loadcss", true );
-				// bind listeners to toggle media back
-				rp.bindMediaToggle( link );
-			}
-		}
-	};
-
-	// if unsupported, run the polyfill
-	if( !rp.support() ){
-		// run once at least
-		rp.poly();
-
-		// rerun poly on an interval until onload
-		var run = w.setInterval( rp.poly, 500 );
-		if( w.addEventListener ){
-			w.addEventListener( "load", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		} else if( w.attachEvent ){
-			w.attachEvent( "onload", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		}
-	}
-
-
-	// commonjs
-	if( typeof exports !== "undefined" ){
-		exports.loadCSS = loadCSS;
-	}
-	else {
-		w.loadCSS = loadCSS;
-	}
-}( typeof global !== "undefined" ? global : this ) );
-</script>
-
-    <link rel="icon" href= "/assets/favicon.ico" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
-    <link rel="preload" href="/scripts/main.js" as="script" />
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
-    
-    <!-- fancybox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    
-        <body class="post-body">
-    
-    
-<header class="header">
-
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Apocalypse&#39;s Blog.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Kotlin实战 | 语法糖</a>
-            </div>
-    </div>
-    
-    <a class="home-link" href=/>Apocalypse's Blog.</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro" style="
-
-
-
-
-
-
-
-height:50vh;
-">
-    
-    <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
-            
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            Kotlin实战 | 语法糖
-            <!-- 404 -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-            <!-- 404 -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">3.3k</span>Reading time: <span class="post-count reading-time">15 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/06/14</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        
-    </div>
-</div>
-        <script>
- 
-  // get user agent
-  var browser = {
-    versions: function () {
-      var u = window.navigator.userAgent;
-      return {
-        userAgent: u,
-        trident: u.indexOf('Trident') > -1, //IE内核
-        presto: u.indexOf('Presto') > -1, //opera内核
-        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-        iPad: u.indexOf('iPad') > -1, //是否为iPad
-        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-      };
-    }()
-  }
-  console.log("userAgent:" + browser.versions.userAgent);
-
-  // callback
-  function fontLoaded() {
-    console.log('font loaded');
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-      var postIntros = document.getElementsByClassName('post-intros')[0]
-      if (postIntros) {
-        postIntros.classList.add('post-fade-in');
-      }
-    }
-  }
-
-  // UC不支持跨域，所以直接显示
-  function asyncCb(){
-    if (browser.versions.uc) {
-      console.log("UCBrowser");
-      fontLoaded();
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular']
-        },
-        loading: function () {  //所有字体开始加载
-          // console.log('loading');
-        },
-        active: function () {  //所有字体已渲染
-          fontLoaded();
-        },
-        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout');
-          fontLoaded();
-        },
-        timeout: 5000 // Set the timeout to two seconds
-      });
-    }
-  }
-
-  function asyncErr(){
-    console.warn('script load from CDN failed, will load local script')
-  }
-
-  // load webfont-loader async, and add callback function
-  function async(u, cb, err) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
-    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
-
-  var asyncLoadWithFallBack = function(arr, success, reject) {
-      var currReject = function(){
-        reject()
-        arr.shift()
-        if(arr.length)
-          async(arr[0], success, currReject)
-        }
-
-      async(arr[0], success, currReject)
-  }
-
-  asyncLoadWithFallBack([
-    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
-    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
-    "/lib/webfontloader.min.js"
-  ], asyncCb, asyncErr)
-</script>        
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Kotlin实战 | 语法糖</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/Kotlinyf/" data-flag-title="Kotlin实战 | 语法糖"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
 <a id="more"></a>
 
-<h2 id="将-px-值转换成-dp-值"><a href="#将-px-值转换成-dp-值" class="headerlink" title="将 px 值转换成 dp 值"></a>将 px 值转换成 dp 值</h2><p>在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在<code>Util</code>类中新增一个静态函数。利用 Kotlin 的扩展属性可以更简洁地实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val Int.dp: Int</span><br><span class="line">    get() &#123;</span><br><span class="line">        return TypedValue.applyDimension(</span><br><span class="line">            TypedValue.COMPLEX_UNIT_DIP,</span><br><span class="line">            this.toFloat(),</span><br><span class="line">            Resources.getSystem().displayMetrics</span><br><span class="line">        ).toInt()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+        <h2 id="将-px-值转换成-dp-值"   >
+          <a href="#将-px-值转换成-dp-值" class="heading-link"><i class="fas fa-link"></i></a>将 px 值转换成 dp 值</h2>
+      <p>在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在<code>Util</code>类中新增一个静态函数。利用 Kotlin 的扩展属性可以更简洁地实现：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val Int.dp: Int</span><br><span class="line">    get() &#123;</span><br><span class="line">        return TypedValue.applyDimension(</span><br><span class="line">            TypedValue.COMPLEX_UNIT_DIP,</span><br><span class="line">            this.toFloat(),</span><br><span class="line">            Resources.getSystem().displayMetrics</span><br><span class="line">        ).toInt()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>为 Int 扩展一个属性<code>dp</code>，它的类型是 Int。在<code>get()</code>中定义该属性的取值算法。</p>
 <p>然后就可以像这样动态地将 Int 值 dp 化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewGroup.addView( textView, LayoutParam( 40.dp, 50.dp ) )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewGroup.addView( textView, LayoutParam( 40.dp, 50.dp ) )</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="弃用Builder模式"><a href="#弃用Builder模式" class="headerlink" title="弃用Builder模式"></a>弃用Builder模式</h2><p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
+
+        <h2 id="弃用Builder模式"   >
+          <a href="#弃用Builder模式" class="heading-link"><i class="fas fa-link"></i></a>弃用Builder模式</h2>
+      <p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
 <p>在 Java 中 Builder模式 代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;必选参数&#39;</span><br><span class="line">    private String name;</span><br><span class="line">    &#x2F;&#x2F;&#39;以下都是可选参数&#39;</span><br><span class="line">    private int gender;</span><br><span class="line">    private int age;</span><br><span class="line">    private int height;</span><br><span class="line">    private int weight;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;私有构造函数，限制必须通过构造者构建对象&#39;</span><br><span class="line">    private Person(Builder builder) &#123;</span><br><span class="line">        this.name &#x3D; builder.name;</span><br><span class="line">        this.gender &#x3D; builder.gender;</span><br><span class="line">        this.age &#x3D; builder.age;</span><br><span class="line">        this.height &#x3D; builder.height;</span><br><span class="line">        this.weight &#x3D; builder.weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;构造者&#39;</span><br><span class="line">    public static class Builder &#123;</span><br><span class="line">        private String name;</span><br><span class="line">        private int gender;</span><br><span class="line">        private int age;</span><br><span class="line">        private int height;</span><br><span class="line">        private int weight;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;必选参数必须在构造函数中传入&#39;</span><br><span class="line">        public Builder(String name) &#123;</span><br><span class="line">            this.name &#x3D; name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用&#39;</span><br><span class="line">        public Builder age(int age) &#123;</span><br><span class="line">            this.age &#x3D; age;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder gender(int gender) &#123;</span><br><span class="line">            this.gender &#x3D; gender;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder height(int height) &#123;</span><br><span class="line">            this.height &#x3D; height;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder weight(int weight) &#123;</span><br><span class="line">            this.weight &#x3D; weight;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;构建对象&#39;</span><br><span class="line">        public Person build() &#123;</span><br><span class="line">            return new Person(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;必选参数&#39;</span><br><span class="line">    private String name;</span><br><span class="line">    &#x2F;&#x2F;&#39;以下都是可选参数&#39;</span><br><span class="line">    private int gender;</span><br><span class="line">    private int age;</span><br><span class="line">    private int height;</span><br><span class="line">    private int weight;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;私有构造函数，限制必须通过构造者构建对象&#39;</span><br><span class="line">    private Person(Builder builder) &#123;</span><br><span class="line">        this.name &#x3D; builder.name;</span><br><span class="line">        this.gender &#x3D; builder.gender;</span><br><span class="line">        this.age &#x3D; builder.age;</span><br><span class="line">        this.height &#x3D; builder.height;</span><br><span class="line">        this.weight &#x3D; builder.weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#39;构造者&#39;</span><br><span class="line">    public static class Builder &#123;</span><br><span class="line">        private String name;</span><br><span class="line">        private int gender;</span><br><span class="line">        private int age;</span><br><span class="line">        private int height;</span><br><span class="line">        private int weight;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;必选参数必须在构造函数中传入&#39;</span><br><span class="line">        public Builder(String name) &#123;</span><br><span class="line">            this.name &#x3D; name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用&#39;</span><br><span class="line">        public Builder age(int age) &#123;</span><br><span class="line">            this.age &#x3D; age;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder gender(int gender) &#123;</span><br><span class="line">            this.gender &#x3D; gender;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder height(int height) &#123;</span><br><span class="line">            this.height &#x3D; height;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Builder weight(int weight) &#123;</span><br><span class="line">            this.weight &#x3D; weight;</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;构建对象&#39;</span><br><span class="line">        public Person build() &#123;</span><br><span class="line">            return new Person(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>然后就可以像这样构建<code>Person</code>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;使用 Builder模式&#39;</span><br><span class="line">Person p &#x3D; new Person.Builder(&quot;taylor&quot;)</span><br><span class="line">            .age(50)</span><br><span class="line">            .gender(1)</span><br><span class="line">            .weight(43)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用构造函数&#39;</span><br><span class="line">Person p2 &#x3D; new Person(&quot;taylor&quot;, 50, 1, 0, 43);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;使用 Builder模式&#39;</span><br><span class="line">Person p &#x3D; new Person.Builder(&quot;taylor&quot;)</span><br><span class="line">            .age(50)</span><br><span class="line">            .gender(1)</span><br><span class="line">            .weight(43)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用构造函数&#39;</span><br><span class="line">Person p2 &#x3D; new Person(&quot;taylor&quot;, 50, 1, 0, 43);</span><br></pre></td></tr></table></div></figure>
 
 <p>对比之下，Builder模式 有两个优势：</p>
 <ol>
@@ -431,43 +61,49 @@ height:50vh;
 </ol>
 <p>但 Builder模式 也有代价，新增了一个中间类<code>Builder</code>。</p>
 <p>使用 Kotlin 的<code>命名参数</code>+<code>参数默认值</code>+<code>数据类</code>语法，在没有任何副作用的情况下就能实现 Builder模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;将Person定义为数据类&#39;</span><br><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    &#x2F;&#x2F;&#39;为以下可选参数设置默认值&#39;</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用命名参数构建Person实例&#39;</span><br><span class="line">val p  &#x3D; Person(name &#x3D; “taylor”,gender &#x3D; 1,weight &#x3D; 43)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;将Person定义为数据类&#39;</span><br><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    &#x2F;&#x2F;&#39;为以下可选参数设置默认值&#39;</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;使用命名参数构建Person实例&#39;</span><br><span class="line">val p  &#x3D; Person(name &#x3D; “taylor”,gender &#x3D; 1,weight &#x3D; 43)</span><br></pre></td></tr></table></div></figure>
 
-<p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<a href="https://juejin.im/post/5cdb9536e51d456e5c5babd4" target="_blank" rel="noopener">这里</a></p>
+<p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<span class="exturl"><a class="exturl__link"   href="https://juejin.im/post/5cdb9536e51d456e5c5babd4"  target="_blank" rel="noopener">这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p>如果想增加参数约束条件可以调用<code>require()</code>方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)&#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;在构造函数被调用的时候执行参数合法检查&#39;</span><br><span class="line">    init &#123;</span><br><span class="line">        require(name.isNotEmpty())&#123;”name cant be empty“&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data class Person(</span><br><span class="line">    var name: String,</span><br><span class="line">    var gender: Int &#x3D; 1,</span><br><span class="line">    var age: Int&#x3D; 0,</span><br><span class="line">    var height: Int &#x3D; 0,</span><br><span class="line">    var weight: Int &#x3D; 0</span><br><span class="line">)&#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;在构造函数被调用的时候执行参数合法检查&#39;</span><br><span class="line">    init &#123;</span><br><span class="line">        require(name.isNotEmpty())&#123;”name cant be empty“&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>此时如果像下面这样构造 Person，则会抛出异常：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val p &#x3D; Person(name&#x3D;&quot;&quot;,gender &#x3D; 1)</span><br><span class="line">java.lang.IllegalArgumentException: name cant be empty</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val p &#x3D; Person(name&#x3D;&quot;&quot;,gender &#x3D; 1)</span><br><span class="line">java.lang.IllegalArgumentException: name cant be empty</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="打印列表、map"><a href="#打印列表、map" class="headerlink" title="打印列表、map"></a>打印列表、map</h2><p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (String str:list) &#123;</span><br><span class="line">    Log.v(&quot;test&quot;, &quot;str&#x3D;&quot;+str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        <h2 id="打印列表、map"   >
+          <a href="#打印列表、map" class="heading-link"><i class="fas fa-link"></i></a>打印列表、map</h2>
+      <p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (String str:list) &#123;</span><br><span class="line">    Log.v(&quot;test&quot;, &quot;str&#x3D;&quot;+str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>不同业务界面的数据类型不同，为了调试，这样的 for 循环就会散落在各处，而且列表内容会分若干条 log 输出，中间极有可能被别的log打断。</p>
 <p><strong>有没有一个函数可以打印包含任意数据类型的列表，并将列表内容组织成更具可读性的字符串？</strong></p>
 <p>用 Kotlin  的<code>扩展函数</code>+<code>泛型</code>+<code>高阶函数</code>就能优雅地做到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;T&gt; Collection&lt;T&gt;.print(map: (T) -&gt; String) &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n[&quot;).also &#123; sb -&gt;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行&#39;</span><br><span class="line">        this.forEach &#123; e -&gt; sb.append(&quot;\n\t$&#123;map(e)&#125;,&quot;) &#125;</span><br><span class="line">        sb.append(&quot;\n]&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;T&gt; Collection&lt;T&gt;.print(map: (T) -&gt; String) &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n[&quot;).also &#123; sb -&gt;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行&#39;</span><br><span class="line">        this.forEach &#123; e -&gt; sb.append(&quot;\n\t$&#123;map(e)&#125;,&quot;) &#125;</span><br><span class="line">        sb.append(&quot;\n]&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></div></figure>
 
 <p>为集合的基类<code>Collection</code>新增一个扩展函数，它是一个高阶函数，因为它的参数是另一个函数，该函数用 lambda 表示。再把集合元素抽象成泛型。通过<code>StringBuilder</code>将所有集合内容拼接成一个自动换行的字符串。</p>
 <p>写段测试代码看下效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">val persons &#x3D; listOf(</span><br><span class="line">    Person(&quot;Peter&quot;, 16),</span><br><span class="line">    Person(&quot;Anna&quot;, 28),</span><br><span class="line">    Person(&quot;Anna&quot;, 23),</span><br><span class="line">    Person(&quot;Sonya&quot;, 39)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">persons.print &#123; &quot;$&#123;it.name&#125;_$&#123;it.age&#125;&quot; &#125;.let &#123; Log.v(&quot;test&quot;,it) &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">val persons &#x3D; listOf(</span><br><span class="line">    Person(&quot;Peter&quot;, 16),</span><br><span class="line">    Person(&quot;Anna&quot;, 28),</span><br><span class="line">    Person(&quot;Anna&quot;, 23),</span><br><span class="line">    Person(&quot;Sonya&quot;, 39)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">persons.print &#123; &quot;$&#123;it.name&#125;_$&#123;it.age&#125;&quot; &#125;.let &#123; Log.v(&quot;test&quot;,it) &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>打印结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test: [</span><br><span class="line">    	Peter_16,</span><br><span class="line">    	Anna_28,</span><br><span class="line">    	Anna_23,</span><br><span class="line">    	Sonya_39,</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test: [</span><br><span class="line">    	Peter_16,</span><br><span class="line">    	Anna_28,</span><br><span class="line">    	Anna_23,</span><br><span class="line">    	Sonya_39,</span><br><span class="line">    ]</span><br></pre></td></tr></table></div></figure>
 
 <p>同样地，可以如法炮制一个打印 map 的扩展函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(map: (V?) -&gt; String): String &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            sb.append(&quot;\n\t[$&#123;entry.key&#125;] &#x3D; $&#123;map(entry.value)&#125;&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(map: (V?) -&gt; String): String &#x3D;</span><br><span class="line">    StringBuilder(&quot;\n&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            sb.append(&quot;\n\t[$&#123;entry.key&#125;] &#x3D; $&#123;map(entry.value)&#125;&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="将-data-类转换成-map"><a href="#将-data-类转换成-map" class="headerlink" title="将 data 类转换成 map"></a>将 data 类转换成 map</h2><p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return ”Person&#123;“ +</span><br><span class="line">                ”name&#x3D;‘“ + name + ’\” +</span><br><span class="line">                ”, age&#x3D;“ + age +</span><br><span class="line">                ‘&#125;’;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        <h2 id="将-data-类转换成-map"   >
+          <a href="#将-data-类转换成-map" class="heading-link"><i class="fas fa-link"></i></a>将 data 类转换成 map</h2>
+      <p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return ”Person&#123;“ +</span><br><span class="line">                ”name&#x3D;‘“ + name + ’\” +</span><br><span class="line">                ”, age&#x3D;“ + age +</span><br><span class="line">                ‘&#125;’;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>但是每新建一个数据类都要手动生成一个<code>toString()</code>方法也挺麻烦。</p>
 <p>利用 Kotlin 的 <code>data class</code>可以省去这一步，但打印效果是所有字段都在同一行中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Log.v(“test”, “person&#x3D;$&#123;Person(&quot;Peter&quot;, 16)&#125;”)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出如下：</span><br><span class="line">V&#x2F;test: person&#x3D;Person(name&#x3D;Peter, age&#x3D;16)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Log.v(“test”, “person&#x3D;$&#123;Person(&quot;Peter&quot;, 16)&#125;”)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出如下：</span><br><span class="line">V&#x2F;test: person&#x3D;Person(name&#x3D;Peter, age&#x3D;16)</span><br></pre></td></tr></table></div></figure>
 
 <p>如果字段很多，把它们都打印在一行中可读性很差。</p>
 <p><strong>有没有一种方法，可以读取一个类中所有的字段信息？</strong> 这样我们就可以将他们组织成想要的形状。请看下面这个方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap() &#x3D;</span><br><span class="line">    &#x2F;&#x2F;&#39;过滤掉除data class以外的其他类&#39;</span><br><span class="line">    this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历类的所有成员，过滤掉成员方法，只考虑成员属性&#39;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        &#x2F;&#x2F;&#39;将成员属性名和值存储在Pair中&#39;</span><br><span class="line">        ?.map &#123; it.name to it.call(this) &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;将Pair转换成map&#39;</span><br><span class="line">        ?.toMap()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap() &#x3D;</span><br><span class="line">    &#x2F;&#x2F;&#39;过滤掉除data class以外的其他类&#39;</span><br><span class="line">    this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;遍历类的所有成员，过滤掉成员方法，只考虑成员属性&#39;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        &#x2F;&#x2F;&#39;将成员属性名和值存储在Pair中&#39;</span><br><span class="line">        ?.map &#123; it.name to it.call(this) &#125;</span><br><span class="line">        &#x2F;&#x2F;&#39;将Pair转换成map&#39;</span><br><span class="line">        ?.toMap()</span><br></pre></td></tr></table></div></figure>
 
 <p>为任意 Kotlin 中的类添加一个<code>扩展函数</code>，它的功能是将<code>data class</code>中所有的字段名及其对应值存在一个 map 中。其中用到的 Kotlin 语法糖如下：</p>
 <ul>
@@ -476,743 +112,73 @@ height:50vh;
 <li><code>filterIsInstance()</code>是<code>Iterable</code>接口的扩展函数，用于过滤出集合中指定的类型。</li>
 <li><code>to</code>是一个<code>infix</code>扩展函数，它的定义如下：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; &#x3D; Pair(this, that)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; &#x3D; Pair(this, that)</span><br></pre></td></tr></table></div></figure>
 
 <ul>
 <li>带有<code>infix</code>标识的函数只允许带有一个参数，并且在调用时可以省略包裹参数的括号。这种语法叫<code>中缀表达式</code></li>
 </ul>
 <p>写段测试代码，结合上一节的打印 map 函数看下效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;,&quot;$it&quot;) &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data class Person(var name: String, var age: Int)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;,&quot;$it&quot;) &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>测试代码先将<code>Person</code>实例转换成 map，然后打印 map。输出结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test:</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">V&#x2F;test:</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>若<code>data class</code>嵌套会发生什么？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;位置，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var x: Int, var y: Int)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(20, 30)).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印结果如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[locaton] &#x3D; Location(x&#x3D;20, y&#x3D;30)</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;位置，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var x: Int, var y: Int)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(20, 30)).ofMap()?.print &#123; it.toString() &#125;.let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印结果如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16</span><br><span class="line">    	[locaton] &#x3D; Location(x&#x3D;20, y&#x3D;30)</span><br><span class="line">    	[name] &#x3D; Peter</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>期望得到类似 Json 的打印效果，但输出结果还差一点。是因为将<code>Person</code>转化成<code>Map</code>时并没有将嵌套的<code>Location</code>也转化成键值对。</p>
 <p>需要将<code>ofMap()</code>方法重构成递归调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap(): Map&lt;String, Any?&gt;? &#123;</span><br><span class="line">    return this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        ?.map &#123; member -&gt;</span><br><span class="line">            val value &#x3D; member.call(this)?.let &#123; v-&gt;</span><br><span class="line">                &#x2F;&#x2F;&#39;若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值&#39;</span><br><span class="line">                if (v::class.isData) v.ofMap()</span><br><span class="line">                else v</span><br><span class="line">            &#125;</span><br><span class="line">            member.name to value</span><br><span class="line">        &#125;</span><br><span class="line">        ?.toMap()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun Any.ofMap(): Map&lt;String, Any?&gt;? &#123;</span><br><span class="line">    return this::class.takeIf &#123; it.isData &#125;</span><br><span class="line">        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()</span><br><span class="line">        ?.map &#123; member -&gt;</span><br><span class="line">            val value &#x3D; member.call(this)?.let &#123; v-&gt;</span><br><span class="line">                &#x2F;&#x2F;&#39;若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值&#39;</span><br><span class="line">                if (v::class.isData) v.ofMap()</span><br><span class="line">                else v</span><br><span class="line">            &#125;</span><br><span class="line">            member.name to value</span><br><span class="line">        &#125;</span><br><span class="line">        ?.toMap()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>为了让打印结果也有嵌套缩进效果，打印 Map 的函数也需要相应地重构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 打印 Map，生成结构化键值对子串</span><br><span class="line"> * @param space 行缩进量</span><br><span class="line"> *&#x2F;</span><br><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(space: Int &#x3D; 0): String &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进&#39;</span><br><span class="line">    val indent &#x3D; StringBuilder().apply &#123;</span><br><span class="line">        repeat(space) &#123; append(&quot; &quot;) &#125;</span><br><span class="line">    &#125;.toString()</span><br><span class="line">    return StringBuilder(&quot;\n$&#123;indent&#125;&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            &#x2F;&#x2F;&#39;如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身&#39;</span><br><span class="line">            val value &#x3D; entry.value.let &#123; v -&gt;</span><br><span class="line">                (v as? Map&lt;*, *&gt;)?.print(&quot;$&#123;indent&#125;$&#123;entry.key&#125; &#x3D; &quot;.length) ?: v.toString()</span><br><span class="line">            &#125;</span><br><span class="line">            sb.append(&quot;\n\t$&#123;indent&#125;[$&#123;entry.key&#125;] &#x3D; $value,&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n$&#123;indent&#125;&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 打印 Map，生成结构化键值对子串</span><br><span class="line"> * @param space 行缩进量</span><br><span class="line"> *&#x2F;</span><br><span class="line">fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(space: Int &#x3D; 0): String &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进&#39;</span><br><span class="line">    val indent &#x3D; StringBuilder().apply &#123;</span><br><span class="line">        repeat(space) &#123; append(&quot; &quot;) &#125;</span><br><span class="line">    &#125;.toString()</span><br><span class="line">    return StringBuilder(&quot;\n$&#123;indent&#125;&#123;&quot;).also &#123; sb -&gt;</span><br><span class="line">        this.iterator().forEach &#123; entry -&gt;</span><br><span class="line">            &#x2F;&#x2F;&#39;如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身&#39;</span><br><span class="line">            val value &#x3D; entry.value.let &#123; v -&gt;</span><br><span class="line">                (v as? Map&lt;*, *&gt;)?.print(&quot;$&#123;indent&#125;$&#123;entry.key&#125; &#x3D; &quot;.length) ?: v.toString()</span><br><span class="line">            &#125;</span><br><span class="line">            sb.append(&quot;\n\t$&#123;indent&#125;[$&#123;entry.key&#125;] &#x3D; $value,&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(&quot;\n$&#123;indent&#125;&#125;&quot;)</span><br><span class="line">    &#125;.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 <p>写段测试代码，看看效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;坐标类，嵌套在Location类中&#39;</span><br><span class="line">data class Coordinate(var x: Int, var y: Int)</span><br><span class="line">&#x2F;&#x2F;&#39;位置类，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var country: String, var city: String, var coordinate: Coordinate)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(&quot;china&quot;, &quot;shanghai&quot;, Coordinate(10, 20))).ofMap()?.print().let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16,</span><br><span class="line">    	[locaton] &#x3D; </span><br><span class="line">              &#123;</span><br><span class="line">    	          [city] &#x3D; shanghai,</span><br><span class="line">    	          [coordinate] &#x3D; </span><br><span class="line">                           &#123;</span><br><span class="line">    	                       [x] &#x3D; 10,</span><br><span class="line">    	                       [y] &#x3D; 20,</span><br><span class="line">                           &#125;,</span><br><span class="line">    	          [country] &#x3D; china,</span><br><span class="line">              &#125;,</span><br><span class="line">    	[name] &#x3D; Peter,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;坐标类，嵌套在Location类中&#39;</span><br><span class="line">data class Coordinate(var x: Int, var y: Int)</span><br><span class="line">&#x2F;&#x2F;&#39;位置类，嵌套在Person类中&#39;</span><br><span class="line">data class Location(var country: String, var city: String, var coordinate: Coordinate)</span><br><span class="line">data class Person(var name: String, var age: Int, var locaton: Location? &#x3D; null)</span><br><span class="line"></span><br><span class="line">Person(&quot;Peter&quot;, 16, Location(&quot;china&quot;, &quot;shanghai&quot;, Coordinate(10, 20))).ofMap()?.print().let &#123; Log.v(&quot;test&quot;, &quot;$it&quot;) &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#39;打印如下&#39;</span><br><span class="line">    &#123;</span><br><span class="line">    	[age] &#x3D; 16,</span><br><span class="line">    	[locaton] &#x3D; </span><br><span class="line">              &#123;</span><br><span class="line">    	          [city] &#x3D; shanghai,</span><br><span class="line">    	          [coordinate] &#x3D; </span><br><span class="line">                           &#123;</span><br><span class="line">    	                       [x] &#x3D; 10,</span><br><span class="line">    	                       [y] &#x3D; 20,</span><br><span class="line">                           &#125;,</span><br><span class="line">    	          [country] &#x3D; china,</span><br><span class="line">              &#125;,</span><br><span class="line">    	[name] &#x3D; Peter,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 
-<h2 id="获取当前周一和周日"><a href="#获取当前周一和周日" class="headerlink" title="获取当前周一和周日"></a>获取当前周一和周日</h2><p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
+
+        <h2 id="获取当前周一和周日"   >
+          <a href="#获取当前周一和周日" class="heading-link"><i class="fas fa-link"></i></a>获取当前周一和周日</h2>
+      <p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
 <p>若需要做类似“一周一次提醒”的功能，就可以本地化提醒时间，然后在每次触发提醒时把它和当前周一作比较，大于则说明本周已提醒。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">fun thisMondayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果当前是周天，则减一天，计算周六所在周的周一&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) &#x3D;&#x3D; Calendar.SUNDAY) c.add(Calendar.DATE, -1)</span><br><span class="line">    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun thisSundayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果不是周天，则将日期调整到当前周的周六，然后在加一天&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) !&#x3D; Calendar.SUNDAY) &#123;</span><br><span class="line">        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)</span><br><span class="line">        c.add(Calendar.DATE, 1)</span><br><span class="line">    &#125;</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="RecyclerView表项点击监听器"><a href="#RecyclerView表项点击监听器" class="headerlink" title="RecyclerView表项点击监听器"></a>RecyclerView表项点击监听器</h2><p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;为 RecyclerView 扩展表项点击监听器&#39;</span><br><span class="line">fun RecyclerView.setOnItemClickListener(listener: (View, Int) -&gt; Unit) &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;为 RecyclerView 子控件设置触摸监听器&#39;</span><br><span class="line">    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener &#123;</span><br><span class="line">        &#x2F;&#x2F;&#39;构造手势探测器，用于解析单击事件&#39;</span><br><span class="line">        val gestureDetector &#x3D; GestureDetector(context, object : GestureDetector.OnGestureListener &#123;</span><br><span class="line">            override fun onShowPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onSingleTapUp(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                &#x2F;&#x2F;&#39;当单击事件发生时，寻找单击坐标下的子控件，并回调监听器&#39;</span><br><span class="line">                e?.let &#123;</span><br><span class="line">                    findChildViewUnder(it.x, it.y)?.let &#123; child -&gt;</span><br><span class="line">                        listener(child, getChildAdapterPosition(child))</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onDown(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onLongPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;在拦截触摸事件时，解析触摸事件&#39;</span><br><span class="line">        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean &#123;</span><br><span class="line">            gestureDetector.onTouchEvent(e)</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-    </article>
-    <!-- license  -->
-    
-        <div class="license-wrapper">
-            <p>Author：<a href="https://jiyugithub.github.io">Apocalypse</a>
-            <p>原文链接：<a href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/">https://jiyugithub.github.io/2020/06/14/Kotlinyf/</a>
-            <p>发表日期：<a href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/">June 14th 2020, 2:15:46 am</a>
-            <p>更新日期：<a href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/">June 14th 2020, 4:41:39 am</a>
-            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
-        </div>
-    
-    <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/06/14/switcher/" title= "炫酷！从未见过如此Q弹的Switcher">
-                    <div class="nextTitle">炫酷！从未见过如此Q弹的Switcher</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/06/14/Top10/" title= "2020年GitHub 上那些优秀Android开源库">
-                    <div class="prevTitle">2020年GitHub 上那些优秀Android开源库</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
-    
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">fun thisMondayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果当前是周天，则减一天，计算周六所在周的周一&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) &#x3D;&#x3D; Calendar.SUNDAY) c.add(Calendar.DATE, -1)</span><br><span class="line">    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun thisSundayInMillis() &#x3D; Calendar.getInstance().let &#123; c -&gt;</span><br><span class="line">    &#x2F;&#x2F;&#39;如果不是周天，则将日期调整到当前周的周六，然后在加一天&#39;</span><br><span class="line">    if (c.get(Calendar.DAY_OF_WEEK) !&#x3D; Calendar.SUNDAY) &#123;</span><br><span class="line">        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)</span><br><span class="line">        c.add(Calendar.DATE, 1)</span><br><span class="line">    &#125;</span><br><span class="line">    c.set(Calendar.HOUR_OF_DAY, 0)</span><br><span class="line">    c.set(Calendar.MINUTE, 0)</span><br><span class="line">    c.set(Calendar.SECOND, 0)</span><br><span class="line">    c.set(Calendar.MILLISECOND, 0)</span><br><span class="line">    c.timeInMillis</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
 
-    
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <div id="comment"></div>
-    <script>
-    new Valine({
-        el: '#comment' ,
-        notify:false, 
-        verify:false, 
-        appId: "GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz",
-        appKey: "FihoucantYlc5U1FQ9BzkO3l",
-        placeholder: "",
-        path:window.location.pathname, 
-        avatar:'mm' 
-    });
-    </script>
+        <h2 id="RecyclerView表项点击监听器"   >
+          <a href="#RecyclerView表项点击监听器" class="heading-link"><i class="fas fa-link"></i></a>RecyclerView表项点击监听器</h2>
+      <p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#39;为 RecyclerView 扩展表项点击监听器&#39;</span><br><span class="line">fun RecyclerView.setOnItemClickListener(listener: (View, Int) -&gt; Unit) &#123;</span><br><span class="line">    &#x2F;&#x2F;&#39;为 RecyclerView 子控件设置触摸监听器&#39;</span><br><span class="line">    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener &#123;</span><br><span class="line">        &#x2F;&#x2F;&#39;构造手势探测器，用于解析单击事件&#39;</span><br><span class="line">        val gestureDetector &#x3D; GestureDetector(context, object : GestureDetector.OnGestureListener &#123;</span><br><span class="line">            override fun onShowPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onSingleTapUp(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                &#x2F;&#x2F;&#39;当单击事件发生时，寻找单击坐标下的子控件，并回调监听器&#39;</span><br><span class="line">                e?.let &#123;</span><br><span class="line">                    findChildViewUnder(it.x, it.y)?.let &#123; child -&gt;</span><br><span class="line">                        listener(child, getChildAdapterPosition(child))</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onDown(e: MotionEvent?): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            override fun onLongPress(e: MotionEvent?) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#39;在拦截触摸事件时，解析触摸事件&#39;</span><br><span class="line">        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean &#123;</span><br><span class="line">            gestureDetector.onTouchEvent(e)</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/">https://jiyugithub.github.io/2020/06/14/Kotlinyf/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/14/switcher/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">炫酷！从未见过如此Q弹的Switcher</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/14/Top10/"><span class="paginator-prev__text">2020年GitHub 上那些优秀Android开源库</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#将-px-值转换成-dp-值"><span class="toc-number">1.</span> <span class="toc-text">
+          将 px 值转换成 dp 值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弃用Builder模式"><span class="toc-number">2.</span> <span class="toc-text">
+          弃用Builder模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打印列表、map"><span class="toc-number">3.</span> <span class="toc-text">
+          打印列表、map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将-data-类转换成-map"><span class="toc-number">4.</span> <span class="toc-text">
+          将 data 类转换成 map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取当前周一和周日"><span class="toc-number">5.</span> <span class="toc-text">
+          获取当前周一和周日</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView表项点击监听器"><span class="toc-number">6.</span> <span class="toc-text">
+          RecyclerView表项点击监听器</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
 
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
 
-    <!-- 评论 -->
-</main>
-            <!-- profile -->
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:2391624941@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/jiyugithub" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-    
-        
-            
-                <span class="iconfont-archer qq" title=qq>
-                  
-                  <img class="profile-qr" src="/assets/239.jpg" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
-    
-    <div class="busuanzi-container">
-    
-     
-    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
-    
-    </div>
-    
-</footer>
-    </div>
-    <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#将-px-值转换成-dp-值"><span class="toc-number">1.</span> <span class="toc-text">将 px 值转换成 dp 值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弃用Builder模式"><span class="toc-number">2.</span> <span class="toc-text">弃用Builder模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打印列表、map"><span class="toc-number">3.</span> <span class="toc-text">打印列表、map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将-data-类转换成-map"><span class="toc-number">4.</span> <span class="toc-text">将 data 类转换成 map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取当前周一和周日"><span class="toc-number">5.</span> <span class="toc-text">获取当前周一和周日</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView表项点击监听器"><span class="toc-number">6.</span> <span class="toc-text">RecyclerView表项点击监听器</span></a></li></ol>
-    </div>
-    
-    <div class="back-top iconfont-archer">&#xe639;</div>
-    <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
-    </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-panel-archives">
-    <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-and-search">
-        <div class="total-archive">
-        Total : 26
-        </div>
-        <!-- search  -->
-        
-    </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> 2020 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/KotlinJava/" >Kotlin与Java的异同</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Kotlinyf/" >Kotlin实战 | 语法糖</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/switcher/" >炫酷！从未见过如此Q弹的Switcher</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Top10/" >2020年GitHub 上那些优秀Android开源库</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/DayNight/" >暗黑模式适配</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/FragmentTransaction/" >Androidx 下 Fragment 懒加载的新实现</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/vue_js/" >10+个很酷的Vue.js组件，模板和demo示例</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/android11/" >Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/typescript/" >TypeScript泛型及应用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/0_kotlin/" >使用Kotlin从零开始写一个现代Android</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/agent/" >动态代理设计模式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/blog/" >如何快速搭建好看的个人博客</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/hashmap/" >HashMap原理技术知识整理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/undefined/" >Android目前最稳定和高效的UI适配方案</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/javafs/" >Java反射真的很慢吗</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view1/" >一文彻底了解Android自定义控件1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view3/" >一文彻底了解Android自定义控件3</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view2/" >一文彻底了解Android自定义控件2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/socket/" >手把手教你写Socket长连接</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/Rxjava/" >Rxjava只看这一篇文章就够了</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/multitype/" >Android 复杂的列表视图新写法 MultiType</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2020/06/11/vue/" >从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/09</span><a class="archive-post-title" href= "/2020/06/09/handler/" >Handler 机制</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/flutternm/" >Flutter高级玩法-贝塞尔曲线的表象认知</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/hexo-zhuan/" >hexo撰写文章</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/2020/03/14/TopKotlin/" >快速入门 Kotlin</a>
-        </li>
-    
-    </div>
-  </div>
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="Tag1"><span class="iconfont-archer">&#xe606;</span>Tag1</span>
-    
-        <span class="sidebar-tag-name" data-tags="Tag2"><span class="iconfont-archer">&#xe606;</span>Tag2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="Category1"><span class="iconfont-archer">&#xe60a;</span>Category1</span>
-    
-        <span class="sidebar-category-name" data-categories="Category1/Category2"><span class="iconfont-archer">&#xe60a;</span>Category1/Category2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: "/",
-        author: "Apocalypse"
-    }
-</script>
-    <!-- CDN failover -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ === 'undefined')
-        {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
-        }
-    </script>
-    <script src="/scripts/main.js"></script>
-    <!-- algolia -->
-    
-    <!-- busuanzi  -->
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
-     
-    </body>
-</html>
-
-
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>

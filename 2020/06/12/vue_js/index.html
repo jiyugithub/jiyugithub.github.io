@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- title -->
-
-
-
-
-<!-- keywords -->
-
-
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
-    <meta name="author" content="Apocalypse">
-    <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Apocalypse">
-    
-    <meta name="keywords" content="android,java,kotlin">
-    
-    <meta name="description" content="">
-    <meta name="description" content="众所周知，Vue.js 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="众所周知，Vue.js 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10+个很酷的Vue.js组件，模板和demo示例">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/vue_js/index.html">
@@ -44,1124 +22,140 @@
 <meta property="article:modified_time" content="2020-06-13T20:38:28.341Z">
 <meta property="article:author" content="Apocalypse">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/6/8/172944e597c2e7a8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    
-    <title>10+个很酷的Vue.js组件，模板和demo示例 · Apocalypse&#39;s Blog</title>
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
-    }
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/6/8/172944e597c2e7a8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>10+个很酷的Vue.js组件，模板和demo示例 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/12/vue_js/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-    body {
-        margin: 0;
-    }
-
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
-
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
-
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s infinite;
-    }
-
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-</style>
-
-    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    
-    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-/* This file is meant as a standalone workflow for
-- testing support for link[rel=preload]
-- enabling async CSS loading in browsers that do not support rel=preload
-- applying rel preload css once loaded, whether supported or not.
-*/ -->
-<script>
-(function( w ){
-	"use strict";
-	// rel=preload support test
-	if( !w.loadCSS ){
-		w.loadCSS = function(){};
-	}
-	// define on the loadCSS obj
-	var rp = loadCSS.relpreload = {};
-	// rel=preload feature support test
-	// runs once and returns a function for compat purposes
-	rp.support = (function(){
-		var ret;
-		try {
-			ret = w.document.createElement( "link" ).relList.supports( "preload" );
-		} catch (e) {
-			ret = false;
-		}
-		return function(){
-			return ret;
-		};
-	})();
-
-	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-	// then change that media back to its intended value on load
-	rp.bindMediaToggle = function( link ){
-		// remember existing media attr for ultimate state, or default to 'all'
-		var finalMedia = link.media || "all";
-
-		function enableStylesheet(){
-			link.media = finalMedia;
-		}
-
-		// bind load handlers to enable media
-		if( link.addEventListener ){
-			link.addEventListener( "load", enableStylesheet );
-		} else if( link.attachEvent ){
-			link.attachEvent( "onload", enableStylesheet );
-		}
-
-		// Set rel and non-applicable media type to start an async request
-		// note: timeout allows this to happen async to let rendering continue in IE
-		setTimeout(function(){
-			link.rel = "stylesheet";
-			link.media = "only x";
-		});
-		// also enable media after 3 seconds,
-		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-		setTimeout( enableStylesheet, 3000 );
-	};
-
-	// loop through link elements in DOM
-	rp.poly = function(){
-		// double check this to prevent external calls from running
-		if( rp.support() ){
-			return;
-		}
-		var links = w.document.getElementsByTagName( "link" );
-		for( var i = 0; i < links.length; i++ ){
-			var link = links[ i ];
-			// qualify links to those with rel=preload and as=style attrs
-			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-				// prevent rerunning on link
-				link.setAttribute( "data-loadcss", true );
-				// bind listeners to toggle media back
-				rp.bindMediaToggle( link );
-			}
-		}
-	};
-
-	// if unsupported, run the polyfill
-	if( !rp.support() ){
-		// run once at least
-		rp.poly();
-
-		// rerun poly on an interval until onload
-		var run = w.setInterval( rp.poly, 500 );
-		if( w.addEventListener ){
-			w.addEventListener( "load", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		} else if( w.attachEvent ){
-			w.attachEvent( "onload", function(){
-				rp.poly();
-				w.clearInterval( run );
-			} );
-		}
-	}
-
-
-	// commonjs
-	if( typeof exports !== "undefined" ){
-		exports.loadCSS = loadCSS;
-	}
-	else {
-		w.loadCSS = loadCSS;
-	}
-}( typeof global !== "undefined" ? global : this ) );
-</script>
-
-    <link rel="icon" href= "/assets/favicon.ico" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
-    <link rel="preload" href="/scripts/main.js" as="script" />
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
-    
-    <!-- fancybox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    
-        <body class="post-body">
-    
-    
-<header class="header">
-
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Apocalypse&#39;s Blog.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">10+个很酷的Vue.js组件，模板和demo示例</a>
-            </div>
-    </div>
-    
-    <a class="home-link" href=/>Apocalypse's Blog.</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro" style="
-
-
-
-
-
-
-
-height:50vh;
-">
-    
-    <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
-            
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            10+个很酷的Vue.js组件，模板和demo示例
-            <!-- 404 -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-            <!-- 404 -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.3k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/06/12</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        
-    </div>
-</div>
-        <script>
- 
-  // get user agent
-  var browser = {
-    versions: function () {
-      var u = window.navigator.userAgent;
-      return {
-        userAgent: u,
-        trident: u.indexOf('Trident') > -1, //IE内核
-        presto: u.indexOf('Presto') > -1, //opera内核
-        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-        iPad: u.indexOf('iPad') > -1, //是否为iPad
-        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-      };
-    }()
-  }
-  console.log("userAgent:" + browser.versions.userAgent);
-
-  // callback
-  function fontLoaded() {
-    console.log('font loaded');
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-      var postIntros = document.getElementsByClassName('post-intros')[0]
-      if (postIntros) {
-        postIntros.classList.add('post-fade-in');
-      }
-    }
-  }
-
-  // UC不支持跨域，所以直接显示
-  function asyncCb(){
-    if (browser.versions.uc) {
-      console.log("UCBrowser");
-      fontLoaded();
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular']
-        },
-        loading: function () {  //所有字体开始加载
-          // console.log('loading');
-        },
-        active: function () {  //所有字体已渲染
-          fontLoaded();
-        },
-        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout');
-          fontLoaded();
-        },
-        timeout: 5000 // Set the timeout to two seconds
-      });
-    }
-  }
-
-  function asyncErr(){
-    console.warn('script load from CDN failed, will load local script')
-  }
-
-  // load webfont-loader async, and add callback function
-  function async(u, cb, err) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
-    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
-
-  var asyncLoadWithFallBack = function(arr, success, reject) {
-      var currReject = function(){
-        reject()
-        arr.shift()
-        if(arr.length)
-          async(arr[0], success, currReject)
-        }
-
-      async(arr[0], success, currReject)
-  }
-
-  asyncLoadWithFallBack([
-    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
-    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
-    "/lib/webfontloader.min.js"
-  ], asyncCb, asyncErr)
-</script>        
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>众所周知，<strong>Vue.js</strong> 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">10+个很酷的Vue.js组件，模板和demo示例</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/12/vue_js/" data-flag-title="10+个很酷的Vue.js组件，模板和demo示例"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>众所周知，<strong>Vue.js</strong> 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。</p>
 <a id="more"></a>
 
 <p>此外，在过去的几年中，Vue.js 变得非常流行，许多企业将其添加到他们的技术栈中。该框架的优点是它具有内置的数据绑定和MVC模型（模型、视图、控制器），与<strong>Angular.js</strong>和<strong>React.js</strong>相比，它使配置更加容易。另外，Vue.js的学习曲线很小，与 Angular.js 相比，Vue更易于学习，理解和使用。</p>
 <p>知道了这一点，我们收集了一份Vue.js组件、模板和实验清单，如果你是一个初学者，可以帮助你对这个框架的意义有一个概念，如果你是一个Vue.js开发者，也可以为你的下一个项目找到一些灵感。</p>
 <hr>
-<h2 id="BootstrapVue-Argon-Dashboard-PRO"><a href="#BootstrapVue-Argon-Dashboard-PRO" class="headerlink" title="BootstrapVue Argon Dashboard PRO"></a>BootstrapVue Argon Dashboard PRO</h2><p><strong><a href="https://demos.creative-tim.com/bootstrap-vue-argon-dashboard-pro" target="_blank" rel="noopener">BootstrapVue Argon Dashboard PRO</a></strong> 是BootstrapVue和Vue.js的高级仪表板。这是一种全新产品，它基于我们从头开始重新构建的最新框架结构，这种结构旨在使产品更直观，更具适应性，并且更易于定制。让Argon以其酷炫的功能给你带来惊喜，让你的项目达到一个全新的水平。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e597c2e7a8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/bootstrap-vue-argon-dashboard-pro"></p>
-<h2 id="Vue-White-Dashboard"><a href="#Vue-White-Dashboard" class="headerlink" title="Vue White Dashboard"></a>Vue White Dashboard</h2><p><a href="https://demos.creative-tim.com/vue-white-dashboard" target="_blank" rel="noopener"><strong>Vue White Dashboard</strong> </a>是一个免费的开源Bootstrap 4和Vue.js Admin仪表板，其中包含大量的组件，这些组件可以组合在一起并看起来非常漂亮。Vue White仪表板具有16个以上的独立组件，可让你自由选择和组合。所有组件的颜色都可以不同，你可以使用Sass文件轻松进行修改。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e597b7ccc7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/vue-white-dashboard"></p>
-<h2 id="Vue-QRcode-Reader"><a href="#Vue-QRcode-Reader" class="headerlink" title="Vue QRcode Reader"></a>Vue QRcode Reader</h2><p><a href="https://gruhn.github.io/vue-qrcode-reader?rel=nofollow" target="_blank"><strong>Vue QRcode Reader</strong></a>是一组用于检测和解码QR(二维码)码的Vue.js组件。它使你无需离开浏览器即可检测和解码QR码，所有组件都具有响应能力。除此之外，它接近零样式，因此你可以使它们适合你的布局。使用方法简单明了。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59a3db85f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://gruhn.github.io/vue-qrcode-reader"></p>
-<h2 id="VueJS-Expo"><a href="#VueJS-Expo" class="headerlink" title="VueJS Expo"></a>VueJS Expo</h2><p><a href="https://vuejsexpo.com" target="_blank" rel="noopener"><strong>VueJS Expo</strong></a>是使用Vue.js框架收集的漂亮的网站，应用程序和实验。如果你是Vue.js框架的粉丝，那么这里可能是你获得灵感的地方。展示包括基于VueJS的主题，元素，仪表板等。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59a7bae7d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://vuejsexpo.com"></p>
-<h2 id="Vue-Paper-Dashboard-PRO"><a href="#Vue-Paper-Dashboard-PRO" class="headerlink" title="Vue Paper Dashboard PRO"></a>Vue Paper Dashboard PRO</h2><p><strong><a href="https://demos.creative-tim.com/bs3/vue-paper-dashboard-pro/#/admin/overview" target="_blank" rel="noopener">Vue Paper Dashboard PRO</a></strong> 是一个基于Bootstrap和Vue构建的漂亮资源，它将帮助你在短时间内开始开发仪表盘。Vue Paper Dashboard Pro是<a href="https://www.creative-tim.com/product/paper-dashboard-pro?ref=devto" target="_blank" rel="noopener">Original Paper Dashboard Pro</a>的VueJS移植版本。使用仪表板非常简单，但是需要具备Javascript，Vue和Vue-Router的基础知识。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59c10157c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/bs3/vue-paper-dashboard-pro/#/admin/overview"></p>
-<h2 id="Koel"><a href="#Koel" class="headerlink" title="Koel"></a>Koel</h2><p><a href="https://koel.dev/?rel=nofollow" target="_blank"><strong>Koel</strong></a>是一种简单的基于Web的个人音频流服务，在客户端用Vue编写，在服务器端用Laravel编写。针对Web开发人员，Koel采用了一些更现代的Web技术——CSS grid，音频和拖放API等来完成其工作。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59da7e067?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://koel.dev/"></p>
-<h2 id="Vue-Argon-Dashboard"><a href="#Vue-Argon-Dashboard" class="headerlink" title="Vue Argon Dashboard"></a>Vue Argon Dashboard</h2><p><a href="https://demos.creative-tim.com/vue-argon-dashboard" target="_blank" rel="noopener"><strong>Vue Argon Dashboard</strong></a>是Bootstrap 4和Vue.js的仪表板。它是开源的，免费的，并且具有许多组件，可以帮助你创建出色的网站。Vue Argon仪表板内置了100多个单独的组件，因此你可以选择和组合，因为实现了所有元素，所以从原型化到全功能代码将节省大量时间。该仪表板附带了预先构建的示例，因此开发过程是无缝的，从我们的页面切换到真实的网站非常容易。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c28b45c4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/vue-argon-dashboard"></p>
-<h2 id="Pagekit"><a href="#Pagekit" class="headerlink" title="Pagekit"></a>Pagekit</h2><p><a href="https://pagekit.com/?rel=nofollow" target="_blank"><strong>Pagekit</strong></a>是使用Symfony组件和VueJS构建的模块化，轻量级CMS。无论是个人博客还是你公司的网站，都可以使用Pagekit来为网络创建功能强大的内容，使其在每台设备上都能完美运行。它具有干净直观的界面，它也有一个很棒的内置市场。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c3ac5bd2?imageslim" alt="http://pagekit.com/"></p>
-<h2 id="Vue-Material-Dashboard-PRO"><a href="#Vue-Material-Dashboard-PRO" class="headerlink" title="Vue Material Dashboard PRO"></a>Vue Material Dashboard PRO</h2><p><a href="https://demos.creative-tim.com/vue-material-dashboard-pro" target="_blank" rel="noopener"><strong>Vue Material Dashboard PRO</strong></a>是一个出色的高级管理模板，建立在Vue Material和VueJS之上。它是通过考虑你在仪表板中实际需要的东西而创建的。Vue Material Dashboard PRO包含精选和优化的VueJS插件，一切都旨在相互配合。使用仪表板非常简单，但是需要具备Javascript，VueJS和Vue Router的基础知识。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c80134f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/vue-material-dashboard-pro"></p>
-<h2 id="Vue-Color"><a href="#Vue-Color" class="headerlink" title="Vue-Color"></a>Vue-Color</h2><p><a href="http://vue-color.surge.sh/?rel=nofollow" target="_blank"><strong>Vue-Color</strong></a>是一款来自Sketch、Photoshop、Chrome、Github、Twitter、Material Design等的酷炫的采色器。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5e1f3ae5c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://vue-color.surge.sh"></p>
-<h2 id="Vue-Material-Kit"><a href="#Vue-Material-Kit" class="headerlink" title="Vue Material Kit"></a>Vue Material Kit</h2><p><strong><a href="https://demos.creative-tim.com/vue-material-kit" target="_blank" rel="noopener">Vue Material Kit</a></strong> 是基于Vue Material和VueJS构建的令人惊叹的免费开源资源。它将帮助你立即开始开发UI工具包。Vue Material Kit是原始<a href="https://www.creative-tim.com/product/material-kit" target="_blank" rel="noopener">Material Kit</a>的官方VueJS版本。使用UI Kit非常简单，但是需要Javascript，VueJS和Vue Router的基础知识。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5ee23af35?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://demos.creative-tim.com/vue-material-kit"></p>
-<h2 id="Retrospectify"><a href="#Retrospectify" class="headerlink" title="Retrospectify"></a>Retrospectify</h2><p><strong><a href="http://pepf.nl/retrospective/?rel=nofollow" target="_blank">Retrospectify</a></strong> 是一个用 Vue 编写的很棒的工具，用于以数字方式进行敏捷团队回顾。当与远程团队进行回顾时，或者当您希望随时间跟踪回顾结果时，这将很有用。它有三种类型的笔记，你可以移动笔记或添加点到个别的笔记。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e60a7f9562?imageslim" alt="http://pepf.nl/retrospective"></p>
-<h2 id="Code-Notes"><a href="#Code-Notes" class="headerlink" title="Code Notes"></a>Code Notes</h2><p><strong><a href="https://lauthieb.github.io/code-notes/?rel=nofollow" target="_blank">Code Notes</a></strong> 是使用Electron＆Vue.js构建的开发人员的简单代码段管理器。使用它，你可以将多个片段保存在一个便笺中，按名称/语言/标签进行搜索，还可以管理Github要点。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/8/172944e610d83a53?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="http://lauthieb.github.io/code-notes"></p>
+
+        <h2 id="BootstrapVue-Argon-Dashboard-PRO"   >
+          <a href="#BootstrapVue-Argon-Dashboard-PRO" class="heading-link"><i class="fas fa-link"></i></a>BootstrapVue Argon Dashboard PRO</h2>
+      <p><strong><span class="exturl"><a class="exturl__link"   href="https://demos.creative-tim.com/bootstrap-vue-argon-dashboard-pro"  target="_blank" rel="noopener">BootstrapVue Argon Dashboard PRO</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong> 是BootstrapVue和Vue.js的高级仪表板。这是一种全新产品，它基于我们从头开始重新构建的最新框架结构，这种结构旨在使产品更直观，更具适应性，并且更易于定制。让Argon以其酷炫的功能给你带来惊喜，让你的项目达到一个全新的水平。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e597c2e7a8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/bootstrap-vue-argon-dashboard-pro"></p>
+
+        <h2 id="Vue-White-Dashboard"   >
+          <a href="#Vue-White-Dashboard" class="heading-link"><i class="fas fa-link"></i></a>Vue White Dashboard</h2>
+      <p><a href="https://demos.creative-tim.com/vue-white-dashboard" target="_blank" rel="noopener"><strong>Vue White Dashboard</strong> </a>是一个免费的开源Bootstrap 4和Vue.js Admin仪表板，其中包含大量的组件，这些组件可以组合在一起并看起来非常漂亮。Vue White仪表板具有16个以上的独立组件，可让你自由选择和组合。所有组件的颜色都可以不同，你可以使用Sass文件轻松进行修改。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e597b7ccc7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/vue-white-dashboard"></p>
+
+        <h2 id="Vue-QRcode-Reader"   >
+          <a href="#Vue-QRcode-Reader" class="heading-link"><i class="fas fa-link"></i></a>Vue QRcode Reader</h2>
+      <p><a href="https://gruhn.github.io/vue-qrcode-reader?rel=nofollow" target="_blank"><strong>Vue QRcode Reader</strong></a>是一组用于检测和解码QR(二维码)码的Vue.js组件。它使你无需离开浏览器即可检测和解码QR码，所有组件都具有响应能力。除此之外，它接近零样式，因此你可以使它们适合你的布局。使用方法简单明了。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59a3db85f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://gruhn.github.io/vue-qrcode-reader"></p>
+
+        <h2 id="VueJS-Expo"   >
+          <a href="#VueJS-Expo" class="heading-link"><i class="fas fa-link"></i></a>VueJS Expo</h2>
+      <p><a href="https://vuejsexpo.com" target="_blank" rel="noopener"><strong>VueJS Expo</strong></a>是使用Vue.js框架收集的漂亮的网站，应用程序和实验。如果你是Vue.js框架的粉丝，那么这里可能是你获得灵感的地方。展示包括基于VueJS的主题，元素，仪表板等。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59a7bae7d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://vuejsexpo.com"></p>
+
+        <h2 id="Vue-Paper-Dashboard-PRO"   >
+          <a href="#Vue-Paper-Dashboard-PRO" class="heading-link"><i class="fas fa-link"></i></a>Vue Paper Dashboard PRO</h2>
+      <p><strong><span class="exturl"><a class="exturl__link"   href="https://demos.creative-tim.com/bs3/vue-paper-dashboard-pro/#/admin/overview"  target="_blank" rel="noopener">Vue Paper Dashboard PRO</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong> 是一个基于Bootstrap和Vue构建的漂亮资源，它将帮助你在短时间内开始开发仪表盘。Vue Paper Dashboard Pro是<span class="exturl"><a class="exturl__link"   href="https://www.creative-tim.com/product/paper-dashboard-pro?ref=devto"  target="_blank" rel="noopener">Original Paper Dashboard Pro</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的VueJS移植版本。使用仪表板非常简单，但是需要具备Javascript，Vue和Vue-Router的基础知识。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59c10157c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/bs3/vue-paper-dashboard-pro/#/admin/overview"></p>
+
+        <h2 id="Koel"   >
+          <a href="#Koel" class="heading-link"><i class="fas fa-link"></i></a>Koel</h2>
+      <p><a href="https://koel.dev/?rel=nofollow" target="_blank"><strong>Koel</strong></a>是一种简单的基于Web的个人音频流服务，在客户端用Vue编写，在服务器端用Laravel编写。针对Web开发人员，Koel采用了一些更现代的Web技术——CSS grid，音频和拖放API等来完成其工作。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e59da7e067?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://koel.dev/"></p>
+
+        <h2 id="Vue-Argon-Dashboard"   >
+          <a href="#Vue-Argon-Dashboard" class="heading-link"><i class="fas fa-link"></i></a>Vue Argon Dashboard</h2>
+      <p><a href="https://demos.creative-tim.com/vue-argon-dashboard" target="_blank" rel="noopener"><strong>Vue Argon Dashboard</strong></a>是Bootstrap 4和Vue.js的仪表板。它是开源的，免费的，并且具有许多组件，可以帮助你创建出色的网站。Vue Argon仪表板内置了100多个单独的组件，因此你可以选择和组合，因为实现了所有元素，所以从原型化到全功能代码将节省大量时间。该仪表板附带了预先构建的示例，因此开发过程是无缝的，从我们的页面切换到真实的网站非常容易。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c28b45c4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/vue-argon-dashboard"></p>
+
+        <h2 id="Pagekit"   >
+          <a href="#Pagekit" class="heading-link"><i class="fas fa-link"></i></a>Pagekit</h2>
+      <p><a href="https://pagekit.com/?rel=nofollow" target="_blank"><strong>Pagekit</strong></a>是使用Symfony组件和VueJS构建的模块化，轻量级CMS。无论是个人博客还是你公司的网站，都可以使用Pagekit来为网络创建功能强大的内容，使其在每台设备上都能完美运行。它具有干净直观的界面，它也有一个很棒的内置市场。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c3ac5bd2?imageslim" style=""  alt="http://pagekit.com/"></p>
+
+        <h2 id="Vue-Material-Dashboard-PRO"   >
+          <a href="#Vue-Material-Dashboard-PRO" class="heading-link"><i class="fas fa-link"></i></a>Vue Material Dashboard PRO</h2>
+      <p><a href="https://demos.creative-tim.com/vue-material-dashboard-pro" target="_blank" rel="noopener"><strong>Vue Material Dashboard PRO</strong></a>是一个出色的高级管理模板，建立在Vue Material和VueJS之上。它是通过考虑你在仪表板中实际需要的东西而创建的。Vue Material Dashboard PRO包含精选和优化的VueJS插件，一切都旨在相互配合。使用仪表板非常简单，但是需要具备Javascript，VueJS和Vue Router的基础知识。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5c80134f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/vue-material-dashboard-pro"></p>
+
+        <h2 id="Vue-Color"   >
+          <a href="#Vue-Color" class="heading-link"><i class="fas fa-link"></i></a>Vue-Color</h2>
+      <p><a href="http://vue-color.surge.sh/?rel=nofollow" target="_blank"><strong>Vue-Color</strong></a>是一款来自Sketch、Photoshop、Chrome、Github、Twitter、Material Design等的酷炫的采色器。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5e1f3ae5c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://vue-color.surge.sh"></p>
+
+        <h2 id="Vue-Material-Kit"   >
+          <a href="#Vue-Material-Kit" class="heading-link"><i class="fas fa-link"></i></a>Vue Material Kit</h2>
+      <p><strong><span class="exturl"><a class="exturl__link"   href="https://demos.creative-tim.com/vue-material-kit"  target="_blank" rel="noopener">Vue Material Kit</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong> 是基于Vue Material和VueJS构建的令人惊叹的免费开源资源。它将帮助你立即开始开发UI工具包。Vue Material Kit是原始<span class="exturl"><a class="exturl__link"   href="https://www.creative-tim.com/product/material-kit"  target="_blank" rel="noopener">Material Kit</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的官方VueJS版本。使用UI Kit非常简单，但是需要Javascript，VueJS和Vue Router的基础知识。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e5ee23af35?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://demos.creative-tim.com/vue-material-kit"></p>
+
+        <h2 id="Retrospectify"   >
+          <a href="#Retrospectify" class="heading-link"><i class="fas fa-link"></i></a>Retrospectify</h2>
+      <p><strong><span class="exturl"><a class="exturl__link"   href="http://pepf.nl/retrospective/?rel=nofollow"  target="_blank">Retrospectify</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong> 是一个用 Vue 编写的很棒的工具，用于以数字方式进行敏捷团队回顾。当与远程团队进行回顾时，或者当您希望随时间跟踪回顾结果时，这将很有用。它有三种类型的笔记，你可以移动笔记或添加点到个别的笔记。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e60a7f9562?imageslim" style=""  alt="http://pepf.nl/retrospective"></p>
+
+        <h2 id="Code-Notes"   >
+          <a href="#Code-Notes" class="heading-link"><i class="fas fa-link"></i></a>Code Notes</h2>
+      <p><strong><span class="exturl"><a class="exturl__link"   href="https://lauthieb.github.io/code-notes/?rel=nofollow"  target="_blank">Code Notes</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong> 是使用Electron＆Vue.js构建的开发人员的简单代码段管理器。使用它，你可以将多个片段保存在一个便笺中，按名称/语言/标签进行搜索，还可以管理Github要点。</p>
+<p><img   src="http://user-gold-cdn.xitu.io/2020/6/8/172944e610d83a53?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="http://lauthieb.github.io/code-notes"></p>
 <p><strong>希望这份清单对您的下一个开发项目有帮助 🙂</strong></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/12/vue_js/">https://jiyugithub.github.io/2020/06/12/vue_js/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/12/android11/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/typescript/"><span class="paginator-prev__text">TypeScript泛型及应用</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BootstrapVue-Argon-Dashboard-PRO"><span class="toc-number">1.</span> <span class="toc-text">
+          BootstrapVue Argon Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-White-Dashboard"><span class="toc-number">2.</span> <span class="toc-text">
+          Vue White Dashboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-QRcode-Reader"><span class="toc-number">3.</span> <span class="toc-text">
+          Vue QRcode Reader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VueJS-Expo"><span class="toc-number">4.</span> <span class="toc-text">
+          VueJS Expo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Paper-Dashboard-PRO"><span class="toc-number">5.</span> <span class="toc-text">
+          Vue Paper Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Koel"><span class="toc-number">6.</span> <span class="toc-text">
+          Koel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Argon-Dashboard"><span class="toc-number">7.</span> <span class="toc-text">
+          Vue Argon Dashboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pagekit"><span class="toc-number">8.</span> <span class="toc-text">
+          Pagekit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Material-Dashboard-PRO"><span class="toc-number">9.</span> <span class="toc-text">
+          Vue Material Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Color"><span class="toc-number">10.</span> <span class="toc-text">
+          Vue-Color</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Material-Kit"><span class="toc-number">11.</span> <span class="toc-text">
+          Vue Material Kit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrospectify"><span class="toc-number">12.</span> <span class="toc-text">
+          Retrospectify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Notes"><span class="toc-number">13.</span> <span class="toc-text">
+          Code Notes</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">26</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
 
-    </article>
-    <!-- license  -->
-    
-        <div class="license-wrapper">
-            <p>Author：<a href="https://jiyugithub.github.io">Apocalypse</a>
-            <p>原文链接：<a href="https://jiyugithub.github.io/2020/06/12/vue_js/">https://jiyugithub.github.io/2020/06/12/vue_js/</a>
-            <p>发表日期：<a href="https://jiyugithub.github.io/2020/06/12/vue_js/">June 12th 2020, 6:12:47 am</a>
-            <p>更新日期：<a href="https://jiyugithub.github.io/2020/06/12/vue_js/">June 14th 2020, 4:38:28 am</a>
-            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
-        </div>
-    
-    <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/06/12/android11/" title= "Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新">
-                    <div class="nextTitle">Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/06/12/typescript/" title= "TypeScript泛型及应用">
-                    <div class="prevTitle">TypeScript泛型及应用</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
 
-<!-- City版安装代码已完成 -->
-    
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <div id="comment"></div>
-    <script>
-    new Valine({
-        el: '#comment' ,
-        notify:false, 
-        verify:false, 
-        appId: "GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz",
-        appKey: "FihoucantYlc5U1FQ9BzkO3l",
-        placeholder: "",
-        path:window.location.pathname, 
-        avatar:'mm' 
-    });
-    </script>
-
-
-    <!-- 评论 -->
-</main>
-            <!-- profile -->
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:2391624941@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/jiyugithub" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-    
-        
-            
-                <span class="iconfont-archer qq" title=qq>
-                  
-                  <img class="profile-qr" src="/assets/239.jpg" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
-    
-    <div class="busuanzi-container">
-    
-     
-    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
-    
-    </div>
-    
-</footer>
-    </div>
-    <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BootstrapVue-Argon-Dashboard-PRO"><span class="toc-number">1.</span> <span class="toc-text">BootstrapVue Argon Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-White-Dashboard"><span class="toc-number">2.</span> <span class="toc-text">Vue White Dashboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-QRcode-Reader"><span class="toc-number">3.</span> <span class="toc-text">Vue QRcode Reader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VueJS-Expo"><span class="toc-number">4.</span> <span class="toc-text">VueJS Expo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Paper-Dashboard-PRO"><span class="toc-number">5.</span> <span class="toc-text">Vue Paper Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Koel"><span class="toc-number">6.</span> <span class="toc-text">Koel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Argon-Dashboard"><span class="toc-number">7.</span> <span class="toc-text">Vue Argon Dashboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pagekit"><span class="toc-number">8.</span> <span class="toc-text">Pagekit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Material-Dashboard-PRO"><span class="toc-number">9.</span> <span class="toc-text">Vue Material Dashboard PRO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Color"><span class="toc-number">10.</span> <span class="toc-text">Vue-Color</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-Material-Kit"><span class="toc-number">11.</span> <span class="toc-text">Vue Material Kit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrospectify"><span class="toc-number">12.</span> <span class="toc-text">Retrospectify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Notes"><span class="toc-number">13.</span> <span class="toc-text">Code Notes</span></a></li></ol>
-    </div>
-    
-    <div class="back-top iconfont-archer">&#xe639;</div>
-    <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
-    </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-panel-archives">
-    <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-and-search">
-        <div class="total-archive">
-        Total : 26
-        </div>
-        <!-- search  -->
-        
-    </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> 2020 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/KotlinJava/" >Kotlin与Java的异同</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Kotlinyf/" >Kotlin实战 | 语法糖</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/switcher/" >炫酷！从未见过如此Q弹的Switcher</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Top10/" >2020年GitHub 上那些优秀Android开源库</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/DayNight/" >暗黑模式适配</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/FragmentTransaction/" >Androidx 下 Fragment 懒加载的新实现</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/vue_js/" >10+个很酷的Vue.js组件，模板和demo示例</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/android11/" >Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/typescript/" >TypeScript泛型及应用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/0_kotlin/" >使用Kotlin从零开始写一个现代Android</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/agent/" >动态代理设计模式</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/blog/" >如何快速搭建好看的个人博客</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/hashmap/" >HashMap原理技术知识整理</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/undefined/" >Android目前最稳定和高效的UI适配方案</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/javafs/" >Java反射真的很慢吗</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view1/" >一文彻底了解Android自定义控件1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view3/" >一文彻底了解Android自定义控件3</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view2/" >一文彻底了解Android自定义控件2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/socket/" >手把手教你写Socket长连接</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/Rxjava/" >Rxjava只看这一篇文章就够了</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/multitype/" >Android 复杂的列表视图新写法 MultiType</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2020/06/11/vue/" >从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/09</span><a class="archive-post-title" href= "/2020/06/09/handler/" >Handler 机制</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/flutternm/" >Flutter高级玩法-贝塞尔曲线的表象认知</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/hexo-zhuan/" >hexo撰写文章</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/2020/03/14/TopKotlin/" >快速入门 Kotlin</a>
-        </li>
-    
-    </div>
-  </div>
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="Tag1"><span class="iconfont-archer">&#xe606;</span>Tag1</span>
-    
-        <span class="sidebar-tag-name" data-tags="Tag2"><span class="iconfont-archer">&#xe606;</span>Tag2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="Category1"><span class="iconfont-archer">&#xe60a;</span>Category1</span>
-    
-        <span class="sidebar-category-name" data-categories="Category1/Category2"><span class="iconfont-archer">&#xe60a;</span>Category1/Category2</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: "/",
-        author: "Apocalypse"
-    }
-</script>
-    <!-- CDN failover -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ === 'undefined')
-        {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
-        }
-    </script>
-    <script src="/scripts/main.js"></script>
-    <!-- algolia -->
-    
-    <!-- busuanzi  -->
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
-     
-    </body>
-</html>
-
-
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>
