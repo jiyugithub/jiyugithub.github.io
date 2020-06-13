@@ -1,9 +1,31 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.1" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.1" type="image/png" sizes="32x32"><meta name="description" content="暗黑模式       在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析">
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Apocalypse">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Apocalypse">
+    
+    <meta name="keywords" content="android,java,kotlin">
+    
+    <meta name="description" content="">
+    <meta name="description" content="暗黑模式在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析 适配流程建议  相信本文会让你对暗黑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="暗黑模式适配">
 <meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/DayNight/index.html">
 <meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="暗黑模式       在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析">
+<meta property="og:description" content="暗黑模式在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：  动态开启暗黑模式 使用 DayNight 适配暗黑模式 使用 Force Dark 适配暗黑模式 Force Dark 系统源码解析 适配流程建议  相信本文会让你对暗黑">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487a61d7b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
@@ -16,33 +38,384 @@
 <meta property="article:modified_time" content="2020-06-13T20:39:26.738Z">
 <meta property="article:author" content="Apocalypse">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1"><meta name="keywords" content="Apocalypse, Apocalypse's Blog"><meta name="description" content=""><title>暗黑模式适配 | Apocalypse's Blog</title><link ref="canonical" href="https://jiyugithub.github.io/2020/06/14/DayNight/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.1"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
-  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
-  postWidget: {"endText":true},
-  nightMode: {"enable":true},
-  back2top: {"enable":true},
-  codeblock: {"style":"default","highlight":"light","wordWrap":false},
-  reward: false,
-  fancybox: false,
-  zoomImage: {"gapAside":"20px"},
-  galleryWaterfall: undefined,
-  lazyload: false,
-  pjax: undefined,
-  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
-  shortcuts: undefined,
-  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
-  sourcePath: {"js":"js","css":"css","images":"images"},
-};
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>暗黑模式适配 · Apocalypse&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Apocalypse's Blog</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">暗黑模式适配</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-06-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/06/14/DayNight/" data-flag-title="暗黑模式适配"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
-        <h1 id="暗黑模式"   >
-          <a href="#暗黑模式" class="heading-link"><i class="fas fa-link"></i></a>暗黑模式</h1>
-      <p>在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：</p>
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Apocalypse&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">暗黑模式适配</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Apocalypse's Blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            暗黑模式适配
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.8k</span>Reading time: <span class="post-count reading-time">15 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/06/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="暗黑模式"><a href="#暗黑模式" class="headerlink" title="暗黑模式"></a>暗黑模式</h1><p>在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：</p>
 <ul>
 <li>动态开启暗黑模式</li>
 <li>使用 DayNight 适配暗黑模式</li>
@@ -53,20 +426,14 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <p>相信本文会让你对暗黑模式有一个更全面的了解。</p>
 <a id="more"></a>
 
-
-        <h1 id="动态开启"   >
-          <a href="#动态开启" class="heading-link"><i class="fas fa-link"></i></a>动态开启</h1>
-      <p>在 Android 10 系统设置里增加了暗黑模式的开关，但除了系统设置，我们也可以自己动态开启。 假如我们项目里面有一个按钮用来开关暗黑模式，可以这样做：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">btn.setOnClickListener &#123;</span><br><span class="line">    if (AppCompatDelegate.getDefaultNightMode() &#x3D;&#x3D; AppCompatDelegate.MODE_NIGHT_YES) &#123;</span><br><span class="line">        &#x2F;&#x2F; 关闭暗黑模式</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 开启暗黑模式</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<h1 id="动态开启"><a href="#动态开启" class="headerlink" title="动态开启"></a>动态开启</h1><p>在 Android 10 系统设置里增加了暗黑模式的开关，但除了系统设置，我们也可以自己动态开启。 假如我们项目里面有一个按钮用来开关暗黑模式，可以这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">btn.setOnClickListener &#123;</span><br><span class="line">    if (AppCompatDelegate.getDefaultNightMode() &#x3D;&#x3D; AppCompatDelegate.MODE_NIGHT_YES) &#123;</span><br><span class="line">        &#x2F;&#x2F; 关闭暗黑模式</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 开启暗黑模式</span><br><span class="line">        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果当前开启了暗黑模式就关掉，反之开启。 你可能还看过另一种 delegate.localNightMode 的写法，同样也是可以生效的，它们的区别在于作用范围不同：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 作用于当前项目的所有组件</span><br><span class="line">AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) </span><br><span class="line">&#x2F;&#x2F; 只作用于当前组件</span><br><span class="line">delegate.localNightMode &#x3D; AppCompatDelegate.MODE_NIGHT_YES</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 作用于当前项目的所有组件</span><br><span class="line">AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) </span><br><span class="line">&#x2F;&#x2F; 只作用于当前组件</span><br><span class="line">delegate.localNightMode &#x3D; AppCompatDelegate.MODE_NIGHT_YES</span><br></pre></td></tr></table></figure>
 
 <p>另外需要注意的是，在默认情况下，设置暗黑模式会重走 Activity 生命周期，需要重新渲染整个页面，所以不要在 onCreate 里直接设置。 如果不想重走生命周期，可以给 Activity 配置 android:configChanges=”uiMode”，但这样一来就需要在 onConfigurationChanged() 方法里进行手动适配。</p>
-
-        <h2 id="NightMode"   >
-          <a href="#NightMode" class="heading-link"><i class="fas fa-link"></i></a>NightMode</h2>
-      <p>上面用到了 YES 和 NO 两种暗黑的状态，但其实还不止这两种，暗黑模式一共有这几种状态：</p>
+<h2 id="NightMode"><a href="#NightMode" class="headerlink" title="NightMode"></a>NightMode</h2><p>上面用到了 YES 和 NO 两种暗黑的状态，但其实还不止这两种，暗黑模式一共有这几种状态：</p>
 <ul>
 <li>MODE_NIGHT_FOLLOW_SYSTEM 跟随系统设置</li>
 <li>MODE_NIGHT_NO 关闭暗黑模式</li>
@@ -75,58 +442,34 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <li>MODE_NIGHT_UNSPECIFIED 未指定，默认值</li>
 </ul>
 <p>由于很多定制系统对省电模式进行了魔改，所以使用 MODE_NIGHT_AUTO_BATTERY 不一定会生效。 另外，当 DefaultNightMode 和 LocalNightMode 都是默认值 MODE_NIGHT_UNSPECIFIED 的时候，会作 MODE_NIGHT_FOLLOW_SYSTEM 跟随系统处理。</p>
-
-        <h1 id="DayNight"   >
-          <a href="#DayNight" class="heading-link"><i class="fas fa-link"></i></a>DayNight</h1>
-      <p>下面要开始对暗黑模式进行适配啦。我们使用 Android Studio 的 Basic Activity 模板创建一个项目，对它进行暗黑模式适配的改造。</p>
-
-        <h2 id="DayNight-主题适配"   >
-          <a href="#DayNight-主题适配" class="heading-link"><i class="fas fa-link"></i></a>DayNight 主题适配</h2>
-      <p>第一步，找到当前项目使用的主题，将默认使用的 Theme.AppCompat.Light 主题修改为 Theme.AppCompat.DayNight：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name&#x3D;&quot;AppTheme&quot; parent&#x3D;&quot;Theme.AppCompat.DayNight&quot;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimary&quot;&gt;@color&#x2F;colorPrimary&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimaryDark&quot;&gt;@color&#x2F;colorPrimaryDark&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorAccent&quot;&gt;@color&#x2F;colorAccent&lt;&#x2F;item&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></div></figure>
+<h1 id="DayNight"><a href="#DayNight" class="headerlink" title="DayNight"></a>DayNight</h1><p>下面要开始对暗黑模式进行适配啦。我们使用 Android Studio 的 Basic Activity 模板创建一个项目，对它进行暗黑模式适配的改造。</p>
+<h2 id="DayNight-主题适配"><a href="#DayNight-主题适配" class="headerlink" title="DayNight 主题适配"></a>DayNight 主题适配</h2><p>第一步，找到当前项目使用的主题，将默认使用的 Theme.AppCompat.Light 主题修改为 Theme.AppCompat.DayNight：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name&#x3D;&quot;AppTheme&quot; parent&#x3D;&quot;Theme.AppCompat.DayNight&quot;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimary&quot;&gt;@color&#x2F;colorPrimary&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimaryDark&quot;&gt;@color&#x2F;colorPrimaryDark&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorAccent&quot;&gt;@color&#x2F;colorAccent&lt;&#x2F;item&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
 
 <p>第二步，没有第二步了，现在这个项目已经支持暗黑模式了，开启暗黑模式就能看到效果：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd485a20f96?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>是不是很简单，但直觉告诉我们肯定没有这么简单。</p>
-
-        <h2 id="硬编码"   >
-          <a href="#硬编码" class="heading-link"><i class="fas fa-link"></i></a>硬编码</h2>
-      <p>我们进入 MainActivity 的布局文件 activity_main，可以发现这里面是完全没有使用硬编码的。 什么叫硬编码？就是我们平时所说的「写死」。要是我们写死了一个色值，暗黑模式还能生效吗？ 马上试一下，我们给根布局写死一个白色背景 android:background=”#FFFFFF”，切换暗黑模式就变成了这样：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487a61d7b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<h2 id="硬编码"><a href="#硬编码" class="headerlink" title="硬编码"></a>硬编码</h2><p>我们进入 MainActivity 的布局文件 activity_main，可以发现这里面是完全没有使用硬编码的。 什么叫硬编码？就是我们平时所说的「写死」。要是我们写死了一个色值，暗黑模式还能生效吗？ 马上试一下，我们给根布局写死一个白色背景 android:background=”#FFFFFF”，切换暗黑模式就变成了这样：</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487a61d7b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>可以看到，在写死色值的情况下暗黑模式就失效了。下面看看对于自定义的色值，要如何适配。</p>
-
-        <h2 id="value-night"   >
-          <a href="#value-night" class="heading-link"><i class="fas fa-link"></i></a>value-night</h2>
-      <p>在 colors.xml 里添加一个配置颜色，比如：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;color name&#x3D;&quot;color_bg&quot;&gt;#FFFFFF&lt;&#x2F;color&gt;</span><br></pre></td></tr></table></div></figure>
+<h2 id="value-night"><a href="#value-night" class="headerlink" title="value-night"></a>value-night</h2><p>在 colors.xml 里添加一个配置颜色，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;color name&#x3D;&quot;color_bg&quot;&gt;#FFFFFF&lt;&#x2F;color&gt;</span><br></pre></td></tr></table></figure>
 
 <p>这个是在普通模式下使用的色值，为了适配暗黑模式，还需要一个在暗黑模式下对应的色值。 新建 values-night 目录，并把对应色值配置到这个目录下的 colors.xml 文件。</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487e14870?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd487e14870?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>将根布局的背景颜色修改为 color_bg，这样就能使用我们自己想要的颜色进行适配了：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48cca9fad?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48cca9fad?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>在暗黑模式下，系统会优先从 night 后缀的目录下找到对应的资源配置。 以上就是使用 DayNight 主题进行暗黑模式适配的全部内容了。</p>
-
-        <h2 id="DayNight-弊端"   >
-          <a href="#DayNight-弊端" class="heading-link"><i class="fas fa-link"></i></a>DayNight 弊端</h2>
-      <p>一些关于 Android 10 暗黑模式适配的文章到这里就结束了，但其实 DayNight 主题并不是 Android 10 新增的东西，它早在 Android 6.0 就已经出现。虽然它涉及的内容不多，但大家可能也发现了，在实际项目中它的可操作性并不高。 首先，使用这种适配方式，要求我们整个项目所有的色值都不能使用硬编码，要做到这一点已经很不容易了，很多项目连统一的设计规范都很难做到。再退一步讲，就算我们所有色值都是使用 xml 配置的，但 colors.xml 里配置了成百上千个色值，我们需要对所有这些色值配置一个对应的暗黑色值，并且要确保它们在暗黑模式下能比较美观的展示。 所以，除非项目本身已经有一套严格的设计规范并且严格执行了，否则使用 DayNight 主题适配暗黑模式基本是不具有可操作性的。 Android 10 新增的当然不只是一个暗黑模式的开关而已，下面我们看一下 Android 10 有什么新特性供我们适配。</p>
-
-        <h1 id="Force-Dark"   >
-          <a href="#Force-Dark" class="heading-link"><i class="fas fa-link"></i></a>Force Dark</h1>
-      <p>其实我们的需求很明确，就是使用了硬编码也能被适配成暗黑模式。Android 10 新增的 Force Dark 强制暗黑就实现了这个功能。</p>
-
-        <h2 id="forceDarkAllowed"   >
-          <a href="#forceDarkAllowed" class="heading-link"><i class="fas fa-link"></i></a>forceDarkAllowed</h2>
-      <p>还是回到刚才的项目，把背景写死白色，再次来到 styles.xml 的主题配置。这次我们不用 DayNight 主题了，把配置改成如下：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name&#x3D;&quot;AppTheme&quot; parent&#x3D;&quot;Theme.AppCompat.Light&quot;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimary&quot;&gt;@color&#x2F;colorPrimary&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimaryDark&quot;&gt;@color&#x2F;colorPrimaryDark&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorAccent&quot;&gt;@color&#x2F;colorAccent&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;android:forceDarkAllowed&quot;&gt;true&lt;&#x2F;item&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></div></figure>
+<h2 id="DayNight-弊端"><a href="#DayNight-弊端" class="headerlink" title="DayNight 弊端"></a>DayNight 弊端</h2><p>一些关于 Android 10 暗黑模式适配的文章到这里就结束了，但其实 DayNight 主题并不是 Android 10 新增的东西，它早在 Android 6.0 就已经出现。虽然它涉及的内容不多，但大家可能也发现了，在实际项目中它的可操作性并不高。 首先，使用这种适配方式，要求我们整个项目所有的色值都不能使用硬编码，要做到这一点已经很不容易了，很多项目连统一的设计规范都很难做到。再退一步讲，就算我们所有色值都是使用 xml 配置的，但 colors.xml 里配置了成百上千个色值，我们需要对所有这些色值配置一个对应的暗黑色值，并且要确保它们在暗黑模式下能比较美观的展示。 所以，除非项目本身已经有一套严格的设计规范并且严格执行了，否则使用 DayNight 主题适配暗黑模式基本是不具有可操作性的。 Android 10 新增的当然不只是一个暗黑模式的开关而已，下面我们看一下 Android 10 有什么新特性供我们适配。</p>
+<h1 id="Force-Dark"><a href="#Force-Dark" class="headerlink" title="Force Dark"></a>Force Dark</h1><p>其实我们的需求很明确，就是使用了硬编码也能被适配成暗黑模式。Android 10 新增的 Force Dark 强制暗黑就实现了这个功能。</p>
+<h2 id="forceDarkAllowed"><a href="#forceDarkAllowed" class="headerlink" title="forceDarkAllowed"></a>forceDarkAllowed</h2><p>还是回到刚才的项目，把背景写死白色，再次来到 styles.xml 的主题配置。这次我们不用 DayNight 主题了，把配置改成如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name&#x3D;&quot;AppTheme&quot; parent&#x3D;&quot;Theme.AppCompat.Light&quot;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimary&quot;&gt;@color&#x2F;colorPrimary&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorPrimaryDark&quot;&gt;@color&#x2F;colorPrimaryDark&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;colorAccent&quot;&gt;@color&#x2F;colorAccent&lt;&#x2F;item&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;android:forceDarkAllowed&quot;&gt;true&lt;&#x2F;item&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
 
 <p>我们把主题换回 Light 亮色主题，至于为什么要用 Light 后面源码部分还会再讲到 另外，重点来了，这里还增加了一个 forceDarkAllowed 的配置，这是 compileSdkVersion 升级到 29 新增的配置，按字面意思就是「开启强制暗黑」。 这样就已经完成配置了，在 Android 10 的机器上运行一下，切换暗黑模式，记住这次的背景是写死白色的：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48e65b69c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd48e65b69c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>背景被强制转换成黑色了，细心的还会发现，右下角按钮的背景颜色也变深了。 Force Dark 这么暴力，连我们写死的色值都改了，虽然方便，但这也给我们一种不安全感。 要是 Force Dark 适配出来的颜色不是我们想要的怎么办？我们还能自定义暗黑色值吗？也是可以的。</p>
-
-        <h2 id="Force-Dark-自定义适配"   >
-          <a href="#Force-Dark-自定义适配" class="heading-link"><i class="fas fa-link"></i></a>Force Dark 自定义适配</h2>
-      <p>除了主题新增了 forceDarkAllowed 这个配置，View 里面也有。 如果某个 View 的需要使用自定义色值适配暗黑模式，我们需要对这个 View 添加这个配置，让 Force Dark 排除它：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:forceDarkAllowed&#x3D;&quot;false&quot;</span><br></pre></td></tr></table></div></figure>
+<h2 id="Force-Dark-自定义适配"><a href="#Force-Dark-自定义适配" class="headerlink" title="Force Dark 自定义适配"></a>Force Dark 自定义适配</h2><p>除了主题新增了 forceDarkAllowed 这个配置，View 里面也有。 如果某个 View 的需要使用自定义色值适配暗黑模式，我们需要对这个 View 添加这个配置，让 Force Dark 排除它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:forceDarkAllowed&#x3D;&quot;false&quot;</span><br></pre></td></tr></table></figure>
 
 <p>然后在代码里根据当前是否处于暗黑模式，对色值进行动态设置。 对于 View 的 forceDarkAllowed，有几点需要注意：</p>
 <ul>
@@ -135,15 +478,9 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <li>作用范围是当前 View 以及它所有的子 View</li>
 </ul>
 <p>综上可以看出，其实目前并没有很好的 Force Dark 自定义方案。好在 Force Dark 的整体效果没什么大问题，就算要自定义，我们也尽量只对子 View 进行自定义。</p>
-
-        <h1 id="Force-Dark-源码解析"   >
-          <a href="#Force-Dark-源码解析" class="heading-link"><i class="fas fa-link"></i></a>Force Dark 源码解析</h1>
-      <p>下面我们看一下源码，看看系统在暗黑模式下是如何对颜色进行转换的。 这里仅展示几个关键源码片段，它们之间是如何调用的就不赘述啦。</p>
-
-        <h2 id="updateForceDarkMode"   >
-          <a href="#updateForceDarkMode" class="heading-link"><i class="fas fa-link"></i></a>updateForceDarkMode</h2>
-      <p>看源码首先我们要找到入口，入口就是主题的 forceDarkAllowed 配置，搜索一下可以发现这个配置会在 ViewRootImpl 被用到。 相关的说明已经用注释写在代码里了。</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; android.view.ViewRootImpl.java</span><br><span class="line"></span><br><span class="line">private void updateForceDarkMode() &#123;</span><br><span class="line">    if (mAttachInfo.mThreadedRenderer &#x3D;&#x3D; null) return;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 判断当前是否处于暗黑模式</span><br><span class="line">    boolean useAutoDark &#x3D; getNightMode() &#x3D;&#x3D; Configuration.UI_MODE_NIGHT_YES;</span><br><span class="line"></span><br><span class="line">    if (useAutoDark) &#123;</span><br><span class="line">        &#x2F;&#x2F; 这个是被用来作为默认值用的，这里先不管它，我们后面还会讲到。</span><br><span class="line">        boolean forceDarkAllowedDefault &#x3D; SystemProperties.getBoolean(ThreadedRenderer.DEBUG_FORCE_DARK, false);</span><br><span class="line">        TypedArray a &#x3D; mContext.obtainStyledAttributes(R.styleable.Theme);</span><br><span class="line">        &#x2F;&#x2F; 判断当前是否为 Light 主题，这也是为什么我们前面要使用 Light 主题。这也很好理解，只有当前主题是亮色的时候，才需要进行暗黑的处理。</span><br><span class="line">        &#x2F;&#x2F; 判断当前是否允许开启强制暗黑，我们就是靠它找到这个地方的。</span><br><span class="line">        useAutoDark &#x3D; a.getBoolean(R.styleable.Theme_isLightTheme, true)</span><br><span class="line">                &amp;&amp; a.getBoolean(R.styleable.Theme_forceDarkAllowed, forceDarkAllowedDefault);</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (mAttachInfo.mThreadedRenderer.setForceDark(useAutoDark)) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: Don&#39;t require regenerating all display lists to apply this setting</span><br><span class="line">        invalidateWorld(mView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<h1 id="Force-Dark-源码解析"><a href="#Force-Dark-源码解析" class="headerlink" title="Force Dark 源码解析"></a>Force Dark 源码解析</h1><p>下面我们看一下源码，看看系统在暗黑模式下是如何对颜色进行转换的。 这里仅展示几个关键源码片段，它们之间是如何调用的就不赘述啦。</p>
+<h2 id="updateForceDarkMode"><a href="#updateForceDarkMode" class="headerlink" title="updateForceDarkMode"></a>updateForceDarkMode</h2><p>看源码首先我们要找到入口，入口就是主题的 forceDarkAllowed 配置，搜索一下可以发现这个配置会在 ViewRootImpl 被用到。 相关的说明已经用注释写在代码里了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; android.view.ViewRootImpl.java</span><br><span class="line"></span><br><span class="line">private void updateForceDarkMode() &#123;</span><br><span class="line">    if (mAttachInfo.mThreadedRenderer &#x3D;&#x3D; null) return;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 判断当前是否处于暗黑模式</span><br><span class="line">    boolean useAutoDark &#x3D; getNightMode() &#x3D;&#x3D; Configuration.UI_MODE_NIGHT_YES;</span><br><span class="line"></span><br><span class="line">    if (useAutoDark) &#123;</span><br><span class="line">        &#x2F;&#x2F; 这个是被用来作为默认值用的，这里先不管它，我们后面还会讲到。</span><br><span class="line">        boolean forceDarkAllowedDefault &#x3D; SystemProperties.getBoolean(ThreadedRenderer.DEBUG_FORCE_DARK, false);</span><br><span class="line">        TypedArray a &#x3D; mContext.obtainStyledAttributes(R.styleable.Theme);</span><br><span class="line">        &#x2F;&#x2F; 判断当前是否为 Light 主题，这也是为什么我们前面要使用 Light 主题。这也很好理解，只有当前主题是亮色的时候，才需要进行暗黑的处理。</span><br><span class="line">        &#x2F;&#x2F; 判断当前是否允许开启强制暗黑，我们就是靠它找到这个地方的。</span><br><span class="line">        useAutoDark &#x3D; a.getBoolean(R.styleable.Theme_isLightTheme, true)</span><br><span class="line">                &amp;&amp; a.getBoolean(R.styleable.Theme_forceDarkAllowed, forceDarkAllowedDefault);</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (mAttachInfo.mThreadedRenderer.setForceDark(useAutoDark)) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: Don&#39;t require regenerating all display lists to apply this setting</span><br><span class="line">        invalidateWorld(mView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>总结一下，根据这个方法我们可以知道，Force Dark 生效有三个条件：</p>
 <ul>
@@ -152,45 +489,30 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <li>允许使用 Force Dark</li>
 </ul>
 <p>源码再跟下去，发现调用了 Native 代码。</p>
-
-        <h2 id="handleForceDark"   >
-          <a href="#handleForceDark" class="heading-link"><i class="fas fa-link"></i></a>handleForceDark</h2>
-      <p>下一个关键代码是 RenderNode 的 handleForceDark 函数。RenderNode 是绘制节点，一个 View 可以有多个绘制节点，比如一个 TextView 的文字部分是一个绘制节点，它设置的背景也是一个绘制节点。看一下这个函数做了什么。</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; frameworks&#x2F;base&#x2F;libs&#x2F;hwui&#x2F;RenderNode.cpp</span><br><span class="line"></span><br><span class="line">void RenderNode::handleForceDark(android::uirenderer::TreeInfo *info) &#123;</span><br><span class="line">    if (CC_LIKELY(!info || info-&gt;disableForceDark)) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 这个函数看似有点复杂，但其实我们只需要关注 usage 这个参数。</span><br><span class="line">    &#x2F;&#x2F; usage 有两个取值，Foreground 前景和 Background 背景。</span><br><span class="line">    auto usage &#x3D; usageHint();</span><br><span class="line">    const auto&amp; children &#x3D; mDisplayList-&gt;mChildNodes;</span><br><span class="line">    if (mDisplayList-&gt;hasText()) &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果当前节点 hasText() 含有文字，那它就是一个 Foreground 前景</span><br><span class="line">        usage &#x3D; UsageHint::Foreground;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 下面的判断都是设为 Background 背景</span><br><span class="line">    if (usage &#x3D;&#x3D; UsageHint::Unknown) &#123;</span><br><span class="line">        if (children.size() &gt; 1) &#123;</span><br><span class="line">            usage &#x3D; UsageHint::Background;</span><br><span class="line">        &#125; else if (children.size() &#x3D;&#x3D; 1 &amp;&amp;</span><br><span class="line">                children.front().getRenderNode()-&gt;usageHint() !&#x3D;</span><br><span class="line">                        UsageHint::Background) &#123;</span><br><span class="line">            usage &#x3D; UsageHint::Background;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (children.size() &gt; 1) &#123;</span><br><span class="line">        &#x2F;&#x2F; Crude overlap check</span><br><span class="line">        SkRect drawn &#x3D; SkRect::MakeEmpty();</span><br><span class="line">        for (auto iter &#x3D; children.rbegin(); iter !&#x3D; children.rend(); ++iter) &#123;</span><br><span class="line">            const auto&amp; child &#x3D; iter-&gt;getRenderNode();</span><br><span class="line">            &#x2F;&#x2F; We use stagingProperties here because we haven&#39;t yet sync&#39;d the children</span><br><span class="line">            SkRect bounds &#x3D; SkRect::MakeXYWH(child-&gt;stagingProperties().getX(), child-&gt;stagingProperties().getY(),</span><br><span class="line">                    child-&gt;stagingProperties().getWidth(), child-&gt;stagingProperties().getHeight());</span><br><span class="line">            if (bounds.contains(drawn)) &#123;</span><br><span class="line">                &#x2F;&#x2F; This contains everything drawn after it, so make it a background</span><br><span class="line">                child-&gt;setUsageHint(UsageHint::Background);</span><br><span class="line">            &#125;</span><br><span class="line">            drawn.join(bounds);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 根据分类，如果是背景会被设为 Dark 深色，否则是 Light 亮色。</span><br><span class="line">    mDisplayList-&gt;mDisplayList.applyColorTransform(</span><br><span class="line">            usage &#x3D;&#x3D; UsageHint::Background ? ColorTransform::Dark : ColorTransform::Light);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<h2 id="handleForceDark"><a href="#handleForceDark" class="headerlink" title="handleForceDark"></a>handleForceDark</h2><p>下一个关键代码是 RenderNode 的 handleForceDark 函数。RenderNode 是绘制节点，一个 View 可以有多个绘制节点，比如一个 TextView 的文字部分是一个绘制节点，它设置的背景也是一个绘制节点。看一下这个函数做了什么。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; frameworks&#x2F;base&#x2F;libs&#x2F;hwui&#x2F;RenderNode.cpp</span><br><span class="line"></span><br><span class="line">void RenderNode::handleForceDark(android::uirenderer::TreeInfo *info) &#123;</span><br><span class="line">    if (CC_LIKELY(!info || info-&gt;disableForceDark)) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 这个函数看似有点复杂，但其实我们只需要关注 usage 这个参数。</span><br><span class="line">    &#x2F;&#x2F; usage 有两个取值，Foreground 前景和 Background 背景。</span><br><span class="line">    auto usage &#x3D; usageHint();</span><br><span class="line">    const auto&amp; children &#x3D; mDisplayList-&gt;mChildNodes;</span><br><span class="line">    if (mDisplayList-&gt;hasText()) &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果当前节点 hasText() 含有文字，那它就是一个 Foreground 前景</span><br><span class="line">        usage &#x3D; UsageHint::Foreground;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 下面的判断都是设为 Background 背景</span><br><span class="line">    if (usage &#x3D;&#x3D; UsageHint::Unknown) &#123;</span><br><span class="line">        if (children.size() &gt; 1) &#123;</span><br><span class="line">            usage &#x3D; UsageHint::Background;</span><br><span class="line">        &#125; else if (children.size() &#x3D;&#x3D; 1 &amp;&amp;</span><br><span class="line">                children.front().getRenderNode()-&gt;usageHint() !&#x3D;</span><br><span class="line">                        UsageHint::Background) &#123;</span><br><span class="line">            usage &#x3D; UsageHint::Background;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (children.size() &gt; 1) &#123;</span><br><span class="line">        &#x2F;&#x2F; Crude overlap check</span><br><span class="line">        SkRect drawn &#x3D; SkRect::MakeEmpty();</span><br><span class="line">        for (auto iter &#x3D; children.rbegin(); iter !&#x3D; children.rend(); ++iter) &#123;</span><br><span class="line">            const auto&amp; child &#x3D; iter-&gt;getRenderNode();</span><br><span class="line">            &#x2F;&#x2F; We use stagingProperties here because we haven&#39;t yet sync&#39;d the children</span><br><span class="line">            SkRect bounds &#x3D; SkRect::MakeXYWH(child-&gt;stagingProperties().getX(), child-&gt;stagingProperties().getY(),</span><br><span class="line">                    child-&gt;stagingProperties().getWidth(), child-&gt;stagingProperties().getHeight());</span><br><span class="line">            if (bounds.contains(drawn)) &#123;</span><br><span class="line">                &#x2F;&#x2F; This contains everything drawn after it, so make it a background</span><br><span class="line">                child-&gt;setUsageHint(UsageHint::Background);</span><br><span class="line">            &#125;</span><br><span class="line">            drawn.join(bounds);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 根据分类，如果是背景会被设为 Dark 深色，否则是 Light 亮色。</span><br><span class="line">    mDisplayList-&gt;mDisplayList.applyColorTransform(</span><br><span class="line">            usage &#x3D;&#x3D; UsageHint::Background ? ColorTransform::Dark : ColorTransform::Light);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个函数做的就是对当前绘制节点进行 Foreground 还是 Background 的分类。 为了保证文字的可视度，需要保证一定的对比度，在背景切换成深色的情况下，需要把文字部分切换成亮色。</p>
-
-        <h2 id="transformColor"   >
-          <a href="#transformColor" class="heading-link"><i class="fas fa-link"></i></a>transformColor</h2>
-      <p>根据分好的颜色类型，会进入 CanvasTransform 对颜色进行转换处理。这里也是 Force Dark 最核心的地方了。</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; frameworks&#x2F;base&#x2F;libs&#x2F;hwui&#x2F;CanvasTransform.cpp</span><br><span class="line"></span><br><span class="line">static SkColor transformColor(ColorTransform transform, SkColor color) &#123;</span><br><span class="line">    switch (transform) &#123;</span><br><span class="line">        case ColorTransform::Light:</span><br><span class="line">            &#x2F;&#x2F; 转换为亮色</span><br><span class="line">            return makeLight(color);</span><br><span class="line">        case ColorTransform::Dark:</span><br><span class="line">            &#x2F;&#x2F; 转换为暗色</span><br><span class="line">            return makeDark(color);</span><br><span class="line">        default:</span><br><span class="line">            return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<h2 id="transformColor"><a href="#transformColor" class="headerlink" title="transformColor"></a>transformColor</h2><p>根据分好的颜色类型，会进入 CanvasTransform 对颜色进行转换处理。这里也是 Force Dark 最核心的地方了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; frameworks&#x2F;base&#x2F;libs&#x2F;hwui&#x2F;CanvasTransform.cpp</span><br><span class="line"></span><br><span class="line">static SkColor transformColor(ColorTransform transform, SkColor color) &#123;</span><br><span class="line">    switch (transform) &#123;</span><br><span class="line">        case ColorTransform::Light:</span><br><span class="line">            &#x2F;&#x2F; 转换为亮色</span><br><span class="line">            return makeLight(color);</span><br><span class="line">        case ColorTransform::Dark:</span><br><span class="line">            &#x2F;&#x2F; 转换为暗色</span><br><span class="line">            return makeDark(color);</span><br><span class="line">        default:</span><br><span class="line">            return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>根据类型调用了对应的函数转换颜色，我们看一下 makeDark 吧。</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static SkColor makeDark(SkColor color) &#123;</span><br><span class="line">    Lab lab &#x3D; sRGBToLab(color);</span><br><span class="line">    float invertedL &#x3D; std::min(110 - lab.L, 100.0f);</span><br><span class="line">    if (invertedL &lt; lab.L) &#123;</span><br><span class="line">        lab.L &#x3D; invertedL;</span><br><span class="line">        return LabToSRGB(lab, SkColorGetA(color));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static SkColor makeDark(SkColor color) &#123;</span><br><span class="line">    Lab lab &#x3D; sRGBToLab(color);</span><br><span class="line">    float invertedL &#x3D; std::min(110 - lab.L, 100.0f);</span><br><span class="line">    if (invertedL &lt; lab.L) &#123;</span><br><span class="line">        lab.L &#x3D; invertedL;</span><br><span class="line">        return LabToSRGB(lab, SkColorGetA(color));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里把 RGB 色值转换成了 Lab 的格式。 Lab 格式含有 L、a、b 三个参数，ab 对应色彩学上的两个维度，不用管它，我们要关注的是里面的 L。 L 就是亮度，它的取值范围是 0 - 100，数值越小颜色就越暗，反之就越亮。这篇文章封面的安卓机器人右边颜色就是降低亮度后的效果。 回到代码来，这里用 110 减去当前亮度，可以说是对亮度做了取反。至于为什么是用 110 而不是用 100，我猜测是为了避免使用纯黑色。 在官方<span class="exturl"><a class="exturl__link"   href="https://material.io/design/color/dark-theme.html#properties"  target="_blank" rel="noopener">暗黑模式设计规范</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>可以看到，建议使用深灰色作为背景，而不是用纯黑色。</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4abaea406?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p>这里把 RGB 色值转换成了 Lab 的格式。 Lab 格式含有 L、a、b 三个参数，ab 对应色彩学上的两个维度，不用管它，我们要关注的是里面的 L。 L 就是亮度，它的取值范围是 0 - 100，数值越小颜色就越暗，反之就越亮。这篇文章封面的安卓机器人右边颜色就是降低亮度后的效果。 回到代码来，这里用 110 减去当前亮度，可以说是对亮度做了取反。至于为什么是用 110 而不是用 100，我猜测是为了避免使用纯黑色。 在官方<a href="https://material.io/design/color/dark-theme.html#properties" target="_blank" rel="noopener">暗黑模式设计规范</a>可以看到，建议使用深灰色作为背景，而不是用纯黑色。</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4abaea406?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>最后比对取反的色值和原色值的亮度，将较暗的那个色值返回。 makeLight 函数也是类似的。</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static SkColor makeLight(SkColor color) &#123;</span><br><span class="line">    Lab lab &#x3D; sRGBToLab(color);</span><br><span class="line">    float invertedL &#x3D; std::min(110 - lab.L, 100.0f);</span><br><span class="line">    if (invertedL &gt; lab.L) &#123;</span><br><span class="line">        lab.L &#x3D; invertedL;</span><br><span class="line">        return LabToSRGB(lab, SkColorGetA(color));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static SkColor makeLight(SkColor color) &#123;</span><br><span class="line">    Lab lab &#x3D; sRGBToLab(color);</span><br><span class="line">    float invertedL &#x3D; std::min(110 - lab.L, 100.0f);</span><br><span class="line">    if (invertedL &gt; lab.L) &#123;</span><br><span class="line">        lab.L &#x3D; invertedL;</span><br><span class="line">        return LabToSRGB(lab, SkColorGetA(color));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>所以到这里我们发现，其实 Force Dark 强制暗黑转换颜色的规则，或者说是它的本质，就是<strong>亮度取反</strong>。</p>
-
-        <h1 id="适配流程建议"   >
-          <a href="#适配流程建议" class="heading-link"><i class="fas fa-link"></i></a>适配流程建议</h1>
-      <p>如果你的项目 compileSdkVersion 已经升级到 29，那现在就可以开启 Force Dark 适配暗黑模式了。但很多项目要升级到 29 还有一段路要走，我们有没有办法提前适配呢？</p>
-
-        <h2 id="Debug-Force-Dark"   >
-          <a href="#Debug-Force-Dark" class="heading-link"><i class="fas fa-link"></i></a>Debug Force Dark</h2>
-      <p>回到我们开始看源码的地方:</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">boolean forceDarkAllowedDefault &#x3D; SystemProperties.getBoolean(ThreadedRenderer.DEBUG_FORCE_DARK, false);</span><br><span class="line">TypedArray a &#x3D; mContext.obtainStyledAttributes(R.styleable.Theme);</span><br><span class="line">useAutoDark &#x3D; a.getBoolean(R.styleable.Theme_isLightTheme, true)</span><br><span class="line">        &amp;&amp; a.getBoolean(R.styleable.Theme_forceDarkAllowed, forceDarkAllowedDefault);</span><br></pre></td></tr></table></div></figure>
+<h1 id="适配流程建议"><a href="#适配流程建议" class="headerlink" title="适配流程建议"></a>适配流程建议</h1><p>如果你的项目 compileSdkVersion 已经升级到 29，那现在就可以开启 Force Dark 适配暗黑模式了。但很多项目要升级到 29 还有一段路要走，我们有没有办法提前适配呢？</p>
+<h2 id="Debug-Force-Dark"><a href="#Debug-Force-Dark" class="headerlink" title="Debug Force Dark"></a>Debug Force Dark</h2><p>回到我们开始看源码的地方:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">boolean forceDarkAllowedDefault &#x3D; SystemProperties.getBoolean(ThreadedRenderer.DEBUG_FORCE_DARK, false);</span><br><span class="line">TypedArray a &#x3D; mContext.obtainStyledAttributes(R.styleable.Theme);</span><br><span class="line">useAutoDark &#x3D; a.getBoolean(R.styleable.Theme_isLightTheme, true)</span><br><span class="line">        &amp;&amp; a.getBoolean(R.styleable.Theme_forceDarkAllowed, forceDarkAllowedDefault);</span><br></pre></td></tr></table></figure>
 
 <p>当取不到 Theme_forceDarkAllowed 的时候，会取 DEBUG_FORCE_DARK 作为默认值，在哪里可以开启这个 DEBUG_FORCE_DARK 呢？ 在 Android 10 的开发者选项里面，可以发现多了一个这样的选项：</p>
-<p><img   src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4ae8d9bc0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" style=""  alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/1725abd4ae8d9bc0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>这里的「强制启用 SmartDark 功能」就是 DEBUG_FORCE_DARK 的开关，虽然我们看了源码都知道它也没有多智能。 开启后会对所有项目生效，这样就可以提前用 Force Dark 进行适配了。</p>
-
-        <h2 id="适配流程"   >
-          <a href="#适配流程" class="heading-link"><i class="fas fa-link"></i></a>适配流程</h2>
-      <p>开启 Force Dark 后大概率会发现一些有问题的图片资源，比如带有固定背景的 icon 等。 如果项目有适配暗黑模式的计划，个人建议可以按以下几步走：</p>
+<h2 id="适配流程"><a href="#适配流程" class="headerlink" title="适配流程"></a>适配流程</h2><p>开启 Force Dark 后大概率会发现一些有问题的图片资源，比如带有固定背景的 icon 等。 如果项目有适配暗黑模式的计划，个人建议可以按以下几步走：</p>
 <ol>
 <li>开发者选项开启「强制启用 SmartDark」</li>
 <li>替换有问题的资源，进行初步适配</li>
@@ -198,55 +520,703 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></he
 <li>开启 Force Dark</li>
 <li>和设计师沟通，对部分控件单独适配</li>
 </ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>使用 DayNight 主题可以实现暗黑模式的适配，但这种方法在实际项目中可操作性不高。 Android 10 新增的暗黑模式特性叫 Force Dark 强制暗黑，只需给主题添加一个允许开启的配置即可。 Force Dark 的实现方式是降低背景亮度，提高字体亮度，本质是对色值进行亮度取反。 最后，在 Android 10 的设备上，可以开启开发者选项中的「强制启用 SmartDark」，提前用 Force Dark 适配。</p>
 
-        <h1 id="总结"   >
-          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
-      <p>使用 DayNight 主题可以实现暗黑模式的适配，但这种方法在实际项目中可操作性不高。 Android 10 新增的暗黑模式特性叫 Force Dark 强制暗黑，只需给主题添加一个允许开启的配置即可。 Force Dark 的实现方式是降低背景亮度，提高字体亮度，本质是对色值进行亮度取反。 最后，在 Android 10 的设备上，可以开启开发者选项中的「强制启用 SmartDark」，提前用 Force Dark 适配。</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://jiyugithub.github.io">Apocalypse</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://jiyugithub.github.io/2020/06/14/DayNight/">https://jiyugithub.github.io/2020/06/14/DayNight/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/14/FragmentTransaction/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Androidx 下 Fragment 懒加载的新实现</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/06/12/0_kotlin/"><span class="paginator-prev__text">使用Kotlin从零开始写一个现代Android</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#暗黑模式"><span class="toc-number">1.</span> <span class="toc-text">
-          暗黑模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态开启"><span class="toc-number">2.</span> <span class="toc-text">
-          动态开启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NightMode"><span class="toc-number">2.1.</span> <span class="toc-text">
-          NightMode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DayNight"><span class="toc-number">3.</span> <span class="toc-text">
-          DayNight</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-主题适配"><span class="toc-number">3.1.</span> <span class="toc-text">
-          DayNight 主题适配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬编码"><span class="toc-number">3.2.</span> <span class="toc-text">
-          硬编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#value-night"><span class="toc-number">3.3.</span> <span class="toc-text">
-          value-night</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-弊端"><span class="toc-number">3.4.</span> <span class="toc-text">
-          DayNight 弊端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark"><span class="toc-number">4.</span> <span class="toc-text">
-          Force Dark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#forceDarkAllowed"><span class="toc-number">4.1.</span> <span class="toc-text">
-          forceDarkAllowed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Force-Dark-自定义适配"><span class="toc-number">4.2.</span> <span class="toc-text">
-          Force Dark 自定义适配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark-源码解析"><span class="toc-number">5.</span> <span class="toc-text">
-          Force Dark 源码解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#updateForceDarkMode"><span class="toc-number">5.1.</span> <span class="toc-text">
-          updateForceDarkMode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handleForceDark"><span class="toc-number">5.2.</span> <span class="toc-text">
-          handleForceDark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transformColor"><span class="toc-number">5.3.</span> <span class="toc-text">
-          transformColor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#适配流程建议"><span class="toc-number">6.</span> <span class="toc-text">
-          适配流程建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Debug-Force-Dark"><span class="toc-number">6.1.</span> <span class="toc-text">
-          Debug Force Dark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配流程"><span class="toc-number">6.2.</span> <span class="toc-text">
-          适配流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">
-          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="http://q1.qlogo.cn/g?b=qq&amp;nk=2391624941&amp;s=640" alt="avatar"></div><p class="sidebar-ov-author__text">人亦有言，举棋不定</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Apocalypse</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.2.1</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.1</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://jiyugithub.github.io">Apocalypse</a>
+            <p>原文链接：<a href="https://jiyugithub.github.io/2020/06/14/DayNight/">https://jiyugithub.github.io/2020/06/14/DayNight/</a>
+            <p>发表日期：<a href="https://jiyugithub.github.io/2020/06/14/DayNight/">June 14th 2020, 1:32:15 am</a>
+            <p>更新日期：<a href="https://jiyugithub.github.io/2020/06/14/DayNight/">June 14th 2020, 4:39:26 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/06/14/FragmentTransaction/" title= "Androidx 下 Fragment 懒加载的新实现">
+                    <div class="nextTitle">Androidx 下 Fragment 懒加载的新实现</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/06/12/0_kotlin/" title= "使用Kotlin从零开始写一个现代Android">
+                    <div class="prevTitle">使用Kotlin从零开始写一个现代Android</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#valine-container',
-    appId: 'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
-    appKey: 'FihoucantYlc5U1FQ9BzkO3l',
-    notify: true,
-    verify: true,
-    placeholder: 'Just go go',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: '' || 'zh-cn',
-    path: window.location.pathname
-  });
-}
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=2.0.1"></script><script src="/js/stun-boot.js?v=2.0.1"></script><script src="/js/scroll.js?v=2.0.1"></script><script src="/js/header.js?v=2.0.1"></script><script src="/js/sidebar.js?v=2.0.1"></script></body></html>
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz",
+        appKey: "FihoucantYlc5U1FQ9BzkO3l",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2391624941@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="/github.com/jiyugithub" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/239.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#暗黑模式"><span class="toc-number">1.</span> <span class="toc-text">暗黑模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态开启"><span class="toc-number">2.</span> <span class="toc-text">动态开启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NightMode"><span class="toc-number">2.1.</span> <span class="toc-text">NightMode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DayNight"><span class="toc-number">3.</span> <span class="toc-text">DayNight</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-主题适配"><span class="toc-number">3.1.</span> <span class="toc-text">DayNight 主题适配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬编码"><span class="toc-number">3.2.</span> <span class="toc-text">硬编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#value-night"><span class="toc-number">3.3.</span> <span class="toc-text">value-night</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DayNight-弊端"><span class="toc-number">3.4.</span> <span class="toc-text">DayNight 弊端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark"><span class="toc-number">4.</span> <span class="toc-text">Force Dark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#forceDarkAllowed"><span class="toc-number">4.1.</span> <span class="toc-text">forceDarkAllowed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Force-Dark-自定义适配"><span class="toc-number">4.2.</span> <span class="toc-text">Force Dark 自定义适配</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Force-Dark-源码解析"><span class="toc-number">5.</span> <span class="toc-text">Force Dark 源码解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#updateForceDarkMode"><span class="toc-number">5.1.</span> <span class="toc-text">updateForceDarkMode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#handleForceDark"><span class="toc-number">5.2.</span> <span class="toc-text">handleForceDark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transformColor"><span class="toc-number">5.3.</span> <span class="toc-text">transformColor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#适配流程建议"><span class="toc-number">6.</span> <span class="toc-text">适配流程建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Debug-Force-Dark"><span class="toc-number">6.1.</span> <span class="toc-text">Debug Force Dark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配流程"><span class="toc-number">6.2.</span> <span class="toc-text">适配流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 25
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Kotlinyf/" >Kotlin实战 | 语法糖</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/switcher/" >炫酷！从未见过如此Q弹的Switcher</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/Top10/" >2020年GitHub 上那些优秀Android开源库</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/FragmentTransaction/" >Androidx 下 Fragment 懒加载的新实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/DayNight/" >暗黑模式适配</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/vue_js/" >10+个很酷的Vue.js组件，模板和demo示例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/android11/" >Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/typescript/" >TypeScript泛型及应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/agent/" >动态代理设计模式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/0_kotlin/" >使用Kotlin从零开始写一个现代Android</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/blog/" >如何快速搭建好看的个人博客</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/undefined/" >Android目前最稳定和高效的UI适配方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/hashmap/" >HashMap原理技术知识整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/javafs/" >Java反射真的很慢吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view1/" >一文彻底了解Android自定义控件1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view2/" >一文彻底了解Android自定义控件2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/view3/" >一文彻底了解Android自定义控件3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/socket/" >手把手教你写Socket长连接</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/Rxjava/" >Rxjava只看这一篇文章就够了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/06/12/multitype/" >Android 复杂的列表视图新写法 MultiType</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2020/06/11/vue/" >从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/09</span><a class="archive-post-title" href= "/2020/06/09/handler/" >Handler 机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2020/06/08/flutternm/" >Flutter高级玩法-贝塞尔曲线的表象认知</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/hexo-zhuan/" >hexo撰写文章</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/2020/03/14/TopKotlin/" >快速入门 Kotlin</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Tag1"><span class="iconfont-archer">&#xe606;</span>Tag1</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tag2"><span class="iconfont-archer">&#xe606;</span>Tag2</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Category1"><span class="iconfont-archer">&#xe60a;</span>Category1</span>
+    
+        <span class="sidebar-category-name" data-categories="Category1/Category2"><span class="iconfont-archer">&#xe60a;</span>Category1/Category2</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Apocalypse"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
