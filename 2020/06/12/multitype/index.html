@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Android 复杂的列表视图新写法 MultiType"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>Android 复杂的列表视图新写法 MultiType | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-复杂的列视图新写法-MultiType"><span class="toc-number">1.</span> <span class="toc-text">Android 复杂的列视图新写法 MultiType</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MultiType-的特性"><span class="toc-number">3.</span> <span class="toc-text">MultiType 的特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总览"><span class="toc-number">4.</span> <span class="toc-text">总览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MultiType-基础用法"><span class="toc-number">5.</span> <span class="toc-text">MultiType 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入"><span class="toc-number">5.0.1.</span> <span class="toc-text">引入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">5.1.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计思想"><span class="toc-number">6.</span> <span class="toc-text">设计思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级用法"><span class="toc-number">7.</span> <span class="toc-text">高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MultiTypeTemplates-插件自动生成代码"><span class="toc-number">7.1.</span> <span class="toc-text">使用 MultiTypeTemplates 插件自动生成代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个类型对应多个-ItemViewBinder"><span class="toc-number">7.2.</span> <span class="toc-text">一个类型对应多个 ItemViewBinder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-全局类型池"><span class="toc-number">7.3.</span> <span class="toc-text">使用 全局类型池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与-ItemViewBinder-通讯"><span class="toc-number">7.4.</span> <span class="toc-text">与 ItemViewBinder 通讯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用断言，比传统-Adapter-更加易于调试"><span class="toc-number">7.5.</span> <span class="toc-text">使用断言，比传统 Adapter 更加易于调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持-Google-AutoValue"><span class="toc-number">7.6.</span> <span class="toc-text">支持 Google AutoValue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlatTypeAdapter-已废弃"><span class="toc-number">7.7.</span> <span class="toc-text">FlatTypeAdapter(已废弃)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MultiType-与下拉刷新、加载更多、HeaderView、FooterView、Diff"><span class="toc-number">7.8.</span> <span class="toc-text">MultiType 与下拉刷新、加载更多、HeaderView、FooterView、Diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现-RecyclerView-嵌套横向-RecyclerView"><span class="toc-number">7.9.</span> <span class="toc-text">实现 RecyclerView 嵌套横向 RecyclerView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现线性布局和网格布局混排列表"><span class="toc-number">7.10.</span> <span class="toc-text">实现线性布局和网格布局混排列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据扁平化处理"><span class="toc-number">7.11.</span> <span class="toc-text">数据扁平化处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更多示例"><span class="toc-number">8.</span> <span class="toc-text">更多示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">9.</span> <span class="toc-text">Q &amp; A</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">26</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Android 复杂的列表视图新写法 MultiType</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-12</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="Android-复杂的列视图新写法-MultiType"><a href="#Android-复杂的列视图新写法-MultiType" class="headerlink" title="Android 复杂的列视图新写法 MultiType"></a>Android 复杂的列视图新写法 MultiType</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在开发我的 <strong><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">TimeMachine</a></strong> 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 <strong>MultiType</strong>.</p>
+<a id="more"></a>
+
+<p>从前，<strong>比如我们写一个类似微博列表页面</strong>，这样的列表是十分复杂的：有纯文本的、带转发原文的、带图片的、带视频的、带文章的等等，甚至穿插一条可以横向滑动的好友推荐条目。不同的 item 类型众多，而且随着业务发展，还会更多。如果我们使用传统的开发方式，经常要做一些繁琐的工作，代码可能都堆积在一个 <code>Adapter</code> 中：我们需要覆写 <code>RecyclerView.Adapter</code> 的 <code>getItemViewType</code> 方法，罗列一些 <code>type</code> 整型常量，并且 <code>ViewHolder</code> 转型、绑定数据也比较麻烦。一旦产品需求有变，或者产品设计说需要增加一种新的 item 类型，我们需要去代码堆里找到原来的逻辑去修改，或找到正确的位置去增加代码。这些过程都比较繁琐，侵入较强，需要小心翼翼，以免改错影响到其他地方。</p>
+<p>现在好了，我们有了 <strong>MultiType</strong>，简单来说，<strong>MultiType 就是一个多类型列表视图的中间分发框架，它能帮助你快速并且清晰地开发一些复杂的列表页面。</strong> 它本是为聊天页面开发的，聊天页面的消息类型也是有大量不同种类，且新增频繁，而 <strong>MultiType</strong> 能够轻松胜任。</p>
+<p><strong>MultiType</strong> 以灵活直观为第一宗旨进行设计，它内建了 <code>类型</code> - <code>View</code> 的复用池系统，支持 <code>RecyclerView</code>，随时可拓展新的类型进入列表当中，使用简单，令代码清晰、模块化、灵活可变。</p>
+<p>因此，我写了这篇文章，目的有几个：一是以作者的角度对 <strong>MultiType</strong> 进行入门和进阶详解。二是传递我开发过程中的思想、设计理念，这些偏细腻的内容，即使不使用 <strong>MultiType</strong>，想必也能带来很多启发。最后就是把自我觉得不错的东西分享给大家，试想如果你制造的东西很多人在用，即使没有带来任何收益，也是一件很自豪的事情。</p>
+<h1 id="MultiType-的特性"><a href="#MultiType-的特性" class="headerlink" title="MultiType 的特性"></a>MultiType 的特性</h1><ul>
+<li>轻盈，整个类库只有 14 个类文件，<code>aar</code> 或 <code>jar</code> 包大小只有 13 KB</li>
+<li>周到，支持 data type <code>&lt;--&gt;</code> item view binder 之间 一对一 和 一对多 的关系绑定</li>
+<li>灵活，几乎所有的部件(类)都可被替换、可继承定制，面向接口 / 抽象编程</li>
+<li>纯粹，只负责本分工作，专注多类型的列表视图 类型分发，绝不会去影响 views 的内容或行为</li>
+<li>高效，没有性能损失，内存友好，最大限度发挥 <code>RecyclerView</code> 的复用性</li>
+<li>可读，代码清晰干净、设计精巧，极力避免复杂化，可读性很好，为拓展和自行解决问题提供了基础</li>
+</ul>
+<h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h1><p><strong>MultiType</strong> 能轻松实现如下页面，它们将在示例篇章具体提供:</p>
+<p><img src="http://gank.io/images/ada238b5a25e43f2881acc4cd290c257" alt="img"></p>
+<p>MultiType 的源码关系：</p>
+<p><a href="http://ww1.sinaimg.cn/large/86e2ff85gy1ffc03rofrmj21kw12htjl.jpg" target="_blank" rel="noopener"><img src="http://gank.io/images/6bf70d44bb1e489b951345b3a1c7d239" alt="img"></a></p>
+<h1 id="MultiType-基础用法"><a href="#MultiType-基础用法" class="headerlink" title="MultiType 基础用法"></a>MultiType 基础用法</h1><p>可能有的新手看到以上特性介绍说什么 “一对多”、抽象编程等等，都不太懂，我想说完全不要紧，不懂可以回过头来再看，我们先从基础用法入手，其实 <strong>MultiType</strong> 使用起来特别简单。使用 <strong>MultiType</strong> 一般情况下只要 maven 引入 + 三个小步骤。之后还会介绍使用插件生成代码方式，步骤将更加简化：</p>
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>在你的 <code>build.gradle</code>:</p>
+<pre><code>dependencies {
+    compile &#39;me.drakeet.multitype:multitype:3.0.0&#39;
+}</code></pre><blockquote>
+<p>注：<strong>MultiType</strong> 内部引用了 <code>recyclerview-v7:25.3.1</code>，如果你不想使用这个版本，可以使用 <code>exclude</code> 将它排除掉，再自行引入你选择的版本。示例如下：</p>
+</blockquote>
+<pre><code>dependencies {
+    compile(&#39;me.drakeet.multitype:multitype:3.0.0&#39;, {
+       exclude group: &#39;com.android.support&#39;
+    })
+    compile &#39;com.android.support:recyclerview-v7:你选择的版本&#39;
+}</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><strong>Step 1</strong>. 创建一个 <code>class</code>，它将是你的数据类型或 Java bean / model. 对这个类的内容没有任何限制。示例如下：</p>
+<pre><code>public class Category {
+
+    @NonNull public final String text;
+
+    public Category(@NonNull String text) {
+        this.text = text;
+    }
+}</code></pre><p><strong>Step 2</strong>. 创建一个 <code>class</code> 继承 <code>ItemViewBinder</code>.</p>
+<p><code>ItemViewBinder</code> 是个抽象类，其中 <code>onCreateViewHolder</code> 方法用于生产你的 Item View Holder, <code>onBindViewHolder</code> 用于绑定数据到 <code>View</code>s. 一般一个 <code>ItemViewBinder</code> 类在内存中只会有一个实例对象，MultiType 内部将复用这个 binder 对象来生产所有相关的 item views 和绑定数据。示例：</p>
+<pre><code>public class CategoryViewBinder
+    extends ItemViewBinder&lt;Category, CategoryViewBinder.ViewHolder&gt; {
+
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        View root = inflater.inflate(R.layout.item_category, parent, false);
+        return new ViewHolder(root);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Category category) {
+        holder.category.setText(category.text);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @NonNull private final TextView category;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.category = (TextView) itemView.findViewById(R.id.category);
+        }
+    }
+}</code></pre><p><strong>Step 3</strong>. 在 <code>Activity</code> 中加入 <code>RecyclerView</code> 和 <code>List</code> 并注册你的类型，示例：</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+    private MultiTypeAdapter adapter;
+
+    /* Items 等同于 ArrayList&lt;Object&gt; */
+    private Items items;
+
+    @Override 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        adapter = new MultiTypeAdapter();
+
+        /* 注册类型和 View 的对应关系 */
+        adapter.register(Category.class, new CategoryViewBinder());
+        adapter.register(Song.class, new SongViewBinder());
+        recyclerView.setAdapter(adapter);
+
+        /* 模拟加载数据，也可以稍后再加载，然后使用
+         * adapter.notifyDataSetChanged() 刷新列表 */
+        items = new Items();
+        for (int i = 0; i &lt; 20; i++) {
+            items.add(new Category(&quot;Songs&quot;));
+            items.add(new Song(&quot;小艾大人&quot;, R.drawable.avatar_dakeet));
+            items.add(new Song(&quot;许岑&quot;, R.drawable.avatar_cen));
+        }
+        adapter.setItems(items);
+        adapter.notifyDataSetChanged();
+    }
+}</code></pre><p>大功告成！这就是 <strong>MultiType</strong> 的基础用法了。其中 <code>onCreateViewHolder</code> 和 <code>onBindViewHolder</code> 方法名沿袭了使用 <code>RecyclerView</code> 的习惯，令人一目了然，减少了新人的学习成本。</p>
+<h1 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h1><p><strong>MultiType</strong> 设计伊始，我给它定了几个原则：</p>
+<ul>
+<li><p>要简单，便于他人阅读代码</p>
+<p>因此我极力避免将它复杂化，避免加入许多不相干的内容。我想写人人可读的代码，使用简单的方式，去实现复杂的需求。过多不相干、没必要的代码，将会使项目变得令人晕头转向，难以阅读，遇到需要定制、解决问题的时候，无从下手。</p>
+</li>
+<li><p>要灵活，便于拓展和适应各种需求</p>
+<p>很多人会得意地告诉我，他们把 <strong>MultiType</strong> 源码精简成三四个类，甚至一个类，以为代码越少就是越好，这我不能赞同。<strong>MultiType</strong> 考虑得更远，这是一个提供给大众使用的类库，过度的精简只会使得大幅失去灵活性。<strong>它或许不是使用起来最简单的，但很可能是使用起来最灵活的。</strong> 在我看来，”直观”、”灵活”优先级大于”简单”。因此，<strong>MultiType</strong> 以接口或抽象进行连接，这意味着它的角色、组件都可以被替换，或者被拓展和继承。如果你觉得它使用起来还不够简单，完全可以通过继承封装出更具体符合你使用需求的方法。它已经暴露了足够丰富、周到的接口以供拓展，我们不应该直接去修改源码，这会导致一旦后续发现你的精简版满足不了你的需求时，已经没有回头路了。</p>
+</li>
+<li><p>要直观，使用起来能令项目代码更清晰可读，一目了然</p>
+<p><strong>MultiType</strong> 提供的 <code>ItemViewBinder</code> 沿袭了 <code>RecyclerView Adapter</code> 的接口命名，使用起来更加舒适，符合习惯。另外，MultiType 很多地方放弃使用反射而是让用户显式指明一些关系，如：<code>MultiTypeAdapter#register</code> 方法，需要传递一个数据模型 <code>class</code> 和 <code>ItemViewBinder</code> 对象，虽然有很多方法可以把它精简成单一参数方法，但我们认为显式声明数据模型类与对应关系，更具直观。</p>
+</li>
+</ul>
+<h1 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h1><p>介绍了基础用法和设计思想后，我们可以来介绍一下 <strong>MultiType</strong> 的高级用法。这是一些典型需求和案例，它们是基础用法的延伸，也是设计思想的体现。也许一开始并不会使用到，但如若了解，能够拓宽使用 <strong>MultiType</strong> 的思路，也能过了解到我们考虑问题的角度。</p>
+<h2 id="使用-MultiTypeTemplates-插件自动生成代码"><a href="#使用-MultiTypeTemplates-插件自动生成代码" class="headerlink" title="使用 MultiTypeTemplates 插件自动生成代码"></a>使用 MultiTypeTemplates 插件自动生成代码</h2><p>在基础用法中，我们了通过 3 个步骤完成 <strong>MultiType</strong> 的初次接入使用，实际上这个过程可以更加简化，<strong>MultiType</strong> 提供了 Android Studio 插件来自动生成代码：</p>
+<p><strong>MultiTypeTemplates</strong>，源码也是开源的，<a href="https://github.com/drakeet/MultiTypeTemplates。这个插件不仅提供了一键生成" target="_blank" rel="noopener">https://github.com/drakeet/MultiTypeTemplates。这个插件不仅提供了一键生成</a> item 类文件和 <code>ItemViewBinder</code>，而且<strong>是一个很好的利用代码模版自动生成代码的示例。</strong>其中使用到了官方提供的代码模版 API，也用到了我自己发明的更灵活修改模版内容的方法，有兴趣做这方面插件的可以看看。</p>
+<p>话说回来，安装和使用 <strong>MultiTypeTemplates</strong> 非常简单：</p>
+<p><strong>Step 1.</strong> 打开 Android Studio 的<code>设置</code> -&gt; <code>Plugin</code> -&gt; <code>Browse repositories</code>，搜索 <code>MultiTypeTemplates</code> 即可获得下载安装：</p>
+<p><img src="http://gank.io/images/cd52ae3e4b8d4c5095afdea8948ab940" alt="img"></p>
+<p><strong>Step 2.</strong> 安装完成后，重启 Android Studio. 右键点击你的 package，选择 <code>New</code> -&gt; <code>MultiType Item</code>，然后输入你的 item 名字，它就会自动生成 item 模型类 和 <code>ItemViewBinder</code> 文件和代码。</p>
+<p>比如你输入的是 “Category”，它就会自动生成 <code>Category.java</code> 和 <code>CategoryViewBinder.java</code>.</p>
+<p>特别方便，相信你会很喜欢它。未来这个插件也将会支持自动生成布局文件，这是目前欠缺的，但不要紧，其实 AS 在这方面已经很方便了，对布局 <code>R.layout.item_category</code> 使用 <code>alt + enter</code> 快捷键即可自动生成布局文件。</p>
+<h2 id="一个类型对应多个-ItemViewBinder"><a href="#一个类型对应多个-ItemViewBinder" class="headerlink" title="一个类型对应多个 ItemViewBinder"></a>一个类型对应多个 <code>ItemViewBinder</code></h2><p><strong>MultiType</strong> 天然支持一个类型对应多个 <code>ItemViewBinder</code>，注册方式也很简单，如下：</p>
+<pre><code>adapter.register(Data.class).to(
+    new DataType1ViewBinder(),
+    new DataType2ViewBinder()
+).withClassLinker(new ClassLinker&lt;Data&gt;() {
+    @NonNull @Override
+    public Class&lt;? extends ItemViewBinder&lt;Data, ?&gt;&gt; index(@NonNull Data data) {
+        if (data.type == Data.TYPE_2) {
+            return DataType2ViewBinder.class;
+        } else {
+            return DataType1ViewBinder.class;
+        }
+    }
+});</code></pre><p>或者：</p>
+<pre><code>adapter.register(Data.class).to(
+    new DataType1ViewBinder(),
+    new DataType2ViewBinder()
+).withLinker(new Linker&lt;Data&gt;() {
+    @Override
+    public int index(@NonNull Data data) {
+        if (data.type == Data.TYPE_2) { return 1; } else return 0;
+    }
+});</code></pre><p>如果你使用 Lambda 表达式，以上代码可以更简洁：</p>
+<p><img src="https://cloud.githubusercontent.com/assets/5214214/25094943/e458121a-23cb-11e7-9bb6-106d6b1d8401.png" alt="img"></p>
+<p>解释：</p>
+<p>如上示例代码，对于一对多，我们需要使用 <code>MultiType#register(class)</code> 方法，它会返回一个 <code>OneToManyFlow</code> 让你紧接着绑定多个 <code>ItemViewBinder</code> 实例，最后再调用 <code>OneToManyEndpoint#withLinker</code> 或 <code>OneToManyEndpoint#withClassLinker</code> 操作符方法类设置 linker. 所谓 linker，是负责动态连接这个 “一” 对应 “多” 中哪一个 binder 的角色。</p>
+<p>这个方案具有很好的性能表现，而且可谓十分直观。另外，我使用了 <code>@CheckResult</code> 注解来让编译器督促开发者一定要完整调用方法链才不至于出错。</p>
+<p>更详细的”一对多”示例可以参考我的 sample <a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/one2many" target="_blank" rel="noopener">源码</a></p>
+<h2 id="使用-全局类型池"><a href="#使用-全局类型池" class="headerlink" title="使用 全局类型池"></a>使用 全局类型池</h2><p><strong>MultiType</strong> 在 3.0 版本之前一直是支持全局类型池的，你可以往一个全局类型池中 register 类型和 view binder，然后让你的各个 <code>MultiTypeAdapter</code> 都能使用它。</p>
+<p>但在 <strong>MultiType</strong> 3.0 之后，我们废弃并删除了内置的全局类型池。原因在于全局类型池容易对全局产生不可见影响，比如你注册了一堆全局类型关系并在多处引用它，某一天你的伙伴不小心修改了全局类型池的某个内容，将导致所有使用的地方皆受到变化，是我们不希望发生的。一个好的模块，应该是高内聚、自包含的，如果过多下放权力到外围，很容易遭受破坏或影响。</p>
+<p>另外，全局类型池一般都是 static 形式的，如果我们给这个 static 容器传递了 <code>Activity</code> 或 <code>Context</code> 对象，而没有在退出时释放，就容易造出内存泄漏，这对新手来说很容易触犯。</p>
+<p>因此我们删除了内置的全局类型池，当你创建一个 <code>MultiTypeAdapter</code> 对象时，默认情况下，它内部会自动创建一个局部类型池以供你接下来注册类型。当然了，如果你实在需要它，完全可以自己创建一个 static 的 <code>MultiTypePool</code>，然后通过 <code>MultiTypeAdapter#registerAll(pool)</code> 将这个类型池传入，以此达到多个地方共同使用。</p>
+<h2 id="与-ItemViewBinder-通讯"><a href="#与-ItemViewBinder-通讯" class="headerlink" title="与 ItemViewBinder 通讯"></a>与 <code>ItemViewBinder</code> 通讯</h2><p><code>ItemViewBinder</code> 对象可以接受外部类型、回调函数，只要在使用之前，传递进去即可，例如：</p>
+<pre><code>OnClickListener listener = new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // ...
+    }
+}
+adapter.register(Post.class, new PostViewBinder(xxx, listener));</code></pre><p>但话说回来，对于点击事件，能不依赖 <code>binder</code> 外部内容的话，最好就在 <code>binder</code> 内部完成。<code>binder</code> 内部能够拿到 Views 和 数据，大部分情况下，完全有能力不依赖外部 独立完成逻辑。这样能使代码更加模块化，实现解耦和内聚。例如下面便是一个完全自包含的例子：</p>
+<pre><code>public class SquareViewBinder extends ItemViewBinder&lt;Square, SquareViewBinder.ViewHolder&gt; {
+
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(
+        @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        View root = inflater.inflate(R.layout.item_square, parent, false);
+        return new ViewHolder(root);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Square square) {
+        holder.square = square;
+        holder.squareView.setText(valueOf(square.number));
+        holder.squareView.setSelected(square.isSelected);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView squareView;
+        private Square square;
+
+        ViewHolder(final View itemView) {
+            super(itemView);
+            squareView = (TextView) itemView.findViewById(R.id.square);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    itemView.setSelected(square.isSelected = !square.isSelected);
+                }
+            });
+        }
+    }
+}</code></pre><h2 id="使用断言，比传统-Adapter-更加易于调试"><a href="#使用断言，比传统-Adapter-更加易于调试" class="headerlink" title="使用断言，比传统 Adapter 更加易于调试"></a>使用断言，比传统 Adapter 更加易于调试</h2><p><strong>众所周知，如果一个传统的 <code>RecyclerView</code> <code>Adapter</code> 内部有异常导致崩溃，它的异常栈是不会指向到你的 <code>Activity</code></strong>，这给我们开发调试过程中带来了麻烦。如果我们的 <code>Adapter</code> 是复用的，就不知道是哪一个页面崩溃。而对于 <code>MultiTypeAdapter</code>，我们显然要用于多个地方，而且可能出现开发者忘记注册类型等等问题。为了便于调试，开发期快速失败，<strong>MultiType</strong> 提供了很方便的断言 API: <code>MultiTypeAsserts</code>，使用方式如下：</p>
+<pre><code>import static me.drakeet.multitype.MultiTypeAsserts.assertAllRegistered;
+import static me.drakeet.multitype.MultiTypeAsserts.assertHasTheSameAdapter;
+
+public class SimpleActivity extends MenuBaseActivity {
+
+    private Items items;
+    private MultiTypeAdapter adapter;
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        items = new Items();
+        adapter = new MultiTypeAdapter(items);
+        adapter.register(TextItem.class, new TextItemViewBinder());
+
+        for (int i = 0; i &lt; 20; i++) {
+            items.add(new TextItem(valueOf(i)));
+        }
+
+        /* 断言所有使用的类型都已注册 */
+        assertAllRegistered(adapter, items);
+        recyclerView.setAdapter(adapter);
+        /* 断言 recyclerView 使用的是正确的 adapter */
+        assertHasTheSameAdapter(recyclerView, adapter);
+    }
+}</code></pre><p><code>assertAllRegistered</code> 和 <code>assertHasTheSameAdapter</code> 都是可选择性使用，<code>assertAllRegistered</code> 需要在加载或更新数据之后， <code>assertHasTheSameAdapter</code> 必须在 <code>recyclerView.setAdapter(adapter)</code> 之后。</p>
+<p>这样做以后，<code>MultiTypeAdapter</code> 相关的异常都会报到你的 <code>Activity</code>，并且会详细注明出错的原因，而如果符合断言，断言代码不会有任何副作用或影响你的代码逻辑，这时你可以把它当作废话。关于这个类的源代码是很简单的，有兴趣可以直接看看源码：<a href="https://github.com/drakeet/MultiType/blob/master/library/src/main/java/me/drakeet/multitype/MultiTypeAsserts.java" target="_blank" rel="noopener">drakeet/multitype/MultiTypeAsserts.java</a></p>
+<h2 id="支持-Google-AutoValue"><a href="#支持-Google-AutoValue" class="headerlink" title="支持 Google AutoValue"></a>支持 Google AutoValue</h2><p><a href="https://github.com/google/auto/tree/master/value" target="_blank" rel="noopener">AutoValue</a> 是 Google 提供的一个在 Java 实体类中自动生成代码的类库，使你更专注于处理项目的其他逻辑，它可使代码更少，更干净，以及更少的 bug.</p>
+<p>当我们使用传统方式创建一个 Java 模型类的时候，经常需要写一堆 <code>toString()</code>、<code>hashCode()</code>、getter、setter 等等方法，而且对于 Android 开发，大多情况下还需要实现 <code>Parcelable</code> 接口。这样的结果是，我本来想要一个只有几个属性的小模型类，但出于各种原因，这个模型类方法数变得十分繁复，阅读起来很不清爽，并且难免会写错内容。AutoValue 的出现解决了这个问题，我们只需定义一些抽象类交给 AutoValue，AutoValue 会<strong>自动</strong>生成该抽象类的具体实现子类，并携带各种样板代码。</p>
+<p>更详细的介绍内容和使用教程，我会在文章末尾会给出 AutoValue 的相关链接，不熟悉 AutoValue 可以借此机会看一下，在这里就不做过多介绍了。新手暂时看不懂也不必纠结，了解之后都是十分容易的。</p>
+<p><strong>MultiType</strong> 支持了 Google AutoValue，支持自动映射某个已经注册的类型的<strong>子类</strong>到同一 <code>ItemViewBinder</code>，规则是：如果子类<strong>有</strong>注册，就用注册的映射关系；如果子类<strong>没</strong>注册，则该子类对象使用注册过的父类映射关系。</p>
+<h2 id="FlatTypeAdapter-已废弃"><a href="#FlatTypeAdapter-已废弃" class="headerlink" title="FlatTypeAdapter(已废弃)"></a>FlatTypeAdapter(已废弃)</h2><p>MultiType 3.0 之前提供了一个 <code>FlatTypeAdapter</code> 类，3.0 之后，这个类已经被删除了，你可以完全不必关心它。如果你使用过它，现在它已经被一对多方案替代了，请转成使用一对多功能实现。</p>
+<h2 id="MultiType-与下拉刷新、加载更多、HeaderView、FooterView、Diff"><a href="#MultiType-与下拉刷新、加载更多、HeaderView、FooterView、Diff" class="headerlink" title="MultiType 与下拉刷新、加载更多、HeaderView、FooterView、Diff"></a>MultiType 与下拉刷新、加载更多、HeaderView、FooterView、Diff</h2><p><strong>MultiType</strong> 设计从始至终，都极力避免往复杂化方向发展，一开始我的设计宗旨就是它应该是一个非常纯粹的、专一的项目，而非各种乱七八糟的功能都要囊括进来的多合一大型库，因此它很克制，期间有许多人给我发过一些无关特性的 Pull Request，表示感谢，但全被拒绝了。</p>
+<p>对于很多人关心的 下拉刷新、加载更多、HeaderView、FooterView、Diff 这些功能特性，其实都不应该是 <strong>MultiType</strong> 的范畴，<strong>MultiType</strong> 的分内之事是做类型、事件与 View 的分发、连接工作，其余无关的需求，都是可以在 <strong>MultiType</strong> 外部完成，或者通过继承 进行自行封装和拓展，而作为一个基础、公共类库，我想它是不应该包含这些内容。</p>
+<p>但很多新手可能并不习惯代码分工、模块化，因此在此我有必要对这几个点简单示范下如何在 <strong>MultiType</strong> 之外去实现：</p>
+<ul>
+<li><p><strong>下拉刷新：</strong></p>
+<p>对于下拉刷新，<code>Android</code> 官方提供了 <code>support.v4</code> <code>SwipeRefreshLayout</code>，在 <code>Activity</code> 层面，可以拿到 <code>SwipeRefreshLayout</code> 调用 <code>setOnRefreshListener</code> 设置监听器即可.</p>
+<p>或者参考我的 rebase-android 项目编写的 <a href="https://github.com/drakeet/rebase-android/blob/master/app/src/main/java/com/drakeet/rebase/tool/SwipeRefreshDelegate.java" target="_blank" rel="noopener">SwipeRefreshDelegate.java</a>.</p>
+</li>
+<li><p><strong>加载更多：</strong></p>
+<p><code>RecyclerView</code> 提供了 <code>addOnScrollListener</code> 滚动位置变化监听，要实现加载更多，只要监听并检测列表是否滚动到底部即可，有多种方式，鉴于 <code>LayoutManager</code> 本应该只做布局相关的事务，因此我们推荐直接在 <code>OnScrollListener</code> 层面进行判断。提供一个简单版 <code>OnScrollListener</code> 继承类：</p>
+<pre><code>public abstract class OnLoadMoreListener extends RecyclerView.OnScrollListener {
+
+  private LinearLayoutManager layoutManager;
+  private int itemCount, lastPosition, lastItemCount;
+
+  public abstract void onLoadMore();
+
+  @Override
+  public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+      if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+          layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+          itemCount = layoutManager.getItemCount();
+          lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+      } else {
+          Log.e(&quot;OnLoadMoreListener&quot;, &quot;The OnLoadMoreListener only support LinearLayoutManager&quot;);
+          return;
+      }
+
+      if (lastItemCount != itemCount &amp;&amp; lastPosition == itemCount - 1) {
+          lastItemCount = itemCount;
+          this.onLoadMore();
+      }
+  }
+}</code></pre><p>或者参考我的 rebase-android 项目编写的 <a href="https://github.com/drakeet/rebase-android/blob/master/app/src/main/java/com/drakeet/rebase/tool/LoadMoreDelegate.java" target="_blank" rel="noopener">LoadMoreDelegate.java</a>.</p>
+</li>
+<li><p><strong>获取数据后做 Diff 更新：</strong></p>
+<p><strong>MultiType</strong> 支持 onBindViewHolder with payloads，详情见 <code>ItemViewBinder</code> 类文档。对于 Diff，可以在 <code>Activity</code> 中进行 Diff，或者继承 <code>MultiTypeAdapter</code> 提供接收数据方法，在方法中进行 Diff. <strong>MultiType</strong> 不提供内置 Diff 方案，不然需要依赖 v4 包，并且这也不应该属于它的范畴。</p>
+<p>示例代码：<a href="https://github.com/drakeet/MultiType/issues/56" target="_blank" rel="noopener">https://github.com/drakeet/MultiType/issues/56</a></p>
+</li>
+<li><p><strong>HeaderView、FooterView</strong></p>
+<p><strong>MultiType</strong> 其实本身就支持 <code>HeaderView</code>、<code>FooterView</code>，只要创建一个 <code>Header.class</code> - <code>HeaderViewBinder</code> 和 <code>Footer.class</code> - <code>FooterViewBinder</code> 即可，然后把 <code>new Header()</code> 添加到 <code>items</code> 第一个位置，把 <code>new Footer()</code> 添加到 <code>items</code> 最后一个位置。需要注意的是，如果使用了 Footer View，在底部插入数据的时候，需要添加到 <code>最后位置 - 1</code>，即倒二个位置，或者把 <code>Footer</code> remove 掉，再添加数据，最后再插入一个新的 <code>Footer</code>.</p>
+</li>
+</ul>
+<h2 id="实现-RecyclerView-嵌套横向-RecyclerView"><a href="#实现-RecyclerView-嵌套横向-RecyclerView" class="headerlink" title="实现 RecyclerView 嵌套横向 RecyclerView"></a>实现 RecyclerView 嵌套横向 RecyclerView</h2><p><strong>MultiType</strong> 天生就适合实现类似 Google Play 或 iOS App Store 那样复杂的首页列表，这种页面通常会在垂直列表中嵌套横向列表，其实横向列表我们完全可以把它视为一种 <code>Item</code> 类型，这个 item 持有一个列表数据和当前横向列表滑动到的位置，类似这样：</p>
+<pre><code>public class PostList {
+
+    public final List&lt;Post&gt; posts;
+    public int currentPosition;
+
+    public PostList(@NonNull List&lt;Post&gt; posts) {this.posts = posts;}
+}</code></pre><p>对应的 <code>HorizontalItemViewBinder</code> 类似这样：</p>
+<pre><code>public class HorizontalItemViewBinder
+    extends ItemViewBinder&lt;PostList, HorizontalItemViewBinder.ViewHolder&gt; {
+
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(
+        @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        /* item_horizontal_list 就是一个只有 RecyclerView 的布局 */
+        View view = inflater.inflate(R.layout.item_horizontal_list, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull PostList postList) {
+        holder.setPosts(postList.posts);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private RecyclerView recyclerView;
+        private PostsAdapter adapter;
+
+        private ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.post_list);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
+            /* adapter 只负责灌输、适配数据，布局交给 LayoutManager，可复用 */
+            adapter = new PostsAdapter(); // 或者直接使用 MultiTypeAdapter 更加方便
+            recyclerView.setAdapter(adapter);
+            /* 在此设置横向滑动监听器，用于记录和恢复当前滑动到的位置，略 */
+            ...
+        }
+
+        private void setPosts(List&lt;Post&gt; posts) {
+            adapter.setPosts(posts);
+            adapter.notifyDataSetChanged();
+        }
+    }
+}</code></pre><h2 id="实现线性布局和网格布局混排列表"><a href="#实现线性布局和网格布局混排列表" class="headerlink" title="实现线性布局和网格布局混排列表"></a>实现线性布局和网格布局混排列表</h2><p>这个课题其实也不属于 <strong>MultiType</strong> 的范畴，<strong>MultiType</strong> 的职责是做数据类型分发，而不是布局，但鉴于很多复杂页面都会需要线性布局和网格布局混排，我就简单讲一讲，关键在于 <code>RecyclerView</code> 的 <code>LayoutManager</code>. 虽然是线性和网格混合，但实现起来其实只要一个网格布局 <code>GridLayoutManager</code>，如果你查看 <code>GridLayoutManager</code> 的官方源码，你会发现它其实继承自 <code>LinearLayoutManager</code>. 以下是示例和解释：</p>
+<pre><code>public class MultiGridActivity extends MenuBaseActivity {
+
+    private final static int SPAN_COUNT = 5;
+    private MultiTypeAdapter adapter;
+    private Items items;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_multi_grid);
+        items = new Items();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, SPAN_COUNT);
+
+        /* 关键内容：通过 setSpanSizeLookup 来告诉布局，你的 item 占几个横向单位，
+           如果你横向有 5 个单位，而你返回当前 item 占用 5 个单位，那么它就会看起来单独占用一行 */
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (items.get(position) instanceof Category) ? SPAN_COUNT : 1;
+            }
+        });
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new MultiTypeAdapter(items);
+        adapter.applyGlobalMultiTypePool();
+        adapter.register(Square.class, new SquareViewBinder());
+
+        assertAllRegistered(adapter, items);
+        recyclerView.setAdapter(adapter);
+        loadData();
+    }
+
+    private void loadData() {
+        // ...
+    }
+}</code></pre><h2 id="数据扁平化处理"><a href="#数据扁平化处理" class="headerlink" title="数据扁平化处理"></a>数据扁平化处理</h2><p>在一个<strong>垂直</strong> <code>RecyclerView</code> 中，item 们都是同级的，没有任何嵌套关系，但我们的数据结构往往存在嵌套关系，比如 <code>Post</code> 内部包含了 <code>Comment</code>s 数据，或换句话说 <code>Post</code> 嵌套了 <code>Comment</code>，就像微信朋友圈一样，”动态” 伴随着 “评论”。那么如何把 非扁平化 的数据排布在 扁平 的列表中呢？必然需要一个<em>数据扁平化处理</em>的过程，就像 <code>ListView</code> 的数据需要一个 <code>Adapter</code> 来适配，<code>Adapter</code> 就像一个油漏斗，把油引入瓶子中。我们在面对嵌套数据结构的时候，可以采用如下的扁平化处理，关于扁平化这个词，不必太纠结，简单说，就是把嵌套数据都拉出来，摊平，让 <code>Comment</code> 和 <code>Post</code> 同级，最后把它们都 add 进同一个 <code>Items</code> 容器，交给 <code>MultiTypeAdapter</code>. 示例：</p>
+<p>假设：你的 <code>Post</code> 是这样的：</p>
+<pre><code>public class Post {
+
+    public String content;
+    public List&lt;Comment&gt; comments; 
+}</code></pre><p>假设：你的 <code>Comment</code> 是这样的：</p>
+<pre><code>public class Comment {
+
+    public String content;
+}</code></pre><p>假设：你服务端返回的 JSON 数据是这样的：</p>
+<pre><code>[
+    {
+        &quot;content&quot;:&quot;I have released the MultiType v2.2.2&quot;, 
+        &quot;comments&quot;:[
+            {&quot;content&quot;:&quot;great&quot;},
+            {&quot;content&quot;:&quot;I love your post!&quot;}
+        ]
+    }
+]</code></pre><p>那么你的 JSON 转成 Java Bean 之后，你拿到手应该是个 <code>List&lt;Post&gt; posts</code> 对象，现在我们写一个扁平化处理的方法：</p>
+<pre><code>private List&lt;Object&gt; flattenData(List&lt;Post&gt; posts) {
+    final List&lt;Object&gt; items = new ArrayList&lt;&gt;();
+    for (Post post : posts) {
+        /* 将 post 加进 items，Binder 内部拿到它的时候，
+         * 我们无视它的 comments 内容即可 */
+        items.add(post);
+        /* 紧接着将 comments 拿出来插入进 items，
+         * 评论就能正好处于该条 post 下面 */
+        items.addAll(post.comments);
+    }
+    return items;
+}</code></pre><p>最后我们所有的 <code>posts</code> 在加入全局 MultiType <code>Items</code> 之前，都需要经过扁平化处理：</p>
+<pre><code>items.addAll(flattenData(posts));
+adapter.notifyDataSetChanged();</code></pre><p>整个过程其实并不困难，相信大家都已经理解了。</p>
+<h1 id="更多示例"><a href="#更多示例" class="headerlink" title="更多示例"></a>更多示例</h1><p><strong>MultiType</strong> 的开源项目提供了许多的 samples (示例) 程序，这些示例秉承了一贯的代码清晰、干净的风格，十分易于阅读：</p>
+<ul>
+<li><p><a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/weibo" target="_blank" rel="noopener">仿造<strong>微博</strong>的数据结构和二级 ItemViewBinder</a></p>
+<p>这是一个类似微博数据结构的示例，数据两层结构，Item 也是两层结构：一层框架（包含头像用户名等），一层 content view(微博内容)，内容嵌套于框架中。微博的每一条微博 item 都包含了这样两层嵌套关系，这样做的好处是，你不必每个 item 都去重复制造一遍外层框架。</p>
+<p>或者换一个比喻，就像聊天消息，一条聊天消息也是两层的，一层头像、用户名、聊天气泡框，一层你的文字、图片等。另外，每一种消息都有左边和右边的样式，分别对应别人发来的消息和你发出的消息。如果左边算一种，右边又算一种，就是比较不好的设计了，会导致布局内容重复、冗余，修改操作都要做两遍。最好的方案是让他们视被为同一种类型，然后在 item 框层次进行左右边判断和框架相关数据绑定。</p>
+<p>我提供的这个二级 <code>ItemViewBinder</code> 示例便是这样的两层结构。它能够让你每次新增加一个类型，只要实现内容即可，框不应该重复实现。</p>
+<p>如果再不明白，或许你可以看看我的这个示例中 微博 Item 框的布局：</p>
+<p><img src="http://gank.io/images/c69f1e58ddbf44d4ba9352c826780dc9" alt="img"></p>
+<p>从我这个 <code>frame</code> 布局可以看出来，它内部有一个 <code>FrameLayout</code> 作为 <code>container</code> 将用于容纳不同的微博内容，而这一层框架则是共同的。</p>
+<p>这个例子算高级中的高级，但实际上也是很简单，展示了 <strong>MultiType</strong> 优秀的可拓展能力。完整运行结果展示如下：</p>
+<p><img src="http://gank.io/images/7232768a27cf4350ba6a7afb9a35de11" alt="img"> <img src="http://gank.io/images/0cb1a0c41af84a4497c2fcb097c969f8" alt="img"></p>
+<blockquote>
+<p>注：以上我们并没有提到服务端 JSON 数据转为我们定义的 Weibo 对象过程，实际上对于完整链路，这个过程是需要做数据转换，我们需要在 <code>WeiboContent</code> 层加一个 <code>type</code> 或 <code>describe</code> 字段用于描述微博内容类型，然后再将微博内容的 JSON 文本转为具体微博内容对象交给 Weibo. 这个内容建议直接阅读这个 sample 的 <code>WeiboContentDeserializer</code> 源码，我利用了一种很简单又巧妙的方式，在 JSON 解析底层便进行抽象数据具体化，使得客户端和服务端都能够轻松适应这种微博和微博内容嵌套关系。</p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/drakeet/about-page" target="_blank" rel="noopener">drakeet/about-page</a></p>
+<p>一个 Material Design 的关于页面，核心基于 MultiType，包含了多种 items，美观，容易使用。</p>
+<p><img src="http://gank.io/images/37d1dfc1645b483f8c02be2fead59230" alt="img"></p>
+</li>
+<li><p><a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/grid" target="_blank" rel="noopener">线性和网格布局混排</a></p>
+<p>使用 <code>MultiType</code> 和 <code>GridLayoutManager</code> 实现网格和线性混合布局，实现一个选集页面。</p>
+<p><img src="http://gank.io/images/9cd6a2403d744bd69caf40678b676620" alt="img"></p>
+</li>
+<li><p><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">drakeet/TimeMachine</a></p>
+<p>TimeMachine 使用了 <strong>MultiType</strong> 来创建一个复杂的聊天页面，页面和需求虽然复杂，但使用 <strong>MultiType</strong> 显得轻松简单。</p>
+<p><img src="http://gank.io/images/a5c0712162cb4e17952d16e2943374e1" alt="img">)<img src="http://gank.io/images/6f5bf7ec6ff34bf38a14b8e33621b9d6" alt="img"></p>
+</li>
+<li><p><a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/bilibili" target="_blank" rel="noopener">类似 Bilibili iOS 端首页</a></p>
+<p>使用 <code>MultiType</code> 实现类似 Bilibili iOS 端首页复杂的多类型列表视图，包括嵌套横向 <code>RecyclerView</code>.</p>
+<p><img src="http://gank.io/images/9e7d77b8f85043c09f92bc3fdf342e15" alt="img"></p>
+</li>
+</ul>
+<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><ul>
+<li><p><strong>Q: 觉得 MultiType 不够精简，应该怎么做？</strong></p>
+<p>A: 在前面 “设计思想” 中我们谈到：<em>MultiType 或许不是使用起来最简单的，但很可能是使用起来最灵活的。</em>其中的缘由是它高度可定制、可拓展，而不是把一些路封死。作为一个基础类库，简单和灵活需要一个均衡点，过度精简便要以失去灵活性为代价。如果觉得 <strong>MultiType</strong> 不够精简，想将它修改得更加容易使用，我推荐的方式是去继承 <code>MultiTypeAdapter</code> 或 <code>ItemViewBinder</code>，甚至你可以重新实现一个 <code>TypePool</code> 再设置给 <code>MultiTypeAdapter</code>. 我们不应该直接到底层去修改、破坏它们。总之，利用开放接口或继承的做法不管对于 <strong>MultiType</strong> 还是其它开源库，都应该是定制的首选。</p>
+</li>
+<li><p><strong>Q: 在 <code>ItemViewBinder</code> 中如何拿到 <code>Context</code> 对象？</strong></p>
+<p>A: 有人问我说，他在 <code>ItemViewBinder</code> 里使用 <a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a> 来加载图片需要获取到 Activity <code>Context</code> 对象，要怎么才能拿到 <code>Context</code> 对象？这是一个特别简单的问题，但我想既然有人问，应该比较典型，我就详细解答下：首先，在 Android 开发中，任何 <code>View</code> 对象都能通过 <code>view.getContext()</code> 拿到 <code>Context</code> 对象，这些对象本质上都是 <code>Activity</code> 对象的引用。而在我们的 <code>ItemViewBinder</code> 中，可以通过 <code>holder.itemView.getContext()</code> 获取到 <code>Context</code> 对象，也可以通过 viewHolder 的任意 <code>View</code> 对象 <code>getContext()</code> 方法拿到 <code>Context</code> 对象. <code>Context</code> 中文释义是 *”上下文对象”*，一般情况下，都是由 <code>Activity</code> 传递给 <code>View</code>s，<code>View</code>s 内部再进行传递。比如我们使用 <code>RecyclerView</code>，<code>Activity</code> 会将它的 <code>Context</code> 传递给 <code>RecyclerView</code>，<code>RecyclerView</code> 再传递给 <code>Adapter</code>，<code>Adapter</code> 再传递给 <code>ViewHolder</code> 的 <code>itemView</code>，<code>itemView</code> 再传递给它的各个子 <code>View</code>s，传递来传递去，其实都是同一个对象的引用。</p>
+<p>总而言之，拿到 <code>Context</code> 对象非常简单，只要你能拿到一个 <code>View</code> 对象，调用 <code>view.getContext()</code> 即可。另外，也可以参考 <em><a href="https://gank.io/post/5e7a05e5a37e01a4fa99e52f#与-viewbinder-通讯" target="_blank" rel="noopener">与 binder 通讯</a></em> 章节，我们可以很方便地给 <code>binder</code> 传递任何对象进去，包括 <code>Context</code> 对象。</p>
+</li>
+<li><p><strong>Q：如何在 <code>ItemViewBinder</code> 中获取到 item position？</strong></p>
+<p>A: 从 v2.3.5 版本开始，只需要在你的 <code>ItemViewBinder</code> 子类里调用 <code>getPosition(holder)</code> 方法即可。另外，<code>ItemViewBinder</code> 还提供了 <code>getAdapter()</code> 或许也是很多人想要的，比如调用 adapter 进行 notify 刷新视图等。</p>
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/12/multitype/">https://jiyugithub.github.io/2020/06/12/multitype/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/12/view1/"><i class="fa fa-chevron-left">  </i><span>一文彻底了解Android自定义控件1</span></a></div><div class="next-post pull-right"><a href="/2020/06/11/vue/"><span>从0到1教你搭建前端团队的组件系统（高级进阶必备）</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+  appKey:'FihoucantYlc5U1FQ9BzkO3l',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

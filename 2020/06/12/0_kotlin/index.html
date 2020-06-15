@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="使用Kotlin从零开始写一个现代Android"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>使用Kotlin从零开始写一个现代Android | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#我们的APP最终是什么样子？"><span class="toc-number">1.0.1.</span> <span class="toc-text">我们的APP最终是什么样子？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0、Android-Studio"><span class="toc-number">2.</span> <span class="toc-text">0、Android Studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Kotlin"><span class="toc-number">3.</span> <span class="toc-text">1、Kotlin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、构建变体"><span class="toc-number">4.</span> <span class="toc-text">2、构建变体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ConstraintLayout"><span class="toc-number">5.</span> <span class="toc-text">3、ConstraintLayout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Data-binding-library"><span class="toc-number">6.</span> <span class="toc-text">4. Data binding library</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Butterknife能帮我们做啥？"><span class="toc-number">6.0.1.</span> <span class="toc-text">Butterknife能帮我们做啥？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Butterknife的缺点是什么？"><span class="toc-number">6.0.2.</span> <span class="toc-text">Butterknife的缺点是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#那与之相比，Data-Binding-怎么样呢？"><span class="toc-number">6.0.3.</span> <span class="toc-text">那与之相比，Data Binding 怎么样呢？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kotlin的-Getters-和-setters"><span class="toc-number">6.0.4.</span> <span class="toc-text">kotlin的 Getters 和 setters</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">26</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">使用Kotlin从零开始写一个现代Android</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-12</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。</p>
+<a id="more"></a>
+
+<p>现在，真的很难找到一个涵盖所有Android新技术的项目，因此我决定自己来写一个，在本文中，我们将用到如下技术：</p>
+<ul>
+<li>0 、Android Studio</li>
+<li>1、Kotlin 语言</li>
+<li>2、构建变体</li>
+<li>3、ConstraintLayout</li>
+<li>4、DataBinding库</li>
+<li>5、MVVM+repository+Android Manager架构模式</li>
+<li>6、RxJava2及其对架构的帮助</li>
+<li>7、Dagger 2.11，什么是依赖注入？为什么要使用它？</li>
+<li>8、Retrofit + RxJava2 实现网络请求</li>
+<li>9、RooM + RxJava2 实现储存</li>
+</ul>
+<h5 id="我们的APP最终是什么样子？"><a href="#我们的APP最终是什么样子？" class="headerlink" title="我们的APP最终是什么样子？"></a>我们的APP最终是什么样子？</h5><p>我们的APP是一个非常简单的应用程序，它涵盖了上面提到的所有技术。只有一个简单的功能：从Github 获取<code>googlesamples</code>用户下的所有仓库，将数据储存到本地数据库，然后在界面展示它。</p>
+<p>我将尝试解释更多的代码，你也可以看看你Github上的代码提交。</p>
+<p>Github:<a href="https://github.com/mladenrakonjac/ModernAndroidApp/tags" target="_blank" rel="noopener">github.com/mladenrakon…</a></p>
+<p>让我们开始吧。</p>
+<h3 id="0、Android-Studio"><a href="#0、Android-Studio" class="headerlink" title="0、Android Studio"></a>0、Android Studio</h3><p>首先安卓Android Studio 3 beta 1(注：现在最新版为Android Studio 4.0),Android Studio 已经支持Kotlin，去到<code>Create Android Project</code>界面，你将在此处看到新的内容：带有标签的复选框<code>include Kotlin support</code>。默认情况下选中。按两次下一步，然后选择<code>EmptyActivity</code>，然后完成了。 恭喜！你用Kotlin开发了第一个Android app)</p>
+<h3 id="1、Kotlin"><a href="#1、Kotlin" class="headerlink" title="1、Kotlin"></a>1、Kotlin</h3><p>在刚才新建的项目中，你可以看到一个<code>MainActivity.kt</code>:</p>
+<pre><code>package me.mladenrakonjac.modernandroidapp
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+</code></pre><p><code>.kt</code>后缀代表了这是一个Kotlin文件</p>
+<p><code>MainActivity : AppCompatActivity()</code>表示我们的<code>MainActivity</code>继承自<code>AppCompatActivity</code> 。</p>
+<p>此外，所有的方法都必须有一个关键字<code>fun</code>,在Kotlin 中，你不能使用<code>@override</code>注解，如果你要表明方法是复写父类或者接口的方法的话，直接使用<code>override</code>关键字，注意：它和Java不一样，不是一个注解了。</p>
+<p>然后，<code>savedInstanceState: Bundle?</code> 中的<code>?</code>代表什么呢？它代表了<code>savedInstanceState</code>这个参数可以是<code>Bundle</code>或者null。Kotlin是一门null 安全语言，如果你像下面这样写：</p>
+<pre><code>var a : String
+</code></pre><p>你将会得到一个编译错误。因为<code>a</code>变量必须被初始化，并且不能为null，因此你要像这样写：</p>
+<pre><code>var a : String = &quot;Init value&quot;
+</code></pre><p>并且，如果你执行以下操作，也会报编译错误：</p>
+<pre><code>a = null
+</code></pre><p>要想使<code>a</code>变量为null ,你必须这样写：</p>
+<pre><code>var a : String?
+</code></pre><p>为什么这是Kotlin语言的一个重要功能呢？因为它帮我们避免了NPE,Androd开发者已经对NPE感到厌倦了，甚至是null的发明者-<code>Tony Hoare</code>先生，也为发明它而道歉。假设我们有一个可以为空的<code>nameTextView</code>。如果为null，以下代码将会发生NPE：</p>
+<pre><code>nameTextView.setEnabled(true)
+</code></pre><p>但实际上，Kotlin做得很好，它甚至不允许我们做这样的事情。它会强制我们使用<code>?</code>或者<code>!!</code>操作符。如果我们使用<code>?</code>操作符：</p>
+<pre><code>nameTextView?.setEnabled(true)
+</code></pre><p>仅当<code>nameTextView</code>不为null时，这行代码才会继续执行。另一种情况下，如果我们使用<code>!!</code>操作符：</p>
+<pre><code>nameTextView!!.setEnabled(true)
+</code></pre><p>如果<code>nameTextView</code>为null，它将为我们提供NPE。它只适合喜欢冒险的家伙)</p>
+<p>这是对Kotlin的一些介绍。我们继续进行，我将停止描述其他Kotlin特定代码。</p>
+<h3 id="2、构建变体"><a href="#2、构建变体" class="headerlink" title="2、构建变体"></a>2、构建变体</h3><p>通常，在开发中，如果你有两套环境，最常见的是测试环境和生产环境。这些环境在服务器<code>URL</code>，<code>图标</code>，<code>名称</code>，<code>目标api</code>等方面可能有所不同。通常，在开始的每个项目中我都有以下内容：</p>
+<ul>
+<li><code>finalProduction</code>: 上传Google Play 使用</li>
+<li><code>demoProduction</code>:该版本使用生产环境服务器Url,并且它有着GP上的版本没有的新功能，用户可以在Google play 旁边安装，然后可以进行新功能测试和提供反馈。</li>
+<li><code>demoTesting</code>:和demoProduction一样，只不过它用的是测试地址</li>
+<li><code>mock</code>: 对于我来说，作为开发人员和设计师而言都是很有用的。有时我们已经准备好设计，而我们的API仍未准备好。等待API准备就绪后再开始开发可不是好的解决方案。此构建变体为提供有mock数据，因此设计团队可以对其进行测试并提供反馈。对于保证项目进度真的很有帮助,一旦API准备就绪，我们便将开发转移到demoTesting环境。</li>
+</ul>
+<p>在此应用程序中，我们将拥有所有这些变体。它们的applicationId和名称不同。 gradle 3.0.0 <code>flavourDimension</code>中有一个新的<code>api</code>，可让您混合不同的产品风味，因此您可以混合<code>demo</code>和<code>minApi23</code>风味。在我们的应用程序中，我们将仅使用“默认” 的<code>flavorDimension</code>。早app的<code>build.gradle</code>中，将此代码插入<code>android {}</code>下：</p>
+<pre><code>flavorDimensions &quot;default&quot;
+
+productFlavors {
+
+    finalProduction {
+        dimension &quot;default&quot;
+        applicationId &quot;me.mladenrakonjac.modernandroidapp&quot;
+        resValue &quot;string&quot;, &quot;app_name&quot;, &quot;Modern App&quot;
+    }
+
+    demoProduction {
+        dimension &quot;default&quot;
+        applicationId &quot;me.mladenrakonjac.modernandroidapp.demoproduction&quot;
+        resValue &quot;string&quot;, &quot;app_name&quot;, &quot;Modern App Demo P&quot;
+    }
+
+    demoTesting {
+        dimension &quot;default&quot;
+        applicationId &quot;me.mladenrakonjac.modernandroidapp.demotesting&quot;
+        resValue &quot;string&quot;, &quot;app_name&quot;, &quot;Modern App Demo T&quot;
+    }
+
+
+    mock {
+        dimension &quot;default&quot;
+        applicationId &quot;me.mladenrakonjac.modernandroidapp.mock&quot;
+        resValue &quot;string&quot;, &quot;app_name&quot;, &quot;Modern App Mock&quot;
+    }
+}
+</code></pre><p>打开<code>string.xml</code>文件，删掉<code>app_name</code>string资源，因此，我们才不会发生资源冲突，然后点击<code>Sync Now</code>,如果转到屏幕左侧的<code>“构建变体”</code>，则可以看到4个不同的构建变体，其中每个都有两种构建类型：“Debug”和“Release”,切换到<code>demoProduction</code>构建变体并运行它。然后切换到另一个并运行它。您就可以看到两个名称不同的应用程序。</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/9/172996a0132edd8b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h3 id="3、ConstraintLayout"><a href="#3、ConstraintLayout" class="headerlink" title="3、ConstraintLayout"></a>3、ConstraintLayout</h3><p>如果你打开<code>activity_main.xml</code>,你可以看到跟布局是<code>ConstraintLayout</code>,如果你开发过iOS应用程序，你可能知道<code>AutoLayout</code>，<code>ConstraintLayout</code>和它非常的相似，他们甚至用了相同的<code>Cassowary</code>算法。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;me.mladenrakonjac.modernandroidapp.MainActivity&quot;&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;Hello World!&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+        app:layout_constraintRight_toRightOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+</code></pre><p>Constraints可以帮我们描述View之间的关系。对于每一个View来说，应该有4个约束，每一边一个约束，在这种情况下，我们的View就被约束在了父视图的每一边了。</p>
+<p>在Design Tab中，如果你将<code>Hello World</code>文本稍微向上移动，则在<code>Text</code>Tab中将增加下面这行代码：</p>
+<pre><code>app:layout_constraintVertical_bias=&quot;0.28&quot;
+</code></pre><p><img src="http://user-gold-cdn.xitu.io/2020/6/9/17299720fee769d8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><code>Design</code> tab 和 <code>Text</code> tab是同步的，我们在Design中移动视图，则会影响Text中的<code>xml</code>，反之亦然。垂直偏差描述了视图对其约束的垂直趋势。如果要使视图垂直居中，则应使用：</p>
+<pre><code>app:layout_constraintVertical_bias=&quot;0.28&quot;
+</code></pre><p>我们让<code>Activity</code>只显示一个仓库，它有仓库的名字，star的数量，作者，并且还会显示是否有issue</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/9/1729977d7debb137?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>要得到上面的布局设计，代码如下所示：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;me.mladenrakonjac.modernandroidapp.MainActivity&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/repository_name&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;16dp&quot;
+        android:layout_marginStart=&quot;16dp&quot;
+        android:textSize=&quot;20sp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+        app:layout_constraintRight_toRightOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.083&quot;
+        tools:text=&quot;Modern Android app&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/repository_has_issues&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;16dp&quot;
+        android:layout_marginStart=&quot;16dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:text=&quot;@string/has_issues&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;@+id/repository_name&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;1.0&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/repository_name&quot;
+        app:layout_constraintTop_toTopOf=&quot;@+id/repository_name&quot;
+        app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/repository_owner&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;16dp&quot;
+        android:layout_marginStart=&quot;16dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/repository_name&quot;
+        app:layout_constraintVertical_bias=&quot;0.0&quot;
+        tools:text=&quot;Mladen Rakonjac&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/number_of_starts&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;16dp&quot;
+        android:layout_marginStart=&quot;16dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;1&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/repository_owner&quot;
+        app:layout_constraintVertical_bias=&quot;0.0&quot;
+        tools:text=&quot;0 stars&quot; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;
+
+</code></pre><p>不要被<code>tools:text</code>搞迷惑了，它的作用仅仅是让我们可以预览我们的布局。</p>
+<p>我们可以注意到，我们的布局是扁平的，没有任何嵌套，你应该尽量少的使用布局嵌套，因为它会影响我们的性能。ConstraintLayout也可以在不同的屏幕尺寸下正常工作。</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/9/172997c1dd00ddd1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>我有种预感，很快就能达到我们想要的布局效果了。</p>
+<p>上面只是一些关于<code>ConstraintLayout</code>的少部分介绍，你也可以看一下关于<code>ConstraintLayout</code>使用的google code lab: <a href="https://codelabs.developers.google.com/codelabs/constraint-layout/index.html?index=..%2F..%2Findex#0" target="_blank" rel="noopener">codelabs.developers.google.com/codelabs/co…</a></p>
+<h3 id="4-Data-binding-library"><a href="#4-Data-binding-library" class="headerlink" title="4. Data binding library"></a>4. Data binding library</h3><p>当我听到Data binding 库的时候，我的第一反应是：Butterknife已经很好了，再加上，我现在使用一个插件来从xml中获取View,我为啥要改变，来使用Data binding呢？但当我对Data binding有了更多的了解之后，我的它的感觉就像我第一次见到Butterknife一样，无法自拔。</p>
+<h5 id="Butterknife能帮我们做啥？"><a href="#Butterknife能帮我们做啥？" class="headerlink" title="Butterknife能帮我们做啥？"></a>Butterknife能帮我们做啥？</h5><p>ButterKnife帮助我们摆脱无聊的<code>findViewById</code>。因此，如果您有5个视图，而没有Butterknife，则你有5 + 5行代码来绑定您的视图。使用ButterKnife，您只有我行代码就搞定。就是这样。</p>
+<h5 id="Butterknife的缺点是什么？"><a href="#Butterknife的缺点是什么？" class="headerlink" title="Butterknife的缺点是什么？"></a>Butterknife的缺点是什么？</h5><p>Butterknife仍然没有解决代码可维护问题，使用ButterKnife时，我经常发现自己遇到运行时异常，这是因为我删除了xml中的视图，而没有删除Activity/Fragment类中的绑定代码。另外，如果要在xml中添加视图，则必须再次进行绑定。真的很不好维护。你将浪费大量时间来维护View绑定。</p>
+<h5 id="那与之相比，Data-Binding-怎么样呢？"><a href="#那与之相比，Data-Binding-怎么样呢？" class="headerlink" title="那与之相比，Data Binding 怎么样呢？"></a>那与之相比，Data Binding 怎么样呢？</h5><p>有很多好处，使用Data Binding，你可以只用一行代码就搞定View的绑定，让我们看看它是如何工作的，首先，先将Data Binding 添加到项目：</p>
+<pre><code>// at the top of file 
+apply plugin: &#39;kotlin-kapt&#39;
+
+
+android {
+    //other things that we already used
+    dataBinding.enabled = true
+}
+dependencies {
+    //other dependencies that we used
+    kapt &quot;com.android.databinding:compiler:3.0.0-beta1&quot;
+}
+</code></pre><p>请注意，数据绑定编译器的版本与项目<code>build.gradle</code>文件中的gradle版本相同：</p>
+<pre><code>classpath &#39;com.android.tools.build:gradle:3.0.0-beta1&#39;
+</code></pre><p>然后，点击<code>Sync Now</code>,打开<code>activity_main.xml</code>,将<code>Constraint Layout</code>用layout标签包裹</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;&gt;
+
+    &lt;android.support.constraint.ConstraintLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        tools:context=&quot;me.mladenrakonjac.modernandroidapp.MainActivity&quot;&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/repository_name&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_marginEnd=&quot;16dp&quot;
+            android:layout_marginStart=&quot;16dp&quot;
+            android:textSize=&quot;20sp&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+            app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+            app:layout_constraintRight_toRightOf=&quot;parent&quot;
+            app:layout_constraintTop_toTopOf=&quot;parent&quot;
+            app:layout_constraintVertical_bias=&quot;0.083&quot;
+            tools:text=&quot;Modern Android app&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/repository_has_issues&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_marginEnd=&quot;16dp&quot;
+            android:layout_marginStart=&quot;16dp&quot;
+            android:layout_marginTop=&quot;8dp&quot;
+            android:text=&quot;@string/has_issues&quot;
+            android:textStyle=&quot;bold&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;@+id/repository_name&quot;
+            app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+            app:layout_constraintHorizontal_bias=&quot;1.0&quot;
+            app:layout_constraintStart_toEndOf=&quot;@+id/repository_name&quot;
+            app:layout_constraintTop_toTopOf=&quot;@+id/repository_name&quot;
+            app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/repository_owner&quot;
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_marginBottom=&quot;8dp&quot;
+            android:layout_marginEnd=&quot;16dp&quot;
+            android:layout_marginStart=&quot;16dp&quot;
+            android:layout_marginTop=&quot;8dp&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+            app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+            app:layout_constraintStart_toStartOf=&quot;parent&quot;
+            app:layout_constraintTop_toBottomOf=&quot;@+id/repository_name&quot;
+            app:layout_constraintVertical_bias=&quot;0.0&quot;
+            tools:text=&quot;Mladen Rakonjac&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/number_of_starts&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_marginBottom=&quot;8dp&quot;
+            android:layout_marginEnd=&quot;16dp&quot;
+            android:layout_marginStart=&quot;16dp&quot;
+            android:layout_marginTop=&quot;8dp&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+            app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+            app:layout_constraintHorizontal_bias=&quot;1&quot;
+            app:layout_constraintStart_toStartOf=&quot;parent&quot;
+            app:layout_constraintTop_toBottomOf=&quot;@+id/repository_owner&quot;
+            app:layout_constraintVertical_bias=&quot;0.0&quot;
+            tools:text=&quot;0 stars&quot; /&gt;
+
+    &lt;/android.support.constraint.ConstraintLayout&gt;
+
+&lt;/layout&gt;
+
+</code></pre><p>注意，你需要将所有的xml移动到layout 标签下面，然后点击<code>Build</code>图标或者使用快捷键<code>Cmd + F9</code>,我们需要构建项目来使Data Binding库为我们生成<code>ActivityMainBinding</code>类，后面在MainActivity中将用到它。</p>
+<p>如果没有重新编译项目，你是看不到<code>ActivityMainBinding</code>的，因为它在编译时生成。</p>
+<p>我们还没有完成绑定，我们只是定义了一个非空的 ActivityMainBinding 类型的变量。你会注意到我没有把<code>?</code> 放在 ActivityMainBinding 的后面，而且也没有初始化它。这怎么可能呢？<code>lateinit</code> 关键字允许我们使用非空的延迟被初始化的变量。和 ButterKnife 类似，在我们的布局准备完成后，初始化绑定需要在 onCreate 方法中进行。此外，你不应该在 onCreate 方法中声明绑定，因为你很有可能在 onCreate 方法外使用它。我们的 binding 不能为空，所以这就是我们使用 lateinit 的原因。使用 lateinit 修饰，我们不需要在每次访问它的时候检查 binding 变量是否为空。</p>
+<p>我们初始化binding变量，你需要替换:</p>
+<pre><code>setContentView(R.layout.activity_main)
+</code></pre><p>为：</p>
+<pre><code>binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+</code></pre><p>就是这样，你成功的绑定了所有View,现在你可以访问它并且做一些更改，例如，我们将仓库名字改为<code>Modern Android Medium Article</code>:</p>
+<pre><code>binding.repositoryName.text = &quot;Modern Android Medium Article&quot;
+</code></pre><p>如你所见，现在我们可以通过<code>bingding</code>变量来访问<code>main_activity.xml</code>的所有View了（前提是它们有id）,这就是Data Binding 比ButterKnife 好用的原因。</p>
+<h5 id="kotlin的-Getters-和-setters"><a href="#kotlin的-Getters-和-setters" class="headerlink" title="kotlin的 Getters 和 setters"></a>kotlin的 Getters 和 setters</h5><p>大概，你已经注意到了，我们没有像Java那样使用<code>.setText()</code>，我想在这里暂停一下，以说明与Java相比，Kotlin中的getter和setter方法如何工作的。</p>
+<p>首先，你需要知道，我们为什么要使用getters和setters，我们用它来隐藏类中的变量，仅允许使用方法来访问这些变量，这样我们就可以向用户隐藏类中的细节，并禁止用户直接修改我们的类。假设我们用 Java 写了一个 Square 类：</p>
+<pre><code>public class Square {
+  private int a;
+
+  Square(){
+    a = 1;
+  }
+
+  public void setA(int a){
+    this.a = Math.abs(a);
+  }
+
+  public int getA(){
+    return this.a;
+  }
+
+}
+</code></pre><p>使用<code>setA()</code>方法，我们禁止了用户向<code>Square</code>类的<code>a</code>变量设置一个负数,因为正方形的边长一定是正数，要使用这种方法，我们必须将其设为私有，因此不能直接设置它。这也意味着我们不能直接获得<code>a</code>，需要给它定一个get方法来返回<code>a</code>，如果有10个变量，那么我们就得定义10个相似的get方法，写这样无聊的样板代码，通常会影响我们的心情。</p>
+<p>Kotling使我们的开发人员更轻松了。如果你调用下面的代码：</p>
+<pre><code>var side: Int = square.a
+</code></pre><p>这并不意味着你是在直接访问a变量，它和Java中调用<code>getA()</code>是相同的</p>
+<pre><code>int side = square.getA();
+</code></pre><p>因为Kotlin自动生成默认的getter和setter。在Kotlin中，只有当您有特殊的setter或getter时，才应指定它。否则，Kotlin会为您自动生成：</p>
+<pre><code>var a = 1
+   set(value) { field = Math.abs(value) }
+</code></pre><p><code>field</code> ? 这又是个什么东西？为了更清楚明白，请看下面代码：</p>
+<pre><code>var a = 1
+   set(value) { a = Math.abs(value) }
+</code></pre><p>这表明你在调用set方法中的<code>set(value){}</code>，因为Kotlin的世界中，没有直接访问属性，这就会造成无限递归，当你调用<code>a = something</code>,会自动调用set方法。使用filed就能避免无限递归，我希望这能让你明白为什么要用filed关键字，并且了解getters和setters是如何工作的。</p>
+<p>回到代码中继续，我将向你介绍Kotlin语言的另一个重要功能:apply函数：</p>
+<pre><code>class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.apply {
+            repositoryName.text = &quot;Medium Android Repository Article&quot;
+            repositoryOwner.text = &quot;Mladen Rakonjac&quot;
+            numberOfStarts.text = &quot;1000 stars&quot;
+
+        }
+    }
+}
+</code></pre><p>apply 允许你在一个实例上调用多个方法，我们仍然还没有完成数据绑定，还有更棒的事儿，让我们为仓库定义一个UI模型（这个是github仓库的数据模型Repository,它持有要展示的数据，请不要和Repository模式的中的Repository搞混淆了哈），要创建一个Kotlin class，点击<code>New -&gt; Kotlin File/Class :</code></p>
+<pre><code>class Repository(var repositoryName: String?,var repositoryOwner: String?,var numberOfStars: Int? ,var hasIssues: Boolean = false)
+</code></pre><p>在Kotlin中，主构造函数是类头的一部分，如果你不想定义次构造函数，那就是这样了，数据类到此就完成了，构造函数没有参数分配给字段，没有setters和getters,整个类就一行代码。</p>
+<p>回到<code>MainActivity.kt</code>，为<code>Repository</code>创建一个实例。</p>
+<pre><code>var repository = Repository(&quot;Medium Android Repository Article&quot;,
+        &quot;Mladen Rakonjac&quot;, 1000, true)
+</code></pre><p>你应该注意到了，创建类实例，没有用<code>new</code></p>
+<p>现在，我们在<code>activity_main.xml</code>中添加data标签。</p>
+<pre><code>&lt;data&gt;
+      &lt;variable
+        name=&quot;repository&quot;
+        type=&quot;me.mladenrakonjac.modernandroidapp.uimodels.Repository&quot;
+        /&gt;
+&lt;/data&gt;
+</code></pre><p>我们可以在布局中访问存储的变量<code>repository</code>,例如，我们可以如下使用id是<code>repository_name</code>的TextView,如下：</p>
+<pre><code>android:text=&quot;@{repository.repositoryName}&quot;
+</code></pre><p>repository_name文本视图将显示从repository变量的属性<code>repositoryName</code>获取的文本。剩下的唯一事情就是将<code>repository</code>变量从xml绑定到<code>MainActivity.kt</code>中的repository。</p>
+<p>点击Build使DataBinding 为我们生成类，然后在MainActivity中添加两行代码：</p>
+<pre><code>binding.repository = repository
+binding.executePendingBindings()
+</code></pre><p>如果你运行APP,你会看到TextView上显示的是：<code>“Medium Android Repository Article”</code>,非常棒的功能，是吧？</p>
+<p>但是，如果我们像下面这样改一下呢？</p>
+<pre><code>Handler().postDelayed({repository.repositoryName=&quot;New Name&quot;}, 2000)
+</code></pre><p>新的文本将会在2000ms后显示吗？不会的，你必须重新设置一次<code>repository</code>,像这样：</p>
+<pre><code>Handler().postDelayed({repository.repositoryName=&quot;New Name&quot;
+    binding.repository = repository
+    binding.executePendingBindings()}, 2000)
+</code></pre><p>但是，如果我们每次更改一个属性都要这么写的话，那就非常蛋疼了，这里有一个更好的方案叫做<code>Property Observer</code>。</p>
+<p>让我们首先解释一下什么是观察者模式，因为在rxJava部分中我们也将需要它：</p>
+<p>可能你已经听说过<code>http://androidweekly.net/</code>,这是一个关于Android开发的周刊。如果您想接收它，则必须订阅它并提供您的电子邮件地址。过了一段时间，如果你不想看了，你可以去网站上取消订阅。</p>
+<p>这就是一个<code>观察者/被观察者</code>的模式,在这个例子中， Android 周刊是<code>被观察者</code>,它每周都会发布新闻通讯。读者是<code>观察者</code>，因为他们订阅了它，一旦订阅就会收到数据，如果不想读了，则可以停止订阅。</p>
+<p><code>Property Observer</code>在这个例子中就是 xml layout,它将会监听<code>Repository</code>实例的变化。因此，<code>Repository</code>是<code>被观察者</code>,例如，一旦在Repository类的实例中更改了repository nane 属性后，xml不调用下面的代码也会更新：</p>
+<pre><code>binding.repository = repository
+binding.executePendingBindings()
+</code></pre><p>如何让它使用Data Binding 库呢？，Data Binding库提供了一个<code>BaseObservable</code>类，我们的Repostory类必须继承它。</p>
+<pre><code>class Repository(repositoryName : String, var repositoryOwner: String?, var numberOfStars: Int?
+                 , var hasIssues: Boolean = false) : BaseObservable(){
+
+    @get:Bindable
+    var repositoryName : String = &quot;&quot;
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.repositoryName)
+    }
+
+}
+</code></pre><p>当我们使用了 Bindable 注解时，就会自动生成 BR 类。你会看到，一旦设置新值，就会通知它更新。现在运行 app 你将看到仓库的名字在 2 秒后改变而不必再次调用 <code>executePendingBindings()</code>。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/12/0_kotlin/">https://jiyugithub.github.io/2020/06/12/0_kotlin/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/14/DayNight/"><i class="fa fa-chevron-left">  </i><span>暗黑模式适配</span></a></div><div class="next-post pull-right"><a href="/2020/06/12/android11/"><span>Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+  appKey:'FihoucantYlc5U1FQ9BzkO3l',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

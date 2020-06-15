@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="一文彻底了解Android自定义控件3"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>一文彻底了解Android自定义控件3 | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android自定控件的步骤"><span class="toc-number">1.</span> <span class="toc-text">Android自定控件的步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断控件类型"><span class="toc-number">2.</span> <span class="toc-text">判断控件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取相关的属性"><span class="toc-number">3.</span> <span class="toc-text">获取相关的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测量"><span class="toc-number">4.</span> <span class="toc-text">测量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义控件的本质"><span class="toc-number">5.</span> <span class="toc-text">自定义控件的本质</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">26</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">一文彻底了解Android自定义控件3</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-12</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="Android自定控件的步骤"><a href="#Android自定控件的步骤" class="headerlink" title="Android自定控件的步骤"></a>Android自定控件的步骤</h3><p>为什么自定义控件要步骤化呢？因为很多新手同学，根据产品的要求做一些控件时，无从下手。</p>
+<p>有了步骤以后，就可以按套路走了，再也不用害怕了。</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877ef78f4537d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<a id="more"></a>
+
+<h3 id="判断控件类型"><a href="#判断控件类型" class="headerlink" title="判断控件类型"></a>判断控件类型</h3><p>首先我们要判断这个控件是属于自定义控件里的哪种类型，如果不知道分类的话，同学们可以看这篇文章<code>自定义控件分类</code></p>
+<h3 id="获取相关的属性"><a href="#获取相关的属性" class="headerlink" title="获取相关的属性"></a>获取相关的属性</h3><p>其实这玩意在自定义控件里叫自定义属性。什么是属性呢？</p>
+<p>来我们看，android控件原有的属性：</p>
+<p>比如说我们的LinearLayout</p>
+<pre><code>&lt;LinearLayout
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_alignParentBottom=&quot;true&quot;
+        android:layout_centerHorizontal=&quot;true&quot;
+        android:layout_marginBottom=&quot;41px&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+&lt;/LinearLayout&gt;</code></pre><p>这里面的属性就有origintation,layout_width,layout_height…. 而origintation是LinearLayout特有的，而其他的则是View都有的</p>
+<p>那么我们在写自己的控件时，有些值，也是通过xml里的属性进行配置的，所以我们要有自定义属性。</p>
+<p>自定义控件里如何自定义属性呢？</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877f3cbbdbf4e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877f63897a169?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>自定义属性步骤：</p>
+<ol>
+<li>声明属性</li>
+</ol>
+<p>在<code>res</code>的<code>values</code>目录下的<code>attrs.xml</code>文件中(没有就自己新建一个)，使用<code>declare-styleable</code>标签自定义属性。</p>
+<p>在attrs.xml里进行声明，其实都行，都是resourse，举例：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!--属性集合--&gt;
+    &lt;declare-styleable name=&quot;SearchView&quot; &gt;
+        &lt;!--hint--&gt;
+        &lt;attr name=&quot;hint&quot; format=&quot;string&quot;/&gt;
+        &lt;!--搜索图标  可以通过typedArray.getResourceId获取资源id--&gt;
+        &lt;attr name=&quot;search_ico&quot; format=&quot;reference&quot; /&gt;
+        &lt;!--清空图标--&gt;
+        &lt;attr name=&quot;clear_ico&quot; format=&quot;reference&quot; /&gt;
+        &lt;!--语音图标--&gt;
+        &lt;attr name=&quot;voice_ico&quot; format=&quot;reference&quot; /&gt;
+        &lt;!--输入类型--&gt;
+        &lt;attr name=&quot;input_type&quot;&gt;
+            &lt;!--value值只能是int类型的  所以获取时通过typeArray.getInt获取--&gt;
+            &lt;enum name=&quot;text&quot; value=&quot;0&quot;/&gt;
+            &lt;enum name=&quot;passwordText&quot; value=&quot;1&quot;/&gt;
+        &lt;/attr&gt;
+
+        &lt;attr name=&quot;gravity&quot;&gt;
+            &lt;!--区别于enum  enum只能选择一个  flag可以多选 如：left|top--&gt;
+            &lt;flag name=&quot;left&quot; value=&quot;0&quot; /&gt;
+            &lt;flag name=&quot;top&quot; value=&quot;1&quot; /&gt;
+            &lt;flag name=&quot;center&quot; value=&quot;2&quot; /&gt;
+            &lt;flag name=&quot;right&quot; value=&quot;3&quot; /&gt;
+            &lt;flag name=&quot;bottom&quot; value=&quot;4&quot; /&gt;
+        &lt;/attr&gt;
+    &lt;/declare-styleable&gt;
+
+&lt;/resources&gt;</code></pre><p>其中<code>declare-styleable</code>标签代表一个属性集合，<strong><code>name</code>属性要与自定义的控件同名</strong>。 <code>attr</code>则是每条属性了，<code>name</code>是属性值，<code>format</code>是指定属性类型,目前可支持11种类型：</p>
+<blockquote>
+<ul>
+<li>reference:引用资源</li>
+<li>string:字符串</li>
+<li>Color：颜色</li>
+<li>boolean：布尔值</li>
+<li>dimension：尺寸值</li>
+<li>float：浮点型</li>
+<li>integer：整型</li>
+<li>fraction：百分数</li>
+<li>enum：枚举类型</li>
+<li>flag：位或运算</li>
+</ul>
+</blockquote>
+<ol>
+<li>布局文件中使用</li>
+</ol>
+<p>首先需要加上一个命名空间<code>xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</code> 然后直接利用这个命名空间设置属性即可</p>
+<pre><code>&lt;com.searchview.SearchView
+      android:id=&quot;@+id/searchView&quot;
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;50dp&quot;
+      android:layout_marginEnd=&quot;8dp&quot;
+      android:layout_marginStart=&quot;8dp&quot;
+      android:layout_marginTop=&quot;8dp&quot;
+      app:hint=&quot;aaa&quot;
+      app:search_ico=&quot;@drawable/ic_search&quot;
+      app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+      app:layout_constraintStart_toStartOf=&quot;parent&quot;
+      app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;</code></pre><h3 id="测量"><a href="#测量" class="headerlink" title="测量"></a>测量</h3><p>测量是重点要掌握的，如果是ViewGroup则测量自己(设置自己大小，因为ViewGroup也可以是子view呀)跟设置期望孩子的大小。</p>
+<p>如果是View则需要测量自己（设置自己大小）</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877fa2caab751?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>这两个参数要理解</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877fc3870f585?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877fee3eb06bc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h3 id="自定义控件的本质"><a href="#自定义控件的本质" class="headerlink" title="自定义控件的本质"></a>自定义控件的本质</h3><p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172878027202327b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/12/view3/">https://jiyugithub.github.io/2020/06/12/view3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/12/Rxjava/"><i class="fa fa-chevron-left">  </i><span>Rxjava只看这一篇文章就够了</span></a></div><div class="next-post pull-right"><a href="/2020/06/12/view2/"><span>一文彻底了解Android自定义控件2</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+  appKey:'FihoucantYlc5U1FQ9BzkO3l',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
