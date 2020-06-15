@@ -12,20 +12,12 @@
 
 <h3 id="No1-LiquidSwipe"><a href="#No1-LiquidSwipe" class="headerlink" title="No1. LiquidSwipe"></a>No1. LiquidSwipe</h3><p>这是一个很棒的ViewPager库，它在浏览ViewPager的不同页面时，显示波浪的滑动动画，效果非常炫酷。该库的USP是触摸交互的。这意味着在视图中显示类似液体的显示过渡时，应考虑触摸事件。</p>
 <h5 id="1-1如何使用呢？"><a href="#1-1如何使用呢？" class="headerlink" title="1.1如何使用呢？"></a>1.1如何使用呢？</h5><p>导入以下Gradle依赖项:</p>
-<pre><code>implementation &#39;com.github.Chrisvin:LiquidSwipe:1.3&#39;
-</code></pre><p>然后将<code>LiquidSwipeLayout</code>添加为保存fragment布局的容器的根布局：</p>
-<pre><code>&lt;androidx.constraintlayout.widget.ConstraintLayout 
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#39;com.github.Chrisvin:LiquidSwipe:1.3&#39;</span><br></pre></td></tr></table></figure>
 
-    &lt;com.jem.liquidswipe.LiquidSwipeViewPager
-        android:id=&quot;@+id/viewpager&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;match_parent&quot;/&gt;
+<p>然后将<code>LiquidSwipeLayout</code>添加为保存fragment布局的容器的根布局：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;androidx.constraintlayout.widget.ConstraintLayout </span><br><span class="line">    xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;com.jem.liquidswipe.LiquidSwipeViewPager</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;viewpager&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;match_parent&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;androidx.constraintlayout.widget.ConstraintLayout&gt;</span><br></pre></td></tr></table></figure>
 
-&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-</code></pre><h5 id="1-2-效果图"><a href="#1-2-效果图" class="headerlink" title="1.2 效果图"></a>1.2 效果图</h5><table>
+<h5 id="1-2-效果图"><a href="#1-2-效果图" class="headerlink" title="1.2 效果图"></a>1.2 效果图</h5><table>
 <thead>
 <tr>
 <th align="left">效果1</th>
@@ -40,33 +32,15 @@
 <p>更多详细使用方法请看Github: <a href="https://github.com/Chrisvin/LiquidSwipe" target="_blank" rel="noopener">github.com/Chrisvin/Li…</a></p>
 <h3 id="No2-Flourish"><a href="#No2-Flourish" class="headerlink" title="No2. Flourish"></a>No2. Flourish</h3><p><code>Flourish</code>提供了一个炫酷的方式来显示或者隐藏一个布局，实现方式也很简单，就是对View或者布局进行了包装，通过构建者模式来提供api给上层调用。就像使用dialog一样，调用<code>show</code>和<code>dissmiss</code>方法来显示和隐藏。此外，通过这些类，我们还可以自定义动画（正常，加速，反弹），或为布局方向设置我们自己的起点（左上，右下等）。</p>
 <h5 id="2-1-如何使用？"><a href="#2-1-如何使用？" class="headerlink" title="2.1 如何使用？"></a>2.1 如何使用？</h5><p>在build.gradle 中添加如下依赖：</p>
-<pre><code>dependencies {
-    implementation &quot;com.github.skydoves:flourish:1.0.0&quot;
-}
-</code></pre><p>然后在代码中，构建布局：</p>
-<pre><code>Flourish flourish = new Flourish.Builder(parentLayout)
-    // sets the flourish layout for showing and dismissing on the parent layout.
-    .setFlourishLayout(R.layout.layout_flourish_main)
-    // sets the flourishing animation for showing and dismissing.
-    .setFlourishAnimation(FlourishAnimation.BOUNCE)
-    // sets the orientation of the starting point.
-    .setFlourishOrientation(FlourishOrientation.TOP_LEFT)
-    // sets a flourishListener for listening changes.
-    .setFlourishListener(flourishListener)
-    // sets the flourish layout should be showed on start. 
-    .setIsShowedOnStart(false)
-    // sets the duration of the flourishing.
-    .setDuration(800L)
-    .build();
-</code></pre><p>还提供有更简介的DSL:</p>
-<pre><code>val myFlourish = createFlourish(parentLayout) {
-  setFlourishLayout(R.layout.layout_flourish_main)
-  setFlourishAnimation(FlourishAnimation.ACCELERATE)
-  setFlourishOrientation(FlourishOrientation.TOP_RIGHT)
-  setIsShowedOnStart(true)
-  setFlourishListener {  }
-}
-</code></pre><h5 id="2-2-效果图"><a href="#2-2-效果图" class="headerlink" title="2.2  效果图"></a>2.2  效果图</h5><table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &quot;com.github.skydoves:flourish:1.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在代码中，构建布局：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Flourish flourish &#x3D; new Flourish.Builder(parentLayout)</span><br><span class="line">    &#x2F;&#x2F; sets the flourish layout for showing and dismissing on the parent layout.</span><br><span class="line">    .setFlourishLayout(R.layout.layout_flourish_main)</span><br><span class="line">    &#x2F;&#x2F; sets the flourishing animation for showing and dismissing.</span><br><span class="line">    .setFlourishAnimation(FlourishAnimation.BOUNCE)</span><br><span class="line">    &#x2F;&#x2F; sets the orientation of the starting point.</span><br><span class="line">    .setFlourishOrientation(FlourishOrientation.TOP_LEFT)</span><br><span class="line">    &#x2F;&#x2F; sets a flourishListener for listening changes.</span><br><span class="line">    .setFlourishListener(flourishListener)</span><br><span class="line">    &#x2F;&#x2F; sets the flourish layout should be showed on start. </span><br><span class="line">    .setIsShowedOnStart(false)</span><br><span class="line">    &#x2F;&#x2F; sets the duration of the flourishing.</span><br><span class="line">    .setDuration(800L)</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
+
+<p>还提供有更简介的DSL:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val myFlourish &#x3D; createFlourish(parentLayout) &#123;</span><br><span class="line">  setFlourishLayout(R.layout.layout_flourish_main)</span><br><span class="line">  setFlourishAnimation(FlourishAnimation.ACCELERATE)</span><br><span class="line">  setFlourishOrientation(FlourishOrientation.TOP_RIGHT)</span><br><span class="line">  setIsShowedOnStart(true)</span><br><span class="line">  setFlourishListener &#123;  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-效果图"><a href="#2-2-效果图" class="headerlink" title="2.2  效果图"></a>2.2  效果图</h5><table>
 <thead>
 <tr>
 <th align="left">效果1</th>
@@ -89,51 +63,31 @@
 <li>Emoji Dialog 并且啊，还提供了暗黑模式的适配。</li>
 </ul>
 <h5 id="3-1-如何使用？"><a href="#3-1-如何使用？" class="headerlink" title="3.1 如何使用？"></a>3.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
- ...
- implementation &#39;com.github.gabriel-TheCode:AestheticDialogs:1.1.0&#39;
-}
-</code></pre><p>代码中，显示不同种类的对话框则调用对应的方法就好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"> ...</span><br><span class="line"> implementation &#39;com.github.gabriel-TheCode:AestheticDialogs:1.1.0&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码中，显示不同种类的对话框则调用对应的方法就好</p>
 <p>Flash:</p>
-<pre><code>AestheticDialog.showFlashDialog(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showFlashDialog(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
-</code></pre><p>Connectify:</p>
-<pre><code>AestheticDialog.showConnectify(this,&quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showConnectify(this, &quot;Your message&quot;, AestheticDialog.ERROR);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AestheticDialog.showFlashDialog(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showFlashDialog(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br></pre></td></tr></table></figure>
 
- /// Dark Theme
- AestheticDialog.showConnectifyDark(this,&quot;Your message&quot;,AestheticDialog.SUCCESS);
- AestheticDialog.showConnectifyDark(this, &quot;Your message&quot;, AestheticDialog.ERROR);
-</code></pre><p>Toaster:</p>
-<pre><code> AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
-AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);
- AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);
+<p>Connectify:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AestheticDialog.showConnectify(this,&quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showConnectify(this, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;&#x2F; Dark Theme</span><br><span class="line"> AestheticDialog.showConnectifyDark(this,&quot;Your message&quot;,AestheticDialog.SUCCESS);</span><br><span class="line"> AestheticDialog.showConnectifyDark(this, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br></pre></td></tr></table></figure>
 
- /// Dark Theme
- AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
-AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);
- AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);
-</code></pre><p>Drake :</p>
-<pre><code> AestheticDialog.showDrake(this, AestheticDialog.SUCCESS);
-AestheticDialog.showDrake(this, AestheticDialog.ERROR);
-</code></pre><p>Emoji :</p>
-<pre><code> AestheticDialog.showEmoji(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showEmoji(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
+<p>Toaster:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br><span class="line">AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);</span><br><span class="line"> AestheticDialog.showToaster(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;&#x2F; Dark Theme</span><br><span class="line"> AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br><span class="line">AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);</span><br><span class="line"> AestheticDialog.showToasterDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);</span><br></pre></td></tr></table></figure>
 
-/// Dark Theme
- AestheticDialog.showEmojiDark(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showEmojiDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
-</code></pre><p>Emotion :</p>
-<pre><code> AestheticDialog.showEmotion(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
-AestheticDialog.showEmotion(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
-</code></pre><p>Rainbow :</p>
-<pre><code> AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);
- AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);
- AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);
-AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);
-</code></pre><h5 id="3-2-效果如下"><a href="#3-2-效果如下" class="headerlink" title="3.2 效果如下"></a>3.2 效果如下</h5><table>
+<p>Drake :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> AestheticDialog.showDrake(this, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showDrake(this, AestheticDialog.ERROR);</span><br></pre></td></tr></table></figure>
+
+<p>Emoji :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> AestheticDialog.showEmoji(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showEmoji(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; Dark Theme</span><br><span class="line"> AestheticDialog.showEmojiDark(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showEmojiDark(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br></pre></td></tr></table></figure>
+
+<p>Emotion :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> AestheticDialog.showEmotion(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line">AestheticDialog.showEmotion(this, &quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br></pre></td></tr></table></figure>
+
+<p>Rainbow :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.SUCCESS);</span><br><span class="line"> AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.ERROR);</span><br><span class="line"> AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.WARNING);</span><br><span class="line">AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your message&quot;, AestheticDialog.INFO);</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-效果如下"><a href="#3-2-效果如下" class="headerlink" title="3.2 效果如下"></a>3.2 效果如下</h5><table>
 <thead>
 <tr>
 <th align="left">Flash Dialog</th>
@@ -164,40 +118,15 @@ AestheticDialog.showRainbow(this,&quot;Your dialog Title&quot;, &quot;Your messa
 <p>更多详情使用方法请看Github：<a href="https://github.com/gabriel-TheCode/AestheticDialogs" target="_blank" rel="noopener">github.com/gabriel-The…</a></p>
 <h3 id="N4-EasyReveal"><a href="#N4-EasyReveal" class="headerlink" title="N4. EasyReveal"></a>N4. EasyReveal</h3><p>从名字就知道，这是一个提供<code>reveal</code>动画效果的库，它的厉害之处在于可以提供不同尺寸、不同形状的reveal动画，并且还可以在定义它在屏幕任意位置开始和结束动画。</p>
 <h5 id="4-1-如何使用？"><a href="#4-1-如何使用？" class="headerlink" title="4.1 如何使用？"></a>4.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
- ...
- implementation &#39;com.github.Chrisvin:EasyReveal:1.2&#39;
-}
-</code></pre><p>然后，xml中，需要添加显示或者隐藏动画的View应该包裹在<code>EasyRevealLinearLayout</code>中：</p>
-<pre><code>&lt;com.jem.easyreveal.layouts.EasyRevealLinearLayout
-    ...
-    app:clipPathProvider=&quot;star&quot; // possible values: circular, linear, random_line, star, sweep &amp; wave
-    app:revealAnimationDuration=&quot;2000&quot;
-    app:hideAnimationDuration=&quot;1500&quot; &gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"> ...</span><br><span class="line"> implementation &#39;com.github.Chrisvin:EasyReveal:1.2&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    &lt;!-- The views to be revealed/hidden go here --&gt;
+<p>然后，xml中，需要添加显示或者隐藏动画的View应该包裹在<code>EasyRevealLinearLayout</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.jem.easyreveal.layouts.EasyRevealLinearLayout</span><br><span class="line">    ...</span><br><span class="line">    app:clipPathProvider&#x3D;&quot;star&quot; &#x2F;&#x2F; possible values: circular, linear, random_line, star, sweep &amp; wave</span><br><span class="line">    app:revealAnimationDuration&#x3D;&quot;2000&quot;</span><br><span class="line">    app:hideAnimationDuration&#x3D;&quot;1500&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- The views to be revealed&#x2F;hidden go here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;com.jem.easyreveal.layouts.EasyRevealLinearLayout&gt;</span><br><span class="line">&lt;!-- Similarly for com.jem.easyreveal.layouts.EasyRevealConstraintLayout &amp; com.jem.easyreveal.layouts.EasyRevealFrameLayout --&gt;</span><br></pre></td></tr></table></figure>
 
-&lt;/com.jem.easyreveal.layouts.EasyRevealLinearLayout&gt;
-&lt;!-- Similarly for com.jem.easyreveal.layouts.EasyRevealConstraintLayout &amp; com.jem.easyreveal.layouts.EasyRevealFrameLayout --&gt;
-</code></pre><p>也可以在代码中添加：</p>
-<pre><code>val revealLayout = EasyRevealLinearLayout(this)
-// Set the ClipPathProvider that is used to clip the view for reveal animation
-revealLayout.clipPathProvider = StarClipPathProvider(numberOfPoints = 6)
-// Set the duration taken for reveal animation
-revealLayout.revealAnimationDuration = 1500
-// Set the duration taken for hide animation
-revealLayout.hideAnimationDuration = 2000
-// Set listener to get updates during reveal/hide animation
-revealLayout.onUpdateListener = object: RevealLayout.OnUpdateListener {
-    override fun onUpdate(percent: Float) {
-        Toast.makeText(this@MainActivity, &quot;Revealed percent: $percent&quot;, Toast.LENGTH_SHORT).show()
-    }
-}
-// Start reveal animation
-revealLayout.reveal()
-// Start hide animation
-revealLayout.hide()
-</code></pre><h5 id="4-2效果图"><a href="#4-2效果图" class="headerlink" title="4.2效果图"></a>4.2效果图</h5><table>
+<p>也可以在代码中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">val revealLayout &#x3D; EasyRevealLinearLayout(this)</span><br><span class="line">&#x2F;&#x2F; Set the ClipPathProvider that is used to clip the view for reveal animation</span><br><span class="line">revealLayout.clipPathProvider &#x3D; StarClipPathProvider(numberOfPoints &#x3D; 6)</span><br><span class="line">&#x2F;&#x2F; Set the duration taken for reveal animation</span><br><span class="line">revealLayout.revealAnimationDuration &#x3D; 1500</span><br><span class="line">&#x2F;&#x2F; Set the duration taken for hide animation</span><br><span class="line">revealLayout.hideAnimationDuration &#x3D; 2000</span><br><span class="line">&#x2F;&#x2F; Set listener to get updates during reveal&#x2F;hide animation</span><br><span class="line">revealLayout.onUpdateListener &#x3D; object: RevealLayout.OnUpdateListener &#123;</span><br><span class="line">    override fun onUpdate(percent: Float) &#123;</span><br><span class="line">        Toast.makeText(this@MainActivity, &quot;Revealed percent: $percent&quot;, Toast.LENGTH_SHORT).show()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; Start reveal animation</span><br><span class="line">revealLayout.reveal()</span><br><span class="line">&#x2F;&#x2F; Start hide animation</span><br><span class="line">revealLayout.hide()</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2效果图"><a href="#4-2效果图" class="headerlink" title="4.2效果图"></a>4.2效果图</h5><table>
 <thead>
 <tr>
 <th align="left">Emotion Dialog</th>
@@ -224,74 +153,27 @@ revealLayout.hide()
 <li>颜色的补码</li>
 </ul>
 <h5 id="5-1-如何使用？"><a href="#5-1-如何使用？" class="headerlink" title="5.1 如何使用？"></a>5.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-    implementation &#39;me.jorgecastillo:androidcolorx:0.2.0&#39;
-}
-</code></pre><p>在代码中，一系列的转换方法：</p>
-<pre><code>val color = Color.parseColor(&quot;#e91e63&quot;)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &#39;me.jorgecastillo:androidcolorx:0.2.0&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-val rgb = color.asRgb()
-val argb = color.asArgb()
-val hex = color.asHex()
-val hsl = color.asHsl()
-val hsla = color.asHsla()
-val hsv = color.asHsv()
-val cmyk = color.asCmyk()
+<p>在代码中，一系列的转换方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">val color &#x3D; Color.parseColor(&quot;#e91e63&quot;)</span><br><span class="line"></span><br><span class="line">val rgb &#x3D; color.asRgb()</span><br><span class="line">val argb &#x3D; color.asArgb()</span><br><span class="line">val hex &#x3D; color.asHex()</span><br><span class="line">val hsl &#x3D; color.asHsl()</span><br><span class="line">val hsla &#x3D; color.asHsla()</span><br><span class="line">val hsv &#x3D; color.asHsv()</span><br><span class="line">val cmyk &#x3D; color.asCmyk()</span><br><span class="line"></span><br><span class="line">val colorHsl &#x3D; HSLColor(hue &#x3D; 210f, saturation &#x3D; 0.5f, lightness &#x3D; 0.5f)</span><br><span class="line"></span><br><span class="line">val colorInt &#x3D; colorHsl.asColorInt()</span><br><span class="line">val rgb &#x3D; colorHsl.asRgb()</span><br><span class="line">val argb &#x3D; colorHsl.asArgb()</span><br><span class="line">val hex &#x3D; colorHsl.asHex()</span><br><span class="line">val cmyk &#x3D; colorHsl.asCmyk()</span><br><span class="line">val hsla &#x3D; colorHsl.asHsla()</span><br><span class="line">val hsv &#x3D; colorHsl.asHsv()</span><br></pre></td></tr></table></figure>
 
-val colorHsl = HSLColor(hue = 210f, saturation = 0.5f, lightness = 0.5f)
-
-val colorInt = colorHsl.asColorInt()
-val rgb = colorHsl.asRgb()
-val argb = colorHsl.asArgb()
-val hex = colorHsl.asHex()
-val cmyk = colorHsl.asCmyk()
-val hsla = colorHsl.asHsla()
-val hsv = colorHsl.asHsv()
-</code></pre><h5 id="5-2-效果图"><a href="#5-2-效果图" class="headerlink" title="5.2 效果图"></a>5.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fdf42d10d3?imageslim" alt="img"></p>
+<h5 id="5-2-效果图"><a href="#5-2-效果图" class="headerlink" title="5.2 效果图"></a>5.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fdf42d10d3?imageslim" alt="img"></p>
 <p>更多详细使用信息请看Github：<a href="https://github.com/JorgeCastilloPrz/AndroidColorX" target="_blank" rel="noopener">github.com/JorgeCastil…</a></p>
 <h3 id="No6-AnimatedBottomBar"><a href="#No6-AnimatedBottomBar" class="headerlink" title="No6. AnimatedBottomBar"></a>No6. AnimatedBottomBar</h3><p>这是一个带动画的底部导航栏库。它使你可以以编程方式以及通过XML添加和删除选项卡。此外，我们可以轻松地从BottomBar拦截选项卡。限制访问应用程序导航中的高级区域时，“拦截”标签非常有用。流畅的动画提供了许多自定义选项，从动画插值器到设置波纹效果。</p>
 <h5 id="6-1-如何使用？"><a href="#6-1-如何使用？" class="headerlink" title="6.1 如何使用？"></a>6.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-  implementation &#39;nl.joery.animatedbottombar:library:1.0.8&#39;
-}
-</code></pre><p>在xml文件中添加<code>AnimatedBottomBar</code>和自定义属性</p>
-<pre><code>&lt;nl.joery.animatedbottombar.AnimatedBottomBar
-    android:id=&quot;@+id/bottom_bar&quot;
-    android:background=&quot;#FFF&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    app:abb_selectedTabType=&quot;text&quot;
-    app:abb_indicatorAppearance=&quot;round&quot;
-    app:abb_indicatorMargin=&quot;16dp&quot;
-    app:abb_indicatorHeight=&quot;4dp&quot;
-    app:abb_tabs=&quot;@menu/tabs&quot;
-    app:abb_selectedIndex=&quot;1&quot; /&gt;
-</code></pre><p>在<code>res/menu</code>目录下定义<code>tabs.xml</code>文件：</p>
-<pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item
-        android:id=&quot;@+id/tab_home&quot;
-        android:icon=&quot;@drawable/home&quot;
-        android:title=&quot;@string/home&quot; /&gt;
-    &lt;item
-        android:id=&quot;@+id/tab_alarm&quot;
-        android:icon=&quot;@drawable/alarm&quot;
-        android:title=&quot;@string/alarm&quot; /&gt;
-    &lt;item
-        android:id=&quot;@+id/tab_bread&quot;
-        android:icon=&quot;@drawable/bread&quot;
-        android:title=&quot;@string/bread&quot; /&gt;
-    &lt;item
-        android:id=&quot;@+id/tab_cart&quot;
-        android:icon=&quot;@drawable/cart&quot;
-        android:title=&quot;@string/cart&quot; /&gt;
-&lt;/menu&gt;
-</code></pre><p>最后，代码中添加tab</p>
-<pre><code>// Creating a tab by passing values
-val bottomBarTab1 = AnimatedBottomBar.createTab(drawable, &quot;Tab 1&quot;)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  implementation &#39;nl.joery.animatedbottombar:library:1.0.8&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-// Creating a tab by passing resources
-val bottomBarTab2 = AnimatedBottomBar.createTab(R.drawable.ic_home, R.string.tab_2, R.id.tab_home)
-</code></pre><h5 id="6-2-效果图"><a href="#6-2-效果图" class="headerlink" title="6.2 效果图"></a>6.2 效果图</h5><table>
+<p>在xml文件中添加<code>AnimatedBottomBar</code>和自定义属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;nl.joery.animatedbottombar.AnimatedBottomBar</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;bottom_bar&quot;</span><br><span class="line">    android:background&#x3D;&quot;#FFF&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    app:abb_selectedTabType&#x3D;&quot;text&quot;</span><br><span class="line">    app:abb_indicatorAppearance&#x3D;&quot;round&quot;</span><br><span class="line">    app:abb_indicatorMargin&#x3D;&quot;16dp&quot;</span><br><span class="line">    app:abb_indicatorHeight&#x3D;&quot;4dp&quot;</span><br><span class="line">    app:abb_tabs&#x3D;&quot;@menu&#x2F;tabs&quot;</span><br><span class="line">    app:abb_selectedIndex&#x3D;&quot;1&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>res/menu</code>目录下定义<code>tabs.xml</code>文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;menu xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;tab_home&quot;</span><br><span class="line">        android:icon&#x3D;&quot;@drawable&#x2F;home&quot;</span><br><span class="line">        android:title&#x3D;&quot;@string&#x2F;home&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;tab_alarm&quot;</span><br><span class="line">        android:icon&#x3D;&quot;@drawable&#x2F;alarm&quot;</span><br><span class="line">        android:title&#x3D;&quot;@string&#x2F;alarm&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;tab_bread&quot;</span><br><span class="line">        android:icon&#x3D;&quot;@drawable&#x2F;bread&quot;</span><br><span class="line">        android:title&#x3D;&quot;@string&#x2F;bread&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;tab_cart&quot;</span><br><span class="line">        android:icon&#x3D;&quot;@drawable&#x2F;cart&quot;</span><br><span class="line">        android:title&#x3D;&quot;@string&#x2F;cart&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;menu&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最后，代码中添加tab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Creating a tab by passing values</span><br><span class="line">val bottomBarTab1 &#x3D; AnimatedBottomBar.createTab(drawable, &quot;Tab 1&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Creating a tab by passing resources</span><br><span class="line">val bottomBarTab2 &#x3D; AnimatedBottomBar.createTab(R.drawable.ic_home, R.string.tab_2, R.id.tab_home)</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-2-效果图"><a href="#6-2-效果图" class="headerlink" title="6.2 效果图"></a>6.2 效果图</h5><table>
 <thead>
 <tr>
 <th align="left">tab1</th>
@@ -306,168 +188,69 @@ val bottomBarTab2 = AnimatedBottomBar.createTab(R.drawable.ic_home, R.string.tab
 <p>详情信息请看Github: <a href="https://github.com/Droppers/AnimatedBottomBar" target="_blank" rel="noopener">github.com/Droppers/An…</a></p>
 <h3 id="No7-RateBottomSheet"><a href="#No7-RateBottomSheet" class="headerlink" title="No7. RateBottomSheet"></a>No7. RateBottomSheet</h3><p>有时候，为了推广我们的应用，我们需要让用户跳转到应用商店为我们的APP打分，传统的对话框用户体验很不好，而本库则是用BottomSheet来进行提示，它位于底部缩略区域，用户体验很好。</p>
 <h5 id="7-1-如何使用呢？"><a href="#7-1-如何使用呢？" class="headerlink" title="7.1 如何使用呢？"></a>7.1 如何使用呢？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-implementation &#39;com.mikhaellopez:ratebottomsheet:1.1.0&#39;
-}
-</code></pre><p>然后修改默认的string资源文件来改变显示文案：</p>
-<pre><code>&lt;resources&gt;
-    &lt;string name=&quot;rate_popup_ask_title&quot;&gt;Like this App?&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_ask_message&quot;&gt;Do you like using this application?&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_ask_ok&quot;&gt;Yes I do&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_ask_no&quot;&gt;Not really&lt;/string&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">implementation &#39;com.mikhaellopez:ratebottomsheet:1.1.0&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    &lt;string name=&quot;rate_popup_title&quot;&gt;Rate this app&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_message&quot;&gt;Would you mind taking a moment to rate it? It won\&#39;t take more than a minute. Thanks for your support!&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_ok&quot;&gt;Rate it now&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_later&quot;&gt;Remind me later&lt;/string&gt;
-    &lt;string name=&quot;rate_popup_no&quot;&gt;No, thanks&lt;/string&gt;
-&lt;/resources&gt;
-</code></pre><p>代码中使用：</p>
-<pre><code>RateBottomSheetManager(this)
-    .setInstallDays(1) // 3 by default
-    .setLaunchTimes(2) // 5 by default
-    .setRemindInterval(1) // 2 by default
-    .setShowAskBottomSheet(false) // True by default
-    .setShowLaterButton(false) // True by default
-    .setShowCloseButtonIcon(false) // True by default
-    .monitor()
+<p>然后修改默认的string资源文件来改变显示文案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_ask_title&quot;&gt;Like this App?&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_ask_message&quot;&gt;Do you like using this application?&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_ask_ok&quot;&gt;Yes I do&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_ask_no&quot;&gt;Not really&lt;&#x2F;string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_title&quot;&gt;Rate this app&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_message&quot;&gt;Would you mind taking a moment to rate it? It won\&#39;t take more than a minute. Thanks for your support!&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_ok&quot;&gt;Rate it now&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_later&quot;&gt;Remind me later&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;string name&#x3D;&quot;rate_popup_no&quot;&gt;No, thanks&lt;&#x2F;string&gt;</span><br><span class="line">&lt;&#x2F;resources&gt;</span><br></pre></td></tr></table></figure>
 
-// Show bottom sheet if meets conditions
-// With AppCompatActivity or Fragment
-RateBottomSheet.showRateBottomSheetIfMeetsConditions(this)
-</code></pre><h5 id="7-2-效果图"><a href="#7-2-效果图" class="headerlink" title="7.2 效果图"></a>7.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe29028b1a?imageslim" alt="img"></p>
+<p>代码中使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RateBottomSheetManager(this)</span><br><span class="line">    .setInstallDays(1) &#x2F;&#x2F; 3 by default</span><br><span class="line">    .setLaunchTimes(2) &#x2F;&#x2F; 5 by default</span><br><span class="line">    .setRemindInterval(1) &#x2F;&#x2F; 2 by default</span><br><span class="line">    .setShowAskBottomSheet(false) &#x2F;&#x2F; True by default</span><br><span class="line">    .setShowLaterButton(false) &#x2F;&#x2F; True by default</span><br><span class="line">    .setShowCloseButtonIcon(false) &#x2F;&#x2F; True by default</span><br><span class="line">    .monitor()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Show bottom sheet if meets conditions</span><br><span class="line">&#x2F;&#x2F; With AppCompatActivity or Fragment</span><br><span class="line">RateBottomSheet.showRateBottomSheetIfMeetsConditions(this)</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-2-效果图"><a href="#7-2-效果图" class="headerlink" title="7.2 效果图"></a>7.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe29028b1a?imageslim" alt="img"></p>
 <p>更多详情请看Github:<a href="https://github.com/lopspower/RateBottomSheet" target="_blank" rel="noopener">github.com/lopspower/R…</a></p>
 <h3 id="No8-TransformationLayout"><a href="#No8-TransformationLayout" class="headerlink" title="No8. TransformationLayout"></a>No8. TransformationLayout</h3><p>这是一个用于Activity或者Fragment 以及View切换的过渡动画库，效果非常炫，它使用Material Design的运动系统过渡模式来创建变形动画。该库提供了用于绑定目标视图，设置淡入淡出和路径运动方向以及许多其他自定义选项的属性。</p>
 <h5 id="8-1-如何使用？"><a href="#8-1-如何使用？" class="headerlink" title="8.1 如何使用？"></a>8.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-    implementation &quot;com.github.skydoves:transformationlayout:1.0.4&quot;
-}
-</code></pre><p>然后，需要将我们需要添加过渡动画的View包裹到 <code>TransformationLayout</code>:</p>
-<pre><code>&lt;com.skydoves.transformationlayout.TransformationLayout
-  android:layout_width=&quot;wrap_content&quot;
-  android:layout_height=&quot;wrap_content&quot;
-  app:transformation_targetView=&quot;@+id/my_cardView&quot; // sets a target view.
-  app:transformation_duration=&quot;450&quot; // sets a duration of the transformation.
-  app:transformation_direction=&quot;auto&quot; // auto, entering, returning
-  app:transformation_fadeMode=&quot;in&quot; // in, out, cross, through
-  app:transformation_fitMode=&quot;auto&quot; // auto, height, width
-  app:transformation_pathMode=&quot;arc&quot; // arc, linear
-&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &quot;com.github.skydoves:transformationlayout:1.0.4&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-   &lt;!-- other views --&gt;
+<p>然后，需要将我们需要添加过渡动画的View包裹到 <code>TransformationLayout</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.skydoves.transformationlayout.TransformationLayout</span><br><span class="line">  android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">  android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">  app:transformation_targetView&#x3D;&quot;@+id&#x2F;my_cardView&quot; &#x2F;&#x2F; sets a target view.</span><br><span class="line">  app:transformation_duration&#x3D;&quot;450&quot; &#x2F;&#x2F; sets a duration of the transformation.</span><br><span class="line">  app:transformation_direction&#x3D;&quot;auto&quot; &#x2F;&#x2F; auto, entering, returning</span><br><span class="line">  app:transformation_fadeMode&#x3D;&quot;in&quot; &#x2F;&#x2F; in, out, cross, through</span><br><span class="line">  app:transformation_fitMode&#x3D;&quot;auto&quot; &#x2F;&#x2F; auto, height, width</span><br><span class="line">  app:transformation_pathMode&#x3D;&quot;arc&quot; &#x2F;&#x2F; arc, linear</span><br><span class="line">&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- other views --&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;com.skydoves.transformationlayout.TransformationLayout&gt;</span><br></pre></td></tr></table></figure>
 
-&lt;/com.skydoves.transformationlayout.TransformationLayout&gt;
-</code></pre><p>比如我们要将一个fab 过渡到一个card卡片，布局如下：</p>
-<pre><code>&lt;com.skydoves.transformationlayout.TransformationLayout
-    android:id=&quot;@+id/transformationLayout&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    app:transformation_duration=&quot;550&quot;
-    app:transformation_targetView=&quot;@+id/myCardView&quot;&gt;
+<p>比如我们要将一个fab 过渡到一个card卡片，布局如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.skydoves.transformationlayout.TransformationLayout</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;transformationLayout&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    app:transformation_duration&#x3D;&quot;550&quot;</span><br><span class="line">    app:transformation_targetView&#x3D;&quot;@+id&#x2F;myCardView&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;com.google.android.material.floatingactionbutton.FloatingActionButton</span><br><span class="line">      android:id&#x3D;&quot;@+id&#x2F;fab&quot;</span><br><span class="line">      android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">      android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">      android:backgroundTint&#x3D;&quot;@color&#x2F;colorPrimary&quot;</span><br><span class="line">      android:src&#x3D;&quot;@drawable&#x2F;ic_write&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;com.skydoves.transformationlayout.TransformationLayout&gt;</span><br><span class="line"></span><br><span class="line">&lt;com.google.android.material.card.MaterialCardView</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;myCardView&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;240dp&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;312dp&quot;</span><br><span class="line">    android:layout_marginLeft&#x3D;&quot;30dp&quot;</span><br><span class="line">    android:layout_marginTop&#x3D;&quot;30dp&quot;</span><br><span class="line">    app:cardBackgroundColor&#x3D;&quot;@color&#x2F;colorPrimary&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
 
-  &lt;com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id=&quot;@+id/fab&quot;
-      android:layout_width=&quot;wrap_content&quot;
-      android:layout_height=&quot;wrap_content&quot;
-      android:backgroundTint=&quot;@color/colorPrimary&quot;
-      android:src=&quot;@drawable/ic_write&quot;/&gt;
-&lt;/com.skydoves.transformationlayout.TransformationLayout&gt;
-
-&lt;com.google.android.material.card.MaterialCardView
-    android:id=&quot;@+id/myCardView&quot;
-    android:layout_width=&quot;240dp&quot;
-    android:layout_height=&quot;312dp&quot;
-    android:layout_marginLeft=&quot;30dp&quot;
-    android:layout_marginTop=&quot;30dp&quot;
-    app:cardBackgroundColor=&quot;@color/colorPrimary&quot; /&gt;
-</code></pre><p><strong>重点来了，绑定视图</strong>，将一个<code>targetView</code>绑定到<code>TransformationLayout</code>有2种方式：</p>
+<p><strong>重点来了，绑定视图</strong>，将一个<code>targetView</code>绑定到<code>TransformationLayout</code>有2种方式：</p>
 <ul>
 <li>通过在xml中指定属性：</li>
 </ul>
-<pre><code>app:transformation_targetView=&quot;@+id/myCardView&quot;
-</code></pre><ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:transformation_targetView&#x3D;&quot;@+id&#x2F;myCardView&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>在代码中绑定</li>
 </ul>
-<pre><code>transformationLayout.bindTargetView(myCardView)
-</code></pre><p>当我们点击fab时，在监听器中调用<code>startTransform()</code>开始过渡动画，<code>finishTransform（）</code>开始结束动画。</p>
-<pre><code>// start transformation when touching the fab.
-fab.setOnClickListener {
-  transformationLayout.startTransform()
-}
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transformationLayout.bindTargetView(myCardView)</span><br></pre></td></tr></table></figure>
 
-// finish transformation when touching the myCardView.
-myCardView.setOnClickListener {
-  transformationLayout.finishTransform()
-}
-</code></pre><h5 id="8-2-效果图"><a href="#8-2-效果图" class="headerlink" title="8.2 效果图"></a>8.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe31ffea34?imageslim" alt="img"></p>
+<p>当我们点击fab时，在监听器中调用<code>startTransform()</code>开始过渡动画，<code>finishTransform（）</code>开始结束动画。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; start transformation when touching the fab.</span><br><span class="line">fab.setOnClickListener &#123;</span><br><span class="line">  transformationLayout.startTransform()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; finish transformation when touching the myCardView.</span><br><span class="line">myCardView.setOnClickListener &#123;</span><br><span class="line">  transformationLayout.finishTransform()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="8-2-效果图"><a href="#8-2-效果图" class="headerlink" title="8.2 效果图"></a>8.2 效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe31ffea34?imageslim" alt="img"></p>
 <p>更多使用方式请看Github: <a href="https://github.com/skydoves/TransformationLayout" target="_blank" rel="noopener">github.com/skydoves/Tr…</a></p>
 <h3 id="No9-Donut"><a href="#No9-Donut" class="headerlink" title="No9. Donut"></a>No9. Donut</h3><p>这个一个可以展示多个数据集的圆弧形控件，具有精细的颗粒控制、间隙功能、动画选项以及按比例缩放其值的功能。可以用于项目中的一些数据统计。</p>
 <h5 id="9-1-如何使用？"><a href="#9-1-如何使用？" class="headerlink" title="9.1 如何使用？"></a>9.1 如何使用？</h5><p>在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-    implementation(&quot;app.futured.donut:library:$version&quot;)
-}
-</code></pre><p>然后在布局文件中添加View:</p>
-<pre><code>&lt;app.futured.donut.DonutProgressView
-    android:id=&quot;@+id/donut_view&quot;
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    app:donut_bgLineColor=&quot;@color/cloud&quot;
-    app:donut_gapWidth=&quot;20&quot;
-    app:donut_gapAngle=&quot;270&quot;
-    app:donut_strokeWidth=&quot;16dp&quot;/&gt;
-</code></pre><p>然后在代码中设置数据：</p>
-<pre><code>val dataset1 = DonutDataset(
-    name = &quot;dataset_1&quot;,
-    color = Color.parseColor(&quot;#FB1D32&quot;),
-    amount = 1f
-)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation(&quot;app.futured.donut:library:$version&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-val dataset2 = DonutDataset(
-    name = &quot;dataset_2&quot;,
-    color = Color.parseColor(&quot;#FFB98E&quot;),
-    amount = 1f
-)
+<p>然后在布局文件中添加View:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;app.futured.donut.DonutProgressView</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;donut_view&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">    app:donut_bgLineColor&#x3D;&quot;@color&#x2F;cloud&quot;</span><br><span class="line">    app:donut_gapWidth&#x3D;&quot;20&quot;</span><br><span class="line">    app:donut_gapAngle&#x3D;&quot;270&quot;</span><br><span class="line">    app:donut_strokeWidth&#x3D;&quot;16dp&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
 
-donut_view.cap = 5f
-donut_view.submitData(listOf(dataset1, dataset2))
-</code></pre><h5 id="9-2-效果图"><a href="#9-2-效果图" class="headerlink" title="9.2  效果图"></a>9.2  效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe83c87b9a?imageslim" alt="img"></p>
+<p>然后在代码中设置数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">val dataset1 &#x3D; DonutDataset(</span><br><span class="line">    name &#x3D; &quot;dataset_1&quot;,</span><br><span class="line">    color &#x3D; Color.parseColor(&quot;#FB1D32&quot;),</span><br><span class="line">    amount &#x3D; 1f</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">val dataset2 &#x3D; DonutDataset(</span><br><span class="line">    name &#x3D; &quot;dataset_2&quot;,</span><br><span class="line">    color &#x3D; Color.parseColor(&quot;#FFB98E&quot;),</span><br><span class="line">    amount &#x3D; 1f</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">donut_view.cap &#x3D; 5f</span><br><span class="line">donut_view.submitData(listOf(dataset1, dataset2))</span><br></pre></td></tr></table></figure>
+
+<h5 id="9-2-效果图"><a href="#9-2-效果图" class="headerlink" title="9.2  效果图"></a>9.2  效果图</h5><p><img src="http://user-gold-cdn.xitu.io/2020/4/27/171b92fe83c87b9a?imageslim" alt="img"></p>
 <p>更多用法请看Github: <a href="https://github.com/futuredapp/donut" target="_blank" rel="noopener">github.com/futuredapp/…</a></p>
 <h3 id="No10-CurveGraphView"><a href="#No10-CurveGraphView" class="headerlink" title="No10. CurveGraphView"></a>No10. CurveGraphView</h3><p><code>CurveGraphView</code> 是一个带有炫酷动画统计图表库，除了性能出色并具有许多样式选项之外，该库还支持单个平面内的多个线图。</p>
 <p>多个折线图对于比较不同股票，共同基金，加密货币等的价格非常有用。</p>
 <h5 id="10-1-如何使用？"><a href="#10-1-如何使用？" class="headerlink" title="10.1 如何使用？"></a>10.1 如何使用？</h5><p>1、在<code>build.gradle</code> 中添加如下依赖：</p>
-<pre><code>dependencies {
-    implementation &#39;com.github.swapnil1104:CurveGraphView:{current_lib_ver}&#39;
-}
-</code></pre><p>2、在xml文件中添加布局：</p>
-<pre><code> &lt;com.broooapps.graphview.CurveGraphView
-        android:id=&quot;@+id/cgv&quot;
-        android:layout_width=&quot;0dp&quot;
-        android:layout_height=&quot;250dp&quot;
-        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
-        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
-</code></pre><p>然后在代码中添加各种配置项</p>
-<pre><code>curveGraphView = findViewById(R.id.cgv);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &#39;com.github.swapnil1104:CurveGraphView:&#123;current_lib_ver&#125;&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-curveGraphView.configure(
-        new CurveGraphConfig.Builder(this)
-                .setAxisColor(R.color.Blue)                                             // Set X and Y axis line color stroke.
-                .setIntervalDisplayCount(7)                                             // Set number of values to be displayed in X ax
-                .setGuidelineCount(2)                                                   // Set number of background guidelines to be shown.
-                .setGuidelineColor(R.color.GreenYellow)                                 // Set color of the visible guidelines.
-                .setNoDataMsg(&quot; No Data &quot;)                                              // Message when no data is provided to the view.
-                .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
-                .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
-                .build()
-        ););
-</code></pre><p>3、 提供数据集</p>
-<pre><code>PointMap pointMap = new PointMap();
-        pointMap.addPoint(0, 100);
-        pointMap.addPoint(1, 500);
-        pointMap.addPoint(5, 800);
-        pointMap.addPoint(4, 600);
-</code></pre><h5 id="10-2-效果图"><a href="#10-2-效果图" class="headerlink" title="10.2 效果图"></a>10.2 效果图</h5><table>
+<p>2、在xml文件中添加布局：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.broooapps.graphview.CurveGraphView</span><br><span class="line">       android:id&#x3D;&quot;@+id&#x2F;cgv&quot;</span><br><span class="line">       android:layout_width&#x3D;&quot;0dp&quot;</span><br><span class="line">       android:layout_height&#x3D;&quot;250dp&quot;</span><br><span class="line">       app:layout_constraintBottom_toBottomOf&#x3D;&quot;parent&quot;</span><br><span class="line">       app:layout_constraintEnd_toEndOf&#x3D;&quot;parent&quot;</span><br><span class="line">       app:layout_constraintStart_toStartOf&#x3D;&quot;parent&quot;</span><br><span class="line">       app:layout_constraintTop_toTopOf&#x3D;&quot;parent&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后在代码中添加各种配置项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">curveGraphView &#x3D; findViewById(R.id.cgv);</span><br><span class="line"></span><br><span class="line">curveGraphView.configure(</span><br><span class="line">        new CurveGraphConfig.Builder(this)</span><br><span class="line">                .setAxisColor(R.color.Blue)                                             &#x2F;&#x2F; Set X and Y axis line color stroke.</span><br><span class="line">                .setIntervalDisplayCount(7)                                             &#x2F;&#x2F; Set number of values to be displayed in X ax</span><br><span class="line">                .setGuidelineCount(2)                                                   &#x2F;&#x2F; Set number of background guidelines to be shown.</span><br><span class="line">                .setGuidelineColor(R.color.GreenYellow)                                 &#x2F;&#x2F; Set color of the visible guidelines.</span><br><span class="line">                .setNoDataMsg(&quot; No Data &quot;)                                              &#x2F;&#x2F; Message when no data is provided to the view.</span><br><span class="line">                .setxAxisScaleTextColor(R.color.Black)                                  &#x2F;&#x2F; Set X axis scale text color.</span><br><span class="line">                .setyAxisScaleTextColor(R.color.Black)                                  &#x2F;&#x2F; Set Y axis scale text color</span><br><span class="line">                .build()</span><br><span class="line">        ););</span><br></pre></td></tr></table></figure>
+
+<p>3、 提供数据集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PointMap pointMap &#x3D; new PointMap();</span><br><span class="line">        pointMap.addPoint(0, 100);</span><br><span class="line">        pointMap.addPoint(1, 500);</span><br><span class="line">        pointMap.addPoint(5, 800);</span><br><span class="line">        pointMap.addPoint(4, 600);</span><br></pre></td></tr></table></figure>
+
+<h5 id="10-2-效果图"><a href="#10-2-效果图" class="headerlink" title="10.2 效果图"></a>10.2 效果图</h5><table>
 <thead>
 <tr>
 <th align="left">效果1</th>
