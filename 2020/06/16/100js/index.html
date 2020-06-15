@@ -12,7 +12,7 @@
 </blockquote>
 <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>抖音平台下载一个视频，去掉左上角的水印id。</p>
 <h3 id="先来看看有水印效果"><a href="#先来看看有水印效果" class="headerlink" title="先来看看有水印效果"></a>先来看看有水印效果</h3><p>这时候就会发现，抖音官方下载下来的视频，会有抖音的水印，需要去掉水印。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/13/172ae574b9c8c350?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae574b9c8c350?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <a id="more"></a>
 
 <h3 id="分享视频"><a href="#分享视频" class="headerlink" title="分享视频"></a>分享视频</h3><p>从抖音分享一个视频，你会获得一个分享文案和地址，格式如下（不懂怎么分享可以百度）</p>
@@ -20,29 +20,29 @@
 
 <p><strong>把上面的 url 地址 ( <a href="https://v.douyin.com/JdbBqog/" target="_blank" rel="noopener">v.douyin.com/JdbBqog/</a>) 放到浏览器模拟的手机模式下看看发生了什么</strong></p>
 <h3 id="1-重定向"><a href="#1-重定向" class="headerlink" title="1. 重定向"></a>1. 重定向</h3><p>短地址会重定向，</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/13/172ae50b922c908e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae50b922c908e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>访问这个重定向的地址获取两个重要的参数</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/13/172ae5fe6f37221f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae5fe6f37221f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <h3 id="2-一个关键的-ajax"><a href="#2-一个关键的-ajax" class="headerlink" title="2. 一个关键的 ajax"></a>2. 一个关键的 ajax</h3><p>利用上面 html 内嵌 script 获取的两个参数，请求下面的地址。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/13/172ae5ec81b4f832?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae5ec81b4f832?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>请求返回了一个 json 包含了这个视频的一些信息，其中有一个去水印的关键参数 <strong>uri</strong></p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/14/172ae6ac3594fdbf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/14/172ae6ac3594fdbf?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>到这里，抖音官方的流程就走完了。</p>
 <h3 id="3-如何去水印？"><a href="#3-如何去水印？" class="headerlink" title="3. 如何去水印？"></a>3. 如何去水印？</h3><p>原理：并不是用高大上的人工智障或者类似 ps 去掉某一个地方的水印，而是抖音会保存一份无水印的视频，我们只需要找到这个无水印视频的地址就可以了。</p>
 <p>说完原理，实现就是根据上面获取的字段 uri ,然后拼接在一个抖音存储无水印视频的地址上就完事了。（这个拼接的地址在浏览器上可能访问不了） 看代码吧</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/14/172ae6c25f269dbd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
-<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p><img src="https://user-gold-cdn.xitu.io/2020/6/13/172ae675ad0c304e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/14/172ae6c25f269dbd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae675ad0c304e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <h3 id="node-js-代码仓库"><a href="#node-js-代码仓库" class="headerlink" title="node.js 代码仓库"></a>node.js 代码仓库</h3><p><a href="https://github.com/Faithree/dy" target="_blank" rel="noopener">代码仓库</a> <strong>仅供学习使用</strong></p>
 <p>分两种下载模式，浏览器下载和命令行下载</p>
 <ol>
 <li>浏览器输入即可下载 (方便提供接口)</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm start </span><br><span class="line">or </span><br><span class="line">node index</span><br></pre></td></tr></table></figure>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm start </span><br><span class="line"><span class="keyword">or</span> </span><br><span class="line">node index</span><br></pre></td></tr></table></figure>
 
 <p>使用</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/14/172ae75aa19e3a88?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/14/172ae75aa19e3a88?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>代码</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/14/172ae7ab72cac233?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/14/172ae7ab72cac233?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <ol>
 <li>工具模式下载到目录(类似命令行工具)</li>
 </ol>
@@ -50,7 +50,7 @@
 
 
 
-<p><img src="https://user-gold-cdn.xitu.io/2020/6/14/172ae78631765b7d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/14/172ae78631765b7d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://mp.weixin.qq.com/s/DF7_b_F1iHUqPnOqYV3uYA" target="_blank" rel="noopener">mp.weixin.qq.com/s/DF7_b_F1i…</a></p>
 <p><a href="https://gitee.com/goldriver/douyin" target="_blank" rel="noopener">gitee.com/goldriver/d…</a></p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/16/100js/">https://jiyugithub.github.io/2020/06/16/100js/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="next-post pull-right"><a href="/2020/06/14/KotlinJava/"><span>Kotlin与Java的异同</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
