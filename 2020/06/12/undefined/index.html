@@ -71,7 +71,7 @@
 <h2 id="UI适配框架（已经停止维护）"><a href="#UI适配框架（已经停止维护）" class="headerlink" title="UI适配框架（已经停止维护）"></a>UI适配框架（已经停止维护）</h2><p><a href="https://github.com/hongyangAndroid/AndroidAutoLayout" target="_blank" rel="noopener">鸿洋大佬的适配方案</a>的项目也来自于宽高限定符方案的启发。</p>
 <p>使用方法也很简单：</p>
 <p>第一步： 在你的项目的AndroidManifest中注明你的设计稿的尺寸。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta-data android:name&#x3D;&quot;design_width&quot; android:value&#x3D;&quot;768&quot;&gt;</span><br><span class="line">&lt;&#x2F;meta-data&gt;</span><br><span class="line">&lt;meta-data android:name&#x3D;&quot;design_height&quot; android:value&#x3D;&quot;1280&quot;&gt;</span><br><span class="line">&lt;&#x2F;meta-data&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;meta-data android:name&#x3D;&quot;design_width&quot; android:value&#x3D;&quot;768&quot;&gt;</span><br><span class="line">&lt;&#x2F;meta-data&gt;</span><br><span class="line">&lt;meta-data android:name&#x3D;&quot;design_height&quot; android:value&#x3D;&quot;1280&quot;&gt;</span><br><span class="line">&lt;&#x2F;meta-data&gt;</span><br></pre></td></tr></table></figure>
 
 <p>第二步： 让你的Activity继承自AutoLayoutActivity.</p>
 <p>然后我们就可以直接在布局文件里面使用具体的像素值了，比如，设计稿上是96*96,那么我们可以直接写96px，APP运行时，框架会帮助我们根据不同手机的具体尺寸按比例伸缩。</p>

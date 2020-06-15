@@ -175,6 +175,8 @@ table td {
   color: #8f93a2;
   font-size: 14px;
   line-height: 20px;
+  counter-reset: line;
+  white-space: pre-wrap;
 }
 figure.highlight {
   position: relative;
@@ -223,6 +225,15 @@ blockquote {
 .article-container .highlight .line::selection {
   background: rgba(113,124,180,0.314);
   color: #8f93a2;
+}
+.article-container .highlight .line:before {
+  display: inline-block;
+  padding: 0 0.3rem 0 0;
+  min-width: 1.6rem;
+  color: rgba(59,63,81,0.502);
+  content: counter(line);
+  counter-increment: line;
+  text-align: left;
 }
 .article-container .highlight table {
   position: relative;
