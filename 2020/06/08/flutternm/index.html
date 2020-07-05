@@ -1,13 +1,134 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Flutter高级玩法-贝塞尔曲线的表象认知"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>Flutter高级玩法-贝塞尔曲线的表象认知 | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  }
-} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#0-1-主程序"><span class="toc-number">1.</span> <span class="toc-text">0.1 : 主程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#0-2-自定义Paper组件显示画布"><span class="toc-number">2.</span> <span class="toc-text">0.2 : 自定义Paper组件显示画布</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#0-3-绘制网格"><span class="toc-number">3.</span> <span class="toc-text">0.3 : 绘制网格</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#0-4、人生至美莫初见"><span class="toc-number">4.</span> <span class="toc-text">0.4、人生至美莫初见</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一、二次贝塞尔曲线"><span class="toc-number"></span> <span class="toc-text">一、二次贝塞尔曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-先画一笔看看"><span class="toc-number">1.</span> <span class="toc-text">1. 先画一笔看看</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-为什么曲线会是这样的"><span class="toc-number">2.</span> <span class="toc-text">2.为什么曲线会是这样的?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-来玩一下这个曲线"><span class="toc-number">3.</span> <span class="toc-text">3. 来玩一下这个曲线</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、三次贝塞尔曲线"><span class="toc-number"></span> <span class="toc-text">二、三次贝塞尔曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-实现三贝单线操作"><span class="toc-number">1.</span> <span class="toc-text">1.实现三贝单线操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-三贝中的拟圆"><span class="toc-number">2.</span> <span class="toc-text">2.三贝中的拟圆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-三贝中的拟圆的操作"><span class="toc-number">3.</span> <span class="toc-text">3.三贝中的拟圆的操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、贝塞尔曲线与路径操作"><span class="toc-number"></span> <span class="toc-text">三、贝塞尔曲线与路径操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-路径的相减-PathOperation-difference"><span class="toc-number">1.</span> <span class="toc-text">1.路径的相减: PathOperation.difference</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-路径的相加-PathOperation-union"><span class="toc-number">2.</span> <span class="toc-text">2.路径的相加: PathOperation.union</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-路径的反减-PathOperation-reverseDifference"><span class="toc-number">3.</span> <span class="toc-text">3.路径的反减: PathOperation.reverseDifference</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-路径的交集-PathOperation-intersect"><span class="toc-number">4.</span> <span class="toc-text">4.路径的交集: PathOperation.intersect</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-路径的反交集-PathOperation-xor"><span class="toc-number">5.</span> <span class="toc-text">5.路径的反交集: PathOperation.xor</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Flutter高级玩法-贝塞尔曲线的表象认知</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-08</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  
+
+  
+
+  
+    <meta name="author" content="Apocalypse">
+  
+
+  
+
+  
+
+  <title>Flutter高级玩法-贝塞尔曲线的表象认知 | Apocalypse&#39;s Blog</title>
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/highlight.js/9.15.6/styles/monokai.min.css" rel="stylesheet">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+  <div class="root-container">
+    <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          Apocalypse&#39;s Blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">HOME</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">ABOUT</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">LINK</a></li>
+        
+          <li class="navbar-list-item"><a href="/tags">TAGS</a></li>
+        
+          <li class="navbar-list-item"><a href="/categories">CATEGORIES</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    
+<!-- header container -->
+<header class="header-container post">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-image" style="background-image: url(https://qiniu.miiiku.xyz/src/images/banner.jpg)"></div>
+      <div class="post-text">
+        <div class="type-wrap">
+          
+        </div>
+        <h1 class="title-wrap">Flutter高级玩法-贝塞尔曲线的表象认知</h1>
+        <h2 class="title-sub-wrap">
+          <strong>Apocalypse</strong>
+          <span>发布于</span>
+          
+  <a href="javascript:;" class="article-date">
+    <time datetime="2020-06-08T01:38:19.000Z" itemprop="datePublished">2020-06-08</time>
+  </a>
+
+        </h2>
+      </div>
+    </div>
+  
+
+  
+  
+
+  </header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+
+<div class="body-container">
+  <article class="content-container article-container">
+    <div class="article-content">
+      
+      
+
+      <section class="article-entry">
+        <table>
 <thead>
 <tr>
 <th>–</th>
@@ -30,20 +151,20 @@
 <p><img src="http://gank.io/images/0e0a93a14967429aaf7acd9372126edf" alt="img"></p>
 <a id="more"></a>
 
-<h5 id="0-1-主程序"><a href="#0-1-主程序" class="headerlink" title="0.1 : 主程序"></a>0.1 : 主程序</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void main() &#x3D;&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line">class MyApp extends StatelessWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    return MaterialApp(</span><br><span class="line">      debugShowCheckedModeBanner: false,</span><br><span class="line">      home:Paper());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="0-1-主程序"><a href="#0-1-主程序" class="headerlink" title="0.1 : 主程序"></a>0.1 : 主程序</h5><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs scala">void main() =&gt; runApp(<span class="hljs-type">MyApp</span>());<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatelessWidget</span> </span>&#123;<br>  <span class="hljs-meta">@override</span><br>  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-type">MaterialApp</span>(<br>      debugShowCheckedModeBanner: <span class="hljs-literal">false</span>,<br>      home:<span class="hljs-type">Paper</span>());<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="0-2-自定义Paper组件显示画布"><a href="#0-2-自定义Paper组件显示画布" class="headerlink" title="0.2 : 自定义Paper组件显示画布"></a>0.2 : 自定义Paper组件显示画布</h5><blockquote>
 <p>为了绘制的纯粹和雅观，这里把状态量去掉，并且手机横向。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Paper extends StatefulWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  _PaperState createState() &#x3D;&gt; _PaperState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class _PaperState extends State&lt;Paper&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  void initState() &#123;</span><br><span class="line">    &#x2F;&#x2F;横屏</span><br><span class="line">    SystemChrome.setPreferredOrientations(</span><br><span class="line">        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);</span><br><span class="line">    &#x2F;&#x2F;全屏显示</span><br><span class="line">    SystemChrome.setEnabledSystemUIOverlays([]);</span><br><span class="line">    super.initState();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    return  CustomPaint(</span><br><span class="line">        painter: BezierPainter(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs scala"><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Paper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatefulWidget</span> </span>&#123;<br>  <span class="hljs-meta">@override</span><br>  _PaperState createState() =&gt; _PaperState();<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">_PaperState</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">State&lt;Paper&gt;</span> </span>&#123;<br>  <span class="hljs-meta">@override</span><br>  void initState() &#123;<br>    <span class="hljs-comment">//横屏</span><br>    <span class="hljs-type">SystemChrome</span>.setPreferredOrientations(<br>        [<span class="hljs-type">DeviceOrientation</span>.landscapeLeft, <span class="hljs-type">DeviceOrientation</span>.landscapeRight]);<br>    <span class="hljs-comment">//全屏显示</span><br>    <span class="hljs-type">SystemChrome</span>.setEnabledSystemUIOverlays([]);<br>    <span class="hljs-keyword">super</span>.initState();<br>  &#125;<br><br>  <span class="hljs-meta">@override</span><br>  <span class="hljs-type">Widget</span> build(<span class="hljs-type">BuildContext</span> context) &#123;<br>    <span class="hljs-keyword">return</span>  <span class="hljs-type">CustomPaint</span>(<br>        painter: <span class="hljs-type">BezierPainter</span>(),<br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="0-3-绘制网格"><a href="#0-3-绘制网格" class="headerlink" title="0.3 : 绘制网格"></a>0.3 : 绘制网格</h5><blockquote>
 <p>注意: 这里永久的将画布原点移到画布的中心点，之后所以的绘制都将以中心为(0,0)点。</p>
 </blockquote>
 <p><img src="http://gank.io/images/d1357484cc274491b0a02a7f33354796" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class BezierPainter extends CustomPainter &#123;</span><br><span class="line">  Paint _gridPaint;</span><br><span class="line">  Path _gridPath;</span><br><span class="line"></span><br><span class="line">  BezierPainter() &#123;</span><br><span class="line">    _gridPaint &#x3D; Paint()..style&#x3D;PaintingStyle.stroke;</span><br><span class="line">    _gridPath &#x3D; Path();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">    canvas.drawColor(Colors.white, BlendMode.color);</span><br><span class="line">    canvas.translate(size.width&#x2F;2, size.height&#x2F;2);</span><br><span class="line">    _drawGrid(canvas,size);&#x2F;&#x2F;绘制格线</span><br><span class="line">    _drawAxis(canvas, size);&#x2F;&#x2F;绘制轴线</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  bool shouldRepaint(CustomPainter oldDelegate) &#x3D;&gt; true;</span><br><span class="line"></span><br><span class="line">  void _drawGrid(Canvas canvas, Size size) &#123;</span><br><span class="line">    _gridPaint</span><br><span class="line">    ..color &#x3D; Colors.grey</span><br><span class="line">    ..strokeWidth &#x3D; 0.5;</span><br><span class="line">    _gridPath &#x3D; _buildGridPath(_gridPath, size);</span><br><span class="line">    canvas.drawPath(_buildGridPath(_gridPath, size), _gridPaint);</span><br><span class="line"></span><br><span class="line">    canvas.save();</span><br><span class="line">    canvas.scale(1, -1); &#x2F;&#x2F;沿x轴镜像</span><br><span class="line">    canvas.drawPath(_gridPath, _gridPaint);</span><br><span class="line">    canvas.restore();</span><br><span class="line"></span><br><span class="line">    canvas.save();</span><br><span class="line">    canvas.scale(-1, 1); &#x2F;&#x2F;沿y轴镜像</span><br><span class="line">    canvas.drawPath(_gridPath, _gridPaint);</span><br><span class="line">    canvas.restore();</span><br><span class="line"></span><br><span class="line">    canvas.save();</span><br><span class="line">    canvas.scale(-1, -1); &#x2F;&#x2F;沿原点镜像</span><br><span class="line">    canvas.drawPath(_gridPath, _gridPaint);</span><br><span class="line">    canvas.restore();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void _drawAxis(Canvas canvas, Size size) &#123;</span><br><span class="line">    canvas.drawPoints(PointMode.lines, [</span><br><span class="line">      Offset(-size.width&#x2F;2, 0) , Offset(size.width&#x2F;2, 0),</span><br><span class="line">      Offset( 0,-size.height&#x2F;2) , Offset( 0,size.height&#x2F;2),</span><br><span class="line">      Offset( 0,size.height&#x2F;2) , Offset( 0-7.0,size.height&#x2F;2-10),</span><br><span class="line">      Offset( 0,size.height&#x2F;2) , Offset( 0+7.0,size.height&#x2F;2-10),</span><br><span class="line">      Offset(size.width&#x2F;2, 0) , Offset(size.width&#x2F;2-10, 7),</span><br><span class="line">      Offset(size.width&#x2F;2, 0) , Offset(size.width&#x2F;2-10, -7),</span><br><span class="line">    ], _gridPaint..color&#x3D;Colors.blue..strokeWidth&#x3D;1.5);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Path _buildGridPath(Path path, Size size,&#123;step &#x3D; 20.0&#125;) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; size.height &#x2F; 2 &#x2F; step; i++) &#123;</span><br><span class="line">      path.moveTo(0, step * i);</span><br><span class="line">      path.relativeLineTo(size.width &#x2F; 2, 0);</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; size.width &#x2F; 2 &#x2F; step; i++) &#123;</span><br><span class="line">      path.moveTo( step * i,0);</span><br><span class="line">      path.relativeLineTo(0,size.height &#x2F; 2, );</span><br><span class="line">    &#125;</span><br><span class="line">    return path;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br><span class="hljs-keyword">class</span> <span class="hljs-symbol">BezierPainter</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">CustomPainter</span> &#123;<br>  Paint _gridPaint;<br>  Path _gridPath;<br><br>  BezierPainter() &#123;<br>    _gridPaint = Paint()..style=PaintingStyle.stroke;<br>    _gridPath = Path();<br>  &#125;<br><br>  @<span class="hljs-keyword">override</span><br>  <span class="hljs-built_in">void</span> paint(Canvas canvas, Size size) &#123;<br>    canvas.drawColor(Colors.white, BlendMode.color);<br>    canvas.translate(size.width/<span class="hljs-number">2</span>, size.height/<span class="hljs-number">2</span>);<br>    _drawGrid(canvas,size);<span class="hljs-comment">//绘制格线</span><br>    _drawAxis(canvas, size);<span class="hljs-comment">//绘制轴线</span><br>  &#125;<br><br>  @<span class="hljs-keyword">override</span><br>  <span class="hljs-built_in">bool</span> shouldRepaint(CustomPainter oldDelegate) =&gt; <span class="hljs-literal">true</span>;<br><br>  <span class="hljs-built_in">void</span> _drawGrid(Canvas canvas, Size size) &#123;<br>    _gridPaint<br>    ..color = Colors.grey<br>    ..strokeWidth = <span class="hljs-number">0.5</span>;<br>    _gridPath = _buildGridPath(_gridPath, size);<br>    canvas.drawPath(_buildGridPath(_gridPath, size), _gridPaint);<br><br>    canvas.save();<br>    canvas.scale(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>); <span class="hljs-comment">//沿x轴镜像</span><br>    canvas.drawPath(_gridPath, _gridPaint);<br>    canvas.restore();<br><br>    canvas.save();<br>    canvas.scale(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">//沿y轴镜像</span><br>    canvas.drawPath(_gridPath, _gridPaint);<br>    canvas.restore();<br><br>    canvas.save();<br>    canvas.scale(<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>); <span class="hljs-comment">//沿原点镜像</span><br>    canvas.drawPath(_gridPath, _gridPaint);<br>    canvas.restore();<br><br>  &#125;<br><br>  <span class="hljs-built_in">void</span> _drawAxis(Canvas canvas, Size size) &#123;<br>    canvas.drawPoints(PointMode.lines, [<br>      Offset(-size.width/<span class="hljs-number">2</span>, <span class="hljs-number">0</span>) , Offset(size.width/<span class="hljs-number">2</span>, <span class="hljs-number">0</span>),<br>      Offset( <span class="hljs-number">0</span>,-size.height/<span class="hljs-number">2</span>) , Offset( <span class="hljs-number">0</span>,size.height/<span class="hljs-number">2</span>),<br>      Offset( <span class="hljs-number">0</span>,size.height/<span class="hljs-number">2</span>) , Offset( <span class="hljs-number">0</span><span class="hljs-number">-7.0</span>,size.height/<span class="hljs-number">2</span><span class="hljs-number">-10</span>),<br>      Offset( <span class="hljs-number">0</span>,size.height/<span class="hljs-number">2</span>) , Offset( <span class="hljs-number">0</span>+<span class="hljs-number">7.0</span>,size.height/<span class="hljs-number">2</span><span class="hljs-number">-10</span>),<br>      Offset(size.width/<span class="hljs-number">2</span>, <span class="hljs-number">0</span>) , Offset(size.width/<span class="hljs-number">2</span><span class="hljs-number">-10</span>, <span class="hljs-number">7</span>),<br>      Offset(size.width/<span class="hljs-number">2</span>, <span class="hljs-number">0</span>) , Offset(size.width/<span class="hljs-number">2</span><span class="hljs-number">-10</span>, <span class="hljs-number">-7</span>),<br>    ], _gridPaint..color=Colors.blue..strokeWidth=<span class="hljs-number">1.5</span>);<br>  &#125;<br><br>  Path _buildGridPath(Path path, Size size,&#123;step = <span class="hljs-number">20.0</span>&#125;) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; size.height / <span class="hljs-number">2</span> / step; i++) &#123;<br>      path.moveTo(<span class="hljs-number">0</span>, step * i);<br>      path.relativeLineTo(size.width / <span class="hljs-number">2</span>, <span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; size.width / <span class="hljs-number">2</span> / step; i++) &#123;<br>      path.moveTo( step * i,<span class="hljs-number">0</span>);<br>      path.relativeLineTo(<span class="hljs-number">0</span>,size.height / <span class="hljs-number">2</span>, );<br>    &#125;<br>    <span class="hljs-keyword">return</span> path;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="0-4、人生至美莫初见"><a href="#0-4、人生至美莫初见" class="headerlink" title="0.4、人生至美莫初见"></a>0.4、人生至美莫初见</h5><blockquote>
@@ -52,7 +173,7 @@
 <ul>
 <li>看到<code>贝塞尔</code>三个字，也不用觉得压力太大，满打满算也就两个函数而已。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----&gt;[二次贝塞尔曲线]----</span><br><span class="line">void quadraticBezierTo(double x1, double y1, double x2, double y2)</span><br><span class="line">void relativeQuadraticBezierTo(double x1, double y1, double x2, double y2)</span><br><span class="line"></span><br><span class="line">----&gt;[三次贝塞尔曲线]----</span><br><span class="line">void cubicTo(double x1, double y1, double x2, double y2, double x3, double y3)</span><br><span class="line">void relativeCubicTo(double x1, double y1, double x2, double y2, double x3, double y3)</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">----&gt;<span class="hljs-literal">[二次贝塞尔曲线]</span>----<br>void quadratic<span class="hljs-constructor">BezierTo(<span class="hljs-params">double</span> <span class="hljs-params">x1</span>, <span class="hljs-params">double</span> <span class="hljs-params">y1</span>, <span class="hljs-params">double</span> <span class="hljs-params">x2</span>, <span class="hljs-params">double</span> <span class="hljs-params">y2</span>)</span><br>void relative<span class="hljs-constructor">QuadraticBezierTo(<span class="hljs-params">double</span> <span class="hljs-params">x1</span>, <span class="hljs-params">double</span> <span class="hljs-params">y1</span>, <span class="hljs-params">double</span> <span class="hljs-params">x2</span>, <span class="hljs-params">double</span> <span class="hljs-params">y2</span>)</span><br><br>----&gt;<span class="hljs-literal">[三次贝塞尔曲线]</span>----<br>void cubic<span class="hljs-constructor">To(<span class="hljs-params">double</span> <span class="hljs-params">x1</span>, <span class="hljs-params">double</span> <span class="hljs-params">y1</span>, <span class="hljs-params">double</span> <span class="hljs-params">x2</span>, <span class="hljs-params">double</span> <span class="hljs-params">y2</span>, <span class="hljs-params">double</span> <span class="hljs-params">x3</span>, <span class="hljs-params">double</span> <span class="hljs-params">y3</span>)</span><br>void relative<span class="hljs-constructor">CubicTo(<span class="hljs-params">double</span> <span class="hljs-params">x1</span>, <span class="hljs-params">double</span> <span class="hljs-params">y1</span>, <span class="hljs-params">double</span> <span class="hljs-params">x2</span>, <span class="hljs-params">double</span> <span class="hljs-params">y2</span>, <span class="hljs-params">double</span> <span class="hljs-params">x3</span>, <span class="hljs-params">double</span> <span class="hljs-params">y3</span>)</span><br></code></pre></td></tr></table></figure>
 
 <hr>
 <h4 id="一、二次贝塞尔曲线"><a href="#一、二次贝塞尔曲线" class="headerlink" title="一、二次贝塞尔曲线"></a>一、二次贝塞尔曲线</h4><blockquote>
@@ -62,20 +183,20 @@
 <p>首先新准备个画笔和路径，在构造函数里初始化。准备两个测试点<code>p1,p2</code>,<br>然后轻轻的用<code>quadraticBezierTo</code>描一笔，就出来一个曲线。</p>
 </blockquote>
 <p><img src="http://gank.io/images/7d58caeaa5e5476497dbcf2deaa2e7b4" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class BezierPainter extends CustomPainter &#123;</span><br><span class="line">  &#x2F;&#x2F; 英雄所见...</span><br><span class="line">  Paint _mainPaint;</span><br><span class="line">  Path _mainPath;</span><br><span class="line"></span><br><span class="line">  BezierPainter() &#123;</span><br><span class="line">    &#x2F;&#x2F; 英雄所见...</span><br><span class="line"></span><br><span class="line">    _mainPaint &#x3D; Paint()..color&#x3D;Colors.orange..style&#x3D;PaintingStyle.stroke..strokeWidth&#x3D;2;</span><br><span class="line">    _mainPath &#x3D; Path();</span><br><span class="line">  &#125;</span><br><span class="line">  Offset p0 &#x3D;Offset(0, 0);</span><br><span class="line">  Offset p1 &#x3D;Offset(100, 100);</span><br><span class="line">  Offset p2 &#x3D;Offset( 120, -60);</span><br><span class="line">  </span><br><span class="line">    @override</span><br><span class="line">  void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">    &#x2F;&#x2F; 英雄所见...</span><br><span class="line">    _mainPath.moveTo(p0.dx, p0.dy);</span><br><span class="line">    _mainPath.quadraticBezierTo(p1.dx, p1.dy, p2.dx, p2.dy);</span><br><span class="line">    canvas.drawPath(_mainPath, _mainPaint);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">class</span> BezierPainter extends CustomPainter &#123;<br>  <span class="hljs-comment">// 英雄所见...</span><br>  Paint _mainPaint;<br>  Path _mainPath;<br><br>  <span class="hljs-constructor">BezierPainter()</span> &#123;<br>    <span class="hljs-comment">// 英雄所见...</span><br><br>    _mainPaint = <span class="hljs-constructor">Paint()</span>..color=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Colors</span>.</span></span>orange..style=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PaintingStyle</span>.</span></span>stroke..strokeWidth=<span class="hljs-number">2</span>;<br>    _mainPath = <span class="hljs-constructor">Path()</span>;<br>  &#125;<br>  Offset p0 =<span class="hljs-constructor">Offset(0, 0)</span>;<br>  Offset p1 =<span class="hljs-constructor">Offset(100, 100)</span>;<br>  Offset p2 =<span class="hljs-constructor">Offset( 120, -60)</span>;<br>  <br>    @override<br>  void paint(Canvas canvas, Size size) &#123;<br>    <span class="hljs-comment">// 英雄所见...</span><br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_mainPath</span>.</span></span>move<span class="hljs-constructor">To(<span class="hljs-params">p0</span>.<span class="hljs-params">dx</span>, <span class="hljs-params">p0</span>.<span class="hljs-params">dy</span>)</span>;<br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_mainPath</span>.</span></span>quadratic<span class="hljs-constructor">BezierTo(<span class="hljs-params">p1</span>.<span class="hljs-params">dx</span>, <span class="hljs-params">p1</span>.<span class="hljs-params">dy</span>, <span class="hljs-params">p2</span>.<span class="hljs-params">dx</span>, <span class="hljs-params">p2</span>.<span class="hljs-params">dy</span>)</span>;<br>    canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">_mainPath</span>, <span class="hljs-params">_mainPaint</span>)</span>;<br>  &#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="2-为什么曲线会是这样的"><a href="#2-为什么曲线会是这样的" class="headerlink" title="2.为什么曲线会是这样的?"></a>2.为什么曲线会是这样的?</h5><blockquote>
 <p>为了更好的理解贝塞尔曲线，现在我们需要绘制辅助帮我们理解。现在想将与贝塞尔曲线有关系的三个点画出来。同样，我不想弄脏画笔，所以新拿一个<code>_helpPaint</code>。在<code>_drawHelp</code>方法里进行绘制辅助线。</p>
 </blockquote>
 <p><img src="http://gank.io/images/6bca0a8271914cd08b8f0120617a1903" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class BezierPainter extends CustomPainter &#123;</span><br><span class="line">  &#x2F;&#x2F; 英雄所见...</span><br><span class="line">  Paint _helpPaint;</span><br><span class="line"></span><br><span class="line">  BezierPainter() &#123;</span><br><span class="line">      &#x2F;&#x2F; 英雄所见...</span><br><span class="line">    _helpPaint &#x3D; Paint()</span><br><span class="line">    ..color&#x3D;Colors.purple</span><br><span class="line">    ..style&#x3D;PaintingStyle.stroke</span><br><span class="line">    ..strokeCap&#x3D;StrokeCap.round;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> void _drawHelp(Canvas canvas) &#123;</span><br><span class="line">  canvas.drawPoints(PointMode.points,[p0, p1, p1,p2], _helpPaint..strokeWidth&#x3D;8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">class</span> BezierPainter extends CustomPainter &#123;<br>  <span class="hljs-comment">// 英雄所见...</span><br>  Paint _helpPaint;<br><br>  <span class="hljs-constructor">BezierPainter()</span> &#123;<br>      <span class="hljs-comment">// 英雄所见...</span><br>    _helpPaint = <span class="hljs-constructor">Paint()</span><br>    ..color=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Colors</span>.</span></span>purple<br>    ..style=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PaintingStyle</span>.</span></span>stroke<br>    ..strokeCap=<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">StrokeCap</span>.</span></span>round;<br>  &#125;<br> <br> void <span class="hljs-constructor">_drawHelp(Canvas <span class="hljs-params">canvas</span>)</span> &#123;<br>  canvas.draw<span class="hljs-constructor">Points(PointMode.<span class="hljs-params">points</span>,[<span class="hljs-params">p0</span>, <span class="hljs-params">p1</span>, <span class="hljs-params">p1</span>,<span class="hljs-params">p2</span>], <span class="hljs-params">_helpPaint</span>..<span class="hljs-params">strokeWidth</span>=8)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>看到上图，你是不是发现的什么?如果还比较懵，再画一道辅助线</li>
 </ul>
 <p><img src="http://gank.io/images/1341d59b35b9425c9172d82e2bd17fa8" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void _drawHelp(Canvas canvas) &#123;</span><br><span class="line">  canvas.drawPoints(PointMode.lines,[p0, p1, p1,p2], _helpPaint..strokeWidth&#x3D;1);</span><br><span class="line">  canvas.drawPoints(PointMode.points,[p0, p1, p1,p2], _helpPaint..strokeWidth&#x3D;8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">void <span class="hljs-constructor">_drawHelp(Canvas <span class="hljs-params">canvas</span>)</span> &#123;<br>  canvas.draw<span class="hljs-constructor">Points(PointMode.<span class="hljs-params">lines</span>,[<span class="hljs-params">p0</span>, <span class="hljs-params">p1</span>, <span class="hljs-params">p1</span>,<span class="hljs-params">p2</span>], <span class="hljs-params">_helpPaint</span>..<span class="hljs-params">strokeWidth</span>=1)</span>;<br>  canvas.draw<span class="hljs-constructor">Points(PointMode.<span class="hljs-params">points</span>,[<span class="hljs-params">p0</span>, <span class="hljs-params">p1</span>, <span class="hljs-params">p1</span>,<span class="hljs-params">p2</span>], <span class="hljs-params">_helpPaint</span>..<span class="hljs-params">strokeWidth</span>=8)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="3-来玩一下这个曲线"><a href="#3-来玩一下这个曲线" class="headerlink" title="3. 来玩一下这个曲线"></a>3. 来玩一下这个曲线</h5><blockquote>
@@ -90,13 +211,13 @@
 <li><code>简单讲解</code></li>
 </ul>
 <p>由于点位需要变化，BezierPainter<code>只承担绘制的责任</code>，这里在组件中定义<code>点位信息_pos</code>和<code>选中索引_selectIndex</code> ，通过构造函数传入BezierPainter。为了方便大家玩耍，我单独写个文件<code>play_bezier2.dart</code>里面有个PlayBezier2Page组件。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----&gt;[_PaperState]----</span><br><span class="line">class PlayBezier2Page extends StatefulWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  _PlayBezier2PageState createState() &#x3D;&gt; _PlayBezier2PageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class _PlayBezier2PageState extends State&lt;PlayBezier2Page&gt; &#123;</span><br><span class="line">  List _pos &#x3D; [];</span><br><span class="line">  int _selectPos;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  void initState() &#123;</span><br><span class="line">    &#x2F;&#x2F;横屏</span><br><span class="line">    SystemChrome.setPreferredOrientations(</span><br><span class="line">        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);</span><br><span class="line">    &#x2F;&#x2F;全屏显示</span><br><span class="line">    SystemChrome.setEnabledSystemUIOverlays([]);</span><br><span class="line">    _initPoints();&#x2F;&#x2F;初始化点</span><br><span class="line">    super.initState();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs scala">----&gt;[_PaperState]----<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PlayBezier2Page</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StatefulWidget</span> </span>&#123;<br>  <span class="hljs-meta">@override</span><br>  _PlayBezier2PageState createState() =&gt; _PlayBezier2PageState();<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">_PlayBezier2PageState</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">State&lt;PlayBezier2Page&gt;</span> </span>&#123;<br>  <span class="hljs-type">List</span> _pos = [];<br>  int _selectPos;<br><br>  <span class="hljs-meta">@override</span><br>  void initState() &#123;<br>    <span class="hljs-comment">//横屏</span><br>    <span class="hljs-type">SystemChrome</span>.setPreferredOrientations(<br>        [<span class="hljs-type">DeviceOrientation</span>.landscapeLeft, <span class="hljs-type">DeviceOrientation</span>.landscapeRight]);<br>    <span class="hljs-comment">//全屏显示</span><br>    <span class="hljs-type">SystemChrome</span>.setEnabledSystemUIOverlays([]);<br>    _initPoints();<span class="hljs-comment">//初始化点</span><br>    <span class="hljs-keyword">super</span>.initState();<br>  &#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <ul>
 <li><code>获取触点信息</code><br>通过<code>GestureDetector组件</code>可以获取触点信息，然后传给画布即可。<br>这里的思路很清晰: 在点击时需要判断点击了哪个点，抬起时取消选中点，移动时变化选中点。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  return GestureDetector(</span><br><span class="line">    onPanDown: (detail)&#123;</span><br><span class="line">     &#x2F;&#x2F; Todo</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanEnd: (detail)&#123;</span><br><span class="line">    &#x2F;&#x2F; Todo</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanUpdate: (detail) &#123;</span><br><span class="line">        &#x2F;&#x2F; Todo</span><br><span class="line">    &#125;,</span><br><span class="line">    child: CustomPaint(</span><br><span class="line">      painter: BezierPainter(pos: _pos,selectPos:selectPos),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@override</span><br>Widget build(BuildContext context) &#123;<br>  <span class="hljs-selector-tag">return</span> <span class="hljs-selector-tag">GestureDetector</span>(<br>    <span class="hljs-attribute">onPanDown</span>: (detail)&#123;<br>     <span class="hljs-comment">// Todo</span><br>    &#125;,<br>    <span class="hljs-attribute">onPanEnd</span>: (detail)&#123;<br>    <span class="hljs-comment">// Todo</span><br>    &#125;,<br>    <span class="hljs-attribute">onPanUpdate</span>: (detail) &#123;<br>        <span class="hljs-comment">// Todo</span><br>    &#125;,<br>    <span class="hljs-attribute">child</span>: CustomPaint(<br>      <span class="hljs-attribute">painter</span>: BezierPainter(<span class="hljs-attribute">pos</span>: _pos,<span class="hljs-attribute">selectPos</span>:selectPos),<br>    ),<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <ul>
@@ -105,12 +226,12 @@
 <blockquote>
 <p>这就有点技术含量了。需要进行<code>点域的判断</code>来确定当前点击的是哪个点。<br>比如在半径为6的区域内算作<code>命中</code>，就需要在点击时判断是否命中某个点。具体逻辑为:</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F;判断出是否在某点的半径为r圆范围内</span><br><span class="line">bool judgeCircleArea(Offset src, Offset dst, double r) &#x3D;&gt;</span><br><span class="line">    (src - dst).distance &lt;&#x3D; r;</span><br><span class="line"> </span><br><span class="line">void judgeSelect(Offset src, &#123;double x &#x3D; 0, double y &#x3D; 0&#125;) &#123;</span><br><span class="line">  var p &#x3D; src.translate(-x, -y);</span><br><span class="line">  for (int i &#x3D; 0; i &lt; _pos.length; i++) &#123;</span><br><span class="line">    if (judgeCircleArea(p, _pos[i], 15)) &#123;</span><br><span class="line">      selectPos &#x3D; i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">void judgeZone(Offset src, &#123;double x &#x3D; 0, double y &#x3D; 0&#125;) &#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; _pos.length; i++) &#123;</span><br><span class="line">    if (judgeCircleArea(src, _pos[i], 15)) &#123;</span><br><span class="line">      selectPos &#x3D; i;</span><br><span class="line">      _pos[i] &#x3D; src;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">///判断出是否在某点的半径为r圆范围内</span><br><span class="hljs-built_in">bool</span> judge<span class="hljs-constructor">CircleArea(Offset <span class="hljs-params">src</span>, Offset <span class="hljs-params">dst</span>, <span class="hljs-params">double</span> <span class="hljs-params">r</span>)</span> =&gt;<br>    (src - dst).distance &lt;= r;<br> <br>void judge<span class="hljs-constructor">Select(Offset <span class="hljs-params">src</span>, &#123;<span class="hljs-params">double</span> <span class="hljs-params">x</span> = 0, <span class="hljs-params">double</span> <span class="hljs-params">y</span> = 0&#125;)</span> &#123;<br>  var p = src.translate(-x, -y);<br>  for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (judge<span class="hljs-constructor">CircleArea(<span class="hljs-params">p</span>, <span class="hljs-params">_pos</span>[<span class="hljs-params">i</span>], 15)</span>) &#123;<br>      selectPos = i;<br>    &#125;<br>  &#125;<br>&#125;<br>void judge<span class="hljs-constructor">Zone(Offset <span class="hljs-params">src</span>, &#123;<span class="hljs-params">double</span> <span class="hljs-params">x</span> = 0, <span class="hljs-params">double</span> <span class="hljs-params">y</span> = 0&#125;)</span> &#123;<br>  for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (judge<span class="hljs-constructor">CircleArea(<span class="hljs-params">src</span>, <span class="hljs-params">_pos</span>[<span class="hljs-params">i</span>], 15)</span>) &#123;<br>      selectPos = i;<br>      _pos<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span> = src;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>前三个点需要用户点击，然后画出一段二贝曲线，之后再点击不会添加点，而是判断是否触点在期望的圆域内。这样数据的处理就完成了。根基【捷特第二定理】<code>一切的界面交互和动态视觉效果都是连续时间点状态量的变化和刷新的结合。</code>现在所有的状态量和刷新都已经实现，剩下的就是将这些量显示在界面上。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  return GestureDetector(</span><br><span class="line">    onPanDown: (detail) &#123;</span><br><span class="line">      if (_pos.length &lt; 3) &#123;</span><br><span class="line">        _pos.add(detail.localPosition);</span><br><span class="line">      &#125;</span><br><span class="line">      setState(() &#x3D;&gt; judgeSelect(detail.localPosition));</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanEnd: (detail) &#123;</span><br><span class="line">      setState(() &#x3D;&gt; selectPos &#x3D; null);</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanUpdate: (detail) &#123;</span><br><span class="line">      setState(() &#x3D;&gt; judgeZone(detail.localPosition));</span><br><span class="line">    &#125;,</span><br><span class="line">    child: CustomPaint(</span><br><span class="line">      painter: BezierPainter(pos: _pos, selectPos: selectPos),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@override</span><br>Widget build(BuildContext context) &#123;<br>  <span class="hljs-selector-tag">return</span> <span class="hljs-selector-tag">GestureDetector</span>(<br>    <span class="hljs-attribute">onPanDown</span>: (detail) &#123;<br>      <span class="hljs-selector-tag">if</span> (_pos.length &lt; <span class="hljs-number">3</span>) &#123;<br>        <span class="hljs-selector-tag">_pos</span><span class="hljs-selector-class">.add</span>(detail.localPosition);<br>      &#125;<br>      <span class="hljs-selector-tag">setState</span>(() =&gt; judgeSelect(detail.localPosition));<br>    &#125;,<br>    <span class="hljs-selector-tag">onPanEnd</span>: (detail) &#123;<br>      <span class="hljs-selector-tag">setState</span>(() =&gt; selectPos = null);<br>    &#125;,<br>    <span class="hljs-selector-tag">onPanUpdate</span>: (detail) &#123;<br>      <span class="hljs-selector-tag">setState</span>(() =&gt; judgeZone(detail.localPosition));<br>    &#125;,<br>    <span class="hljs-selector-tag">child</span>: <span class="hljs-selector-tag">CustomPaint</span>(<br>      <span class="hljs-attribute">painter</span>: BezierPainter(<span class="hljs-attribute">pos</span>: _pos, <span class="hljs-attribute">selectPos</span>: selectPos),<br>    ),<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <ul>
@@ -123,7 +244,7 @@
 <blockquote>
 <p>有一点需要注意: 我们的点位是相对于屏幕左上角的，需要平移到画布中心</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class BezierPainter extends CustomPainter &#123;</span><br><span class="line"></span><br><span class="line">  Paint _mainPaint;</span><br><span class="line">  Path _mainPath;</span><br><span class="line">  int selectPos;</span><br><span class="line"></span><br><span class="line">  List pos;</span><br><span class="line"></span><br><span class="line">  BezierPainter(&#123;this.pos, this.selectPos&#125;) &#123;</span><br><span class="line">    _mainPaint &#x3D; Paint()</span><br><span class="line">      ..color &#x3D; Colors.orange</span><br><span class="line">      ..style &#x3D; PaintingStyle.stroke</span><br><span class="line">      ..strokeWidth &#x3D; 2;</span><br><span class="line">    _mainPath &#x3D; Path();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">    pos &#x3D; pos.map((e)&#x3D;&gt;e.translate(-size.width &#x2F; 2, -size.height &#x2F; 2)).toList();</span><br><span class="line">    canvas.drawColor(Colors.white, BlendMode.color);</span><br><span class="line">    canvas.translate(size.width &#x2F; 2, size.height &#x2F; 2);</span><br><span class="line">    _drawGrid(canvas, size); &#x2F;&#x2F;绘制格线</span><br><span class="line">    _drawAxis(canvas, size); &#x2F;&#x2F;绘制轴线</span><br><span class="line"></span><br><span class="line">    if(pos.length&lt;3)&#123;</span><br><span class="line">      canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth &#x3D; 8);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      _mainPath.moveTo(pos[0].dx, pos[0].dy);</span><br><span class="line">      _mainPath.quadraticBezierTo(pos[1].dx, pos[1].dy, pos[2].dx, pos[2].dy);</span><br><span class="line">      canvas.drawPath(_mainPath, _mainPaint);</span><br><span class="line">      _drawHelp(canvas);</span><br><span class="line">      _drawSelectPos(canvas);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 英雄所见...</span><br><span class="line">  void _drawSelectPos(Canvas canvas) &#123;</span><br><span class="line">    if (selectPos &#x3D;&#x3D; null) return;</span><br><span class="line">    canvas.drawCircle(</span><br><span class="line">        pos[selectPos],</span><br><span class="line">        10,</span><br><span class="line">        _helpPaint</span><br><span class="line">          ..color &#x3D; Colors.green</span><br><span class="line">          ..strokeWidth &#x3D; 2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">BezierPainter</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">CustomPainter</span> &#123;<br><br>  Paint _mainPaint;<br>  Path _mainPath;<br>  <span class="hljs-built_in">int</span> selectPos;<br><br>  List pos;<br><br>  BezierPainter(&#123;<span class="hljs-keyword">this</span>.pos, <span class="hljs-keyword">this</span>.selectPos&#125;) &#123;<br>    _mainPaint = Paint()<br>      ..color = Colors.orange<br>      ..style = PaintingStyle.stroke<br>      ..strokeWidth = <span class="hljs-number">2</span>;<br>    _mainPath = Path();<br>  &#125;<br><br>  @<span class="hljs-keyword">override</span><br>  <span class="hljs-built_in">void</span> paint(Canvas canvas, Size size) &#123;<br>    pos = pos.map((e)=&gt;e.translate(-size.width / <span class="hljs-number">2</span>, -size.height / <span class="hljs-number">2</span>)).toList();<br>    canvas.drawColor(Colors.white, BlendMode.color);<br>    canvas.translate(size.width / <span class="hljs-number">2</span>, size.height / <span class="hljs-number">2</span>);<br>    _drawGrid(canvas, size); <span class="hljs-comment">//绘制格线</span><br>    _drawAxis(canvas, size); <span class="hljs-comment">//绘制轴线</span><br><br>    <span class="hljs-keyword">if</span>(pos.length&lt;<span class="hljs-number">3</span>)&#123;<br>      canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth = <span class="hljs-number">8</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>      _mainPath.moveTo(pos[<span class="hljs-number">0</span>].dx, pos[<span class="hljs-number">0</span>].dy);<br>      _mainPath.quadraticBezierTo(pos[<span class="hljs-number">1</span>].dx, pos[<span class="hljs-number">1</span>].dy, pos[<span class="hljs-number">2</span>].dx, pos[<span class="hljs-number">2</span>].dy);<br>      canvas.drawPath(_mainPath, _mainPaint);<br>      _drawHelp(canvas);<br>      _drawSelectPos(canvas);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-comment">// 英雄所见...</span><br>  <span class="hljs-built_in">void</span> _drawSelectPos(Canvas canvas) &#123;<br>    <span class="hljs-keyword">if</span> (selectPos == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;<br>    canvas.drawCircle(<br>        pos[selectPos],<br>        <span class="hljs-number">10</span>,<br>        _helpPaint<br>          ..color = Colors.green<br>          ..strokeWidth = <span class="hljs-number">2</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>通过前面的介绍，一段二次的贝塞尔曲线有三个点决定，<code>起点</code>、<code>控制点</code>、<code>终点</code><br>关于起点，默认是（0，0），你也在绘制之前moveTo设置起点，当绘制连续的贝塞尔曲线，下一段曲线的起点就是上一段的终点。所以二次贝塞尔曲线至关重要的是两个点: <code>也就是入参中的控制点和终点</code>。</p>
@@ -140,13 +261,13 @@
 <ul>
 <li><code>点击时将限制数改为4个</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----&gt;[_PlayBezier3PageState]----</span><br><span class="line">onPanDown: (detail) &#123;</span><br><span class="line">  if (_pos.length &lt; 4) &#123;</span><br><span class="line">    _pos.add(detail.localPosition);</span><br><span class="line">  &#125;</span><br><span class="line">  setState(() &#x3D;&gt; judgeSelect(detail.localPosition));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">----&gt;<span class="hljs-literal">[<span class="hljs-identifier">_PlayBezier3PageState</span>]</span>----<br>onPanDown: (detail) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>length &lt; <span class="hljs-number">4</span>) &#123;<br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(detail.localPosition);<br>  &#125;<br>  set<span class="hljs-constructor">State(()</span> =&gt; judge<span class="hljs-constructor">Select(<span class="hljs-params">detail</span>.<span class="hljs-params">localPosition</span>)</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <ul>
 <li><code>绘制将限制数改为4个</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if(pos.length&lt;4)&#123;</span><br><span class="line">  canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth &#x3D; 8);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">  _mainPath.moveTo(pos[0].dx, pos[0].dy);</span><br><span class="line">  _mainPath.cubicTo(pos[1].dx, pos[1].dy, pos[2].dx, pos[2].dy, pos[3].dx, pos[3].dy);</span><br><span class="line">  canvas.drawPath(_mainPath, _mainPaint);</span><br><span class="line">  _drawHelp(canvas);</span><br><span class="line">  _drawSelectPos(canvas);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">if</span>(pos.length&lt;<span class="hljs-number">4</span>)&#123;<br>  canvas.draw<span class="hljs-constructor">Points(PointMode.<span class="hljs-params">points</span>, <span class="hljs-params">pos</span>, <span class="hljs-params">_helpPaint</span>..<span class="hljs-params">strokeWidth</span> = 8)</span>;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_mainPath</span>.</span></span>move<span class="hljs-constructor">To(<span class="hljs-params">pos</span>[0].<span class="hljs-params">dx</span>, <span class="hljs-params">pos</span>[0].<span class="hljs-params">dy</span>)</span>;<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_mainPath</span>.</span></span>cubic<span class="hljs-constructor">To(<span class="hljs-params">pos</span>[1].<span class="hljs-params">dx</span>, <span class="hljs-params">pos</span>[1].<span class="hljs-params">dy</span>, <span class="hljs-params">pos</span>[2].<span class="hljs-params">dx</span>, <span class="hljs-params">pos</span>[2].<span class="hljs-params">dy</span>, <span class="hljs-params">pos</span>[3].<span class="hljs-params">dx</span>, <span class="hljs-params">pos</span>[3].<span class="hljs-params">dy</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">_mainPath</span>, <span class="hljs-params">_mainPaint</span>)</span>;<br>  <span class="hljs-constructor">_drawHelp(<span class="hljs-params">canvas</span>)</span>;<br>  <span class="hljs-constructor">_drawSelectPos(<span class="hljs-params">canvas</span>)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><code>That is all</code> ,这就是分工明确的好处，变化时只变需变化待变化的，整体的流程和思路是恒定的。</p>
 <hr>
@@ -169,7 +290,7 @@
 <p>这里直接给出点，至于<code>0.551915024494</code>是什么，后面有机会会带你一起推导。有兴趣的话，你也可以自己查一查资料。和之前一样，核心的绘制就是那么一句。</p>
 </blockquote>
 <p><img src="http://gank.io/images/35063e85917b4a0781194b67e52866c5" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----&gt;[CircleBezierPage]----</span><br><span class="line">class CircleBezierPage extends StatefulWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  _CircleBezierPageState createState() &#x3D;&gt; _CircleBezierPageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class _CircleBezierPageState extends State &#123;</span><br><span class="line">  List _pos &#x3D; [];</span><br><span class="line">  int selectPos;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;单位圆(即半径为1)控制线长</span><br><span class="line">  final rate &#x3D; 0.551915024494;</span><br><span class="line">  double _radius&#x3D;150;</span><br><span class="line">  @override</span><br><span class="line">  void initState() &#123;</span><br><span class="line">    &#x2F;&#x2F;横屏</span><br><span class="line">    SystemChrome.setPreferredOrientations(</span><br><span class="line">        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);</span><br><span class="line">    &#x2F;&#x2F;全屏显示</span><br><span class="line">    SystemChrome.setEnabledSystemUIOverlays([]);</span><br><span class="line">    _initPoints();</span><br><span class="line">    super.initState();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void _initPoints() &#123;</span><br><span class="line">    _pos &#x3D; List();</span><br><span class="line">    &#x2F;&#x2F;第一段线</span><br><span class="line">    _pos.add(Offset(0,rate)*_radius);</span><br><span class="line">    _pos.add(Offset(1 - rate, 1)*_radius);</span><br><span class="line">    _pos.add(Offset(1, 1)*_radius);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    return CustomPaint(</span><br><span class="line">        painter: BezierPainter(pos: _pos, selectPos: selectPos),</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">----&gt;[BezierPainter#paint]----</span><br><span class="line">_mainPath.moveTo(0, 0);</span><br><span class="line">for (int i &#x3D; 0; i &lt; pos.length &#x2F; 3; i++) &#123;</span><br><span class="line">  _mainPath.cubicTo(</span><br><span class="line">       pos[3*i+0].dx,  pos[3*i+0].dy,</span><br><span class="line">       pos[3*i+1].dx, pos[3*i+1].dy,</span><br><span class="line">       pos[3*i+2].dx,  pos[3*i+2].dy);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">----&gt;[CircleBezierPage]----<br><span class="hljs-keyword">class</span> <span class="hljs-symbol">CircleBezierPage</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">StatefulWidget</span> &#123;<br>  @<span class="hljs-keyword">override</span><br>  _CircleBezierPageState createState() =&gt; _CircleBezierPageState();<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-symbol">_CircleBezierPageState</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">State</span> &#123;<br>  List _pos = [];<br>  <span class="hljs-built_in">int</span> selectPos;<br><br>  <span class="hljs-comment">//单位圆(即半径为1)控制线长</span><br>  <span class="hljs-keyword">final</span> rate = <span class="hljs-number">0.551915024494</span>;<br>  <span class="hljs-built_in">double</span> _radius=<span class="hljs-number">150</span>;<br>  @<span class="hljs-keyword">override</span><br>  <span class="hljs-built_in">void</span> initState() &#123;<br>    <span class="hljs-comment">//横屏</span><br>    SystemChrome.setPreferredOrientations(<br>        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);<br>    <span class="hljs-comment">//全屏显示</span><br>    SystemChrome.setEnabledSystemUIOverlays([]);<br>    _initPoints();<br>    <span class="hljs-keyword">super</span>.initState();<br>  &#125;<br><br>  <span class="hljs-built_in">void</span> _initPoints() &#123;<br>    _pos = List();<br>    <span class="hljs-comment">//第一段线</span><br>    _pos.add(Offset(<span class="hljs-number">0</span>,rate)*_radius);<br>    _pos.add(Offset(<span class="hljs-number">1</span> - rate, <span class="hljs-number">1</span>)*_radius);<br>    _pos.add(Offset(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)*_radius);<br>  &#125;<br><br>  @<span class="hljs-keyword">override</span><br>  Widget build(BuildContext context) &#123;<br>    <span class="hljs-keyword">return</span> CustomPaint(<br>        painter: BezierPainter(pos: _pos, selectPos: selectPos),<br>        ),<br>    );<br>  &#125;<br> <br>----&gt;[BezierPainter#paint]----<br>_mainPath.moveTo(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; pos.length / <span class="hljs-number">3</span>; i++) &#123;<br>  _mainPath.cubicTo(<br>       pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">0</span>].dx,  pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">0</span>].dy,<br>       pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">1</span>].dx, pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">1</span>].dy,<br>       pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">2</span>].dx,  pos[<span class="hljs-number">3</span>*i+<span class="hljs-number">2</span>].dy);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <ul>
@@ -179,14 +300,14 @@
 <p>初始点时，将这12点放入列表。然后将赋值的点线绘制出来。</p>
 </blockquote>
 <p><img src="http://gank.io/images/c6fb91536d634fec8d47b872e1436d29" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----&gt;[CircleBezierPage#_initPoints]----</span><br><span class="line">void _initPoints() &#123;</span><br><span class="line">  _pos &#x3D; List();</span><br><span class="line">  &#x2F;&#x2F;第一段线</span><br><span class="line">  _pos.add(Offset(0,rate)*_radius);</span><br><span class="line">  _pos.add(Offset(1 - rate, 1)*_radius);</span><br><span class="line">  _pos.add(Offset(1, 1)*_radius);</span><br><span class="line">  &#x2F;&#x2F;第二段线</span><br><span class="line">  _pos.add(Offset(1 + rate, 1)*_radius);</span><br><span class="line">  _pos.add(Offset(2, rate)*_radius);</span><br><span class="line">  _pos.add(Offset(2, 0)*_radius);</span><br><span class="line">  &#x2F;&#x2F;第三段线</span><br><span class="line">  _pos.add(Offset(2, -rate)*_radius);</span><br><span class="line">  _pos.add(Offset(1 + rate, -1)*_radius);</span><br><span class="line">  _pos.add(Offset(1, -1)*_radius);</span><br><span class="line">  &#x2F;&#x2F;第四段线</span><br><span class="line">  _pos.add(Offset(1 - rate, -1)*_radius);</span><br><span class="line">  _pos.add(Offset(0, -rate)*_radius);</span><br><span class="line">  _pos.add(Offset(0, 0));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----&gt;[BezierPainter#_drawHelp]----</span><br><span class="line">void _drawHelp(Canvas canvas) &#123;</span><br><span class="line">  _helpPaint..strokeWidth &#x3D; 1;</span><br><span class="line">  canvas.drawLine(pos[0], pos[11],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[1], pos[2],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[2], pos[3],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[4], pos[5],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[5], pos[6],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[7], pos[8],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[8], pos[9],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[10], pos[11],_helpPaint);</span><br><span class="line">  canvas.drawLine(pos[11], pos[0],_helpPaint);</span><br><span class="line">  canvas.drawPoints(PointMode.points, pos, _helpPaint..strokeWidth &#x3D; 8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">----&gt;<span class="hljs-literal">[C<span class="hljs-identifier">ircleBezierPage</span>#<span class="hljs-identifier">_initPoints</span>]</span>----<br>void <span class="hljs-constructor">_initPoints()</span> &#123;<br>  _pos = <span class="hljs-constructor">List()</span>;<br>  <span class="hljs-comment">//第一段线</span><br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(0,<span class="hljs-params">rate</span>)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1 - <span class="hljs-params">rate</span>, 1)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1, 1)</span>*_radius);<br>  <span class="hljs-comment">//第二段线</span><br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1 + <span class="hljs-params">rate</span>, 1)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(2, <span class="hljs-params">rate</span>)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(2, 0)</span>*_radius);<br>  <span class="hljs-comment">//第三段线</span><br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(2, -<span class="hljs-params">rate</span>)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1 + <span class="hljs-params">rate</span>, -1)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1, -1)</span>*_radius);<br>  <span class="hljs-comment">//第四段线</span><br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(1 - <span class="hljs-params">rate</span>, -1)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(0, -<span class="hljs-params">rate</span>)</span>*_radius);<br>  <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_pos</span>.</span></span>add(<span class="hljs-constructor">Offset(0, 0)</span>);<br>&#125;<br><br>----&gt;<span class="hljs-literal">[B<span class="hljs-identifier">ezierPainter</span>#<span class="hljs-identifier">_drawHelp</span>]</span>----<br>void <span class="hljs-constructor">_drawHelp(Canvas <span class="hljs-params">canvas</span>)</span> &#123;<br>  _helpPaint..strokeWidth = <span class="hljs-number">1</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[0], <span class="hljs-params">pos</span>[11],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[1], <span class="hljs-params">pos</span>[2],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[2], <span class="hljs-params">pos</span>[3],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[4], <span class="hljs-params">pos</span>[5],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[5], <span class="hljs-params">pos</span>[6],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[7], <span class="hljs-params">pos</span>[8],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[8], <span class="hljs-params">pos</span>[9],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[10], <span class="hljs-params">pos</span>[11],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Line(<span class="hljs-params">pos</span>[11], <span class="hljs-params">pos</span>[0],<span class="hljs-params">_helpPaint</span>)</span>;<br>  canvas.draw<span class="hljs-constructor">Points(PointMode.<span class="hljs-params">points</span>, <span class="hljs-params">pos</span>, <span class="hljs-params">_helpPaint</span>..<span class="hljs-params">strokeWidth</span> = 8)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="3-三贝中的拟圆的操作"><a href="#3-三贝中的拟圆的操作" class="headerlink" title="3.三贝中的拟圆的操作"></a>3.三贝中的拟圆的操作</h5><blockquote>
 <p>看这控制柄，满满的拖动欲望，来实现一下吧<br>有了之前的铺垫，下面的代码应该很容易接受吧。</p>
 </blockquote>
 <p><img src="http://gank.io/images/9900a9df8a2b45d39f1d2569ce8164b3" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  var x &#x3D; MediaQuery.of(context).size.width&#x2F;2;</span><br><span class="line">  var y &#x3D; MediaQuery.of(context).size.height&#x2F;2;</span><br><span class="line">  return GestureDetector(</span><br><span class="line">    onPanDown: (detail) &#123;</span><br><span class="line">      setState(() &#x3D;&gt; judgeSelect(detail.localPosition,x: x,y: y));</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanEnd: (detail) &#123;</span><br><span class="line">      setState(() &#x3D;&gt; selectPos &#x3D; null);</span><br><span class="line">    &#125;,</span><br><span class="line">    onPanUpdate: (detail) &#123;</span><br><span class="line">      setState(() &#x3D;&gt; judgeZone(detail.localPosition,x: x,y: y));</span><br><span class="line">    &#125;,</span><br><span class="line">    child: CustomPaint(</span><br><span class="line">      painter: BezierPainter(pos: _pos, selectPos: selectPos),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;&#x2F;判断出是否在某点的半径为r圆范围内</span><br><span class="line">bool judgeCircleArea(Offset src, Offset dst, double r) &#x3D;&gt;</span><br><span class="line">    (src - dst).distance &lt;&#x3D; r;</span><br><span class="line">void judgeSelect(Offset src, &#123;double x &#x3D; 0, double y &#x3D; 0&#125;) &#123;</span><br><span class="line">  print(src);</span><br><span class="line">  var p &#x3D; src.translate(-x, -y);</span><br><span class="line">  print(p);</span><br><span class="line">  for (int i &#x3D; 0; i &lt; _pos.length; i++) &#123;</span><br><span class="line">    if (judgeCircleArea(p, _pos[i], 15)) &#123;</span><br><span class="line">      selectPos &#x3D; i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">void judgeZone(Offset src, &#123;double x &#x3D; 0, double y &#x3D; 0&#125;) &#123;</span><br><span class="line">  var p &#x3D; src.translate(-x, -y);</span><br><span class="line">  for (int i &#x3D; 0; i &lt; _pos.length; i++) &#123;</span><br><span class="line">    if (judgeCircleArea(p, _pos[i], 15)) &#123;</span><br><span class="line">      selectPos &#x3D; i;</span><br><span class="line">      _pos[i] &#x3D; p;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">@<span class="hljs-keyword">override</span><br>Widget build(BuildContext context) &#123;<br>  var x = MediaQuery.of(context).size.width/<span class="hljs-number">2</span>;<br>  var y = MediaQuery.of(context).size.height/<span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">return</span> GestureDetector(<br>    onPanDown: (detail) &#123;<br>      setState(() =&gt; judgeSelect(detail.localPosition,x: x,y: y));<br>    &#125;,<br>    onPanEnd: (detail) &#123;<br>      setState(() =&gt; selectPos = <span class="hljs-literal">null</span>);<br>    &#125;,<br>    onPanUpdate: (detail) &#123;<br>      setState(() =&gt; judgeZone(detail.localPosition,x: x,y: y));<br>    &#125;,<br>    child: CustomPaint(<br>      painter: BezierPainter(pos: _pos, selectPos: selectPos),<br>    ),<br>  );<br>&#125;<br><span class="hljs-comment">///判断出是否在某点的半径为r圆范围内</span><br><span class="hljs-built_in">bool</span> judgeCircleArea(Offset src, Offset dst, <span class="hljs-built_in">double</span> r) =&gt;<br>    (src - dst).distance &lt;= r;<br><span class="hljs-built_in">void</span> judgeSelect(Offset src, &#123;<span class="hljs-built_in">double</span> x = <span class="hljs-number">0</span>, <span class="hljs-built_in">double</span> y = <span class="hljs-number">0</span>&#125;) &#123;<br>  print(src);<br>  var p = src.translate(-x, -y);<br>  print(p);<br>  <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; _pos.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (judgeCircleArea(p, _pos[i], <span class="hljs-number">15</span>)) &#123;<br>      selectPos = i;<br>    &#125;<br>  &#125;<br>&#125;<br><span class="hljs-built_in">void</span> judgeZone(Offset src, &#123;<span class="hljs-built_in">double</span> x = <span class="hljs-number">0</span>, <span class="hljs-built_in">double</span> y = <span class="hljs-number">0</span>&#125;) &#123;<br>  var p = src.translate(-x, -y);<br>  <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; _pos.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (judgeCircleArea(p, _pos[i], <span class="hljs-number">15</span>)) &#123;<br>      selectPos = i;<br>      _pos[i] = p;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h4 id="三、贝塞尔曲线与路径操作"><a href="#三、贝塞尔曲线与路径操作" class="headerlink" title="三、贝塞尔曲线与路径操作"></a>三、贝塞尔曲线与路径操作</h4><blockquote>
@@ -196,76 +317,234 @@
 <p>现在再准备一条路径，看看路径间的如何操作</p>
 </blockquote>
 <p><img src="http://gank.io/images/08fc785cae1648b3a75980aa9710a746" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class BezierPainter extends CustomPainter &#123;</span><br><span class="line"></span><br><span class="line">  Path _clipPath;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line"></span><br><span class="line">  BezierPainter(&#123;this.pos, this.selectPos&#125;) &#123;</span><br><span class="line">    _clipPath&#x3D;Path();</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line"> </span><br><span class="line"> @override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">   &#x2F;&#x2F;英雄所见...</span><br><span class="line">  _clipPath.addOval(Rect.fromCenter(center: Offset(0, 0),width: 100,height: 100));</span><br><span class="line">  canvas.drawPath(_clipPath, _mainPaint);</span><br><span class="line">&#x2F;&#x2F;英雄所见...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BezierPainter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CustomPainter</span> </span>&#123;<br><br>  <span class="hljs-type">Path</span> _clipPath;<br>  <span class="hljs-comment">//英雄所见...</span><br><br>  <span class="hljs-type">BezierPainter</span>(&#123;<span class="hljs-keyword">this</span>.pos, <span class="hljs-keyword">this</span>.selectPos&#125;) &#123;<br>    _clipPath=<span class="hljs-type">Path</span>();<br>  <span class="hljs-comment">//英雄所见...</span><br> <br> <span class="hljs-meta">@override</span><br>void paint(<span class="hljs-type">Canvas</span> canvas, <span class="hljs-type">Size</span> size) &#123;<br>   <span class="hljs-comment">//英雄所见...</span><br>  _clipPath.addOval(<span class="hljs-type">Rect</span>.fromCenter(center: <span class="hljs-type">Offset</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>),width: <span class="hljs-number">100</span>,height: <span class="hljs-number">100</span>));<br>  canvas.drawPath(_clipPath, _mainPaint);<br><span class="hljs-comment">//英雄所见...</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="1-路径的相减-PathOperation-difference"><a href="#1-路径的相减-PathOperation-difference" class="headerlink" title="1.路径的相减: PathOperation.difference"></a>1.路径的相减: <code>PathOperation.difference</code></h5><p><img src="http://gank.io/images/5cf646966a164ddf935441b3444782c3" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line">  var drawPath &#x3D; Path.combine(PathOperation.difference, _mainPath, _clipPath);</span><br><span class="line">  canvas.drawPath(drawPath, _mainPaint);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@override<br>void paint(Canvas canvas, Size size) &#123;<br>  <span class="hljs-comment">//英雄所见...</span><br>  var drawPath = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Path</span>.</span></span>combine(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PathOperation</span>.</span></span>difference, _mainPath, _clipPath);<br>  canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">drawPath</span>, <span class="hljs-params">_mainPaint</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="2-路径的相加-PathOperation-union"><a href="#2-路径的相加-PathOperation-union" class="headerlink" title="2.路径的相加: PathOperation.union"></a>2.路径的相加: <code>PathOperation.union</code></h5><p><img src="http://gank.io/images/44eaa6e604b046c99c7dcbea757327b6" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line">  var drawPath &#x3D; Path.combine(PathOperation.union, _mainPath, _clipPath);</span><br><span class="line">  canvas.drawPath(drawPath, _mainPaint);</span><br></pre></td></tr></table></figure>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crystal">@override<br>void paint(Canvas canvas, Size size) &#123;<br>  /<span class="hljs-regexp">/英雄所见...</span><br><span class="hljs-regexp">  var drawPath = Path.combine(PathOperation.union, _mainPath, _clipPath);</span><br><span class="hljs-regexp">  canvas.drawPath(drawPath, _mainPaint);</span><br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="3-路径的反减-PathOperation-reverseDifference"><a href="#3-路径的反减-PathOperation-reverseDifference" class="headerlink" title="3.路径的反减: PathOperation.reverseDifference"></a>3.路径的反减: <code>PathOperation.reverseDifference</code></h5><p><img src="http://gank.io/images/8e8a1ccb1bc9463786f2c806a10d9b3a" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line">  var drawPath &#x3D; Path.combine(PathOperation.reverseDifference, _mainPath, _clipPath);</span><br><span class="line">  canvas.drawPath(drawPath, _mainPaint);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@override<br>void paint(Canvas canvas, Size size) &#123;<br>  <span class="hljs-comment">//英雄所见...</span><br>  var drawPath = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Path</span>.</span></span>combine(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PathOperation</span>.</span></span>reverseDifference, _mainPath, _clipPath);<br>  canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">drawPath</span>, <span class="hljs-params">_mainPaint</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="4-路径的交集-PathOperation-intersect"><a href="#4-路径的交集-PathOperation-intersect" class="headerlink" title="4.路径的交集: PathOperation.intersect"></a>4.路径的交集: <code>PathOperation.intersect</code></h5><p><img src="http://gank.io/images/ed41d9840a95400fb103f5d5f08d4e1a" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line">  var drawPath &#x3D; Path.combine(PathOperation.intersect, _mainPath, _clipPath);</span><br><span class="line">  canvas.drawPath(drawPath, _mainPaint);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@override<br>void paint(Canvas canvas, Size size) &#123;<br>  <span class="hljs-comment">//英雄所见...</span><br>  var drawPath = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Path</span>.</span></span>combine(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PathOperation</span>.</span></span>intersect, _mainPath, _clipPath);<br>  canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">drawPath</span>, <span class="hljs-params">_mainPaint</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 <hr>
 <h5 id="5-路径的反交集-PathOperation-xor"><a href="#5-路径的反交集-PathOperation-xor" class="headerlink" title="5.路径的反交集: PathOperation.xor"></a>5.路径的反交集: <code>PathOperation.xor</code></h5><blockquote>
 <p>当然路径并非是线条,也可以进行填色。</p>
 </blockquote>
 <p><img src="http://gank.io/images/f198da981a224c78bb70e1f59684da75" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@override</span><br><span class="line">void paint(Canvas canvas, Size size) &#123;</span><br><span class="line">  &#x2F;&#x2F;英雄所见...</span><br><span class="line">  var drawPath &#x3D; Path.combine(PathOperation.xor, _mainPath, _clipPath);</span><br><span class="line">  canvas.drawPath(drawPath, _mainPaint..style&#x3D;PaintingStyle.fill);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@override<br>void paint(Canvas canvas, Size size) &#123;<br>  <span class="hljs-comment">//英雄所见...</span><br>  var drawPath = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Path</span>.</span></span>combine(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PathOperation</span>.</span></span>xor, _mainPath, _clipPath);<br>  canvas.draw<span class="hljs-constructor">Path(<span class="hljs-params">drawPath</span>, <span class="hljs-params">_mainPaint</span>..<span class="hljs-params">style</span>=PaintingStyle.<span class="hljs-params">fill</span>)</span>;<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>OK,本篇到这里就告一段落，下一篇会找几个实际的用途，来看看贝塞尔曲线的妙用。 敬请期待。</p>
 </blockquote>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/08/flutternm/">https://jiyugithub.github.io/2020/06/08/flutternm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/09/handler/"><i class="fa fa-chevron-left">  </i><span>Handler 机制</span></a></div><div class="next-post pull-right"><a href="/2020/06/06/hexo-zhuan/"><span>hexo撰写文章</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
-var verify = 'false' == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
-  appKey:'FihoucantYlc5U1FQ9BzkO3l',
-  placeholder:'Just go go',
-  avatar:'mm',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang: 'zh-cn'
-})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
+
+      </section>
+
+      <section class="article-footer">
+        
+      </section>
+
+      <section class="article-navs">
+        
+<nav class="card-container card-article-nav">
+  <div class="card-wrap">
+    
+      <div id="article-nav-newer" class="card-item">
+        <article>
+          
+          <a class="card-link article-nav-link" href="/2020/06/09/handler/"></a>
+          <strong class="article-nav-caption">Newer</strong>
+          <p class="article-nav-title">
+            
+              Handler 机制
+            
+          </p>
+        </article>
+      </div>
+    
+    
+      <div id="article-nav-older" class="card-item">
+        <article>
+          
+          <a class="card-link article-nav-link" href="/2020/06/06/hexo-zhuan/"></a>
+          <strong class="article-nav-caption">Older</strong>
+          <p class="article-nav-title">
+            
+              hexo撰写文章
+            
+          </p>
+        </article>
+      </div>
+    
+  </div>
+</nav>
+
+      </section>
+
+      
+
+  
+  
+
+  
+  
+
+
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+     
+    <p>&copy; 2020 <a href="/" target="_blank">Apocalypse</a></p>
+
+    
+      <p id="hitokoto"></p>
+      <script src="https://v1.hitokoto.cn/?c=a&amp;encode=js&select=%23hitokoto" defer></script>
+    
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+  <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+  <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+</svg> 
+  </div>
+
+  
+  
+
+
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        new APlayer({
+          container: el,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          lrcType: 3,
+          autoplay: false,
+          loop: false,
+          mutex: true,
+        });
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
+
+<!-- dplayer 视频 start -->
+<script type="text/javascript" src="https://unpkg.com/dplayer@1.25.1/dist/DPlayer.min.js"></script>
+<script type="text/javascript">
+  const dplayer = document.querySelectorAll(".dplayer");
+  dplayer && initDPlayer(dplayer);
+  function initDPlayer(els) {
+    let elsArr = Array.from(els);
+    elsArr.forEach(el => {
+      let url = el.dataset.url;
+      let cover = el.dataset.cover;
+      let subtitle = el.dataset.subtitle;
+
+      let options = {
+        container: el,
+        video: { url: url, pic: cover },
+        theme: "#b7daff",
+        autoplay: false,
+        loop: false,
+        mutex: true,
+      }
+
+      if (subtitle) {
+        options.subtitle = {
+          url: el.dataset.subtitle,
+        }
+      }
+      new DPlayer(options);
+    });
   }
-});
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
+</script>
+<!-- dplayer 视频 end -->
+
+
+<!-- waterfall 瀑布流 start -->
+
+<script src="/lib/waterfall.min.js"></script>
+
+<script type="text/javascript">
+
+const waterfalls = document.querySelectorAll(".waterfall-container");
+
+if (waterfalls && waterfalls.length > 0) {
+  waterfalls.forEach((waterfall, index) => {
+    let cls = "waterfall-container-" + index;
+    waterfall.classList.add(cls);
+    initWaterfall(cls, waterfall);
+  });
+}
+
+function initWaterfall(selector, el) {
+  const options = {};
+  if (Object.keys(el.dataset).length > 0) {
+    for (let k in el.dataset) {
+      options[k] = el.dataset[k];
+    }
   }
-});
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-  $('#nav').addClass('is-mobile')
-  $('footer').addClass('is-mobile')
-  $('#top-container').addClass('is-mobile')
-}</script></body></html>
+  waterfall(`.${selector}`, options);
+}
+</script>
+<!-- waterfall 瀑布流 end -->
+
+
+  <!-- zoom start -->
+  
+<script src="/lib/zoom.min.js"></script>
+
+  <script type="text/javascript">
+    document.querySelector(".article-content") && zoom(".article-content");
+  </script>
+  <!-- zoom end -->
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+
+</body>
+</html>

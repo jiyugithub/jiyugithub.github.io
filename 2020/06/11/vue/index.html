@@ -1,13 +1,134 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="从0到1教你搭建前端团队的组件系统（高级进阶必备）"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>从0到1教你搭建前端团队的组件系统（高级进阶必备） | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  }
-} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你将收获"><span class="toc-number">2.</span> <span class="toc-text">你将收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">3.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-开发组件库的几种方式"><span class="toc-number">3.1.</span> <span class="toc-text">1. 开发组件库的几种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-前端组件系统设计思路和模式"><span class="toc-number">3.2.</span> <span class="toc-text">2. 前端组件系统设计思路和模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组件库的划分及设计思路"><span class="toc-number">3.3.</span> <span class="toc-text">3. 组件库的划分及设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-从0搭建一个组件库"><span class="toc-number">3.4.</span> <span class="toc-text">4. 从0搭建一个组件库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-father介绍"><span class="toc-number">3.4.1.</span> <span class="toc-text">4.1 father介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-使用father搭建组件库"><span class="toc-number">3.4.2.</span> <span class="toc-text">4.2 使用father搭建组件库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-编写组件说明文档"><span class="toc-number">3.4.3.</span> <span class="toc-text">4.3 编写组件说明文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-组件库的package-json文件配置说明"><span class="toc-number">3.5.</span> <span class="toc-text">5. 组件库的package.json文件配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-将组件库部署到github并发布到npm上"><span class="toc-number">3.6.</span> <span class="toc-text">6. 将组件库部署到github并发布到npm上</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件系统与微前端架构初探"><span class="toc-number">4.</span> <span class="toc-text">组件系统与微前端架构初探</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">从0到1教你搭建前端团队的组件系统（高级进阶必备）</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-11</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  
+
+  
+
+  
+    <meta name="author" content="Apocalypse">
+  
+
+  
+
+  
+
+  <title>从0到1教你搭建前端团队的组件系统（高级进阶必备） | Apocalypse&#39;s Blog</title>
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/highlight.js/9.15.6/styles/monokai.min.css" rel="stylesheet">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+  <div class="root-container">
+    <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          Apocalypse&#39;s Blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">HOME</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">ABOUT</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">LINK</a></li>
+        
+          <li class="navbar-list-item"><a href="/tags">TAGS</a></li>
+        
+          <li class="navbar-list-item"><a href="/categories">CATEGORIES</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    
+<!-- header container -->
+<header class="header-container post">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-image" style="background-image: url(https://qiniu.miiiku.xyz/src/images/banner.jpg)"></div>
+      <div class="post-text">
+        <div class="type-wrap">
+          
+        </div>
+        <h1 class="title-wrap">从0到1教你搭建前端团队的组件系统（高级进阶必备）</h1>
+        <h2 class="title-sub-wrap">
+          <strong>Apocalypse</strong>
+          <span>发布于</span>
+          
+  <a href="javascript:;" class="article-date">
+    <time datetime="2020-06-11T04:57:45.000Z" itemprop="datePublished">2020-06-11</time>
+  </a>
+
+        </h2>
+      </div>
+    </div>
+  
+
+  
+  
+
+  </header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+
+<div class="body-container">
+  <article class="content-container article-container">
+    <div class="article-content">
+      
+      
+
+      <section class="article-entry">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
 <a id="more"></a>
 
 <p>我们在开发管理系统或者中台产品时，完全可以使用这种第三方库来开发，因为首先其服务的用户群体比较小众，一般是企业或者运营人员来使用，重点在于功能和业务，所以在B端产品比较适合；另一点就是设计要求相对于C端产品会低一些，因为B端产品或者管理系统风格统一简单反而会降低使用者的学习成本。所以对于上述情况，我们完全可以使用ant-design-pro或者element-admin-vue这类集成管理框架开开发。</p>
@@ -81,22 +202,22 @@
 </ul>
 <p>所以作为一个开箱即用的组件库打包工具，已经为我们省去了很多中间步骤，比如说组件的测试，不同环境下的模块打包，而且还支持ts和文档功能，我们只需要掌握babel和rollup的知识，就能用它轻松配置出一个强大的组件库脚手架。如果对docz不太了解的可以在<a href="https://www.docz.site/" target="_blank" rel="noopener">docz官网</a>学习使用非常简单,只要你对markdown和react熟悉，分分钟入门。</p>
 <h4 id="4-2-使用father搭建组件库"><a href="#4-2-使用father搭建组件库" class="headerlink" title="4.2 使用father搭建组件库"></a>4.2 使用father搭建组件库</h4><p>其实father的使用非常简单，首先我们先安装一下father：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install father -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> father -D<br></code></pre></td></tr></table></figure>
 
 <p>或者使用yarn安装：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn add father</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">add</span><span class="bash"> father</span><br></code></pre></td></tr></table></figure>
 
 <p>接下来我们可以在package.json里配置如下脚本来使用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 打包库</span><br><span class="line">$ father build</span><br><span class="line"></span><br><span class="line"># 开发环境下启动文档服务</span><br><span class="line">$ father doc dev</span><br><span class="line"></span><br><span class="line"># 打包编译文档</span><br><span class="line">$ father doc build</span><br><span class="line"></span><br><span class="line"># 将文档部署到github</span><br><span class="line">$ father doc deploy</span><br><span class="line"></span><br><span class="line"># 组件库测试及测试覆盖率</span><br><span class="line">$ father test</span><br><span class="line">$ father test --coverage</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 打包库</span><br><span class="hljs-meta">$</span><span class="bash"> father build</span><br><br><span class="hljs-meta">#</span><span class="bash"> 开发环境下启动文档服务</span><br><span class="hljs-meta">$</span><span class="bash"> father doc dev</span><br><br><span class="hljs-meta">#</span><span class="bash"> 打包编译文档</span><br><span class="hljs-meta">$</span><span class="bash"> father doc build</span><br><br><span class="hljs-meta">#</span><span class="bash"> 将文档部署到github</span><br><span class="hljs-meta">$</span><span class="bash"> father doc deploy</span><br><br><span class="hljs-meta">#</span><span class="bash"> 组件库测试及测试覆盖率</span><br><span class="hljs-meta">$</span><span class="bash"> father <span class="hljs-built_in">test</span></span><br><span class="hljs-meta">$</span><span class="bash"> father <span class="hljs-built_in">test</span> --coverage</span><br></code></pre></td></tr></table></figure>
 
 <p>这里拿笔者之前已经发布到npm的组件库<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a>来举例。 首先我们看看<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json中的script脚本如何配置的：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;npx --max_old_space_size&#x3D;8096 father doc dev --host 0.0.0.0&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;father build&quot;,</span><br><span class="line">    &quot;build:doc&quot;: &quot;father doc build&quot;,</span><br><span class="line">    &quot;deploy&quot;: &quot;father doc deploy&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">"scripts"</span>: &#123;<br>    <span class="hljs-string">"dev"</span>: <span class="hljs-string">"npx --max_old_space_size=8096 father doc dev --host 0.0.0.0"</span>,<br>    <span class="hljs-string">"build"</span>: <span class="hljs-string">"father build"</span>,<br>    <span class="hljs-string">"build:doc"</span>: <span class="hljs-string">"father doc build"</span>,<br>    <span class="hljs-string">"deploy"</span>: <span class="hljs-string">"father doc deploy"</span><br>  &#125;<br></code></pre></td></tr></table></figure>
 
 <p>当我们执行npm run dev或者yarn dev时，father自动帮我们启动了doc服务器，我们接下来就能看到我们组件的测试文档了：</p>
 <p><img src="http://gank.io/images/e50a95c09cdf4efb8a51d3aa5a23b04c" alt="img"></p>
 <p><img src="http://gank.io/images/06f63fe8890b41519df05f3f19453d0c" alt="img"></p>
 <p>这些内容都是我们提前写好的mdx文档，语法类似于markdown，只不过增加了对react组件的编译支持，其实使用起来很简单，我们只需要把react组件包裹在Playground容器里就好了，具体使用可以参考以下方式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">name: Button</span><br><span class="line">route: &#x2F;Button</span><br><span class="line">order: 3</span><br><span class="line">sidebar: true</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">import &#123; Playground &#125; from &#39;docz&#39;</span><br><span class="line">import Button from &#39;.&#x2F;index&#39;</span><br><span class="line"></span><br><span class="line"># Button</span><br><span class="line"></span><br><span class="line">#### 基本用法</span><br><span class="line">&lt;Playground&gt;</span><br><span class="line">    &lt;Button&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;primary&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;warning&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;info&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;pure&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;primary&quot; shape&#x3D;&quot;circle&quot;&gt;按钮的命运&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;Playground&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">name:</span> <span class="hljs-string">Button</span><br><span class="hljs-attr">route:</span> <span class="hljs-string">/Button</span><br><span class="hljs-attr">order:</span> <span class="hljs-number">3</span><br><span class="hljs-attr">sidebar:</span> <span class="hljs-literal">true</span><br><span class="hljs-meta">---</span><br><br><span class="hljs-string">import</span> <span class="hljs-string">&#123;</span> <span class="hljs-string">Playground</span> <span class="hljs-string">&#125;</span> <span class="hljs-string">from</span> <span class="hljs-string">'docz'</span><br><span class="hljs-string">import</span> <span class="hljs-string">Button</span> <span class="hljs-string">from</span> <span class="hljs-string">'./index'</span><br><br><span class="hljs-comment"># Button</span><br><br><span class="hljs-comment">#### 基本用法</span><br><span class="hljs-string">&lt;Playground&gt;</span><br>    <span class="hljs-string">&lt;Button&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="primary"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="warning"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="info"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="pure"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="primary"</span> <span class="hljs-string">shape="circle"&gt;按钮的命运&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br><span class="hljs-string">&lt;/Playground&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>头部的信息我需要介绍一下：</p>
 <ul>
@@ -108,7 +229,7 @@
 <p>我们根据案例可以知道mdx里面可以使用es6的导入方式来引入组件或者变量，其实还有很多配置，这里就不一一举例了，感兴趣的可以到docz官网学习。以下是官网的截图：</p>
 <p><img src="http://gank.io/images/88c1791e8ff34523906081b881ed0edb" alt="img"></p>
 <p>接下来介绍我们最重要的部分，<strong>.fatherrc.js</strong>文件的配置。初始化father项目时会自动生成一个默认配置，但是大多数情况下我们都需要自定义配置，官网的配置参数也很多，可以找到适合自己团队的配置，这里我主要介绍<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>组件库的配置细节。先看看配置代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; .fatherrc.js</span><br><span class="line">const options &#x3D; &#123;</span><br><span class="line">  entry: &#39;src&#x2F;index.js&#39;,</span><br><span class="line">  doc: &#123;</span><br><span class="line">    title: &#39;xu_ui&#39;,</span><br><span class="line">    themeConfig: &#123; mode: &#39;light&#39; &#125;,</span><br><span class="line">    base: &#39;&#x2F;xu_ui&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  extraBabelPlugins: [</span><br><span class="line">      [&#39;babel-plugin-import&#39;, &#123;</span><br><span class="line">          libraryName: &#39;antd&#39;,</span><br><span class="line">          libraryDirectory: &#39;es&#39;,</span><br><span class="line">          style: true,</span><br><span class="line">      &#125;]</span><br><span class="line">  ],</span><br><span class="line">  &#x2F;&#x2F; cssModules: true,</span><br><span class="line">  extractCSS: true,</span><br><span class="line">  lessInBabelMode: true,</span><br><span class="line">  runtimeHelpers: true,</span><br><span class="line">  esm: &#39;babel&#39;, </span><br><span class="line">  cjs: &#39;babel&#39;,</span><br><span class="line">  autoprefixer: &#123;</span><br><span class="line">      browsers: [&#39;ie&gt;9&#39;, &#39;Safari &gt;&#x3D; 6&#39;],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default options;</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">//</span> <span class="hljs-string">.fatherrc.js</span><br><span class="hljs-string">const</span> <span class="hljs-string">options</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span><br>  <span class="hljs-attr">entry:</span> <span class="hljs-string">'src/index.js'</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">doc:</span> <span class="hljs-string">&#123;</span><br>    <span class="hljs-attr">title:</span> <span class="hljs-string">'xu_ui'</span><span class="hljs-string">,</span><br>    <span class="hljs-attr">themeConfig:</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">mode:</span> <span class="hljs-string">'light'</span> <span class="hljs-string">&#125;,</span><br>    <span class="hljs-attr">base:</span> <span class="hljs-string">'/xu_ui'</span><br>  <span class="hljs-string">&#125;,</span><br>  <span class="hljs-attr">extraBabelPlugins:</span> <span class="hljs-string">[</span><br>      <span class="hljs-string">['babel-plugin-import',</span> <span class="hljs-string">&#123;</span><br>          <span class="hljs-attr">libraryName:</span> <span class="hljs-string">'antd'</span><span class="hljs-string">,</span><br>          <span class="hljs-attr">libraryDirectory:</span> <span class="hljs-string">'es'</span><span class="hljs-string">,</span><br>          <span class="hljs-attr">style:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>      <span class="hljs-string">&#125;]</span><br>  <span class="hljs-string">],</span><br>  <span class="hljs-string">//</span> <span class="hljs-attr">cssModules:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">extractCSS:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">lessInBabelMode:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">runtimeHelpers:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">esm:</span> <span class="hljs-string">'babel'</span><span class="hljs-string">,</span> <br>  <span class="hljs-attr">cjs:</span> <span class="hljs-string">'babel'</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">autoprefixer:</span> <span class="hljs-string">&#123;</span><br>      <span class="hljs-attr">browsers:</span> <span class="hljs-string">['ie&gt;9',</span> <span class="hljs-string">'Safari &gt;= 6'</span><span class="hljs-string">],</span><br>  <span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;;</span><br><br><span class="hljs-string">export</span> <span class="hljs-string">default</span> <span class="hljs-string">options;</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>entry</li>
@@ -149,66 +270,224 @@
 <li><strong>homepage</strong> 组件库的主页地址，更有利于用户了解组件库的用法，功能等 完整的在线例子可以参考： <a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a></li>
 </ul>
 <h3 id="6-将组件库部署到github并发布到npm上"><a href="#6-将组件库部署到github并发布到npm上" class="headerlink" title="6. 将组件库部署到github并发布到npm上"></a>6. 将组件库部署到github并发布到npm上</h3><p><strong>首先</strong>我们需要在package.json中配置github的地址：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;repository&quot;: &#123;</span><br><span class="line">    &quot;type&quot;: &quot;git&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;git+https:&#x2F;&#x2F;github.com:MrXujiang&#x2F;xu_ui.git&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">"repository"</span>: &#123;<br>    <span class="hljs-string">"type"</span>: <span class="hljs-string">"git"</span>,<br>    <span class="hljs-string">"url"</span>: <span class="hljs-string">"git+https://github.com:MrXujiang/xu_ui.git"</span><br>  &#125;<br></code></pre></td></tr></table></figure>
 
 <p>大家可以复制以上代码改成自己的仓库地址。</p>
 <p><strong>其次</strong>我们需要登录进npm官网，如果你还没有账号可以直接申请一个，也很简单，然后在终端通过命令行登录。</p>
 <p><strong>接下来</strong>我们执行以下几个命令就能将自己的组件库打包发布到npm上了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 打包编译组件库</span><br><span class="line">yarn build</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 编译组件库文档，该步骤可省略</span><br><span class="line">yarn build:doc</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 部署组件库文档到github, 该步骤可省略</span><br><span class="line">yarn deploy</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 发布到npm上</span><br><span class="line">npm publish --access public</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-comment">// 打包编译组件库</span><br>yarn build<br><br><span class="hljs-comment">// 编译组件库文档，该步骤可省略</span><br>yarn <span class="hljs-string">build:</span>doc<br><br><span class="hljs-comment">// 部署组件库文档到github, 该步骤可省略</span><br>yarn deploy<br><br><span class="hljs-comment">// 发布到npm上</span><br>npm publish --access <span class="hljs-keyword">public</span><br></code></pre></td></tr></table></figure>
 
 <p>以上的yarn命令具体实现可参考<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json,也可以自己配置。经过上述步骤我们就成功将自己的组件库发布到npm上了，是不是很简单呢？</p>
 <p>笔者已经将实现过的组件发布到npm上了,大家如果感兴趣可以直接用npm安装后使用,方式如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm i @alex_xu&#x2F;xui</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 导入xui</span><br><span class="line">import &#123; </span><br><span class="line">  Button, Skeleton, Empty, Progress,</span><br><span class="line">  Message, Tag, Switch, Drawer, Badge, Alert</span><br><span class="line">&#125; from &#39;@alex_xu&#x2F;xui&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i @alex_xu/xui<br><br><span class="hljs-regexp">//</span> 导入xui<br><span class="hljs-keyword">import</span> &#123; <br>  Button, Skeleton, Empty, Progress,<br>  Message, Tag, Switch, Drawer, Badge, Alert<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@alex_xu/xui'</span><br></code></pre></td></tr></table></figure>
 
 <p>该组件库支持按需导入,我们只需要在项目里配置babel-plugin-import即可,具体配置如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; .babelrc</span><br><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  [&quot;import&quot;, &#123; &quot;libraryName&quot;: &quot;@alex_xu&#x2F;xui&quot;, &quot;style&quot;: true &#125;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">//</span> <span class="hljs-string">.babelrc</span><br><span class="hljs-string">"plugins"</span>: [<br>  [<span class="hljs-string">"import"</span>, &#123; <span class="hljs-string">"libraryName"</span>: <span class="hljs-string">"@alex_xu/xui"</span>, <span class="hljs-string">"style"</span>: <span class="hljs-literal">true</span> &#125;]<br>]<br></code></pre></td></tr></table></figure>
 
 <p>npm库截图如下:</p>
 <p><img src="http://gank.io/images/80676812e7b944a28e498dc8926a9866" alt="img"></p>
 <h2 id="组件系统与微前端架构初探"><a href="#组件系统与微前端架构初探" class="headerlink" title="组件系统与微前端架构初探"></a>组件系统与微前端架构初探</h2><p>笔者本篇文章并不会将微前端架构的知识，但是既然涉及到组件库，就一定要形成一个知识闭环，笔者特意画了如下脑图，供前端朋友或者正准备走向微前端架构的团队一些参考：</p>
 <p><img src="http://gank.io/images/34b349be69ef4d9c9446fbcb35aa06e5" alt="img"></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/11/vue/">https://jiyugithub.github.io/2020/06/11/vue/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/12/multitype/"><i class="fa fa-chevron-left">  </i><span>Android 复杂的列表视图新写法 MultiType</span></a></div><div class="next-post pull-right"><a href="/2020/06/09/handler/"><span>Handler 机制</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
-var verify = 'false' == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
-  appKey:'FihoucantYlc5U1FQ9BzkO3l',
-  placeholder:'Just go go',
-  avatar:'mm',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang: 'zh-cn'
-})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
+
+      </section>
+
+      <section class="article-footer">
+        
+      </section>
+
+      <section class="article-navs">
+        
+<nav class="card-container card-article-nav">
+  <div class="card-wrap">
+    
+      <div id="article-nav-newer" class="card-item">
+        <article>
+          
+          <a class="card-link article-nav-link" href="/2020/06/12/multitype/"></a>
+          <strong class="article-nav-caption">Newer</strong>
+          <p class="article-nav-title">
+            
+              Android 复杂的列表视图新写法 MultiType
+            
+          </p>
+        </article>
+      </div>
+    
+    
+      <div id="article-nav-older" class="card-item">
+        <article>
+          
+          <a class="card-link article-nav-link" href="/2020/06/09/handler/"></a>
+          <strong class="article-nav-caption">Older</strong>
+          <p class="article-nav-title">
+            
+              Handler 机制
+            
+          </p>
+        </article>
+      </div>
+    
+  </div>
+</nav>
+
+      </section>
+
+      
+
+  
+  
+
+  
+  
+
+
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+     
+    <p>&copy; 2020 <a href="/" target="_blank">Apocalypse</a></p>
+
+    
+      <p id="hitokoto"></p>
+      <script src="https://v1.hitokoto.cn/?c=a&amp;encode=js&select=%23hitokoto" defer></script>
+    
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+  <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+  <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+</svg> 
+  </div>
+
+  
+  
+
+
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        new APlayer({
+          container: el,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          lrcType: 3,
+          autoplay: false,
+          loop: false,
+          mutex: true,
+        });
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
+
+<!-- dplayer 视频 start -->
+<script type="text/javascript" src="https://unpkg.com/dplayer@1.25.1/dist/DPlayer.min.js"></script>
+<script type="text/javascript">
+  const dplayer = document.querySelectorAll(".dplayer");
+  dplayer && initDPlayer(dplayer);
+  function initDPlayer(els) {
+    let elsArr = Array.from(els);
+    elsArr.forEach(el => {
+      let url = el.dataset.url;
+      let cover = el.dataset.cover;
+      let subtitle = el.dataset.subtitle;
+
+      let options = {
+        container: el,
+        video: { url: url, pic: cover },
+        theme: "#b7daff",
+        autoplay: false,
+        loop: false,
+        mutex: true,
+      }
+
+      if (subtitle) {
+        options.subtitle = {
+          url: el.dataset.subtitle,
+        }
+      }
+      new DPlayer(options);
+    });
   }
-});
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
+</script>
+<!-- dplayer 视频 end -->
+
+
+<!-- waterfall 瀑布流 start -->
+
+<script src="/lib/waterfall.min.js"></script>
+
+<script type="text/javascript">
+
+const waterfalls = document.querySelectorAll(".waterfall-container");
+
+if (waterfalls && waterfalls.length > 0) {
+  waterfalls.forEach((waterfall, index) => {
+    let cls = "waterfall-container-" + index;
+    waterfall.classList.add(cls);
+    initWaterfall(cls, waterfall);
+  });
+}
+
+function initWaterfall(selector, el) {
+  const options = {};
+  if (Object.keys(el.dataset).length > 0) {
+    for (let k in el.dataset) {
+      options[k] = el.dataset[k];
+    }
   }
-});
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-  $('#nav').addClass('is-mobile')
-  $('footer').addClass('is-mobile')
-  $('#top-container').addClass('is-mobile')
-}</script></body></html>
+  waterfall(`.${selector}`, options);
+}
+</script>
+<!-- waterfall 瀑布流 end -->
+
+
+  <!-- zoom start -->
+  
+<script src="/lib/zoom.min.js"></script>
+
+  <script type="text/javascript">
+    document.querySelector(".article-content") && zoom(".article-content");
+  </script>
+  <!-- zoom end -->
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+
+</body>
+</html>
