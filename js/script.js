@@ -1,95 +1,88 @@
-window.addEventListener("DOMContentLoaded", function() {
-  const html            = document.querySelector("html");
-  const navBar          = document.querySelector(".navbar");
-  const navBtn          = document.querySelector(".navbar-btn");
-  const navList         = document.querySelector(".navbar-list");
-  const backToTopFixed  = document.querySelector(".back-to-top-fixed");
-  const images          = Array.from(document.images);
-  const navBarH         = 54;
+// declaraction of document.ready() function.
+(function () {
+    var ie = !!(window.attachEvent && !window.opera);
+    var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && (RegExp.$1 < 525);
+    var fn = [];
+    var run = function () {
+        for (var i = 0; i < fn.length; i++) fn[i]();
+    };
+    var d = document;
+    d.ready = function (f) {
+        if (!ie && !wk && d.addEventListener)
+            return d.addEventListener('DOMContentLoaded', f, false);
+        if (fn.push(f) > 1) return;
+        if (ie)
+            (function () {
+                try {
+                    d.documentElement.doScroll('left');
+                    run();
+                } catch (err) {
+                    setTimeout(arguments.callee, 0);
+                }
+            })();
+        else if (wk)
+            var t = setInterval(function () {
+                if (/^(loaded|complete)$/.test(d.readyState))
+                    clearInterval(t), run();
+            }, 0);
+    };
+})();
 
-  let scroll            = getScrollTop();
-  let lastTop           = 0;
 
-  const goScrollTop = () => {
-    let currentTop = getScrollTop()
-    let speed = Math.floor(-currentTop / 10)
-    if (currentTop > lastTop) {
-      return lastTop = 0
+document.ready(
+    // toggleTheme function.
+    // this script shouldn't be changed.
+    function () {
+        var _Blog = window._Blog || {};
+        const currentTheme = window.localStorage && window.localStorage.getItem('theme');
+        const isDark = currentTheme === 'dark';
+        if (isDark) {
+            document.getElementById("switch_default").checked = true;
+            // mobile
+            document.getElementById("mobile-toggle-theme").innerText = "· 🌜Dark"
+        } else {
+            document.getElementById("switch_default").checked = false;
+            // mobile
+            document.getElementById("mobile-toggle-theme").innerText = "· 🌜Dark"
+        }
+        _Blog.toggleTheme = function () {
+            if (isDark) {
+                document.getElementsByTagName('body')[0].classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· 🌜Dark"
+            } else {
+                document.getElementsByTagName('body')[0].classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· 🌞Light"
+            }
+            document.getElementsByClassName('toggleBtn')[0].addEventListener('click', () => {
+                if (document.getElementsByTagName('body')[0].classList.contains('dark-theme')) {
+                    document.getElementsByTagName('body')[0].classList.remove('dark-theme');
+                } else {
+                    document.getElementsByTagName('body')[0].classList.add('dark-theme');
+                }
+                window.localStorage &&
+                window.localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light',)
+            })
+            // moblie
+            document.getElementById('mobile-toggle-theme').addEventListener('click', () => {
+                if (document.getElementsByTagName('body')[0].classList.contains('dark-theme')) {
+                    document.getElementsByTagName('body')[0].classList.remove('dark-theme');
+                    // mobile
+                    document.getElementById("mobile-toggle-theme").innerText = "· 🌞Light"
+
+                } else {
+                    document.getElementsByTagName('body')[0].classList.add('dark-theme');
+                    // mobile
+                    document.getElementById("mobile-toggle-theme").innerText = "· 🌜Dark"
+                }
+                window.localStorage &&
+                window.localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light',)
+            })
+        };
+        _Blog.toggleTheme();
+
+        // ready function.
+
     }
-    let distance = currentTop + speed;
-    lastTop = distance;
-    document.documentElement.scrollTop = distance;
-    distance > 0 && window.requestAnimationFrame(goScrollTop)
-  }
-
-  const toggleBackToTopBtn = (top) => {
-    top = top || getScrollTop()
-    if (top >= 100) {
-      backToTopFixed.classList.add("show")
-    } else {
-      backToTopFixed.classList.remove("show")
-    }
-  }
-
-  toggleBackToTopBtn()
-
-  images.forEach(item => {
-    item.addEventListener("error", function () {
-      this.src = "/images/image-error.jpg";
-    });
-  });
-
-  // mobile nav click
-  navBtn.addEventListener("click", function () {
-    html.classList.toggle("show-mobile-nav");
-    this.classList.toggle("active");
-  });
-
-  // mobile nav link click
-  navList.addEventListener("click", function (e) {
-    if (e.target.nodeName == "A" && html.classList.contains("show-mobile-nav")) {
-      navBtn.click()
-    }
-  })
-
-  // click back to top
-  backToTopFixed.addEventListener("click", function(e) {
-    lastTop = getScrollTop()
-    goScrollTop()
-  });
-
-  window.addEventListener("scroll", function (e) {
-    let top = getScrollTop();
-    let dir = top - scroll;
-    
-    if (top > navBarH && !navBar.classList.contains("fixed")) {
-      navBar.classList.add("fixed");
-    }
-
-    if (top <= 0 && navBar.classList.contains("fixed")) {
-      navBar.classList.remove("fixed");
-      navBar.classList.remove("visible");
-    }
-
-    if (dir < 0 && navBar.classList.contains("fixed") && !navBar.classList.contains("visible")) {
-      navBar.classList.add("visible");
-    }
-
-    if (dir > 0 && navBar.classList.contains("fixed") && navBar.classList.contains("visible")) {
-      navBar.classList.remove("visible");
-    }
-
-    toggleBackToTopBtn()
-
-    scroll = top;
-  }, { passive: true });
-});
-
-/**
- * 获取当前滚动条距离顶部高度
- *
- * @returns 距离高度
- */
-function getScrollTop () {
-  return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-}
+);
