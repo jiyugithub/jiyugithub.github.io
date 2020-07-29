@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!--icon-->
+    
+        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- meta -->
+    
+    <title>Apocalypse&#39;s Blog</title>
+    
+
+    <!-- OpenGraph -->
+     
+        <meta property="og:type" content="website">
+<meta property="og:title" content="Apocalypse&#39;s Blog">
+<meta property="og:url" content="https://jiyugithub.github.io/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary_large_image">
+    
+
+    <!-- feed -->
+    
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+    
+    
+        
+<link rel="stylesheet" href="/css/style/dark.css">
+
+        
+<script src="/js/darkmode.js"></script>
+
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+    
+
+     
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Apocalypse's Blog 
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="cover__menus">
+                
+                    <a href="/" class="cover-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="cover-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="cover-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="cover-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="cover-menu button">
+                        Page
+                    </a>
+                
+            </div>
+        
+        
+            <a href="javaScript:void(0);" id="btn-toggle-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </a>
+        
+         
+            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+                </svg>
+            </a>
+        
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="dropdown-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="dropdown-menu button">
+                        Page
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+    <div class="cover">
+        <div class="cover__logo">
+            
+                <h1>Apocalypse's Blog</h1>
+            
+        </div>
+        
+            <div class="cover__intro">
+                <p>Hi, nice to meet you!</p>
+ 
+            </div>
+        
+    </div>
+
+            <main class="main">
+    
+    <div class="posts">
+        
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/27/Jetpack/" class="index-title">
+        <h2 class="post-card__title">
+            Android全新UI编程 - Jetpack Compose 超详细教程 第1弹
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a><strong>1. 简介</strong></h2><p><code>Jetpack Compose</code>是在2019Google i/O大会上发布的新的库。<code>Compose</code>库是用响应式编程的方式对View进行构建,可以用更少更直观的代码，更强大的功能，能提高开发速度（这一段是谷歌自己说的）。 说实话，<code>View/Layout</code>的模式对安卓工程师来说太过于熟悉，对于学习曲线陡峭的<code>Jetpack Compose</code>能不能很好的普及还是有所担心。</p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-27
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/07/27/Jetpack/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/25/andview/" class="index-title">
+        <h2 class="post-card__title">
+            Android进阶基础系列：View的工作原理 全面理解！
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>
+                        1、ViewRoot 和 DecorView...
+                    </p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-25
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/07/25/andview/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/05/suspendAction/" class="index-title">
+        <h2 class="post-card__title">
+            用协程控制多个并行异步结果的优先级
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。</p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-05
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/07/05/suspendAction/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/30/blogs/" class="index-title">
+        <h2 class="post-card__title">
+            帮朋友转发一个博客
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>
+                        http://blog.moiyun.cn/archives/15/除非付诸行动，否则空口无凭
+博主：刘时...
+                    </p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-30
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/30/blogs/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/28/androidxx/" class="index-title">
+        <h2 class="post-card__title">
+            聊聊 Android 开发的现状和思考
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>回想这六年里 Android 开发的发展历程，现如今的 Android 已经拥有了成熟的开发体系，技术框架也是经历了一代一代的更新：</p>
+<ul>
+<li><code>HttpClient</code>、<code>Volley</code> 、<code>OkHttp</code>、<code>Retrofit</code> ；</li>
+<li><code>ImageLoader</code>、<code>Picasso</code>、<code>Fresco</code>、<code>Glide</code>；</li>
+<li><code>OrmLite</code>、<code>LitePal</code>、<code>GreenDao</code>、<code>Realm</code>、<code>Room</code>；</li>
+</ul>
+<p>除了熟悉的网络、图片和数据库“三大件”外，还有像 <code>xUtils</code>、<code>EventBus</code>、<code>Dagger</code>、<code>RxJava</code>、<code>MultiType</code> 等等，它们对于老 Android 来说，可以说是贯穿了整个“青春期”的回忆。</p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-28
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/28/androidxx/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/16/fragmentstatepager/" class="index-title">
+        <h2 class="post-card__title">
+            FragmentStatePagerAdapter在ViewPager中优化了什么
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>OK，填坑篇的文章来了。</p>
+<p>当我打开官方文档准备开始了解FragmentStatePagerAdapter的时候。我仿佛像是…闭关蛰伏数十载，准备反清复明；出关时发现大清已经亡了…</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/17259fac8a6bcf70?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>什么鬼，我还不会用呢，就tm废弃了？？？</p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-16
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/16/fragmentstatepager/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/16/100js/" class="index-title">
+        <h2 class="post-card__title">
+            100 行 js 代码下载抖音无水印视频
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <blockquote>
+<p>本文大约 600 字，看完本文大概需要 5 分钟，仅供学习使用，如有错误，请指正。</p>
+</blockquote>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>抖音平台下载一个视频，去掉左上角的水印id。</p>
+<h3 id="先来看看有水印效果"><a href="#先来看看有水印效果" class="headerlink" title="先来看看有水印效果"></a>先来看看有水印效果</h3><p>这时候就会发现，抖音官方下载下来的视频，会有抖音的水印，需要去掉水印。</p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae574b9c8c350?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-16
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/16/100js/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/KotlinJava/" class="index-title">
+        <h2 class="post-card__title">
+            Kotlin与Java的异同
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <h3 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h3><blockquote>
+<p>Java</p>
+</blockquote>
+<pre><code class="java">System.out.print(&quot;hello world&quot;);
+System.out.println(&quot;hello world&quot;);</code></pre>
+<blockquote>
+<p>Kotlin</p>
+</blockquote>
+<pre><code class="kotlin">print(&quot;hello world&quot;)
+println(&quot;hello world&quot;)</code></pre>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/14/KotlinJava/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/switcher/" class="index-title">
+        <h2 class="post-card__title">
+            炫酷！从未见过如此Q弹的Switcher
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
+<blockquote>
+<p>原作者：<a href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------" target="_blank" rel="noopener">Alexander Kolpakov</a> 译者：<a href="https://www.jianshu.com/u/35167a70aa39" target="_blank" rel="noopener">依然范特稀西</a> 地址：<a href="http://suo.im/60UJjT" target="_blank" rel="noopener">http://suo.im/60UJjT</a></p>
+</blockquote>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
+        
+    <span class="separate-dot"></span><a href="/categories/Category1/" class="button">Category1</a>
+
+    <span class="separate-dot"></span><a href="/categories/Category1/Category2/" class="button">Category2</a>
+
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+        <a href="/tags/Tag1/" class="post-tags__link button"># Tag1</a>
+    
+        <a href="/tags/Tag2/" class="post-tags__link button"># Tag2</a>
+    
+</div> 
+
+<a href="/2020/06/14/switcher/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/Kotlinyf/" class="index-title">
+        <h2 class="post-card__title">
+            Kotlin实战 | 语法糖
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/14/Kotlinyf/" class="post-card__link">Link</a>
+                </div>
+            
+        
+    </div>
+    
+        
+            <br>
+            <nav role="navigation" aria-label="Pagination Navigation">
+                
+                <span>1 / 4</span>
+                
+                    <a href="/page/2/" class="button">
+                        Next&nbsp;&gt;
+                    </a>
+                
+            </nav>
+        
+    
+
+
+</main>
+<footer class="footer">
+     
+
+
+     
+  
+    
+        
+            <p>Copyright © 2020</p>
+
+        
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+
+
+        </div>
+        
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+ 
+    
+<script src="/js/b2t.js"></script>
+
+
+
+
+
+
+
+
+    </body>
+</html>

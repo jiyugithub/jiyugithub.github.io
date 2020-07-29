@@ -1,162 +1,242 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  使用Kotlin从零开始写一个现代Android |    white.</title>
-  <!-- 标签页图标 -->
-  
-  <!-- 图标库 -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
-  <!-- 动画库 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <!-- css文件 -->
-  
-<link rel="stylesheet" href="/css/white.css">
-
-  <!-- 代码高亮 -->
-  
-    
-      
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+    <head>
+    <meta charset="utf-8">
 
     
-  
-  <!-- tocbot -->
-  <!-- 
-    
-<link rel="stylesheet" href="/css/tocbot.css">
 
-   -->
-  <!-- 声明document.ready函数 -->
-  <!-- <script>
-      document.ready = function (callback) {
-        ///兼容FF,Google
-        if (document.addEventListener) {
-          document.addEventListener('DOMContentLoaded', function () {
-            document.removeEventListener('DOMContentLoaded', arguments.callee, false);
-            callback();
-          }, false)
-        }
-        //兼容IE
-        else if (document.attachEvent) {
-          document.attachEvent('onreadystatechange', function () {
-            if (document.readyState == "complete") {
-              document.detachEvent("onreadystatechange", arguments.callee);
-              callback();
-            }
-          })
-        }
-        else if (document.lastChild == document.body) {
-          callback();
-        }
-      }
-  </script> -->
+    <!--icon-->
+    
+        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- meta -->
+    
+    <title>使用Kotlin从零开始写一个现代Android | Apocalypse&#39;s Blog</title>
+    
+
+    <!-- OpenGraph -->
+     
+        <meta name="description" content="前言经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Kotlin从零开始写一个现代Android">
+<meta property="og:url" content="https://jiyugithub.github.io/2020/06/12/0_kotlin/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:description" content="前言经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/6/9/172996a0132edd8b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/6/9/17299720fee769d8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/6/9/1729977d7debb137?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/6/9/172997c1dd00ddd1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-06-11T22:48:13.000Z">
+<meta property="article:modified_time" content="2020-06-13T20:43:57.370Z">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/6/9/172996a0132edd8b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+    
+
+    <!-- feed -->
+    
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+    
+    
+        
+<link rel="stylesheet" href="/css/style/dark.css">
+
+        
+<script src="/js/darkmode.js"></script>
+
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+    
+
+     
+
+    
+
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-
-<body>
-<div class="menu-outer">
-    <div class="menu-inner">
-      <div class="menu-site-name  animate__animated  animate__fadeInUp">
-        <a href="/">
-          white.
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Apocalypse's Blog 
+            </span>
         </a>
+    </div>
+    <div class="header__right">
         
-      </div>
-      <div class="menu-group">
-        <ul class="menu-ul">
+            <div class="cover__menus">
+                
+                    <a href="/" class="cover-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="cover-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="cover-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="cover-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="cover-menu button">
+                        Page
+                    </a>
+                
+            </div>
         
-          <a href="/" class="nav-link">
-            <li class="menu-li  animate__animated  animate__fadeInUp">
-              HOME
-            </li>
-          </a>
         
-          <a href="/archives" class="nav-link">
-            <li class="menu-li  animate__animated  animate__fadeInUp">
-              BLOG
-            </li>
-          </a>
+            <a href="javaScript:void(0);" id="btn-toggle-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </a>
         
-        
-        <a href="/search">
-          <li class="menu-li  animate__animated  animate__fadeInUp">
-            <i class="ri-search-line"></i>
-          </li>
-        </a>
+         
+            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+                </svg>
+            </a>
         
         
-       
-          <li class="menu-li animate__animated  animate__fadeInUp" id="mobile-menu">
-            <i class="ri-menu-line"></i>
-          </li>
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="dropdown-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="dropdown-menu button">
+                        Page
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
         
-        </ul>
+    </div>
+</header>
 
-      </div>
 
+            <main class="main">
+    <div class="post-title">
+    <h1 class="post-title__text">
+        使用Kotlin从零开始写一个现代Android
+    </h1>
+    <div class="post-title__meta">
+        
+            <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-12
+</a>
+        
+        
+            
+ 
+        
+        
+     
+ 
+
+  
     </div>
 </div>
-<div id="mobile-main" class="animate__animated  animate__fadeIn">
-  <div class="mobile-menu-inner">
-    <div class="mobile-menu-site-name  animate__animated  animate__fadeInUp">
-      <a href="/">
-        white.
-      </a>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#我们的APP最终是什么样子？"><span class="toc-text">我们的APP最终是什么样子？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0、Android-Studio"><span class="toc-text">0、Android Studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Kotlin"><span class="toc-text">1、Kotlin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、构建变体"><span class="toc-text">2、构建变体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ConstraintLayout"><span class="toc-text">3、ConstraintLayout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Data-binding-library"><span class="toc-text">4. Data binding library</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Butterknife能帮我们做啥？"><span class="toc-text">Butterknife能帮我们做啥？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Butterknife的缺点是什么？"><span class="toc-text">Butterknife的缺点是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#那与之相比，Data-Binding-怎么样呢？"><span class="toc-text">那与之相比，Data Binding 怎么样呢？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kotlin的-Getters-和-setters"><span class="toc-text">kotlin的 Getters 和 setters</span></a></li></ol></li></ol></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header">
+                
+                     
+                
+                
+                    
+    <div class="post__expire" id="post-expired-notify">
+        <p>
+            This article was last updated on <span id="expire-date"></span> days ago, the information described in the article may be outdated.
+        </p>
     </div>
-    <div class="mobile-menu-group" id="mobile-close">
-      <i class="ri-close-line"></i>
-    </div>
+    <script>
+        (() => {
+            var update = Date.parse("2020-06-14"),
+                date = new Date(),
+                now = date.getTime(),
+                expire = now - update,
+                expire_days = Math.floor(expire/(24*3600*1000));
+            if (expire_days >= 120) {
+                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
+                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
+            }
+        })();
+    </script>
 
-  </div>
-
-  <div class="mobile-menu-div">
-  
-    <a href="/" class="mobile-nav-link">
-      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
-        <span>HOME</span>
-      </div>
-    </a>
-  
-    <a href="/archives" class="mobile-nav-link">
-      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
-        <span>BLOG</span>
-      </div>
-    </a>
-  
-  
-    <a href="/search">  
-      <div class="mobile-menu-child  animate__animated  animate__fadeInUp">
-        <i class="ri-search-line"></i>
-      </div>
-    </a>
-    
-  </div>
-
-
-</div>
-
-<div class="body-outer">
-  <div class="body-inner">
-    
-<article class="post-inner">
-  <div class="post-content-outer">
-    <div class="post-content-inner ">
-      <div class="post-intro-no-cover">
-        <div class="post-title animate__animated  animate__fadeInUp">使用Kotlin从零开始写一个现代Android</div>
-        <div class="meta-intro animate__animated  animate__fadeInUp"><span class="intro-span">2020年6月12日 by Apocalypse</span></div>
-        
-      </div>
-      <div class="post-content-main animate__animated  animate__fadeInUp">
-        <!-- 目录 -->
-        
-          
-        
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。</p>
+                
+            </div>
+            <div class="post__content">
+                <div class="md-content">
+                    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。</p>
 <a id="more"></a>
 
 <p>现在，真的很难找到一个涵盖所有Android新技术的项目，因此我决定自己来写一个，在本文中，我们将用到如下技术：</p>
@@ -551,93 +631,82 @@ binding.executePendingBindings()
 }
 </code></pre><p>当我们使用了 Bindable 注解时，就会自动生成 BR 类。你会看到，一旦设置新值，就会通知它更新。现在运行 app 你将看到仓库的名字在 2 秒后改变而不必再次调用 <code>executePendingBindings()</code>。</p>
 
-        <!-- 分类文章 -->
+                </div>
+            </div>
+            
+                
+    <div class="post__license">
+        <p>
+            <strong>Author: </strong>Apocalypse
+        </p>
+        <p>
+            <strong>
+                Permalink: 
+            </strong>
+            <a href="https://jiyugithub.github.io/2020/06/12/0_kotlin/">https://jiyugithub.github.io/2020/06/12/0_kotlin/</a>
+        </p>
         
-        <!-- 评论 -->
-        
-          
-            <section id="comments" class="comments" style="margin-top: 150px;">
-              <style>
-                .comments{background:#fff}
-                @media screen and (max-width:900px){.comments{margin:auto;padding:10px;background:#fff}}
-              </style>
-              <div id="vcomment" class="comment"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    var notify = 'true' == true ? true : false;
-    var verify = 'false' == true ? true : false;
-    new Valine({
-        av: AV,
-        el: '#vcomment',
-        notify: notify,
-        app_id: "GpGkfBlXUXHdzTB4tqH7SPnb",
-        app_key: "FihoucantYlc5U1FQ9BzkO3l",
-        placeholder: "留下你来过的痕迹~",
-        avatar:"robohash",
-    });
-</script>
-
-          </section>
-        
-        
-      </div>
-   </div>
-  </div>
-</article>
-  </div>
-</div>
-
-  <div class="footer-outer animate__animated  animate__fadeInUp">
-    <div class="footer-inner">
-    <div class="footer-text">
-    <p>Power by <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a></p>
-
     </div>
-    <div class="footer-contact">
-    <ul class="footer-ul">
-        
-        <li class="footer-li">
-            <a href="mailto:2391624941@qq.com" target="_blank">
-                <i class="ri-mail-line"></i>
-            </a>
-        </li>
-        
-        <li class="footer-li">
-            <a href="https://github.com/jiyugithub" target="_blank">
-                <i class="ri-github-line"></i>
-            </a>
-        </li>
-        
-        <li class="footer-li">
-            <a href="http://music.163.com/m/user/home?id=627503095" target="_blank">
-                <i class="ri-netease-cloud-music-line"></i>
-            </a>
-        </li>
-        
-    </ul>
-    </div>
-    </div>
-</div>
-
-
-
-<script src="/js/white.js"></script>
-
-
-
+ 
+            
+            
+                <div class="post-meta post-footer__meta">
+    <p>
+        最后更新于：2020-06-14
+    </p>
+</div> 
+            
+            
+                <div class="post-cats post-card__cats">
     
-      
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
-
-      <script>hljs.initHighlightingOnLoad();</script>
     
+</div> 
+             
+        </article>
+        
+    </div>
 
+
+</main>
+<footer class="footer">
+     
+
+
+     
+  
+    
+        
+            <p>Copyright © 2020</p>
+
+        
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+
+        </div>
+        
+
+ 
+
+ 
+
+ 
 
   
-<script src="/js/tocbot.min.js"></script>
+
+ 
+
+ 
+    
+<script src="/js/b2t.js"></script>
 
 
-</body>
+
+
+
+
+
+
+    </body>
 </html>
