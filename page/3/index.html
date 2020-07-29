@@ -1,672 +1,901 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
-
-    
-
-    <!--icon-->
-    
-        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
-    
-
-    <!-- 渲染优化 -->
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="HandheldFriendly" content="True" >
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- meta -->
-    
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
     
-
-    <!-- OpenGraph -->
-     
-        <meta property="og:type" content="website">
-<meta property="og:title" content="Apocalypse&#39;s Blog">
-<meta property="og:url" content="https://jiyugithub.github.io/page/3/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary_large_image">
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-
-    <!-- feed -->
-    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-<link rel="stylesheet" href="/css/style/main.css">
- 
-    
-    
-        
-<link rel="stylesheet" href="/css/style/dark.css">
-
-        
-<script src="/js/darkmode.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
     
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
 
     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
 
     
-        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
-    
-
-     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
 
     
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-    <body>
-        <div id="app">
-            <header class="header">
-    <div class="header__left">
-        <a href="/" class="button">
-            <span class="logo__text">
-                Apocalypse's Blog 
-            </span>
-        </a>
-    </div>
-    <div class="header__right">
-        
-            <div class="cover__menus">
-                
-                    <a href="/" class="cover-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="cover-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="cover-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="cover-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="cover-menu button">
-                        Page
-                    </a>
-                
-            </div>
-        
-        
-            <a href="javaScript:void(0);" id="btn-toggle-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </a>
-        
-         
-            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
-                </svg>
-            </a>
-        
-        
-            <a class="dropdown-icon button" id="btn-dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
-                </svg>
-            </a>
-            <div class="dropdown-menus" id="dropdown-menus">
-                <a class="dropback-icon button" id="btn-dropback">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                    </svg>
-                </a>
-                
-                    <a href="/" class="dropdown-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="dropdown-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="dropdown-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="dropdown-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="dropdown-menu button">
-                        Page
-                    </a>
-                
-            </div>
-            <script>
-                document.getElementById('btn-dropdown').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    requestAnimationFrame(() => {
-                        dd.style.display = 'flex';
-                        requestAnimationFrame(() => {
-                            dd.style.transform = 'translateY(0)';
-                            dd.style.opacity = '1';
-                        });
-                    });
-                });
-                document.getElementById('btn-dropback').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    dd.style.transform = 'translateY(2.25rem)';                    
-                    dd.style.opacity = '0';
-                    setTimeout(() => {dd.style.display = 'none';}, 350);
-                });
-            </script>
-        
-    </div>
-</header>
 
-
-    <div class="cover">
-        <div class="cover__logo">
-            
-                <h1>Apocalypse's Blog</h1>
-            
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        
-            <div class="cover__intro">
-                <p>Hi, nice to meet you!</p>
- 
-            </div>
-        
     </div>
-
-            <main class="main">
-    
-    <div class="posts">
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
         
-            
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/undefined/" class="index-title">
-        <h2 class="post-card__title">
-            Android目前最稳定和高效的UI适配方案
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
         
-            <div class="md-content">
-                
-                    <p>Android系统发布十多年以来，关于Android的UI的适配一直是开发环节中最重要的问题，但是我看到还是有很多小伙伴对Android适配方案不了解。刚好，近期准备对糗事百科Android客户端设计一套UI尺寸适配方案，可以和小伙伴们详细的聊一聊这个问题。</p>
-                
-            </div>
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
         
-    </div>
-</div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
         
- 
-    
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2020 Apocalypse.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
 </div>
 
-    <div class="post-tags post-card__tags">
+<div id="container">
     
-</div> 
-
-<a href="/2020/06/12/undefined/" class="post-card__link">Link</a>
-                </div>
-            
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/javafs/" class="index-title">
-        <h2 class="post-card__title">
-            Java反射真的很慢吗
-        </h2>
-    </a>
-    <div class="post-card__descrption">
-        
-            <div class="md-content">
-                
-                    <h2 id="反射到底是好是坏"><a href="#反射到底是好是坏" class="headerlink" title="反射到底是好是坏"></a>反射到底是好是坏</h2><p>说到Java 中的反射，初学者在刚刚接触到反射的各种高级特性时，往往表示十分兴奋，甚至会在一些不需要使用反射的场景中强行使用反射来「炫技」。而经验较为丰富的长者，看到反射时往往会发出灵魂三问：为什么要用反射？反射不会降低性能么？不用还有什么办法可以解决这个问题？</p>
-                
-            </div>
-        
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="Initialising search index..."
+            data-start="Please input search keywords." data-empty="No result found, please try other keywords.">
+            <span>Please input search keywords.</span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
-
-    <div class="post-tags post-card__tags">
-    
-</div> 
-
-<a href="/2020/06/12/javafs/" class="post-card__link">Link</a>
-                </div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/img/cover.jpg);">
+        </div>
+    </div>
     
-         
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2020/06/12/undefined/" title="Android目前最稳定和高效的UI适配方案" class="posttitle">Android目前最稳定和高效的UI适配方案</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>Words count</i>
+                9.6k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                9 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>Android系统发布十多年以来，关于Android的UI的适配一直是开发环节中最重要的问题，但是我看到还是有很多小伙伴对Android适配方案不了解。刚好，近期准备对糗事百科Android客户端设计...</p>
+            
+            <span class="read-more"><a href="/2020/06/12/undefined/" title="Read article" class="posttitle">Read article</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
     
 </div>
-<div class="post-card__content">
-    <a href="/2020/06/12/hashmap/" class="index-title">
-        <h2 class="post-card__title">
-            HashMap原理技术知识整理
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
         
-            <div class="md-content">
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/undefined/" title="Android目前最稳定和高效的UI适配方案" class="posttitle">Android目前最稳定和高效的UI适配方案</a></h3>
+        
+            <p class="post-count animated fadeInDown">
                 
-                    <p><img src="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        9.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>Android系统发布十多年以来，关于Android的UI的适配一直是开发环节中最重要的问题，但是我看到还是有很多小伙伴对Android适配方案不了解。刚好，近期准备对糗事百科Android客户端设计一套UI尺寸适配方案，可以和小伙伴们详细的聊一聊这个问题。</p>
+<a id="more"></a>
+
+<p>Android适配最核心的问题有两个，其一，就是适配的效率，即把设计图转化为App界面的过程是否高效，其二如何保证实现UI界面在不同尺寸和分辨率的手机中UI的一致性。这两个问题都很重要，一个是保证我们开发的高效，一个是保证我们适配的成效；...</p>
+            
+            <span class="read-more"><a href="/2020/06/12/undefined/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/javafs/" title="Java反射真的很慢吗" class="posttitle">Java反射真的很慢吗</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        26k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        24 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>说到Java 中的反射，初学者在刚刚接触到反射的各种高级特性时，往往表示十分兴奋，甚至会在一些不需要使用反射的场景中强行使用反射来「炫技」。而经验较为丰富的长者，看到反射时往往会发出灵魂三问：为什么要用反射？反射不会降低性能么？不用还有什么办法可以解决这个问题？</p>
+<a id="more"></a>
+
+<p>那么今天我们就来深入探讨下，反射到底对性能有多大影响？顺便探讨下，反射为什么对性能有影响？</p>
+<p>在我们分析具体原理之前，我们可以通过编写代码做实验得出结论。</p>
+<p>反射可能会涉及多种类型的操作，比如生成实例，获取/设置变量属性，调用方法等。经过...</p>
+            
+            <span class="read-more"><a href="/2020/06/12/javafs/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/hashmap/" title="HashMap原理技术知识整理" class="posttitle">HashMap原理技术知识整理</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        9.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
 <p>HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。</p>
-                
-            </div>
-        
+<a id="more"></a>
+
+<h3 id="一-存储结构"><a href="#一-存储结构" class="headerlink" title="一. 存储结构"></a>一. 存储结构</h3><p>1.JDK1.8之前 HashMap = 数组(O(1)）+ 单向链表（O(n)）</p>
+<p>2.JDK1.8之后 HashMap = 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)</p>
+<p></p>
+<p>关于结构的几个关键数字：</p>
+<p>1.默认初始化数组容量大小是16。</p>
+<p>2.数组扩容刚好是2的次幂。</p>
+<p>3.默认的加载因子是0.75。</p>
+<p>4.链表长度超过8时将链表转化成...</p>
+            
+            <span class="read-more"><a href="/2020/06/12/hashmap/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
 
-<a href="/2020/06/12/hashmap/" class="post-card__link">Link</a>
-                </div>
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/Rxjava/" class="index-title">
-        <h2 class="post-card__title">
-            Rxjava只看这一篇文章就够了
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/Rxjava/" title="Rxjava只看这一篇文章就够了" class="posttitle">Rxjava只看这一篇文章就够了</a></h3>
         
-            <div class="md-content">
+            <p class="post-count animated fadeInDown">
                 
-                    <h1 id="0-简介"><a href="#0-简介" class="headerlink" title="0. 简介"></a>0. 简介</h1><p>RxJava 其实就是提供一套异步编程的 API，这套 API 是基于观察者模式的，而且是链式调用的，所以使用 RxJava 编写的代码的逻辑会非常简洁。</p>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        138k
+                    </span>
                 
-            </div>
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        2:06
+                    </span>
+                
+                
+            </p>
+            
         
+        <div class="md-content animated fadeIn">
+            
+                <p>RxJava 其实就是提供一套异步编程的 API，这套 API 是基于观察者模式的，而且是链式调用的，所以使用 RxJava 编写的代码的逻辑会非常简洁。</p>
+<a id="more"></a>
+
+<p>RxJava 有以下三个基本的元素：</p>
+<ol>
+<li>被观察者（Observable）</li>
+<li>观察者（Observer）</li>
+<li>订阅（subscribe）</li>
+</ol>
+<p>下面来说说以上三者是如何协作的：</p>
+<p>首先在 gradle 文件中添加依赖：</p>
+<pre><code>implementation &#39;io.reactivex.rxjava2:rxjava:2.1.4&#39;
+implementation...</code></pre>
+            
+            <span class="read-more"><a href="/2020/06/12/Rxjava/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
 
-<a href="/2020/06/12/Rxjava/" class="post-card__link">Link</a>
-                </div>
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/view3/" class="index-title">
-        <h2 class="post-card__title">
-            一文彻底了解Android自定义控件3
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/view3/" title="一文彻底了解Android自定义控件3" class="posttitle">一文彻底了解Android自定义控件3</a></h3>
         
-            <div class="md-content">
+            <p class="post-count animated fadeInDown">
                 
-                    <h3 id="Android自定控件的步骤"><a href="#Android自定控件的步骤" class="headerlink" title="Android自定控件的步骤"></a>Android自定控件的步骤</h3><p>为什么自定义控件要步骤化呢？因为很多新手同学，根据产品的要求做一些控件时，无从下手。</p>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        5.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <h3 id="Android自定控件的步骤"><a href="#Android自定控件的步骤" class="headerlink" title="Android自定控件的步骤"></a>Android自定控件的步骤</h3><p>为什么自定义控件要步骤化呢？因为很多新手同学，根据产品的要求做一些控件时，无从下手。</p>
 <p>有了步骤以后，就可以按套路走了，再也不用害怕了。</p>
-<p><img src="http://user-gold-cdn.xitu.io/2020/6/6/172877ef78f4537d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
-                
-            </div>
-        
+<p></p>
+<a id="more"></a>
+
+<h3 id="判断控件类型"><a href="#判断控件类型" class="headerlink" title="判断控件类型"></a>判断控件类型</h3><p>首先我们要判断这个控件是属于自定义控件里的哪种类型，如果不知道分类的话，同学们可以看这篇文章<code>自定义控件分类</code></p>
+<h3 id="获取相关的属性"><a href="#获取相关的属性" class="headerlink" title="获取相关的属性"></a>获取相关的属性</h3><p>其实这玩意在自定义控件里叫自定义属性。什么是属性呢？</p>
+<p>来我们看，android控件原有的属性：</p>
+<p>比如说我们的LinearLayout</p>
+<pre><code>&lt;LinearLayout
+        android:layout_width...</code></pre>
+            
+            <span class="read-more"><a href="/2020/06/12/view3/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
 
-<a href="/2020/06/12/view3/" class="post-card__link">Link</a>
-                </div>
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/view2/" class="index-title">
-        <h2 class="post-card__title">
-            一文彻底了解Android自定义控件2
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/view2/" title="一文彻底了解Android自定义控件2" class="posttitle">一文彻底了解Android自定义控件2</a></h3>
         
-            <div class="md-content">
+            <p class="post-count animated fadeInDown">
                 
-                    <p>经过前面对Android自定义控件初步了解以后，我们接下来就在前面的基础上更加深入了解所谓的Android自定义控件！</p>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        2.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>经过前面对Android自定义控件初步了解以后，我们接下来就在前面的基础上更加深入了解所谓的Android自定义控件！</p>
 <h3 id="AndroidView体系"><a href="#AndroidView体系" class="headerlink" title="AndroidView体系"></a>AndroidView体系</h3><p>在学习自定义控件之前，我们先了解一下Android的View体系</p>
-                
-            </div>
-        
+<a id="more"></a>
+
+<p>打开Android Studio –&gt; ctrl+N –&gt; 输入View</p>
+<p></p>
+<p>这样子，我们就找到了View这个类了！</p>
+<h3 id="View的继承关系"><a href="#View的继承关系" class="headerlink" title="View的继承关系"></a>View的继承关系</h3><p>进到View这个类里， 选中类名，按ctrl+H，显示类的继承关系：</p>
+<p></p>
+<p>我们可以看到一些熟悉的控件，比如说<code>ProgressBar</code>,<code>ImageView...</code></p>
+            
+            <span class="read-more"><a href="/2020/06/12/view2/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
 
-<a href="/2020/06/12/view2/" class="post-card__link">Link</a>
-                </div>
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/view1/" class="index-title">
-        <h2 class="post-card__title">
-            一文彻底了解Android自定义控件1
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/view1/" title="一文彻底了解Android自定义控件1" class="posttitle">一文彻底了解Android自定义控件1</a></h3>
         
-            <div class="md-content">
+            <p class="post-count animated fadeInDown">
                 
-                    <h3 id="AndroidView体系"><a href="#AndroidView体系" class="headerlink" title="AndroidView体系"></a>AndroidView体系</h3><p>了解android的View体系，才知道后面我们步骤写Android自定义控件做准备。</p>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        1.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <h3 id="AndroidView体系"><a href="#AndroidView体系" class="headerlink" title="AndroidView体系"></a>AndroidView体系</h3><p>了解android的View体系，才知道后面我们步骤写Android自定义控件做准备。</p>
 <p>要明白<code>View</code>和<code>ViewGroup</code>。</p>
 <p>要能判断常用的控件是属于<code>View</code>还是<code>ViewGrop</code>，接着才有自己要写的控件属于<code>View</code>还是<code>ViewGroup</code>。</p>
 <p>为什么呢？</p>
 <p>因为自定义<code>View</code>跟自定义<code>ViewGroup</code>的步骤，套路不一样。</p>
-                
-            </div>
-        
-    </div>
-</div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
+<a id="more"></a>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
-
-<a href="/2020/06/12/view1/" class="post-card__link">Link</a>
-                </div>
+<h3 id="Android自定义控件类型"><a href="#Android自定义控件类型" class="headerlink" title="Android自定义控件类型"></a>Android自定义控件类型</h3><p>Android自定义控件呢，我们可以分为三类：</p>
+<ul>
+<li>自定义View（包括对现有View的修改）;</li>
+<li>自定义ViewGrop（包括对...</li></ul>
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/12/multitype/" class="index-title">
-        <h2 class="post-card__title">
-            Android 复杂的列表视图新写法 MultiType
-        </h2>
-    </a>
-    <div class="post-card__descrption">
-        
-            <div class="md-content">
-                
-                    <h1 id="Android-复杂的列视图新写法-MultiType"><a href="#Android-复杂的列视图新写法-MultiType" class="headerlink" title="Android 复杂的列视图新写法 MultiType"></a>Android 复杂的列视图新写法 MultiType</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在开发我的 <strong><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">TimeMachine</a></strong> 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 <strong>MultiType</strong>.</p>
-                
-            </div>
-        
+            <span class="read-more"><a href="/2020/06/12/view1/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
     </div>
 </div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-12
-</a>
-    
-    
-        
- 
-    
-</div>
 
-    <div class="post-tags post-card__tags">
-    
-</div> 
 
-<a href="/2020/06/12/multitype/" class="post-card__link">Link</a>
-                </div>
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/11/vue/" class="index-title">
-        <h2 class="post-card__title">
-            从0到1教你搭建前端团队的组件系统（高级进阶必备）
-        </h2>
-    </a>
-    <div class="post-card__descrption">
-        
-            <div class="md-content">
-                
-                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
-                
-            </div>
-        
-    </div>
-</div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-11
-</a>
-    
-    
-        
- 
-    
-</div>
-
-    <div class="post-tags post-card__tags">
-    
-</div> 
-
-<a href="/2020/06/11/vue/" class="post-card__link">Link</a>
-                </div>
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
             
-                <div class='post-card content-card'>
-                    <div class="post-card__header">
-    
-         
-    
-</div>
-<div class="post-card__content">
-    <a href="/2020/06/09/handler/" class="index-title">
-        <h2 class="post-card__title">
-            Handler 机制
-        </h2>
-    </a>
-    <div class="post-card__descrption">
+            June 12, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/multitype/" title="Android 复杂的列表视图新写法 MultiType" class="posttitle">Android 复杂的列表视图新写法 MultiType</a></h3>
         
-            <div class="md-content">
+            <p class="post-count animated fadeInDown">
                 
-                    <h1 id="面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”"><a href="#面试官：“看你简历上写熟悉-Handler-机制，那聊聊-IdleHandler-吧？”" class="headerlink" title="面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”"></a>面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”</h1>
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        32k
+                    </span>
                 
-            </div>
-        
-    </div>
-</div>
-<div class="post-card__meta">
-    
-        <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-09
-</a>
-    
-    
-        
- 
-    
-</div>
-
-    <div class="post-tags post-card__tags">
-    
-</div> 
-
-<a href="/2020/06/09/handler/" class="post-card__link">Link</a>
-                </div>
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        29 mins.
+                    </span>
+                
+                
+            </p>
             
         
+        <div class="md-content animated fadeIn">
+            
+                <p>在开发我的 <strong><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">TimeMachine</a></strong> 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 <strong>MultiType</strong>.</p>
+<a id="more"></a>
+
+<p>从前，<strong>比如我们写一个类似微博列表页面</strong>，这样的列表是十分复杂的：有纯文本的、带转发原文的、带图片的、带视频的、带文章的等等，甚至穿插一条可以横向滑动的好友推荐条目。不同的 item 类型众多，而且随着业务发展，还会更多。如果我们使用传统的开发方式，经常要做一些繁琐的工作，代码可能都堆积在一个 <code>Adapter</code> 中：我们需要覆...</p>
+            
+            <span class="read-more"><a href="/2020/06/12/multitype/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 11, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/11/vue/" title="从0到1教你搭建前端团队的组件系统（高级进阶必备）" class="posttitle">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        13k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
+<a id="more"></a>
+
+<p>我们在开发管理系统或者中台产品时，完全可以使用这种第三方库来开发，因为首先其服务的用户群体比较小众，一般是企业或者运营人员来使用，重点在于功能和业务，所以在B端产品比较适合；另一点就是设计要求...</p>
+            
+            <span class="read-more"><a href="/2020/06/11/vue/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+            
+            June 09, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/09/handler/" title="Handler 机制" class="posttitle">Handler 机制</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>Words count</i>
+                        10k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <a id="more"></a>
+
+<p>Handler 机制算是 Android 基本功，面试常客。但现在面试，多数已经不会直接让你讲讲 Handler 的机制，Looper 是如何循环的，MessageQueue 是如何管理 Message 等，而是基于场景去提问，看看你对 Handler 机制的掌握是否扎实。</p>
+<p>本文就来聊聊 Handler 中的 IdleHandler，这个我们比较少用的功能。它能干什么？怎么使用？有什么合适的使用场景？哪些不是合适的使用场景？在 Android Framework 中有哪些地方用到了它？</p>
+<h3 id="2-1-简单说说-Handler-机制"><a href="#2-1-简单说说-Handler-机制" class="headerlink" title="2.1 简单说说 Handler 机制"></a>2.1...</h3>
+            
+            <span class="read-more"><a href="/2020/06/09/handler/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
     </div>
     
-        
-            <br>
-            <nav role="navigation" aria-label="Pagination Navigation">
-                
-                    <a href="/page/2/" class="button">
-                        &lt;&nbsp;Previous
-                    </a>
-                
-                <span>3 / 4</span>
-                
-                    <a href="/page/4/" class="button">
-                        Next&nbsp;&gt;
-                    </a>
-                
-            </nav>
-        
+    <div id="pager"><a href="/page/4/" class="more" data-loading="加载中..." data-load-more="Load more">Load more</a></div>
     
+</div>
+<div id="preview"></div>
 
-
-</main>
-<footer class="footer">
-     
-
-
-     
-  
-    
-        
-            <p>Copyright © 2020</p>
-
-        
-    
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
 </footer>
 
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
 
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
 
-        </div>
-        
 
  
-
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
  
-
- 
-
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
   
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
  
 
- 
-    
-<script src="/js/b2t.js"></script>
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
 
 
 
 
-
-
-
-
-    </body>
 </html>

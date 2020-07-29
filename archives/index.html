@@ -1,901 +1,976 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Archive</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-
-    <!--icon-->
-    
-        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
-    
-
-    <!-- 渲染优化 -->
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="HandheldFriendly" content="True" >
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- meta -->
-    
-    <title>Archive | Apocalypse&#39;s Blog</title>
-    
-
-    <!-- OpenGraph -->
-     
-        <meta property="og:type" content="website">
-<meta property="og:title" content="Apocalypse&#39;s Blog">
-<meta property="og:url" content="https://jiyugithub.github.io/archives/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary_large_image">
-    
-
-    <!-- feed -->
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
     
-<link rel="stylesheet" href="/css/style/main.css">
- 
-    
-    
-        
-<link rel="stylesheet" href="/css/style/dark.css">
-
-        
-<script src="/js/darkmode.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
 
     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
 
     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
 
     
-        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
-    
-
-     
+<link rel="stylesheet" href="/css/obsidian.css">
 
     
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-    <body>
-        <div id="app">
-            <header class="header">
-    <div class="header__left">
-        <a href="/" class="button">
-            <span class="logo__text">
-                Apocalypse's Blog 
-            </span>
-        </a>
-    </div>
-    <div class="header__right">
-        
-            <div class="cover__menus">
-                
-                    <a href="/" class="cover-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="cover-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="cover-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="cover-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="cover-menu button">
-                        Page
-                    </a>
-                
-            </div>
-        
-        
-            <a href="javaScript:void(0);" id="btn-toggle-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </a>
-        
-         
-            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
-                </svg>
-            </a>
-        
-        
-            <a class="dropdown-icon button" id="btn-dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
-                </svg>
-            </a>
-            <div class="dropdown-menus" id="dropdown-menus">
-                <a class="dropback-icon button" id="btn-dropback">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                    </svg>
-                </a>
-                
-                    <a href="/" class="dropdown-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="dropdown-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="dropdown-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="dropdown-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="dropdown-menu button">
-                        Page
-                    </a>
-                
-            </div>
-            <script>
-                document.getElementById('btn-dropdown').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    requestAnimationFrame(() => {
-                        dd.style.display = 'flex';
-                        requestAnimationFrame(() => {
-                            dd.style.transform = 'translateY(0)';
-                            dd.style.opacity = '1';
-                        });
-                    });
-                });
-                document.getElementById('btn-dropback').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    dd.style.transform = 'translateY(2.25rem)';                    
-                    dd.style.opacity = '0';
-                    setTimeout(() => {dd.style.display = 'none';}, 350);
-                });
-            </script>
-        
-    </div>
-</header>
 
-
-    <div class="cover">
-        <div class="cover__logo">
-            
-                <h1>Apocalypse's Blog</h1>
-            
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        
-            <div class="cover__intro">
-                <p>Hi, nice to meet you!</p>
- 
-            </div>
-        
     </div>
-
-            <main class='main'>
-    
-        <div class="archives">
-            
-                    <div class="archives-item">
-                        <div class="archives-left">
-                            <div class="archives-icon icon-lg"></div>
-                        </div>
-                        <div class="archives-content">
-                            <h3>2020</h3>
-                        </div>
-                    </div>
-                
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        07-27
-                        &nbsp;
-                        <a href="/2020/07/27/Jetpack/">
-                            <span class="archives-title">
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single" class="page">
+    <div id="top">
+        <a class="iconfont icon-left image-icon" href="javascript:history.back()"></a>
+    </div>
+    <div class="dark-obsidian section">
+        <div class="article animated fadeIn">
+            <div class="main">
+                <div class="content animated fadeIn">
+                    <div class="set">
+                        <h1 style="text-align: center">Archived</h1>
+                        <p style="text-align: center">「 33 」</p>
+                        <ul class="timeline timeline-centered">
+                            
+                            
                                 
-                                    Android全新UI编程 - Jetpack Compose 超详细教程 第1弹
+                                <li class="timeline-item period">
+                                    <div class="timeline-info"></div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h2 class="timeline-title">July 2020</h2>
+                                    </div>
+                                </li>
                                 
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">July 27, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/07/27/Jetpack/">Android全新UI编程 - Jetpack Compose 超详细教程 第1弹</a>
+                                        <p>
+                                            1. 简介Jetpack Compose是在2019Google i/O大会上发布的新的库。Compose库是用响应式编程的方式对View进行构建,可以用更少更直观的代码，更强大的功能，能提高开发速度（这一段是谷歌自己说的）。 说实话，View/Layout的模式对安卓工程师来说太过于熟悉，对于学习曲线陡峭的Jetpack Compose能不能很好的普及还是有所担心。
+
+
+因为Jetpack...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">July 25, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/07/25/andview/">Android进阶基础系列：View的工作原理 全面理解！</a>
+                                        <p>
+                                            1、ViewRoot 和 DecorView
+ViewRoot对应ViewRootImpl类，是连接WindowManager和DecorView的纽带。View的三大流程是通过ViewRoot完成的。 在ActivityThread中，当Activity对象被创建完毕时，会将DecorView添加到Window中，同时会创建ViewRootImpl，且ViewRootImpl和DecorV...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">July 05, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/07/05/suspendAction/">用协程控制多个并行异步结果的优先级</a>
+                                        <p>
+                                            你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。
+
+
+串行请求是最容易想到的解决方案，即先请求最高优先级的弹窗，当它返回展示后再请求第二优先级弹窗。但这样会拉长所有弹窗的展示时间。
+性能更好的方案是同时并行发出三个请求，但网络请求时长的不确定性使得最高优先级的弹窗不一定优先返回，所以得设计一种优先级阻塞机...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item period">
+                                    <div class="timeline-info"></div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h2 class="timeline-title">June 2020</h2>
+                                    </div>
+                                </li>
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 30, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/30/blogs/">帮朋友转发一个博客</a>
+                                        <p>
+                                            http://blog.moiyun.cn/archives/15/除非付诸行动，否则空口无凭
+博主：刘时俊
+
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 28, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/28/androidxx/">聊聊 Android 开发的现状和思考</a>
+                                        <p>
+                                            回想这六年里 Android 开发的发展历程，现如今的 Android 已经拥有了成熟的开发体系，技术框架也是经历了一代一代的更新：
+
+HttpClient、Volley 、OkHttp、Retrofit ；
+ImageLoader、Picasso、Fresco、Glide；
+OrmLite、LitePal、GreenDao、Realm、Room；
+
+除了熟悉的网络、图片和数据库“三大件”外...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 16, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/16/fragmentstatepager/">FragmentStatePagerAdapter在ViewPager中优化了什么</a>
+                                        <p>
+                                            前言OK，填坑篇的文章来了。
+当我打开官方文档准备开始了解FragmentStatePagerAdapter的时候。我仿佛像是…闭关蛰伏数十载，准备反清复明；出关时发现大清已经亡了…
+
+什么鬼，我还不会用呢，就tm废弃了？？？
+
+
+正文当然这不妨碍咱们去了解它如何增强了FragmentPagerAdapter。扶我起来，我还能学！
+看FragmentStatePagerAdapter之前，咱...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 16, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/16/100js/">100 行 js 代码下载抖音无水印视频</a>
+                                        <p>
+                                            
+本文大约 600 字，看完本文大概需要 5 分钟，仅供学习使用，如有错误，请指正。
+
+需求抖音平台下载一个视频，去掉左上角的水印id。
+先来看看有水印效果这时候就会发现，抖音官方下载下来的视频，会有抖音的水印，需要去掉水印。
+
+
+
+分享视频从抖音分享一个视频，你会获得一个分享文案和地址，格式如下（不懂怎么分享可以百度）
+一只都放不明白 https://v.douyin.com/JdbBqo...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/KotlinJava/">Kotlin与Java的异同</a>
+                                        <p>
+                                            打印日志
+Java
+
+System.out.print(&quot;hello world&quot;);
+System.out.println(&quot;hello world&quot;);
+
+Kotlin
+
+print(&quot;hello world&quot;)
+println(&quot;hello world&quot;)
+
+
+定义变量与常量常
+Java
+
+String n...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/switcher/">炫酷！从未见过如此Q弹的Switcher</a>
+                                        <p>
+                                            前言最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！
+
+原作者：Alexander Kolpakov 译者：依然范特稀西 地址：http://suo....
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/Kotlinyf/">Kotlin实战 | 语法糖</a>
+                                        <p>
+                                            学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。
+
+
+将 px 值转换成 dp 值在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在Util类中新增一个...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/Top10/">2020年GitHub 上那些优秀Android开源库</a>
+                                        <p>
+                                            2020年有哪些优秀的开源库呢？本期就为大家带精选的10个，排名不分先后。
+
+
+No1. LiquidSwipe这是一个很棒的ViewPager库，它在浏览ViewPager的不同页面时，显示波浪的滑动动画，效果非常炫酷。该库的USP是触摸交互的。这意味着在视图中显示类似液体的显示过渡时，应考虑触摸事件。
+1.1如何使用呢？导入以下Gradle依赖项:
+implementation &#39...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/FragmentTransaction/">Androidx 下 Fragment 懒加载的新实现</a>
+                                        <p>
+                                            以前处理 Fragment 的懒加载，我们通常会在 Fragment 中处理 setUserVisibleHint + onHiddenChanged 这两个函数，而在 Androidx 模式下，我们可以使用 FragmentTransaction.setMaxLifecycle() 的方式来处理 Fragment 的懒加载。
+
+
+在本文章中，我会详细介绍不同使用场景下两种方案的差异。大家快...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/14/DayNight/">暗黑模式适配</a>
+                                        <p>
+                                            暗黑模式在 Android 10 里，Dark theme 暗黑模式得到了系统级的支持。 暗黑模式不仅酷炫，而且有降低屏幕耗电、在光线较暗的环境中使用更舒适等好处。 今天带大家看一下如何适配暗黑模式，本文会从以下几点进行介绍：
+
+动态开启暗黑模式
+使用 DayNight 适配暗黑模式
+使用 Force Dark 适配暗黑模式
+Force Dark 系统源码解析
+适配流程建议
+
+相信本文会让你...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/0_kotlin/">使用Kotlin从零开始写一个现代Android</a>
+                                        <p>
+                                            前言经常在medium.com上看到一些高质量的技术帖子，但是由于国内的上网环境或者有的同学对于看英文比较排斥，错过了不少好文章。因此，西哥决定弄一个《优质译文专栏》，花一些时间翻译一些优质技术文给大家。这篇文章是一个小系列，用Kotlin开发现代Android APP,总共四篇，后面的会陆续翻译！以下是正文。
+
+
+现在，真的很难找到一个涵盖所有Android新技术的项目，因此我决定自己来写...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/android11/">Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新</a>
+                                        <p>
+                                            Android 11 Beta 版现已发布自二月以来，大家通过 Android 11 开发者预览版为我们提供了众多反馈。今天发布的 Android 11 第一个 Beta 版聚焦于三个主题: 以人为本、灵活控制以及隐私安全。
+
+
+以人为本
+Android 现在更突显人的要素，更善于沟通。我们重塑了您在手机上进行沟通的方式，也让操作系统能识别出那些对您来说更重要的人，让您能更快速地和他们联系。...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/vue_js/">10+个很酷的Vue.js组件，模板和demo示例</a>
+                                        <p>
+                                            众所周知，Vue.js 组件是Vue创建自定义元素的重要功能之一，同时，模板可帮助你避免从头开始创建网页设计。总之，这些工具对于希望其开发过程更快，更高效的任何Web开发人员都是必不可少的。
+
+
+此外，在过去的几年中，Vue.js 变得非常流行，许多企业将其添加到他们的技术栈中。该框架的优点是它具有内置的数据绑定和MVC模型（模型、视图、控制器），与Angular.js和React.js相比...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/typescript/">TypeScript泛型及应用</a>
+                                        <p>
+                                            觉得 TypeScript 泛型有点难，想系统学习 TypeScript 泛型相关知识的小伙伴们看过来，本文从八个方面入手，全方位带你一步步学习 TypeScript 中泛型，详细的内容大纲请看下图：
+
+动静（图）结合，在泛型学习之路助你一臂之力，还在犹豫什么，赶紧开启 TypeScript 泛型的学习之旅吧！
+
+
+一、泛型是什么软件工程中，我们不仅要创建一致的定义良好的 API，同时也要考...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/blog/">如何快速搭建好看的个人博客</a>
+                                        <p>
+                                            如何快速搭建好看的个人博客(完整配置与源码)
+博客地址 程序员成长指北 就是这样搭建出来的! 可以先体验下。
+
+
+
+为什么选择vuepress之前使用docsify部署过个人博客, 在此之前也使用过gitbook, 这次使用vuepress来改版, 根据自己的体验, 将这三者做一个对比
+
+从阅读体验来说(个人感觉): gitbook &gt; docsify =vuepress
+
+从配置上来...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/agent/">动态代理设计模式</a>
+                                        <p>
+                                            10分钟看懂动态代理设计模式
+动态代理是Java语言中非常经典的一种设计模式，也是所有设计模式中最难理解的一种。本文将通过一个简单的例子模拟JDK动态代理实现，让你彻底明白动态代理设计模式的本质，文章中可能会涉及到一些你没有学习过的知识点或概念。如果恰好遇到了这些知识盲点，请先去学习这部分知识，再来阅读这篇文章。
+
+
+
+什么是代理从字面意思来看，代理比较好理解，无非就是代为处理的意思。举个例...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/socket/">手把手教你写Socket长连接</a>
+                                        <p>
+                                            本篇我们先简单了解一下 TCP/IP，然后通过实现一个 echo 服务器来学习 Java 的 Socket API。最后我们聊聊偏高级一点点的 socket 长连接和协议设计。
+
+
+TCP/IP 协议简介IP首先我们看 IP（Internet Protocol）协议。IP 协议提供了主机和主机间的通信。
+为了完成不同主机的通信，我们需要某种方式来唯一标识一台主机，这个标识，就是著名的IP地址...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/undefined/">Android目前最稳定和高效的UI适配方案</a>
+                                        <p>
+                                            Android系统发布十多年以来，关于Android的UI的适配一直是开发环节中最重要的问题，但是我看到还是有很多小伙伴对Android适配方案不了解。刚好，近期准备对糗事百科Android客户端设计一套UI尺寸适配方案，可以和小伙伴们详细的聊一聊这个问题。
+
+
+Android适配最核心的问题有两个，其一，就是适配的效率，即把设计图转化为App界面的过程是否高效，其二如何保证实现UI界面在不...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/javafs/">Java反射真的很慢吗</a>
+                                        <p>
+                                            反射到底是好是坏说到Java 中的反射，初学者在刚刚接触到反射的各种高级特性时，往往表示十分兴奋，甚至会在一些不需要使用反射的场景中强行使用反射来「炫技」。而经验较为丰富的长者，看到反射时往往会发出灵魂三问：为什么要用反射？反射不会降低性能么？不用还有什么办法可以解决这个问题？
+
+
+那么今天我们就来深入探讨下，反射到底对性能有多大影响？顺便探讨下，反射为什么对性能有影响？
+编码试验在我们分析...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/hashmap/">HashMap原理技术知识整理</a>
+                                        <p>
+                                            
+HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。
+
+
+一. 存储结构1.JDK1.8之前 HashMap = 数组(O(1)）+ 单向链表（O(n)）
+2.JDK1.8之后 HashMap = 数组(O(1)）+ 单向链表（O(n)）+ 红黑树(O(log n)
+
+关于结构的几个关键数字：
+1.默认初始化数组容量...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/Rxjava/">Rxjava只看这一篇文章就够了</a>
+                                        <p>
+                                            0. 简介RxJava 其实就是提供一套异步编程的 API，这套 API 是基于观察者模式的，而且是链式调用的，所以使用 RxJava 编写的代码的逻辑会非常简洁。
+
+
+RxJava 有以下三个基本的元素：
+
+被观察者（Observable）
+观察者（Observer）
+订阅（subscribe）
+
+下面来说说以上三者是如何协作的：
+首先在 gradle 文件中添加依赖：
+implement...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/view3/">一文彻底了解Android自定义控件3</a>
+                                        <p>
+                                            Android自定控件的步骤为什么自定义控件要步骤化呢？因为很多新手同学，根据产品的要求做一些控件时，无从下手。
+有了步骤以后，就可以按套路走了，再也不用害怕了。
+
+
+
+判断控件类型首先我们要判断这个控件是属于自定义控件里的哪种类型，如果不知道分类的话，同学们可以看这篇文章自定义控件分类
+获取相关的属性其实这玩意在自定义控件里叫自定义属性。什么是属性呢？
+来我们看，android控件原有的属...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/view2/">一文彻底了解Android自定义控件2</a>
+                                        <p>
+                                            经过前面对Android自定义控件初步了解以后，我们接下来就在前面的基础上更加深入了解所谓的Android自定义控件！
+AndroidView体系在学习自定义控件之前，我们先了解一下Android的View体系
+
+
+打开Android Studio –&gt; ctrl+N –&gt; 输入View
+
+这样子，我们就找到了View这个类了！
+View的继承关系进到View这个类里， 选中类名...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/view1/">一文彻底了解Android自定义控件1</a>
+                                        <p>
+                                            AndroidView体系了解android的View体系，才知道后面我们步骤写Android自定义控件做准备。
+要明白View和ViewGroup。
+要能判断常用的控件是属于View还是ViewGrop，接着才有自己要写的控件属于View还是ViewGroup。
+为什么呢？
+因为自定义View跟自定义ViewGroup的步骤，套路不一样。
+
+
+Android自定义控件类型Android自定...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 12, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/12/multitype/">Android 复杂的列表视图新写法 MultiType</a>
+                                        <p>
+                                            Android 复杂的列视图新写法 MultiType前言在开发我的 TimeMachine 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 MultiType.
+
+
+从前，比如我们写一个类似微博列表页面，这样的列表是十分复杂的：有纯文本的、带转发原文的、带图片的、带视频的、带文章的等等，甚至穿插一条可以横向滑动的好友推荐...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 11, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/11/vue/">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
+                                        <p>
+                                            前言随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。
+
+
+我们在开发管理系统或者中台产品时，完全可以使用这种第三方库来开发，因为首先其服务...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 09, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/09/handler/">Handler 机制</a>
+                                        <p>
+                                            面试官：“看你简历上写熟悉 Handler 机制，那聊聊 IdleHandler 吧？”
+
+一. 序Handler 机制算是 Android 基本功，面试常客。但现在面试，多数已经不会直接让你讲讲 Handler 的机制，Looper 是如何循环的，MessageQueue 是如何管理 Message 等，而是基于场景去提问，看看你对 Handler 机制的掌握是否扎实。
+本文就来聊聊 Ha...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 08, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/08/flutternm/">Flutter高级玩法-贝塞尔曲线的表象认知</a>
+                                        <p>
+                                            
+
+
+–
+–
+
+
+
+
+
+
+
+
+
+
+
+
+
+在玩贝塞尔之前先做点准备活动热热身。打个网格对学习贝塞尔曲线是很有帮助的。如下是以中心为原点的坐标系，x向右，y向下
+
+
+
+
+0.1 : 主程序void main() =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(Buil...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">June 06, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/06/06/hexo-zhuan/">hexo撰写文章</a>
+                                        <p>
+                                            在利用 Hexo 框架搭建一个属于我们自己的博客网站后，下面我们就来谈谈怎样在网站上书写我们的第一篇博客吧
+
+
+一、创建文章在站点文件夹中打开 git bash，输入如下命令创建文章，其中 title 为文章的标题
+$ hexo new &quot;title&quot;
+当输入命令后，就会在 source/_post 文件夹下创建一个文件，命名为：title.md
+这个文件就是将要发布到网...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                                
+                                <li class="timeline-item period">
+                                    <div class="timeline-info"></div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h2 class="timeline-title">March 2020</h2>
+                                    </div>
+                                </li>
+                                
+                                <li class="timeline-item">
+                                    <div class="timeline-info">
+                                        <span class="gradient-text">March 14, 2020</span>
+                                    </div>
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <a class="timeline-title" target="_self" href="/2020/03/14/TopKotlin/">快速入门 Kotlin</a>
+                                        <p>
+                                            1.变量与函数
+val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 Java 中的 final 变量。
+var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重新赋值，对应 Java 中的非 final 变量。
+
+
+
+1.1 使用 valfun main() {
+    val a = 10
+    println(&quot;a = &quot; + ...
+                                        </p>
+                                    </div>
+                                </li>
+                            
+                        </ul>
+                    </div>
                 </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        07-25
-                        &nbsp;
-                        <a href="/2020/07/25/andview/">
-                            <span class="archives-title">
-                                
-                                    Android进阶基础系列：View的工作原理 全面理解！
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        07-05
-                        &nbsp;
-                        <a href="/2020/07/05/suspendAction/">
-                            <span class="archives-title">
-                                
-                                    用协程控制多个并行异步结果的优先级
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-30
-                        &nbsp;
-                        <a href="/2020/06/30/blogs/">
-                            <span class="archives-title">
-                                
-                                    帮朋友转发一个博客
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-28
-                        &nbsp;
-                        <a href="/2020/06/28/androidxx/">
-                            <span class="archives-title">
-                                
-                                    聊聊 Android 开发的现状和思考
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-16
-                        &nbsp;
-                        <a href="/2020/06/16/fragmentstatepager/">
-                            <span class="archives-title">
-                                
-                                    FragmentStatePagerAdapter在ViewPager中优化了什么
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-16
-                        &nbsp;
-                        <a href="/2020/06/16/100js/">
-                            <span class="archives-title">
-                                
-                                    100 行 js 代码下载抖音无水印视频
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/KotlinJava/">
-                            <span class="archives-title">
-                                
-                                    Kotlin与Java的异同
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/switcher/">
-                            <span class="archives-title">
-                                
-                                    炫酷！从未见过如此Q弹的Switcher
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/Kotlinyf/">
-                            <span class="archives-title">
-                                
-                                    Kotlin实战 | 语法糖
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/Top10/">
-                            <span class="archives-title">
-                                
-                                    2020年GitHub 上那些优秀Android开源库
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/FragmentTransaction/">
-                            <span class="archives-title">
-                                
-                                    Androidx 下 Fragment 懒加载的新实现
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-14
-                        &nbsp;
-                        <a href="/2020/06/14/DayNight/">
-                            <span class="archives-title">
-                                
-                                    暗黑模式适配
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/0_kotlin/">
-                            <span class="archives-title">
-                                
-                                    使用Kotlin从零开始写一个现代Android
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/android11/">
-                            <span class="archives-title">
-                                
-                                    Android 11 Beta 版正式发布！以及众多面向开发者的重磅更新
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/vue_js/">
-                            <span class="archives-title">
-                                
-                                    10+个很酷的Vue.js组件，模板和demo示例
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/typescript/">
-                            <span class="archives-title">
-                                
-                                    TypeScript泛型及应用
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/blog/">
-                            <span class="archives-title">
-                                
-                                    如何快速搭建好看的个人博客
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/agent/">
-                            <span class="archives-title">
-                                
-                                    动态代理设计模式
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/socket/">
-                            <span class="archives-title">
-                                
-                                    手把手教你写Socket长连接
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/undefined/">
-                            <span class="archives-title">
-                                
-                                    Android目前最稳定和高效的UI适配方案
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/javafs/">
-                            <span class="archives-title">
-                                
-                                    Java反射真的很慢吗
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/hashmap/">
-                            <span class="archives-title">
-                                
-                                    HashMap原理技术知识整理
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/Rxjava/">
-                            <span class="archives-title">
-                                
-                                    Rxjava只看这一篇文章就够了
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/view3/">
-                            <span class="archives-title">
-                                
-                                    一文彻底了解Android自定义控件3
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/view2/">
-                            <span class="archives-title">
-                                
-                                    一文彻底了解Android自定义控件2
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/view1/">
-                            <span class="archives-title">
-                                
-                                    一文彻底了解Android自定义控件1
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-12
-                        &nbsp;
-                        <a href="/2020/06/12/multitype/">
-                            <span class="archives-title">
-                                
-                                    Android 复杂的列表视图新写法 MultiType
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-11
-                        &nbsp;
-                        <a href="/2020/06/11/vue/">
-                            <span class="archives-title">
-                                
-                                    从0到1教你搭建前端团队的组件系统（高级进阶必备）
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-09
-                        &nbsp;
-                        <a href="/2020/06/09/handler/">
-                            <span class="archives-title">
-                                
-                                    Handler 机制
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-08
-                        &nbsp;
-                        <a href="/2020/06/08/flutternm/">
-                            <span class="archives-title">
-                                
-                                    Flutter高级玩法-贝塞尔曲线的表象认知
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        06-06
-                        &nbsp;
-                        <a href="/2020/06/06/hexo-zhuan/">
-                            <span class="archives-title">
-                                
-                                    hexo撰写文章
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
-                <div class="archives-item">
-                    <div class="archives-left">
-                        <div class="archives-icon">
-
-                        </div>
-                    </div>
-                    <span class="archives-content">
-                        03-14
-                        &nbsp;
-                        <a href="/2020/03/14/TopKotlin/">
-                            <span class="archives-title">
-                                
-                                    快速入门 Kotlin
-                                
-                            </span>
-                        </a>
-                        <br><br>
-                    </span>
-                </div>
-            
+            </div>
         </div>
-    
-</main>
-<footer class="footer">
-     
+    </div>
+</div>
 
-
-     
-  
-    
-        
-            <p>Copyright © 2020</p>
-
-        
-    
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
 </footer>
 
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
 
-        </div>
-        
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
 
  
-
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
  
-
- 
-
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
   
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
  
 
- 
-    
-<script src="/js/b2t.js"></script>
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
 
 
 
 
-
-
-
-
-    </body>
 </html>

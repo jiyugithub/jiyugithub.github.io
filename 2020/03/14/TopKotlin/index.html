@@ -1,248 +1,144 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>快速入门 Kotlin - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="1.变量与函数
+val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 Java 中的 final 变量。
+var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-
-    <!--icon-->
-    
-        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
-    
-
-    <!-- 渲染优化 -->
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="HandheldFriendly" content="True" >
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- meta -->
-    
-    <title>快速入门 Kotlin | Apocalypse&#39;s Blog</title>
-    
-
-    <!-- OpenGraph -->
-     
-        <meta name="description" content="1.变量与函数 val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 Java 中的 final 变量。 var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重新赋值，对应 Java 中的非 final 变量。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="快速入门 Kotlin">
-<meta property="og:url" content="https://jiyugithub.github.io/2020/03/14/TopKotlin/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="1.变量与函数 val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 Java 中的 final 变量。 var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重新赋值，对应 Java 中的非 final 变量。">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/7/17154ee3ef1e09ea?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/7/17154ee7b64753a2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/7/17154eeac8630102?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/7/17154fe683ff5836?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/8/1715827060833f2c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/12/1716d7c471e4cd21?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/12/1716d81585ea5d87?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/12/1716dd27afdded17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/12/1716dd68e27bc16c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/4/12/1716dd7e78935bc4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="article:published_time" content="2020-03-13T18:08:20.000Z">
-<meta property="article:modified_time" content="2020-06-13T20:43:15.330Z">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/4/7/17154ee3ef1e09ea?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-    
-
-    <!-- feed -->
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
     
-<link rel="stylesheet" href="/css/style/main.css">
- 
-    
-    
-        
-<link rel="stylesheet" href="/css/style/dark.css">
-
-        
-<script src="/js/darkmode.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
 
     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
 
     
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
 
     
-        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
-    
-
-     
+<link rel="stylesheet" href="/css/obsidian.css">
 
     
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-    <body>
-        <div id="app">
-            <header class="header">
-    <div class="header__left">
-        <a href="/" class="button">
-            <span class="logo__text">
-                Apocalypse's Blog 
-            </span>
-        </a>
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="header__right">
-        
-            <div class="cover__menus">
-                
-                    <a href="/" class="cover-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="cover-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="cover-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="cover-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="cover-menu button">
-                        Page
-                    </a>
-                
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">快速入门 Kotlin</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
             </div>
-        
-        
-            <a href="javaScript:void(0);" id="btn-toggle-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </a>
-        
-         
-            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
-                </svg>
-            </a>
-        
-        
-            <a class="dropdown-icon button" id="btn-dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
-                </svg>
-            </a>
-            <div class="dropdown-menus" id="dropdown-menus">
-                <a class="dropback-icon button" id="btn-dropback">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                    </svg>
-                </a>
-                
-                    <a href="/" class="dropdown-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="dropdown-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="dropdown-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="dropdown-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="dropdown-menu button">
-                        Page
-                    </a>
-                
-            </div>
-            <script>
-                document.getElementById('btn-dropdown').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    requestAnimationFrame(() => {
-                        dd.style.display = 'flex';
-                        requestAnimationFrame(() => {
-                            dd.style.transform = 'translateY(0)';
-                            dd.style.opacity = '1';
-                        });
-                    });
-                });
-                document.getElementById('btn-dropback').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    dd.style.transform = 'translateY(2.25rem)';                    
-                    dd.style.opacity = '0';
-                    setTimeout(() => {dd.style.display = 'none';}, 350);
-                });
-            </script>
-        
-    </div>
-</header>
-
-
-            <main class="main">
-    <div class="post-title">
-    <h1 class="post-title__text">
-        快速入门 Kotlin
-    </h1>
-    <div class="post-title__meta">
-        
-            <a href="/archives/2020/03/" class="button" style="color: #808080;">
-    2020-03-14
-</a>
-        
-        
-            
- 
-        
-        
-     
- 
-
-  
+        </div>
     </div>
 </div>
 
-
-    <div class="post__with-side">
-        <aside class="post-side">
-            <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-变量与函数"><span class="toc-text">1.变量与函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-使用-val"><span class="toc-text">1.1 使用 val</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-使用-var"><span class="toc-text">1.2 使用 var</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-使用函数"><span class="toc-text">1.3 使用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-使用-Kotlin-语法糖"><span class="toc-text">1.3.1 使用 Kotlin 语法糖</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-程序的逻辑控制"><span class="toc-text">2.程序的逻辑控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-if-条件语句"><span class="toc-text">2.1 if 条件语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-if-的另一个用法"><span class="toc-text">2.1.1 if 的另一个用法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-when-条件语句"><span class="toc-text">2.2 when 条件语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-使用-when-语句进行类型匹配"><span class="toc-text">2.2.1 使用 when 语句进行类型匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-when-语句的不常用用法"><span class="toc-text">2.2.2 when 语句的不常用用法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-循环语句"><span class="toc-text">3.循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-使用-Kotlin-中的-for-in-循环"><span class="toc-text">3.1 使用 Kotlin 中的 for-in 循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-面向对象编程"><span class="toc-text">4.面向对象编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-类和对象"><span class="toc-text">4.1 类和对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-继承和构造函数"><span class="toc-text">4.2 继承和构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-创建学生类"><span class="toc-text">4.2.1 创建学生类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-继承-Person-类"><span class="toc-text">4.2.2 继承 Person 类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-使用主构造函数"><span class="toc-text">4.2.3 使用主构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-使用次构造函数"><span class="toc-text">4.2.4 使用次构造函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-接口"><span class="toc-text">4.3 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-使用接口"><span class="toc-text">4.3.1 使用接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-对接口中的函数默认实现"><span class="toc-text">4.3.2 对接口中的函数默认实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3-访问修饰符"><span class="toc-text">4.3.3 访问修饰符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-数据类和单例类"><span class="toc-text">4.4 数据类和单例类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-Java-中的数据类"><span class="toc-text">4.4.1 Java 中的数据类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-Kotlin-中的数据类"><span class="toc-text">4.4.2 Kotlin 中的数据类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-3-单例类"><span class="toc-text">4.4.3 单例类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-4-Java-中的单例类"><span class="toc-text">4.4.4 Java 中的单例类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-5-Kotlin-中的单例类"><span class="toc-text">4.4.5 Kotlin 中的单例类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Lambda-表达式"><span class="toc-text">5.Lambda 表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-集合的创建和遍历"><span class="toc-text">5.1 集合的创建和遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-集合的函数式-API"><span class="toc-text">5.2 集合的函数式 API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-Lambda-表达式语法结构"><span class="toc-text">5.2.1 Lambda 表达式语法结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-Lambda-表达式写法演进"><span class="toc-text">5.2.2 Lambda 表达式写法演进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-使用-map-函数"><span class="toc-text">5.2.3 使用 map 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-4-使用-filter-函数"><span class="toc-text">5.2.4 使用 filter 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-5-使用-any-和-all-函数"><span class="toc-text">5.2.5 使用 any 和 all 函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Java-函数式-API-的使用"><span class="toc-text">5.3 Java 函数式 API 的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-演示单抽象接口"><span class="toc-text">5.3.1 演示单抽象接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-空指针检查"><span class="toc-text">6.空指针检查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-处理空指针异常"><span class="toc-text">6.1 处理空指针异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-可空类型系统"><span class="toc-text">6.2 可空类型系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-回到-Kotlin-代码"><span class="toc-text">6.2.1 回到 Kotlin 代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-判空辅助工具"><span class="toc-text">6.3 判空辅助工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-操作符"><span class="toc-text">6.3.1 ?. 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-操作符"><span class="toc-text">6.3.2 ?: 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3-操作符"><span class="toc-text">6.3.3 !!. 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-4-let-函数"><span class="toc-text">6.3.4 let 函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Kotlin-中的小魔术"><span class="toc-text">7.Kotlin 中的小魔术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-字符串内嵌表达式"><span class="toc-text">7.1 字符串内嵌表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-1-内嵌表达式语法"><span class="toc-text">7.1.1 内嵌表达式语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-函数的参数默认值"><span class="toc-text">7.2 函数的参数默认值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-1-给函数设定默认值"><span class="toc-text">7.2.1 给函数设定默认值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-2-用默认值替代次构造函数"><span class="toc-text">7.2.2 用默认值替代次构造函数</span></a></li></ol></li></ol></li></ol>
-            </div>
-        </aside>
-        <article class="post content-card">
-            <div class="post__header">
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
                 
-                     
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                March 14, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/03/14/TopKotlin/" title="快速入门 Kotlin" class="">快速入门 Kotlin</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    35k
+                </span>
                 
                 
-                    
-    <div class="post__expire" id="post-expired-notify">
-        <p>
-            This article was last updated on <span id="expire-date"></span> days ago, the information described in the article may be outdated.
-        </p>
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    32 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
+            
+            
+        </div>
     </div>
-    <script>
-        (() => {
-            var update = Date.parse("2020-06-14"),
-                date = new Date(),
-                now = date.getTime(),
-                expire = now - update,
-                expire_days = Math.floor(expire/(24*3600*1000));
-            if (expire_days >= 120) {
-                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
-                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
-            }
-        })();
-    </script>
+</div>
 
-                
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
             </div>
-            <div class="post__content">
-                <div class="md-content">
-                    <h2 id="1-变量与函数"><a href="#1-变量与函数" class="headerlink" title="1.变量与函数"></a>1.变量与函数</h2><ul>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="1-变量与函数"><a href="#1-变量与函数" class="headerlink" title="1.变量与函数"></a>1.变量与函数</h2><ul>
 <li>val：用于声明不可变的变量，这种变量在初始赋值之后就再也不能重新赋值，对应 <code>Java</code> 中的 <code>final</code> 变量。</li>
 <li>var：用于声明一个可变的变量，这种变量在初始赋值之后仍然可以再被重新赋值，对应 <code>Java</code> 中的非 <code>final</code> 变量。</li>
 </ul>
@@ -985,82 +881,289 @@ printParams(str = &quot;world&quot;)
 }</code></pre></li>
 </ul>
 
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-变量与函数"><span class="toc-number">1.</span> <span class="toc-text">1.变量与函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-使用-val"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 使用 val</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-使用-var"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 使用 var</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-使用函数"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 使用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-程序的逻辑控制"><span class="toc-number">2.</span> <span class="toc-text">2.程序的逻辑控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-if-条件语句"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 if 条件语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-when-条件语句"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 when 条件语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-循环语句"><span class="toc-number">3.</span> <span class="toc-text">3.循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-使用-Kotlin-中的-for-in-循环"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 使用 Kotlin 中的 for-in 循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-面向对象编程"><span class="toc-number">4.</span> <span class="toc-text">4.面向对象编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-类和对象"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 类和对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-继承和构造函数"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 继承和构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-接口"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-数据类和单例类"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 数据类和单例类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Lambda-表达式"><span class="toc-number">5.</span> <span class="toc-text">5.Lambda 表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-集合的创建和遍历"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 集合的创建和遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-集合的函数式-API"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 集合的函数式 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Java-函数式-API-的使用"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 Java 函数式 API 的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-空指针检查"><span class="toc-number">6.</span> <span class="toc-text">6.空指针检查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-处理空指针异常"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 处理空指针异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-可空类型系统"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 可空类型系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-判空辅助工具"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 判空辅助工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Kotlin-中的小魔术"><span class="toc-number">7.</span> <span class="toc-text">7.Kotlin 中的小魔术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-字符串内嵌表达式"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 字符串内嵌表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-函数的参数默认值"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 函数的参数默认值</span></a></li></ol></li></ol>
                 </div>
             </div>
             
-                
-    <div class="post__license">
-        <p>
-            <strong>Author: </strong>Apocalypse
-        </p>
-        <p>
-            <strong>
-                Permalink: 
-            </strong>
-            <a href="https://jiyugithub.github.io/2020/03/14/TopKotlin/">https://jiyugithub.github.io/2020/03/14/TopKotlin/</a>
-        </p>
-        
+            
+        </div>
     </div>
- 
-            
-            
-                <div class="post-meta post-footer__meta">
-    <p>
-        最后更新于：2020-06-14
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
     </p>
-</div> 
-            
-            
-                <div class="post-cats post-card__cats">
-    
-    
-</div> 
-             
-        </article>
-        
-    </div>
-
-
-</main>
-<footer class="footer">
-     
-
-
-     
-  
-    
-        
-            <p>Copyright © 2020</p>
-
-        
-    
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
 </footer>
 
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
 
-        </div>
-        
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
 
  
-
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
  
-
- 
-
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
   
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
  
 
- 
-    
-<script src="/js/b2t.js"></script>
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
 
 
 
 
-
-
-
-
-    </body>
 </html>
