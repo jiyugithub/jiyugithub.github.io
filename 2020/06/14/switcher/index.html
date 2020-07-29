@@ -1,205 +1,144 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>炫酷！从未见过如此Q弹的Switcher | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>炫酷！从未见过如此Q弹的Switcher - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="前言最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">炫酷！从未见过如此Q弹的Switcher</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">炫酷！从未见过如此Q弹的Switcher</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/assets/title.jpg/) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Category1"><b>「
+                    </b>CATEGORY1<b> 」</b></a>
+                
+                June 14, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/switcher/" title="炫酷！从未见过如此Q弹的Switcher" class="">炫酷！从未见过如此Q弹的Switcher</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 14, 2020&nbsp;&nbsp;2:40:38</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/Category1/">Category1</a>
-                            
-                                <a href="/categories/Category1/Category2/">Category2</a>
-                            
-                        </span>
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    6.1k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tag1/" rel="tag">Tag1</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tag2/" rel="tag">Tag2</a></li></ul>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
 <blockquote>
 <p>原作者：<a href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------" target="_blank" rel="noopener">Alexander Kolpakov</a> 译者：<a href="https://www.jianshu.com/u/35167a70aa39" target="_blank" rel="noopener">依然范特稀西</a> 地址：<a href="http://suo.im/60UJjT" target="_blank" rel="noopener">http://suo.im/60UJjT</a></p>
@@ -211,27 +150,85 @@
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim" alt="swicher.gif">swicher.gif</p>
 <p>乍一看，实现这样的切换似乎并不简单，但我认为那是因为动画非常漂亮。如 你所见，创建相同的动画并不难。让我们一步一步地来实现它。</p>
 <p>第一步，我们需要自定义View,并且实现它的3个构造方法：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Switcher</span> <span class="hljs-meta">@JvmOverloads</span> <span class="hljs-keyword">constructor</span></span>(<br>        context: Context,<br>        attrs: AttributeSet ? = <span class="hljs-literal">null</span>,<br>        defStyleAttr: <span class="hljs-built_in">Int</span> = <span class="hljs-number">0</span><br>) : View(context, attrs, defStyleAttr) &#123;<br>      <br>    <span class="hljs-keyword">init</span> &#123;<br>        attrs?.let &#123; retrieveAttributes(attrs, defStyleAttr) &#125;<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">retrieveAttributes</span><span class="hljs-params">(attrs: <span class="hljs-type">AttributeSet</span>, defStyleAttr: <span class="hljs-type">Int</span>)</span></span> &#123;<br>        <span class="hljs-comment">// retrieve cutom attributes</span><br>    &#125;<br>  <br>    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(widthMeasureSpec: <span class="hljs-type">Int</span>, heightMeasureSpec: <span class="hljs-type">Int</span>)</span></span> &#123;<br>        <span class="hljs-comment">// setup switcher width and height</span><br>    &#125;<br>  <br>    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onSizeChanged</span><span class="hljs-params">(w: <span class="hljs-type">Int</span>, h: <span class="hljs-type">Int</span>, oldw: <span class="hljs-type">Int</span>, oldh: <span class="hljs-type">Int</span>)</span></span> &#123;<br>        <span class="hljs-comment">// setup helper sizes every time switcher size changed (radius, icon width...)</span><br>    &#125;<br>      <br>    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDraw</span><span class="hljs-params">(canvas: <span class="hljs-type">Canvas</span> ?)</span></span> &#123;<br>        <span class="hljs-comment">// just draw</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>class Switcher @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet ? = null,
+        defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
-<h3 id="接下来开始绘制"><a href="#接下来开始绘制" class="headerlink" title="接下来开始绘制"></a>接下来开始绘制</h3><p>在默认（选中）状态下，我们的开关由2个圆角矩形（绿色和白色）组成</p>
+    init {
+        attrs?.let { retrieveAttributes(attrs, defStyleAttr) }
+    }
+
+    private fun retrieveAttributes(attrs: AttributeSet, defStyleAttr: Int) {
+        // retrieve cutom attributes
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        // setup switcher width and height
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        // setup helper sizes every time switcher size changed (radius, icon width...)
+    }
+
+    override fun onDraw(canvas: Canvas ?) {
+        // just draw
+    }
+}
+</code></pre><h3 id="接下来开始绘制"><a href="#接下来开始绘制" class="headerlink" title="接下来开始绘制"></a>接下来开始绘制</h3><p>在默认（选中）状态下，我们的开关由2个圆角矩形（绿色和白色）组成</p>
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1f123a19?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>绘制它们非常简单，我们只需要计算白色矩形的位置并将偏移量<code>iconTranslateX</code>传递给Android KTX <code>Canvas.withTranslation</code>扩展即可：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">override <span class="hljs-keyword">fun</span> on<span class="hljs-constructor">Draw(<span class="hljs-params">canvas</span>: Canvas ?)</span> &#123;<br>  <span class="hljs-comment">// draw switcher (green rect)</span><br>  canvas?.draw<span class="hljs-constructor">RoundRect(<span class="hljs-params">switcherRect</span>, <span class="hljs-params">switcherCornerRadius</span>, <span class="hljs-params">switcherCornerRadius</span>, <span class="hljs-params">switcherPaint</span>)</span><br><br>  <span class="hljs-comment">// draw icon (white rect)</span><br>  canvas?.<span class="hljs-keyword">with</span><span class="hljs-constructor">Translation(<span class="hljs-params">x</span> = <span class="hljs-params">iconTranslateX</span>)</span> &#123;<br>      draw<span class="hljs-constructor">RoundRect(<span class="hljs-params">iconRect</span>, <span class="hljs-params">switcherCornerRadius</span>, <span class="hljs-params">switcherCornerRadius</span>, <span class="hljs-params">iconPaint</span>)</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>override fun onDraw(canvas: Canvas ?) {
+  // draw switcher (green rect)
+  canvas?.drawRoundRect(switcherRect, switcherCornerRadius, switcherCornerRadius, switcherPaint)
 
-<h3 id="开始分解动画"><a href="#开始分解动画" class="headerlink" title="开始分解动画"></a>开始分解动画</h3><p>动画部分，我们使用<code>ValueAnimator</code>来实现，使用它的<code>ofFloat(float... values)</code>方法,我们需要三个动画：</p>
+  // draw icon (white rect)
+  canvas?.withTranslation(x = iconTranslateX) {
+      drawRoundRect(iconRect, switcherCornerRadius, switcherCornerRadius, iconPaint)
+  }
+}
+</code></pre><h3 id="开始分解动画"><a href="#开始分解动画" class="headerlink" title="开始分解动画"></a>开始分解动画</h3><p>动画部分，我们使用<code>ValueAnimator</code>来实现，使用它的<code>ofFloat(float... values)</code>方法,我们需要三个动画：</p>
 <ul>
 <li>1、<code>switcherAnimator</code>: 切换器图标动画，从白色矩形到圆形，反之亦然</li>
 <li>2、<code>translateAnimator</code>: 为切换器图标从左到右的过渡设置动画，反之亦然；</li>
 <li>3、<code>colorAnimator</code>: 将颜色从绿色（选中）更改为红色，反之亦然。</li>
 </ul>
 <p>让我们先看一下<code>switcherAnimator</code>动画，设置<code>0</code>为动画的开始值，<code>1</code>为动画的结束值。</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">var</span> amplitude = BOUNCE_ANIM_AMPLITUDE_IN<br><span class="hljs-keyword">var</span> frequency = BOUNCE_ANIM_FREQUENCY_IN<br><span class="hljs-keyword">var</span> <span class="hljs-keyword">new</span><span class="hljs-type">Progress</span> = <span class="hljs-number">1</span>f<br><br><span class="hljs-keyword">if</span> (!checked) &#123;<br>    amplitude = BOUNCE_ANIM_AMPLITUDE_OUT<br>    frequency = BOUNCE_ANIM_FREQUENCY_OUT<br>    <span class="hljs-keyword">new</span><span class="hljs-type">Progress</span> = <span class="hljs-number">0</span>f<br>&#125;<br><br>val switcherAnimator = ValueAnimator.ofFloat(iconProgress, <span class="hljs-keyword">new</span><span class="hljs-type">Progress</span>).apply &#123;<br>    addUpdateListener &#123;<br>        iconProgress = it.animatedValue as <span class="hljs-keyword">Float</span><br>    &#125;<br>    interpolator = BounceInterpolator(amplitude, frequency)<br>    duration = SWITCHER_ANIMATION_DURATION<br>&#125;<br><span class="hljs-comment">// ...</span><br></code></pre></td></tr></table></figure>
+<pre><code>// ...
+var amplitude = BOUNCE_ANIM_AMPLITUDE_IN
+var frequency = BOUNCE_ANIM_FREQUENCY_IN
+var newProgress = 1f
 
-<p>我们可以使用 <a href="https://github.com/evgenyneu" target="_blank" rel="noopener">Evgenii Neumerzhitckii</a> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<a href="https://evgenii.com/blog/spring-button-animation-on-android/" target="_blank" rel="noopener">evgenii.com/blog/spring…</a>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
+if (!checked) {
+    amplitude = BOUNCE_ANIM_AMPLITUDE_OUT
+    frequency = BOUNCE_ANIM_FREQUENCY_OUT
+    newProgress = 0f
+}
+
+val switcherAnimator = ValueAnimator.ofFloat(iconProgress, newProgress).apply {
+    addUpdateListener {
+        iconProgress = it.animatedValue as Float
+    }
+    interpolator = BounceInterpolator(amplitude, frequency)
+    duration = SWITCHER_ANIMATION_DURATION
+}
+// ...
+</code></pre><p>我们可以使用 <a href="https://github.com/evgenyneu" target="_blank" rel="noopener">Evgenii Neumerzhitckii</a> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<a href="https://evgenii.com/blog/spring-button-animation-on-android/" target="_blank" rel="noopener">evgenii.com/blog/spring…</a>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
 <p>在Android KTX <code>addUpdateListener</code>扩展中，我们更新了<code>progress</code>的值，然后触发<code>invalidate</code>方法，最后重新绘制了视图。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cs"><span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> iconProgress = <span class="hljs-number">0f</span><br>  <span class="hljs-keyword">set</span>(<span class="hljs-keyword">value</span>) &#123;<br>      <span class="hljs-keyword">if</span> (field != <span class="hljs-keyword">value</span>) &#123;<br>          field = <span class="hljs-keyword">value</span><br>        <br>          val iconOffset = lerp(<span class="hljs-number">0f</span>, iconRadius - iconCollapsedWidth / <span class="hljs-number">2</span>, <span class="hljs-keyword">value</span>)<br>          iconRect.left = width - switcherCornerRadius - iconCollapsedWidth / <span class="hljs-number">2</span> - iconOffset<br>          iconRect.right = width - switcherCornerRadius + iconCollapsedWidth / <span class="hljs-number">2</span> + iconOffset<br><br>          postInvalidateOnAnimation()<br>      &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+<pre><code>private var iconProgress = 0f
+  set(value) {
+      if (field != value) {
+          field = value
 
-<p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
+          val iconOffset = lerp(0f, iconRadius - iconCollapsedWidth / 2, value)
+          iconRect.left = width - switcherCornerRadius - iconCollapsedWidth / 2 - iconOffset
+          iconRect.right = width - switcherCornerRadius + iconCollapsedWidth / 2 + iconOffset
+
+          postInvalidateOnAnimation()
+      }
+  }
+</code></pre><p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
 <blockquote>
 <p>我们使用了<code>postInvalidateOnAnimation()</code>代替<code>postIvalidate</code>,是因为我们需要平滑的动画，并且第一个方法有优势，详情请看：<a href="https://stackoverflow.com/questions/29219372/postinvalidateonanimation-vs-postinvalidate/42648958#42648958" target="_blank" rel="noopener">stackoverflow.com/questions/2…</a></p>
 </blockquote>
@@ -248,76 +245,289 @@
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c223d523d?imageslim" alt="swicherX.gif">swicherX.gif</p>
 <h3 id="Talk-is-Chep，Just-show-Code"><a href="#Talk-is-Chep，Just-show-Code" class="headerlink" title="Talk is Chep，Just show Code"></a>Talk is Chep，Just show Code</h3><p>随意获取GitHub上的源代码，查看我的其他实现，别忘了尝试一下！ Github: <a href="https://github.com/bitvale/Switcher" target="_blank" rel="noopener">github.com/bitvale/Swi…</a></p>
 
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
+
+
+            
+            
         </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/14/switcher/">https://jiyugithub.github.io/2020/06/14/switcher/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/Tag1/"># Tag1</a>
-                    
-                        <a href="/tags/Tag2/"># Tag2</a>
-                    
-                        
-                </span>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
             </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正文开始"><span class="toc-number">2.</span> <span class="toc-text">正文开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来开始绘制"><span class="toc-number">3.</span> <span class="toc-text">接下来开始绘制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始分解动画"><span class="toc-number">4.</span> <span class="toc-text">开始分解动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#至此，我们一切都可以了"><span class="toc-number">5.</span> <span class="toc-text">至此，我们一切都可以了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Talk-is-Chep，Just-show-Code"><span class="toc-number">6.</span> <span class="toc-text">Talk is Chep，Just show Code</span></a></li></ol>
+                </div>
             </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/14/KotlinJava/">Kotlin与Java的异同</a>
             
             
-            <a class="next" rel="next" href="/2020/06/14/Kotlinyf/">Kotlin实战 | 语法糖</a>
-            
-        </section>
-
-
-    </article>
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

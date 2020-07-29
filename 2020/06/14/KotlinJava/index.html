@@ -1,466 +1,809 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kotlin与Java的异同 - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="打印日志
+Java
 
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>Kotlin与Java的异同 | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+System.out.print(&amp;quot;hello world&amp;quot;);
+System.out.println(&amp;quot;hello world&amp;quot;);
+,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Kotlin与Java的异同</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Kotlin与Java的异同</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 14, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/KotlinJava/" title="Kotlin与Java的异同" class="">Kotlin与Java的异同</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 14, 2020&nbsp;&nbsp;5:47:39</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h3 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.print(<span class="hljs-string">"hello world"</span>);<br>System.out.println(<span class="hljs-string">"hello world"</span>);<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">System.out.print(&quot;hello world&quot;);
+System.out.println(&quot;hello world&quot;);</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">print(<span class="hljs-string">"hello world"</span>)<br>println(<span class="hljs-string">"hello world"</span>)<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">print(&quot;hello world&quot;)
+println(&quot;hello world&quot;)</code></pre>
 <a id="more"></a>
 
 <h3 id="定义变量与常量常"><a href="#定义变量与常量常" class="headerlink" title="定义变量与常量常"></a>定义变量与常量常</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String name = <span class="hljs-string">"hello world"</span>;<br><span class="hljs-keyword">final</span> String name = <span class="hljs-string">"hello world"</span>;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">String name = &quot;hello world&quot;;
+final String name = &quot;hello world&quot;;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"hello world"</span><br><span class="hljs-keyword">val</span> name = <span class="hljs-string">"hello world"</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">var name = &quot;hello world&quot;
+val name = &quot;hello world&quot;</code></pre>
 <h3 id="null声明"><a href="#null声明" class="headerlink" title="null声明"></a>null声明</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String otherName;<br>otherName = <span class="hljs-keyword">null</span>;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">String otherName;
+otherName = null;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> otherName : String?<br>otherName = <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">var otherName : String?
+otherName = null</code></pre>
 <h3 id="空判断"><a href="#空判断" class="headerlink" title="空判断"></a>空判断</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (text != <span class="hljs-keyword">null</span>) &#123;<br>    <span class="hljs-keyword">int</span> length = text.length();<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">if (text != null) {
+    int length = text.length();
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">text?.let &#123;<br>    <span class="hljs-keyword">val</span> length = text.length<br>&#125;<br><span class="hljs-comment">// or simply</span><br><span class="hljs-keyword">val</span> length = text?.length<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">text?.let {
+    val length = text.length
+}
+// or simply
+val length = text?.length</code></pre>
 <h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">String firstName = <span class="hljs-string">"Android"</span>;<br>String lastName = <span class="hljs-string">"Architect"</span>;<br>String message = <span class="hljs-string">"My name is: "</span> + firstName + <span class="hljs-string">" "</span> + lastName;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">String firstName = &quot;Android&quot;;
+String lastName = &quot;Architect&quot;;
+String message = &quot;My name is: &quot; + firstName + &quot; &quot; + lastName;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> firstName = <span class="hljs-string">"Android"</span><br><span class="hljs-keyword">val</span> lastName = <span class="hljs-string">"Architect"</span><br><span class="hljs-keyword">val</span> message = <span class="hljs-string">"My name is: <span class="hljs-variable">$firstName</span> <span class="hljs-variable">$lastName</span>"</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">val firstName = &quot;Android&quot;
+val lastName = &quot;Architect&quot;
+val message = &quot;My name is: $firstName $lastName&quot;</code></pre>
 <h3 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">String text = <span class="hljs-string">"First Line\n"</span> +<br>              <span class="hljs-string">"Second Line\n"</span> +<br>              <span class="hljs-string">"Third Line"</span>;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">String text = &quot;First Line\n&quot; +
+              &quot;Second Line\n&quot; +
+              &quot;Third Line&quot;;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> text = <span class="hljs-string">"""</span><br><span class="hljs-string">        |First Line</span><br><span class="hljs-string">        |Second Line</span><br><span class="hljs-string">        |Third Line</span><br><span class="hljs-string">        """</span>.trimMargin()<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">val text = &quot;&quot;&quot;
+        |First Line
+        |Second Line
+        |Third Line
+        &quot;&quot;&quot;.trimMargin()</code></pre>
 <h3 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">String text = x &gt; <span class="hljs-number">5</span> ? <span class="hljs-string">"x &gt; 5"</span> : <span class="hljs-string">"x &lt;= 5"</span>;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">String text = x &gt; 5 ? &quot;x &gt; 5&quot; : &quot;x &lt;= 5&quot;;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> text = <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">5</span>)<br>              <span class="hljs-string">"x &gt; 5"</span><br>           <span class="hljs-keyword">else</span> <span class="hljs-string">"x &lt;= 5"</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">val text = if (x &gt; 5)
+              &quot;x &gt; 5&quot;
+           else &quot;x &lt;= 5&quot;</code></pre>
 <h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><blockquote>
 <p>java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> andResult  = a &amp; b;<br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> orResult   = a | b;<br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> xorResult  = a ^ b;<br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> rightShift = a &gt;&gt; <span class="hljs-number">2</span>;<br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> leftShift  = a &lt;&lt; <span class="hljs-number">2</span>;<br><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> unsignedRightShift = a &gt;&gt;&gt; <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">final int andResult  = a &amp; b;
+final int orResult   = a | b;
+final int xorResult  = a ^ b;
+final int rightShift = a &gt;&gt; 2;
+final int leftShift  = a &lt;&lt; 2;
+final int unsignedRightShift = a &gt;&gt;&gt; 2;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> andResult  = a and b<br><span class="hljs-keyword">val</span> orResult   = a or b<br><span class="hljs-keyword">val</span> xorResult  = a xor b<br><span class="hljs-keyword">val</span> rightShift = a shr <span class="hljs-number">2</span><br><span class="hljs-keyword">val</span> leftShift  = a shl <span class="hljs-number">2</span><br><span class="hljs-keyword">val</span> unsignedRightShift = a ushr <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">val andResult  = a and b
+val orResult   = a or b
+val xorResult  = a xor b
+val rightShift = a shr 2
+val leftShift  = a shl 2
+val unsignedRightShift = a ushr 2</code></pre>
 <h3 id="类型判断和转换-声明式"><a href="#类型判断和转换-声明式" class="headerlink" title="类型判断和转换 (声明式)"></a>类型判断和转换 (声明式)</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Car car = (Car) object;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">Car car = (Car) object;</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> car = <span class="hljs-keyword">object</span> <span class="hljs-keyword">as</span> Car<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">var car = object as Car</code></pre>
 <h3 id="类型判断和转换-隐式"><a href="#类型判断和转换-隐式" class="headerlink" title="类型判断和转换 (隐式)"></a>类型判断和转换 (隐式)</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (object <span class="hljs-keyword">instanceof</span> Car) &#123;<br>   Car car = (Car) object;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">if (object instanceof Car) {
+   Car car = (Car) object;
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">object</span> <span class="hljs-keyword">is</span> Car) &#123;<br>   <span class="hljs-keyword">var</span> car = <span class="hljs-keyword">object</span> <span class="hljs-comment">// 自动识别</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">if (object is Car) {
+   var car = object // 自动识别
+}</code></pre>
 <h3 id="多重条件"><a href="#多重条件" class="headerlink" title="多重条件"></a>多重条件</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">0</span> &amp;&amp; score &lt;= <span class="hljs-number">300</span>) &#123; &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">if (score &gt;= 0 &amp;&amp; score &lt;= 300) { }</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (score <span class="hljs-keyword">in</span> <span class="hljs-number">0</span>..<span class="hljs-number">300</span>) &#123; &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">if (score in 0..300) { }</code></pre>
 <h3 id="更灵活的case语句"><a href="#更灵活的case语句" class="headerlink" title="更灵活的case语句"></a>更灵活的case语句</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> score = <span class="hljs-comment">// some score;</span><br>String grade;<br><span class="hljs-keyword">switch</span> (score) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">9</span>:<br>        grade = <span class="hljs-string">"Excellent"</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">8</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>        grade = <span class="hljs-string">"Good"</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>        grade = <span class="hljs-string">"OK"</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>        grade = <span class="hljs-string">"Fail"</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>        grade = <span class="hljs-string">"Fail"</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">int score = // some score;
+String grade;
+switch (score) {
+    case 10:
+    case 9:
+        grade = &quot;Excellent&quot;;
+        break;
+    case 8:
+    case 7:
+    case 6:
+        grade = &quot;Good&quot;;
+        break;
+    case 5:
+    case 4:
+        grade = &quot;OK&quot;;
+        break;
+    case 3:
+    case 2:
+    case 1:
+        grade = &quot;Fail&quot;;
+        break;
+    default:
+        grade = &quot;Fail&quot;;
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> score = <span class="hljs-comment">// some score</span><br><span class="hljs-keyword">var</span> grade = <span class="hljs-keyword">when</span> (score) &#123;<br>    <span class="hljs-number">9</span>, <span class="hljs-number">10</span> -&gt; <span class="hljs-string">"Excellent"</span><br>    <span class="hljs-keyword">in</span> <span class="hljs-number">6</span>..<span class="hljs-number">8</span> -&gt; <span class="hljs-string">"Good"</span><br>    <span class="hljs-number">4</span>, <span class="hljs-number">5</span> -&gt; <span class="hljs-string">"OK"</span><br>    <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..<span class="hljs-number">3</span> -&gt; <span class="hljs-string">"Fail"</span><br>    <span class="hljs-keyword">else</span> -&gt; <span class="hljs-string">"Fail"</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">var score = // some score
+var grade = when (score) {
+    9, 10 -&gt; &quot;Excellent&quot;
+    in 6..8 -&gt; &quot;Good&quot;
+    4, 5 -&gt; &quot;OK&quot;
+    in 1..3 -&gt; &quot;Fail&quot;
+    else -&gt; &quot;Fail&quot;
+}</code></pre>
 <h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span> ; i++) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">10</span> ; i++) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>; i &gt;= <span class="hljs-number">0</span> ; i--) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span> ; i+=<span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>; i &gt;= <span class="hljs-number">0</span> ; i-=<span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (String item : collection) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (Map.Entry&lt;String, String&gt; entry: map.entrySet()) &#123; &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">for (int i = 1; i &lt;= 10 ; i++) { }
 
+for (int i = 1; i &lt; 10 ; i++) { }
+
+for (int i = 10; i &gt;= 0 ; i--) { }
+
+for (int i = 1; i &lt;= 10 ; i+=2) { }
+
+for (int i = 10; i &gt;= 0 ; i-=2) { }
+
+for (String item : collection) { }
+
+for (Map.Entry&lt;String, String&gt; entry: map.entrySet()) { }</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..<span class="hljs-number">10</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> until <span class="hljs-number">10</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">10</span> downTo <span class="hljs-number">0</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..<span class="hljs-number">10</span> step <span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">10</span> downTo <span class="hljs-number">0</span> step <span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (item <span class="hljs-keyword">in</span> collection) &#123; &#125;<br><br><span class="hljs-keyword">for</span> ((key, value) <span class="hljs-keyword">in</span> map) &#123; &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">for (i in 1..10) { }
 
+for (i in 1 until 10) { }
+
+for (i in 10 downTo 0) { }
+
+for (i in 1..10 step 2) { }
+
+for (i in 10 downTo 0 step 2) { }
+
+for (item in collection) { }
+
+for ((key, value) in map) { }</code></pre>
 <h3 id="更方便的集合操作"><a href="#更方便的集合操作" class="headerlink" title="更方便的集合操作"></a>更方便的集合操作</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> List&lt;Integer&gt; listOfNumber = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br><br><span class="hljs-keyword">final</span> Map&lt;Integer, String&gt; keyValue = <span class="hljs-keyword">new</span> HashMap&lt;Integer, String&gt;();<br>map.put(<span class="hljs-number">1</span>, <span class="hljs-string">"Android"</span>);<br>map.put(<span class="hljs-number">2</span>, <span class="hljs-string">"Ali"</span>);<br>map.put(<span class="hljs-number">3</span>, <span class="hljs-string">"Mindorks"</span>);<br><br><span class="hljs-comment">// Java 9</span><br><span class="hljs-keyword">final</span> List&lt;Integer&gt; listOfNumber = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br><br><span class="hljs-keyword">final</span> Map&lt;Integer, String&gt; keyValue = Map.of(<span class="hljs-number">1</span>, <span class="hljs-string">"Android"</span>,<br>                                             <span class="hljs-number">2</span>, <span class="hljs-string">"Ali"</span>,<br>                                             <span class="hljs-number">3</span>, <span class="hljs-string">"Mindorks"</span>);<br></code></pre></td></tr></table></figure>
+<pre><code class="java">final List&lt;Integer&gt; listOfNumber = Arrays.asList(1, 2, 3, 4);
 
+final Map&lt;Integer, String&gt; keyValue = new HashMap&lt;Integer, String&gt;();
+map.put(1, &quot;Android&quot;);
+map.put(2, &quot;Ali&quot;);
+map.put(3, &quot;Mindorks&quot;);
+
+// Java 9
+final List&lt;Integer&gt; listOfNumber = List.of(1, 2, 3, 4);
+
+final Map&lt;Integer, String&gt; keyValue = Map.of(1, &quot;Android&quot;,
+                                             2, &quot;Ali&quot;,
+                                             3, &quot;Mindorks&quot;);</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> listOfNumber = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br><span class="hljs-keyword">val</span> keyValue = mapOf(<span class="hljs-number">1</span> to <span class="hljs-string">"Android"</span>,<br>                     <span class="hljs-number">2</span> to <span class="hljs-string">"Ali"</span>,<br>                     <span class="hljs-number">3</span> to <span class="hljs-string">"Mindorks"</span>)<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">val listOfNumber = listOf(1, 2, 3, 4)
+val keyValue = mapOf(1 to &quot;Android&quot;,
+                     2 to &quot;Ali&quot;,
+                     3 to &quot;Mindorks&quot;)</code></pre>
 <h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Java 7 and below</span><br><span class="hljs-keyword">for</span> (Car car : cars) &#123;<br>  System.out.println(car.speed);<br>&#125;<br><br><span class="hljs-comment">// Java 8+</span><br>cars.forEach(car -&gt; System.out.println(car.speed));<br><br><span class="hljs-comment">// Java 7 and below</span><br><span class="hljs-keyword">for</span> (Car car : cars) &#123;<br>  <span class="hljs-keyword">if</span> (car.speed &gt; <span class="hljs-number">100</span>) &#123;<br>    System.out.println(car.speed);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// Java 8+</span><br>cars.stream().filter(car -&gt; car.speed &gt; <span class="hljs-number">100</span>).forEach(car -&gt; System.out.println(car.speed));<br></code></pre></td></tr></table></figure>
+<pre><code class="java">// Java 7 and below
+for (Car car : cars) {
+  System.out.println(car.speed);
+}
 
+// Java 8+
+cars.forEach(car -&gt; System.out.println(car.speed));
+
+// Java 7 and below
+for (Car car : cars) {
+  if (car.speed &gt; 100) {
+    System.out.println(car.speed);
+  }
+}
+
+// Java 8+
+cars.stream().filter(car -&gt; car.speed &gt; 100).forEach(car -&gt; System.out.println(car.speed));</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">cars.forEach &#123;<br>    println(it.speed)<br>&#125;<br><br>cars.filter &#123; it.speed &gt; <span class="hljs-number">100</span> &#125;<br>      .forEach &#123; println(it.speed)&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">cars.forEach {
+    println(it.speed)
+}
 
+cars.filter { it.speed &gt; 100 }
+      .forEach { println(it.speed)}</code></pre>
 <h3 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span> </span>&#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>... numbers)</span> </span>&#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">void doSomething() {
+   // logic here
+}
 
+void doSomething(int... numbers) {
+   // logic here
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomething</span><span class="hljs-params">(<span class="hljs-keyword">vararg</span> numbers: <span class="hljs-type">Int</span>)</span></span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">fun doSomething() {
+   // logic here
+}
 
+fun doSomething(vararg numbers: Int) {
+   // logic here
+}</code></pre>
 <h3 id="带返回值的方法"><a href="#带返回值的方法" class="headerlink" title="带返回值的方法"></a>带返回值的方法</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getScore</span><span class="hljs-params">()</span> </span>&#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> score;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">int getScore() {
+   // logic here
+   return score;
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> score<br>&#125;<br><br><span class="hljs-comment">// as a single-expression function</span><br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> = score<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">fun getScore(): Int {
+   // logic here
+   return score
+}
 
+// as a single-expression function
+
+fun getScore(): Int = score</code></pre>
 <h3 id="无结束符号"><a href="#无结束符号" class="headerlink" title="无结束符号"></a>无结束符号</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getScore</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;<br>    <span class="hljs-comment">// logic here</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">int getScore(int value) {
+    // logic here
+    return 2 * value;
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>&#125;<br><br><span class="hljs-comment">// as a single-expression function</span><br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> = <span class="hljs-number">2</span> * value<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">fun getScore(value: Int): Int {
+   // logic here
+   return 2 * value
+}
 
+// as a single-expression function
+
+fun getScore(value: Int): Int = 2 * value</code></pre>
 <h3 id="constructor-构造器"><a href="#constructor-构造器" class="headerlink" title="constructor 构造器"></a>constructor 构造器</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utils</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Utils</span><span class="hljs-params">()</span> </span>&#123;<br>      <span class="hljs-comment">// This utility class is not publicly instantiable</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getScore</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">public class Utils {
 
+    private Utils() {
+      // This utility class is not publicly instantiable
+    }
+
+    public static int getScore(int value) {
+        return 2 * value;
+    }
+
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utils</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span></span>() &#123;<br><br>    <span class="hljs-keyword">companion</span> <span class="hljs-keyword">object</span> &#123;<br><br>        <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>        &#125;<br><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// another way</span><br><br><span class="hljs-keyword">object</span> Utils &#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="kotlin">class Utils private constructor() {
 
+    companion object {
+
+        fun getScore(value: Int): Int {
+            return 2 * value
+        }
+
+    }
+}
+
+// another way
+
+object Utils {
+
+    fun getScore(value: Int): Int {
+        return 2 * value
+    }
+
+}</code></pre>
 <h3 id="Get-Set-构造器"><a href="#Get-Set-构造器" class="headerlink" title="Get Set 构造器"></a>Get Set 构造器</h3><blockquote>
 <p>Java</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Developer</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Developer</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getAge</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">public class Developer {
 
+    private String name;
+    private int age;
+
+    public Developer(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}</code></pre>
 <blockquote>
 <p>Kotlin</p>
 </blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Developer</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>)<br></code></pre></td></tr></table></figure>
-
+<pre><code class="kotlin">data class Developer(val name: String, val age: Int)</code></pre>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://class.imooc.com/sale/mobilearchitect" target="_blank" rel="noopener">慕课网移动端架构师成长体系课</a></li>
 </ul>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/14/KotlinJava/">https://jiyugithub.github.io/2020/06/14/KotlinJava/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/16/100js/">100 行 js 代码下载抖音无水印视频</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/14/switcher/">炫酷！从未见过如此Q弹的Switcher</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打印日志"><span class="toc-number">1.</span> <span class="toc-text">打印日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义变量与常量常"><span class="toc-number">2.</span> <span class="toc-text">定义变量与常量常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null声明"><span class="toc-number">3.</span> <span class="toc-text">null声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空判断"><span class="toc-number">4.</span> <span class="toc-text">空判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串拼接"><span class="toc-number">5.</span> <span class="toc-text">字符串拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行"><span class="toc-number">6.</span> <span class="toc-text">换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三元表达式"><span class="toc-number">7.</span> <span class="toc-text">三元表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作符"><span class="toc-number">8.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-声明式"><span class="toc-number">9.</span> <span class="toc-text">类型判断和转换 (声明式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断和转换-隐式"><span class="toc-number">10.</span> <span class="toc-text">类型判断和转换 (隐式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重条件"><span class="toc-number">11.</span> <span class="toc-text">多重条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更灵活的case语句"><span class="toc-number">12.</span> <span class="toc-text">更灵活的case语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for循环"><span class="toc-number">13.</span> <span class="toc-text">for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更方便的集合操作"><span class="toc-number">14.</span> <span class="toc-text">更方便的集合操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历"><span class="toc-number">15.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法定义"><span class="toc-number">16.</span> <span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带返回值的方法"><span class="toc-number">17.</span> <span class="toc-text">带返回值的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无结束符号"><span class="toc-number">18.</span> <span class="toc-text">无结束符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor-构造器"><span class="toc-number">19.</span> <span class="toc-text">constructor 构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Get-Set-构造器"><span class="toc-number">20.</span> <span class="toc-text">Get Set 构造器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number"></span> <span class="toc-text">参考</span></a>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

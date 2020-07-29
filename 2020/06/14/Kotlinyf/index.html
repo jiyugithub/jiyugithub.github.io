@@ -1,359 +1,786 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>Kotlin实战 | 语法糖 | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kotlin实战 | 语法糖 - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Kotlin实战 | 语法糖</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Kotlin实战 | 语法糖</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 14, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/Kotlinyf/" title="Kotlin实战 | 语法糖" class="">Kotlin实战 | 语法糖</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 14, 2020&nbsp;&nbsp;2:15:46</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
 <a id="more"></a>
 
 <h2 id="将-px-值转换成-dp-值"><a href="#将-px-值转换成-dp-值" class="headerlink" title="将 px 值转换成 dp 值"></a>将 px 值转换成 dp 值</h2><p>在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在<code>Util</code>类中新增一个静态函数。利用 Kotlin 的扩展属性可以更简洁地实现：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> <span class="hljs-built_in">Int</span>.dp: <span class="hljs-built_in">Int</span><br>    <span class="hljs-keyword">get</span>() &#123;<br>        <span class="hljs-keyword">return</span> TypedValue.applyDimension(<br>            TypedValue.COMPLEX_UNIT_DIP,<br>            <span class="hljs-keyword">this</span>.toFloat(),<br>            Resources.getSystem().displayMetrics<br>        ).toInt()<br>    &#125;<br></code></pre></td></tr></table></figure>
-
-<p>为 Int 扩展一个属性<code>dp</code>，它的类型是 Int。在<code>get()</code>中定义该属性的取值算法。</p>
+<pre><code>val Int.dp: Int
+    get() {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            Resources.getSystem().displayMetrics
+        ).toInt()
+    }
+</code></pre><p>为 Int 扩展一个属性<code>dp</code>，它的类型是 Int。在<code>get()</code>中定义该属性的取值算法。</p>
 <p>然后就可以像这样动态地将 Int 值 dp 化：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">viewGroup.add<span class="hljs-constructor">View( <span class="hljs-params">textView</span>, LayoutParam( 40.<span class="hljs-params">dp</span>, 50.<span class="hljs-params">dp</span> )</span> )<br></code></pre></td></tr></table></figure>
-
-<h2 id="弃用Builder模式"><a href="#弃用Builder模式" class="headerlink" title="弃用Builder模式"></a>弃用Builder模式</h2><p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
+<pre><code>viewGroup.addView( textView, LayoutParam( 40.dp, 50.dp ) )
+</code></pre><h2 id="弃用Builder模式"><a href="#弃用Builder模式" class="headerlink" title="弃用Builder模式"></a>弃用Builder模式</h2><p>当构造复杂对象时，需要很多参数，如果将所有参数都通过一个构造函数来传递，缺乏灵活性，但如果重载若干个带有不同参数的构造函数，代码就变得臃肿。Builder 模式可以简化构建过程。</p>
 <p>在 Java 中 Builder模式 代码如下：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br>    <span class="hljs-comment">//'必选参数'</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> name;<br>    <span class="hljs-comment">//'以下都是可选参数'</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> gender;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> weight;<br><br>    <span class="hljs-comment">//'私有构造函数，限制必须通过构造者构建对象'</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Person</span><span class="hljs-params">(Builder builder)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = builder.name;<br>        <span class="hljs-keyword">this</span>.gender = builder.gender;<br>        <span class="hljs-keyword">this</span>.age = builder.age;<br>        <span class="hljs-keyword">this</span>.<span class="hljs-built_in">height</span> = builder.<span class="hljs-built_in">height</span>;<br>        <span class="hljs-keyword">this</span>.weight = builder.weight;<br>    &#125;<br><br>    <span class="hljs-comment">//'构造者'</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Builder</span> &#123;</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> name;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> gender;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> weight;<br><br>        <span class="hljs-comment">//'必选参数必须在构造函数中传入'</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Builder</span><span class="hljs-params">(<span class="hljs-keyword">String</span> name)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.name = name;<br>        &#125;<br><br>        <span class="hljs-comment">//'以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用'</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">age</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.age = age;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">gender</span><span class="hljs-params">(<span class="hljs-keyword">int</span> gender)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.gender = gender;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">height</span><span class="hljs-params">(<span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.<span class="hljs-built_in">height</span> = <span class="hljs-built_in">height</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">weight</span><span class="hljs-params">(<span class="hljs-keyword">int</span> weight)</span> </span>&#123;<br>            <span class="hljs-keyword">this</span>.weight = weight;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//'构建对象'</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> Person <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Person(<span class="hljs-keyword">this</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code>public class Person {
+    //&#39;必选参数&#39;
+    private String name;
+    //&#39;以下都是可选参数&#39;
+    private int gender;
+    private int age;
+    private int height;
+    private int weight;
 
-<p>然后就可以像这样构建<code>Person</code>实例：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-comment">//'使用 Builder模式'</span><br>Person p = new Person.Builder(<span class="hljs-string">"taylor"</span>)<br>            .age(<span class="hljs-number">50</span>)<br>            .gender(<span class="hljs-number">1</span>)<br>            .weight(<span class="hljs-number">43</span>)<br>            .build();<br><br><span class="hljs-comment">//'使用构造函数'</span><br>Person p2 = new Person(<span class="hljs-string">"taylor"</span>, <span class="hljs-number">50</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">43</span>);<br></code></pre></td></tr></table></figure>
+    //&#39;私有构造函数，限制必须通过构造者构建对象&#39;
+    private Person(Builder builder) {
+        this.name = builder.name;
+        this.gender = builder.gender;
+        this.age = builder.age;
+        this.height = builder.height;
+        this.weight = builder.weight;
+    }
 
-<p>对比之下，Builder模式 有两个优势：</p>
+    //&#39;构造者&#39;
+    public static class Builder {
+        private String name;
+        private int gender;
+        private int age;
+        private int height;
+        private int weight;
+
+        //&#39;必选参数必须在构造函数中传入&#39;
+        public Builder(String name) {
+            this.name = name;
+        }
+
+        //&#39;以下是每个非必要属性的设值函数，它返回构造者本身用于链式调用&#39;
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder gender(int gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Builder weight(int weight) {
+            this.weight = weight;
+            return this;
+        }
+
+        //&#39;构建对象&#39;
+        public Person build() {
+            return new Person(this);
+        }
+    }
+
+</code></pre><p>然后就可以像这样构建<code>Person</code>实例：</p>
+<pre><code>//&#39;使用 Builder模式&#39;
+Person p = new Person.Builder(&quot;taylor&quot;)
+            .age(50)
+            .gender(1)
+            .weight(43)
+            .build();
+
+//&#39;使用构造函数&#39;
+Person p2 = new Person(&quot;taylor&quot;, 50, 1, 0, 43);
+</code></pre><p>对比之下，Builder模式 有两个优势：</p>
 <ol>
 <li>为参数标注语义：在Builder模式中，每个属性的赋值都是一个函数，函数名标注了属性语义。而直接使用构造函数时，很难分辨<code>50</code>，<code>43</code>哪个是年龄，哪个是体重。</li>
 <li>可选参数：Builder模式中，除了必选参数，其他参数是可选的。但直接使用构造函数必须为所有参数赋值，比如上例中第四个参数身高被赋值为0。</li>
 </ol>
 <p>但 Builder模式 也有代价，新增了一个中间类<code>Builder</code>。</p>
 <p>使用 Kotlin 的<code>命名参数</code>+<code>参数默认值</code>+<code>数据类</code>语法，在没有任何副作用的情况下就能实现 Builder模式：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-comment">//'将Person定义为数据类'</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-symbol">Person</span>(<br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">name: <span class="hljs-symbol">String</span>,</span><br>    //'为以下可选参数设置默认值'<br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">gender: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">1,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">age: <span class="hljs-symbol">Int</span></span>= <span class="hljs-symbol">0,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">height: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">0,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">weight: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">0</span><br>)<br><br>//'使用命名参数构建<span class="hljs-symbol">Person</span>实例'<br><span class="hljs-symbol">val</span> <span class="hljs-symbol">p</span>  = <span class="hljs-symbol">Person</span>(<span class="hljs-symbol">name</span> = “<span class="hljs-symbol">taylor</span>”,<span class="hljs-symbol">gender</span> = <span class="hljs-symbol">1,<span class="hljs-symbol">weight</span></span> = <span class="hljs-symbol">43</span>)<br></code></pre></td></tr></table></figure>
+<pre><code>//&#39;将Person定义为数据类&#39;
+data class Person(
+    var name: String,
+    //&#39;为以下可选参数设置默认值&#39;
+    var gender: Int = 1,
+    var age: Int= 0,
+    var height: Int = 0,
+    var weight: Int = 0
+)
 
-<p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<a href="https://juejin.im/post/5cdb9536e51d456e5c5babd4" target="_blank" rel="noopener">这里</a></p>
+//&#39;使用命名参数构建Person实例&#39;
+val p  = Person(name = “taylor”,gender = 1,weight = 43)
+</code></pre><p>关于<code>数据类</code>、<code>参数默认值</code>、<code>命名参数</code>更详细的介绍可以点击<a href="https://juejin.im/post/5cdb9536e51d456e5c5babd4" target="_blank" rel="noopener">这里</a></p>
 <p>如果想增加参数约束条件可以调用<code>require()</code>方法：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">data <span class="hljs-keyword">class</span> <span class="hljs-symbol">Person</span>(<br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">name: <span class="hljs-symbol">String</span>,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">gender: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">1,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">age: <span class="hljs-symbol">Int</span></span>= <span class="hljs-symbol">0,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">height: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">0,</span><br>    <span class="hljs-symbol">var</span> <span class="hljs-symbol">weight: <span class="hljs-symbol">Int</span></span> = <span class="hljs-symbol">0</span><br>)&#123;<br>    <span class="hljs-comment">//'在构造函数被调用的时候执行参数合法检查'</span><br>    init &#123;<br>        require(name.isNotEmpty())&#123;”name cant be empty“&#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>此时如果像下面这样构造 Person，则会抛出异常：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">val</span> p = <span class="hljs-constructor">Person(<span class="hljs-params">name</span>=<span class="hljs-string">""</span>,<span class="hljs-params">gender</span> = 1)</span><br>java.lang.IllegalArgumentException: name cant be empty<br></code></pre></td></tr></table></figure>
-
-<h2 id="打印列表、map"><a href="#打印列表、map" class="headerlink" title="打印列表、map"></a>打印列表、map</h2><p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
-<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-keyword">for</span> (String <span class="hljs-built_in">str</span>:<span class="hljs-built_in">list</span>) &#123;<br>    <span class="hljs-built_in">Log</span>.v(<span class="hljs-string">"test"</span>, <span class="hljs-string">"str="</span>+<span class="hljs-built_in">str</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>不同业务界面的数据类型不同，为了调试，这样的 for 循环就会散落在各处，而且列表内容会分若干条 log 输出，中间极有可能被别的log打断。</p>
+<pre><code>data class Person(
+    var name: String,
+    var gender: Int = 1,
+    var age: Int= 0,
+    var height: Int = 0,
+    var weight: Int = 0
+){
+    //&#39;在构造函数被调用的时候执行参数合法检查&#39;
+    init {
+        require(name.isNotEmpty()){”name cant be empty“}
+    }
+}
+</code></pre><p>此时如果像下面这样构造 Person，则会抛出异常：</p>
+<pre><code>val p = Person(name=&quot;&quot;,gender = 1)
+java.lang.IllegalArgumentException: name cant be empty
+</code></pre><h2 id="打印列表、map"><a href="#打印列表、map" class="headerlink" title="打印列表、map"></a>打印列表、map</h2><p>调试程序时，经常需要打印列表内容，通常会这样打印：</p>
+<pre><code>for (String str:list) {
+    Log.v(&quot;test&quot;, &quot;str=&quot;+str);
+}
+</code></pre><p>不同业务界面的数据类型不同，为了调试，这样的 for 循环就会散落在各处，而且列表内容会分若干条 log 输出，中间极有可能被别的log打断。</p>
 <p><strong>有没有一个函数可以打印包含任意数据类型的列表，并将列表内容组织成更具可读性的字符串？</strong></p>
 <p>用 Kotlin  的<code>扩展函数</code>+<code>泛型</code>+<code>高阶函数</code>就能优雅地做到：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;T&gt;</span> Collection<span class="hljs-type">&lt;T&gt;</span>.<span class="hljs-title">print</span><span class="hljs-params">(map: (<span class="hljs-type">T</span>) -&gt; <span class="hljs-type">String</span>)</span></span> =<br>    StringBuilder(<span class="hljs-string">"\n["</span>).also &#123; sb -&gt;<br>        <span class="hljs-comment">//'遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行'</span><br>        <span class="hljs-keyword">this</span>.forEach &#123; e -&gt; sb.append(<span class="hljs-string">"\n\t<span class="hljs-subst">$&#123;map(e)&#125;</span>,"</span>) &#125;<br>        sb.append(<span class="hljs-string">"\n]"</span>)<br>    &#125;.toString()<br></code></pre></td></tr></table></figure>
-
-<p>为集合的基类<code>Collection</code>新增一个扩展函数，它是一个高阶函数，因为它的参数是另一个函数，该函数用 lambda 表示。再把集合元素抽象成泛型。通过<code>StringBuilder</code>将所有集合内容拼接成一个自动换行的字符串。</p>
+<pre><code>fun &lt;T&gt; Collection&lt;T&gt;.print(map: (T) -&gt; String) =
+    StringBuilder(&quot;\n[&quot;).also { sb -&gt;
+        //&#39;遍历集合元素，通过 map 表达式将元素转换成感兴趣的字串，并独占一行&#39;
+        this.forEach { e -&gt; sb.append(&quot;\n\t${map(e)},&quot;) }
+        sb.append(&quot;\n]&quot;)
+    }.toString()
+</code></pre><p>为集合的基类<code>Collection</code>新增一个扩展函数，它是一个高阶函数，因为它的参数是另一个函数，该函数用 lambda 表示。再把集合元素抽象成泛型。通过<code>StringBuilder</code>将所有集合内容拼接成一个自动换行的字符串。</p>
 <p>写段测试代码看下效果：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>(<span class="hljs-keyword">var</span> name: String, <span class="hljs-keyword">var</span> age: <span class="hljs-built_in">Int</span>)<br><br><span class="hljs-keyword">val</span> persons = listOf(<br>    Person(<span class="hljs-string">"Peter"</span>, <span class="hljs-number">16</span>),<br>    Person(<span class="hljs-string">"Anna"</span>, <span class="hljs-number">28</span>),<br>    Person(<span class="hljs-string">"Anna"</span>, <span class="hljs-number">23</span>),<br>    Person(<span class="hljs-string">"Sonya"</span>, <span class="hljs-number">39</span>)<br>)<br><br>persons.print &#123; <span class="hljs-string">"<span class="hljs-subst">$&#123;it.name&#125;</span>_<span class="hljs-subst">$&#123;it.age&#125;</span>"</span> &#125;.let &#123; Log.v(<span class="hljs-string">"test"</span>,it) &#125;<br></code></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>打印结果如下：</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-title">V/test:</span> [<br><span class="hljs-built_in">    	Peter_16,</span><br><span class="hljs-built_in">    	Anna_28,</span><br><span class="hljs-built_in">    	Anna_23,</span><br><span class="hljs-built_in">    	Sonya_39,</span><br>    ]<br></code></pre></td></tr></table></figure>
+val persons = listOf(
+    Person(&quot;Peter&quot;, 16),
+    Person(&quot;Anna&quot;, 28),
+    Person(&quot;Anna&quot;, 23),
+    Person(&quot;Sonya&quot;, 39)
+)
 
-<p>同样地，可以如法炮制一个打印 map 的扩展函数：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;K, V&gt;</span> Map<span class="hljs-type">&lt;K, V?&gt;</span>.<span class="hljs-title">print</span><span class="hljs-params">(map: (<span class="hljs-type">V</span>?) -&gt; <span class="hljs-type">String</span>)</span></span>: String =<br>    StringBuilder(<span class="hljs-string">"\n&#123;"</span>).also &#123; sb -&gt;<br>        <span class="hljs-keyword">this</span>.iterator().forEach &#123; entry -&gt;<br>            sb.append(<span class="hljs-string">"\n\t[<span class="hljs-subst">$&#123;entry.key&#125;</span>] = <span class="hljs-subst">$&#123;map(entry.value)&#125;</span>"</span>)<br>        &#125;<br>        sb.append(<span class="hljs-string">"\n&#125;"</span>)<br>    &#125;.toString()<br></code></pre></td></tr></table></figure>
+persons.print { &quot;${it.name}_${it.age}&quot; }.let { Log.v(&quot;test&quot;,it) }
+</code></pre><p>打印结果如下：</p>
+<pre><code>V/test: [
+        Peter_16,
+        Anna_28,
+        Anna_23,
+        Sonya_39,
+    ]
+</code></pre><p>同样地，可以如法炮制一个打印 map 的扩展函数：</p>
+<pre><code>fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(map: (V?) -&gt; String): String =
+    StringBuilder(&quot;\n{&quot;).also { sb -&gt;
+        this.iterator().forEach { entry -&gt;
+            sb.append(&quot;\n\t[${entry.key}] = ${map(entry.value)}&quot;)
+        }
+        sb.append(&quot;\n}&quot;)
+    }.toString()
+</code></pre><h2 id="将-data-类转换成-map"><a href="#将-data-类转换成-map" class="headerlink" title="将 data 类转换成 map"></a>将 data 类转换成 map</h2><p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
+<pre><code>public class Person {
+    private String name;
+    private int age;
 
-<h2 id="将-data-类转换成-map"><a href="#将-data-类转换成-map" class="headerlink" title="将 data 类转换成 map"></a>将 data 类转换成 map</h2><p>有些数据类字段比较多，调试时，想把它们通通打印出来，在 Java 中，借助于 AndroidStudio 的 <code>toString</code>功能倒是可以方便地生成可读性很高的字串：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    @Override<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> ”Person&#123;“ +<br>                ”name=‘“ + name + ’\” +<br>                ”, age=“ + age +<br>                ‘&#125;’;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>但是每新建一个数据类都要手动生成一个<code>toString()</code>方法也挺麻烦。</p>
+    @Override
+    public String toString() {
+        return ”Person{“ +
+                ”name=‘“ + name + ’\” +
+                ”, age=“ + age +
+                ‘}’;
+    }
+}
+</code></pre><p>但是每新建一个数据类都要手动生成一个<code>toString()</code>方法也挺麻烦。</p>
 <p>利用 Kotlin 的 <code>data class</code>可以省去这一步，但打印效果是所有字段都在同一行中：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stata">data <span class="hljs-keyword">class</span> Person(<span class="hljs-keyword">var</span> name: String, <span class="hljs-keyword">var</span> age: Int)<br><br><span class="hljs-keyword">Log</span>.v(“<span class="hljs-keyword">test</span>”, “person=<span class="hljs-variable">$&#123;Person</span>(<span class="hljs-string">"Peter"</span>, 16)&#125;”)<br><br><span class="hljs-comment">//输出如下：</span><br>V/<span class="hljs-keyword">test</span>: person=Person(name=Peter, age=16)<br></code></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>如果字段很多，把它们都打印在一行中可读性很差。</p>
+Log.v(“test”, “person=${Person(&quot;Peter&quot;, 16)}”)
+
+//输出如下：
+V/test: person=Person(name=Peter, age=16)
+</code></pre><p>如果字段很多，把它们都打印在一行中可读性很差。</p>
 <p><strong>有没有一种方法，可以读取一个类中所有的字段信息？</strong> 这样我们就可以将他们组织成想要的形状。请看下面这个方法：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Any.<span class="hljs-title">ofMap</span><span class="hljs-params">()</span></span> =<br>    <span class="hljs-comment">//'过滤掉除data class以外的其他类'</span><br>    <span class="hljs-keyword">this</span>::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">takeIf</span> </span>&#123; it.isData &#125;<br>        <span class="hljs-comment">//'遍历类的所有成员，过滤掉成员方法，只考虑成员属性'</span><br>        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()<br>        <span class="hljs-comment">//'将成员属性名和值存储在Pair中'</span><br>        ?.map &#123; it.name to it.call(<span class="hljs-keyword">this</span>) &#125;<br>        <span class="hljs-comment">//'将Pair转换成map'</span><br>        ?.toMap()<br></code></pre></td></tr></table></figure>
-
-<p>为任意 Kotlin 中的类添加一个<code>扩展函数</code>，它的功能是将<code>data class</code>中所有的字段名及其对应值存在一个 map 中。其中用到的 Kotlin 语法糖如下：</p>
+<pre><code>fun Any.ofMap() =
+    //&#39;过滤掉除data class以外的其他类&#39;
+    this::class.takeIf { it.isData }
+        //&#39;遍历类的所有成员，过滤掉成员方法，只考虑成员属性&#39;
+        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()
+        //&#39;将成员属性名和值存储在Pair中&#39;
+        ?.map { it.name to it.call(this) }
+        //&#39;将Pair转换成map&#39;
+        ?.toMap()
+</code></pre><p>为任意 Kotlin 中的类添加一个<code>扩展函数</code>，它的功能是将<code>data class</code>中所有的字段名及其对应值存在一个 map 中。其中用到的 Kotlin 语法糖如下：</p>
 <ul>
 <li><code>isData</code>是<code>KClass</code>中的一个属性，用于判断该类是不是一个<code>data class</code>。<code>KClass</code>是 Kotlin 中用来描述 <strong>类的类型</strong>，<code>KClass</code>可以通过<code>对象::class</code>语法获得。</li>
 <li><code>members</code>也是<code>KClass</code>中的一个属性，它包含了所有类的方法和属性。</li>
 <li><code>filterIsInstance()</code>是<code>Iterable</code>接口的扩展函数，用于过滤出集合中指定的类型。</li>
 <li><code>to</code>是一个<code>infix</code>扩展函数，它的定义如下：</li>
 </ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> <span class="hljs-keyword">infix</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;A, B&gt;</span> A.<span class="hljs-title">to</span><span class="hljs-params">(that: <span class="hljs-type">B</span>)</span></span>: Pair&lt;A, B&gt; = Pair(<span class="hljs-keyword">this</span>, that)<br></code></pre></td></tr></table></figure>
-
-<ul>
+<pre><code>public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; = Pair(this, that)
+</code></pre><ul>
 <li>带有<code>infix</code>标识的函数只允许带有一个参数，并且在调用时可以省略包裹参数的括号。这种语法叫<code>中缀表达式</code></li>
 </ul>
 <p>写段测试代码，结合上一节的打印 map 函数看下效果：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Person(<span class="hljs-params">var</span> <span class="hljs-params">name</span>: String, <span class="hljs-params">var</span> <span class="hljs-params">age</span>: Int)</span><br><br><span class="hljs-constructor">Person(<span class="hljs-string">"Peter"</span>, 16)</span>.<span class="hljs-keyword">of</span><span class="hljs-constructor">Map()</span>?.print &#123; it.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span> &#125;.<span class="hljs-keyword">let</span> &#123; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>v(<span class="hljs-string">"test"</span>,<span class="hljs-string">"$it"</span>) &#125;<br></code></pre></td></tr></table></figure>
+<pre><code>data class Person(var name: String, var age: Int)
 
-<p>测试代码先将<code>Person</code>实例转换成 map，然后打印 map。输出结果如下：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cs">V/test:<br>    &#123;<br>    	[<span class="hljs-meta">age</span>] = <span class="hljs-number">16</span><br>    	[<span class="hljs-meta">name</span>] = Peter<br>    &#125;<br></code></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16).ofMap()?.print { it.toString() }.let { Log.v(&quot;test&quot;,&quot;$it&quot;) }
+</code></pre><p>测试代码先将<code>Person</code>实例转换成 map，然后打印 map。输出结果如下：</p>
+<pre><code>V/test:
+    {
+        [age] = 16
+        [name] = Peter
+    }
+</code></pre><p>若<code>data class</code>嵌套会发生什么？</p>
+<pre><code>//&#39;位置，嵌套在Person类中&#39;
+data class Location(var x: Int, var y: Int)
+data class Person(var name: String, var age: Int, var locaton: Location? = null)
 
-<p>若<code>data class</code>嵌套会发生什么？</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">//'位置，嵌套在Person类中'</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Location(<span class="hljs-params">var</span> <span class="hljs-params">x</span>: Int, <span class="hljs-params">var</span> <span class="hljs-params">y</span>: Int)</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Person(<span class="hljs-params">var</span> <span class="hljs-params">name</span>: String, <span class="hljs-params">var</span> <span class="hljs-params">age</span>: Int, <span class="hljs-params">var</span> <span class="hljs-params">locaton</span>: Location? = <span class="hljs-params">null</span>)</span><br><br><span class="hljs-constructor">Person(<span class="hljs-string">"Peter"</span>, 16, Location(20, 30)</span>).<span class="hljs-keyword">of</span><span class="hljs-constructor">Map()</span>?.print &#123; it.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span> &#125;.<span class="hljs-keyword">let</span> &#123; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>v(<span class="hljs-string">"test"</span>, <span class="hljs-string">"$it"</span>) &#125;<br><br><span class="hljs-comment">//'打印结果如下'</span><br>    &#123;<br>    	<span class="hljs-literal">[<span class="hljs-identifier">age</span>]</span> = <span class="hljs-number">16</span><br>    	<span class="hljs-literal">[<span class="hljs-identifier">locaton</span>]</span> = <span class="hljs-constructor">Location(<span class="hljs-params">x</span>=20, <span class="hljs-params">y</span>=30)</span><br>    	<span class="hljs-literal">[<span class="hljs-identifier">name</span>]</span> = Peter<br>    &#125;<br></code></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16, Location(20, 30)).ofMap()?.print { it.toString() }.let { Log.v(&quot;test&quot;, &quot;$it&quot;) }
 
-<p>期望得到类似 Json 的打印效果，但输出结果还差一点。是因为将<code>Person</code>转化成<code>Map</code>时并没有将嵌套的<code>Location</code>也转化成键值对。</p>
+//&#39;打印结果如下&#39;
+    {
+        [age] = 16
+        [locaton] = Location(x=20, y=30)
+        [name] = Peter
+    }
+</code></pre><p>期望得到类似 Json 的打印效果，但输出结果还差一点。是因为将<code>Person</code>转化成<code>Map</code>时并没有将嵌套的<code>Location</code>也转化成键值对。</p>
 <p>需要将<code>ofMap()</code>方法重构成递归调用：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> Any.<span class="hljs-title">ofMap</span><span class="hljs-params">()</span></span>: Map&lt;String, Any?&gt;? &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">takeIf</span> </span>&#123; it.isData &#125;<br>        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()<br>        ?.map &#123; member -&gt;<br>            <span class="hljs-keyword">val</span> value = member.call(<span class="hljs-keyword">this</span>)?.let &#123; v-&gt;<br>                <span class="hljs-comment">//'若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值'</span><br>                <span class="hljs-keyword">if</span> (v::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">isData</span>) <span class="hljs-title">v</span>.<span class="hljs-title">ofMap</span></span>()<br>                <span class="hljs-keyword">else</span> v<br>            &#125;<br>            member.name to value<br>        &#125;<br>        ?.toMap()<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>fun Any.ofMap(): Map&lt;String, Any?&gt;? {
+    return this::class.takeIf { it.isData }
+        ?.members?.filterIsInstance&lt;KProperty&lt;Any&gt;&gt;()
+        ?.map { member -&gt;
+            val value = member.call(this)?.let { v-&gt;
+                //&#39;若成员变量是data class，则递归调用ofMap()，将其转化成键值对，否则直接返回值&#39;
+                if (v::class.isData) v.ofMap()
+                else v
+            }
+            member.name to value
+        }
+        ?.toMap()
+}
+</code></pre><p>为了让打印结果也有嵌套缩进效果，打印 Map 的函数也需要相应地重构：</p>
+<pre><code>/**
+ * 打印 Map，生成结构化键值对子串
+ * @param space 行缩进量
+ */
+fun &lt;K, V&gt; Map&lt;K, V?&gt;.print(space: Int = 0): String {
+    //&#39;生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进&#39;
+    val indent = StringBuilder().apply {
+        repeat(space) { append(&quot; &quot;) }
+    }.toString()
+    return StringBuilder(&quot;\n${indent}{&quot;).also { sb -&gt;
+        this.iterator().forEach { entry -&gt;
+            //&#39;如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身&#39;
+            val value = entry.value.let { v -&gt;
+                (v as? Map&lt;*, *&gt;)?.print(&quot;${indent}${entry.key} = &quot;.length) ?: v.toString()
+            }
+            sb.append(&quot;\n\t${indent}[${entry.key}] = $value,&quot;)
+        }
+        sb.append(&quot;\n${indent}}&quot;)
+    }.toString()
+}
+</code></pre><p>写段测试代码，看看效果：</p>
+<pre><code>//&#39;坐标类，嵌套在Location类中&#39;
+data class Coordinate(var x: Int, var y: Int)
+//&#39;位置类，嵌套在Person类中&#39;
+data class Location(var country: String, var city: String, var coordinate: Coordinate)
+data class Person(var name: String, var age: Int, var locaton: Location? = null)
 
-<p>为了让打印结果也有嵌套缩进效果，打印 Map 的函数也需要相应地重构：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 打印 Map，生成结构化键值对子串</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> space 行缩进量</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-type">&lt;K, V&gt;</span> Map<span class="hljs-type">&lt;K, V?&gt;</span>.<span class="hljs-title">print</span><span class="hljs-params">(space: <span class="hljs-type">Int</span> = <span class="hljs-number">0</span>)</span></span>: String &#123;<br>    <span class="hljs-comment">//'生成当前层次的行缩进，用space个空格表示，当前层次每一行内容都需要带上缩进'</span><br>    <span class="hljs-keyword">val</span> indent = StringBuilder().apply &#123;<br>        repeat(space) &#123; append(<span class="hljs-string">" "</span>) &#125;<br>    &#125;.toString()<br>    <span class="hljs-keyword">return</span> StringBuilder(<span class="hljs-string">"\n<span class="hljs-subst">$&#123;indent&#125;</span>&#123;"</span>).also &#123; sb -&gt;<br>        <span class="hljs-keyword">this</span>.iterator().forEach &#123; entry -&gt;<br>            <span class="hljs-comment">//'如果值是 Map 类型，则递归调用print()生成其结构化键值对子串，否则返回值本身'</span><br>            <span class="hljs-keyword">val</span> value = entry.value.let &#123; v -&gt;<br>                (v <span class="hljs-keyword">as</span>? Map&lt;*, *&gt;)?.print(<span class="hljs-string">"<span class="hljs-subst">$&#123;indent&#125;</span><span class="hljs-subst">$&#123;entry.key&#125;</span> = "</span>.length) ?: v.toString()<br>            &#125;<br>            sb.append(<span class="hljs-string">"\n\t<span class="hljs-subst">$&#123;indent&#125;</span>[<span class="hljs-subst">$&#123;entry.key&#125;</span>] = <span class="hljs-variable">$value</span>,"</span>)<br>        &#125;<br>        sb.append(<span class="hljs-string">"\n<span class="hljs-subst">$&#123;indent&#125;</span>&#125;"</span>)<br>    &#125;.toString()<br>&#125;<br></code></pre></td></tr></table></figure>
+Person(&quot;Peter&quot;, 16, Location(&quot;china&quot;, &quot;shanghai&quot;, Coordinate(10, 20))).ofMap()?.print().let { Log.v(&quot;test&quot;, &quot;$it&quot;) }
 
-<p>写段测试代码，看看效果：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">//'坐标类，嵌套在Location类中'</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Coordinate(<span class="hljs-params">var</span> <span class="hljs-params">x</span>: Int, <span class="hljs-params">var</span> <span class="hljs-params">y</span>: Int)</span><br><span class="hljs-comment">//'位置类，嵌套在Person类中'</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Location(<span class="hljs-params">var</span> <span class="hljs-params">country</span>: String, <span class="hljs-params">var</span> <span class="hljs-params">city</span>: String, <span class="hljs-params">var</span> <span class="hljs-params">coordinate</span>: Coordinate)</span><br>data <span class="hljs-keyword">class</span> <span class="hljs-constructor">Person(<span class="hljs-params">var</span> <span class="hljs-params">name</span>: String, <span class="hljs-params">var</span> <span class="hljs-params">age</span>: Int, <span class="hljs-params">var</span> <span class="hljs-params">locaton</span>: Location? = <span class="hljs-params">null</span>)</span><br><br><span class="hljs-constructor">Person(<span class="hljs-string">"Peter"</span>, 16, Location(<span class="hljs-string">"china"</span>, <span class="hljs-string">"shanghai"</span>, Coordinate(10, 20)</span>)).<span class="hljs-keyword">of</span><span class="hljs-constructor">Map()</span>?.print<span class="hljs-literal">()</span>.<span class="hljs-keyword">let</span> &#123; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>v(<span class="hljs-string">"test"</span>, <span class="hljs-string">"$it"</span>) &#125;<br><br><span class="hljs-comment">//'打印如下'</span><br>    &#123;<br>    	<span class="hljs-literal">[<span class="hljs-identifier">age</span>]</span> = <span class="hljs-number">16</span>,<br>    	<span class="hljs-literal">[<span class="hljs-identifier">locaton</span>]</span> = <br>              &#123;<br>    	          <span class="hljs-literal">[<span class="hljs-identifier">city</span>]</span> = shanghai,<br>    	          <span class="hljs-literal">[<span class="hljs-identifier">coordinate</span>]</span> = <br>                           &#123;<br>    	                       <span class="hljs-literal">[<span class="hljs-identifier">x</span>]</span> = <span class="hljs-number">10</span>,<br>    	                       <span class="hljs-literal">[<span class="hljs-identifier">y</span>]</span> = <span class="hljs-number">20</span>,<br>                           &#125;,<br>    	          <span class="hljs-literal">[<span class="hljs-identifier">country</span>]</span> = china,<br>              &#125;,<br>    	<span class="hljs-literal">[<span class="hljs-identifier">name</span>]</span> = Peter,<br>    &#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="获取当前周一和周日"><a href="#获取当前周一和周日" class="headerlink" title="获取当前周一和周日"></a>获取当前周一和周日</h2><p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
+//&#39;打印如下&#39;
+    {
+        [age] = 16,
+        [locaton] = 
+              {
+                  [city] = shanghai,
+                  [coordinate] = 
+                           {
+                               [x] = 10,
+                               [y] = 20,
+                           },
+                  [country] = china,
+              },
+        [name] = Peter,
+    }
+</code></pre><h2 id="获取当前周一和周日"><a href="#获取当前周一和周日" class="headerlink" title="获取当前周一和周日"></a>获取当前周一和周日</h2><p>Java 系统默认一周的第一天是周日，最后一天是周六。</p>
 <p>若需要做类似“一周一次提醒”的功能，就可以本地化提醒时间，然后在每次触发提醒时把它和当前周一作比较，大于则说明本周已提醒。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs swift">fun thisMondayInMillis() = <span class="hljs-type">Calendar</span>.getInstance().<span class="hljs-keyword">let</span> &#123; <span class="hljs-built_in">c</span> -&gt;<br>    <span class="hljs-comment">//'如果当前是周天，则减一天，计算周六所在周的周一'</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">c</span>.<span class="hljs-keyword">get</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DAY_OF_WEEK</span>) == <span class="hljs-type">Calendar</span>.<span class="hljs-type">SUNDAY</span>) <span class="hljs-built_in">c</span>.add(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DATE</span>, -<span class="hljs-number">1</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DAY_OF_WEEK</span>, <span class="hljs-type">Calendar</span>.<span class="hljs-type">MONDAY</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">HOUR_OF_DAY</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">MINUTE</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">SECOND</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">MILLISECOND</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.timeInMillis<br>&#125;<br><br>fun thisSundayInMillis() = <span class="hljs-type">Calendar</span>.getInstance().<span class="hljs-keyword">let</span> &#123; <span class="hljs-built_in">c</span> -&gt;<br>    <span class="hljs-comment">//'如果不是周天，则将日期调整到当前周的周六，然后在加一天'</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">c</span>.<span class="hljs-keyword">get</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DAY_OF_WEEK</span>) != <span class="hljs-type">Calendar</span>.<span class="hljs-type">SUNDAY</span>) &#123;<br>        <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DAY_OF_WEEK</span>, <span class="hljs-type">Calendar</span>.<span class="hljs-type">SATURDAY</span>)<br>        <span class="hljs-built_in">c</span>.add(<span class="hljs-type">Calendar</span>.<span class="hljs-type">DATE</span>, <span class="hljs-number">1</span>)<br>    &#125;<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">HOUR_OF_DAY</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">MINUTE</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">SECOND</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.<span class="hljs-keyword">set</span>(<span class="hljs-type">Calendar</span>.<span class="hljs-type">MILLISECOND</span>, <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">c</span>.timeInMillis<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>fun thisMondayInMillis() = Calendar.getInstance().let { c -&gt;
+    //&#39;如果当前是周天，则减一天，计算周六所在周的周一&#39;
+    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) c.add(Calendar.DATE, -1)
+    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+    c.set(Calendar.HOUR_OF_DAY, 0)
+    c.set(Calendar.MINUTE, 0)
+    c.set(Calendar.SECOND, 0)
+    c.set(Calendar.MILLISECOND, 0)
+    c.timeInMillis
+}
 
-<h2 id="RecyclerView表项点击监听器"><a href="#RecyclerView表项点击监听器" class="headerlink" title="RecyclerView表项点击监听器"></a>RecyclerView表项点击监听器</h2><p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//'为 RecyclerView 扩展表项点击监听器'</span><br><span class="hljs-function"><span class="hljs-keyword">fun</span> RecyclerView.<span class="hljs-title">setOnItemClickListener</span><span class="hljs-params">(listener: (<span class="hljs-type">View</span>, <span class="hljs-type">Int</span>) -&gt; <span class="hljs-type">Unit</span>)</span></span> &#123;<br>    <span class="hljs-comment">//'为 RecyclerView 子控件设置触摸监听器'</span><br>    addOnItemTouchListener(<span class="hljs-keyword">object</span> : RecyclerView.OnItemTouchListener &#123;<br>        <span class="hljs-comment">//'构造手势探测器，用于解析单击事件'</span><br>        <span class="hljs-keyword">val</span> gestureDetector = GestureDetector(context, <span class="hljs-keyword">object</span> : GestureDetector.OnGestureListener &#123;<br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onShowPress</span><span class="hljs-params">(e: <span class="hljs-type">MotionEvent</span>?)</span></span> &#123;<br>            &#125;<br><br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onSingleTapUp</span><span class="hljs-params">(e: <span class="hljs-type">MotionEvent</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>                <span class="hljs-comment">//'当单击事件发生时，寻找单击坐标下的子控件，并回调监听器'</span><br>                e?.let &#123;<br>                    findChildViewUnder(it.x, it.y)?.let &#123; child -&gt;<br>                        listener(child, getChildAdapterPosition(child))<br>                    &#125;<br>                &#125;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>            &#125;<br><br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onDown</span><span class="hljs-params">(e: <span class="hljs-type">MotionEvent</span>?)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>            &#125;<br><br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onFling</span><span class="hljs-params">(e1: <span class="hljs-type">MotionEvent</span>?, e2: <span class="hljs-type">MotionEvent</span>?, velocityX: <span class="hljs-type">Float</span>, velocityY: <span class="hljs-type">Float</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>            &#125;<br><br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onScroll</span><span class="hljs-params">(e1: <span class="hljs-type">MotionEvent</span>?, e2: <span class="hljs-type">MotionEvent</span>?, distanceX: <span class="hljs-type">Float</span>, distanceY: <span class="hljs-type">Float</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>            &#125;<br><br>            <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onLongPress</span><span class="hljs-params">(e: <span class="hljs-type">MotionEvent</span>?)</span></span> &#123;<br>            &#125;<br>        &#125;)<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(rv: <span class="hljs-type">RecyclerView</span>, e: <span class="hljs-type">MotionEvent</span>)</span></span> &#123;<br><br>        &#125;<br><br>        <span class="hljs-comment">//'在拦截触摸事件时，解析触摸事件'</span><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(rv: <span class="hljs-type">RecyclerView</span>, e: <span class="hljs-type">MotionEvent</span>)</span></span>: <span class="hljs-built_in">Boolean</span> &#123;<br>            gestureDetector.onTouchEvent(e)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br><br>        <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onRequestDisallowInterceptTouchEvent</span><span class="hljs-params">(disallowIntercept: <span class="hljs-type">Boolean</span>)</span></span> &#123;<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
-        </div>
+fun thisSundayInMillis() = Calendar.getInstance().let { c -&gt;
+    //&#39;如果不是周天，则将日期调整到当前周的周六，然后在加一天&#39;
+    if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+        c.add(Calendar.DATE, 1)
+    }
+    c.set(Calendar.HOUR_OF_DAY, 0)
+    c.set(Calendar.MINUTE, 0)
+    c.set(Calendar.SECOND, 0)
+    c.set(Calendar.MILLISECOND, 0)
+    c.timeInMillis
+}
+</code></pre><h2 id="RecyclerView表项点击监听器"><a href="#RecyclerView表项点击监听器" class="headerlink" title="RecyclerView表项点击监听器"></a>RecyclerView表项点击监听器</h2><p><code>RecyclerView</code>没有子控件点击事件监听器，那就用<code>Kotlin扩展方法</code>扩展一个：</p>
+<pre><code>//&#39;为 RecyclerView 扩展表项点击监听器&#39;
+fun RecyclerView.setOnItemClickListener(listener: (View, Int) -&gt; Unit) {
+    //&#39;为 RecyclerView 子控件设置触摸监听器&#39;
+    addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+        //&#39;构造手势探测器，用于解析单击事件&#39;
+        val gestureDetector = GestureDetector(context, object : GestureDetector.OnGestureListener {
+            override fun onShowPress(e: MotionEvent?) {
+            }
 
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/14/Kotlinyf/">https://jiyugithub.github.io/2020/06/14/Kotlinyf/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
+            override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                //&#39;当单击事件发生时，寻找单击坐标下的子控件，并回调监听器&#39;
+                e?.let {
+                    findChildViewUnder(it.x, it.y)?.let { child -&gt;
+                        listener(child, getChildAdapterPosition(child))
+                    }
+                }
+                return false
+            }
 
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
+            override fun onDown(e: MotionEvent?): Boolean {
+                return false
+            }
+
+            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+                return false
+            }
+
+            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+                return false
+            }
+
+            override fun onLongPress(e: MotionEvent?) {
+            }
+        })
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+
+        }
+
+        //&#39;在拦截触摸事件时，解析触摸事件&#39;
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            gestureDetector.onTouchEvent(e)
+            return false
+        }
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+        }
+    })
+}</code></pre>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
+                
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/14/switcher/">炫酷！从未见过如此Q弹的Switcher</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/14/Top10/">2020年GitHub 上那些优秀Android开源库</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#将-px-值转换成-dp-值"><span class="toc-number">1.</span> <span class="toc-text">将 px 值转换成 dp 值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弃用Builder模式"><span class="toc-number">2.</span> <span class="toc-text">弃用Builder模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打印列表、map"><span class="toc-number">3.</span> <span class="toc-text">打印列表、map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将-data-类转换成-map"><span class="toc-number">4.</span> <span class="toc-text">将 data 类转换成 map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取当前周一和周日"><span class="toc-number">5.</span> <span class="toc-text">获取当前周一和周日</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView表项点击监听器"><span class="toc-number">6.</span> <span class="toc-text">RecyclerView表项点击监听器</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

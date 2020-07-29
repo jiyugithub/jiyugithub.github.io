@@ -1,196 +1,145 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>HashMap原理技术知识整理 | Apocalypse&#39;s Blog</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HashMap原理技术知识整理 - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="
+HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。
 
 
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+一. 存储结构1.JDK1.8之前 HashMap = 数组(O,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">HashMap原理技术知识整理</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">HashMap原理技术知识整理</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 12, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/hashmap/" title="HashMap原理技术知识整理" class="">HashMap原理技术知识整理</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 12, 2020&nbsp;&nbsp;5:47:26</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    9.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <p><img src="http://user-gold-cdn.xitu.io/2020/1/8/16f81686afbf1d6b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>HashMap涉及的技术点非常多，典型的数据结构和算法有机结合，JDK对HashMap优化变化中不断权衡时间复杂和空间复杂度。</p>
 <a id="more"></a>
@@ -210,23 +159,98 @@
 <p>④判断是链表还是红黑树，链表是否到达转化红黑树，当前链表节点数&lt;=8，插入节点；如果是红黑树插入节点，否则下一步。</p>
 <p>⑤链表转化成红黑树，插入节点。</p>
 <p>⑥插入节点后计算当前size是否需要扩容，如果大于阀门值需要扩容resize。</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Implements Map.put and related methods</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * @param hash hash for key</span><br><span class="hljs-comment"> * @param key the key</span><br><span class="hljs-comment"> * @param value the value to put</span><br><span class="hljs-comment"> * @param onlyIfAbsent if true, don't change existing value</span><br><span class="hljs-comment"> * @param evict if false, the table is in creation mode.</span><br><span class="hljs-comment"> * @return previous value, or null if none</span><br><span class="hljs-comment"> */</span><br>final V <span class="hljs-built_in">putVal</span>(int hash, K <span class="hljs-built_in">key</span>, V value, boolean onlyIfAbsent,<br>               boolean evict) &#123;<br>    Node&lt;K,V&gt;[] <span class="hljs-built_in">tab</span>; Node&lt;K,V&gt; p; int n, i;<br>    <span class="hljs-keyword">if</span> ((tab = table) == <span class="hljs-built_in">null</span> || (n = tab.length) == <span class="hljs-number">0</span>)<br>        n = (tab = <span class="hljs-built_in">resize</span>()).length;<br>    <span class="hljs-keyword">if</span> ((p = <span class="hljs-built_in">tab</span>[i = (n - <span class="hljs-number">1</span>) &amp; hash]) == <span class="hljs-built_in">null</span>)<br>        <span class="hljs-built_in">tab</span>[i] = <span class="hljs-built_in">newNode</span>(hash, <span class="hljs-built_in">key</span>, value, <span class="hljs-built_in">null</span>);<br>    <span class="hljs-keyword">else</span> &#123;<br>        Node&lt;K,V&gt; e; K k;<br>        <span class="hljs-keyword">if</span> (p.hash == hash &amp;&amp;<br>            ((k = p.key) == <span class="hljs-built_in">key</span> || (<span class="hljs-built_in">key</span> != <span class="hljs-built_in">null</span> &amp;&amp; key.equals(k))))<br>            e = p;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p instanceof TreeNode)<br>            e = ((TreeNode&lt;K,V&gt;)p).<span class="hljs-built_in">putTreeVal</span>(this, <span class="hljs-built_in">tab</span>, hash, <span class="hljs-built_in">key</span>, value);<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">for</span> (int binCount = <span class="hljs-number">0</span>; ; ++binCount) &#123;<br>                if ((e = p.next) == <span class="hljs-built_in">null</span>) &#123;<br>                    p.next = newNode(hash, <span class="hljs-built_in">key</span>, value, <span class="hljs-built_in">null</span>);<br>                    <span class="hljs-keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="hljs-number">1</span>) <span class="hljs-comment">// -1 for 1st</span><br>                        <span class="hljs-built_in">treeifyBin</span>(<span class="hljs-built_in">tab</span>, hash);<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">if</span> (e.hash == hash &amp;&amp;<br>                    ((k = e.key) == <span class="hljs-built_in">key</span> || (<span class="hljs-built_in">key</span> != <span class="hljs-built_in">null</span> &amp;&amp; key.equals(k))))<br>                    <span class="hljs-keyword">break</span>;<br>                p = e;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (e != <span class="hljs-built_in">null</span>) &#123; <span class="hljs-comment">// existing mapping for key</span><br>            V oldValue = e.value;<br>            <span class="hljs-keyword">if</span> (!onlyIfAbsent || oldValue == <span class="hljs-built_in">null</span>)<br>                e.value = value;<br>            <span class="hljs-built_in">afterNodeAccess</span>(e);<br>            <span class="hljs-keyword">return</span> oldValue;<br>        &#125;<br>    &#125;<br>    ++modCount;<br>    <span class="hljs-keyword">if</span> (++size &gt; threshold)<br>        <span class="hljs-built_in">resize</span>();<br>    <span class="hljs-built_in">afterNodeInsertion</span>(evict);<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
+<pre><code>/**
+ * Implements Map.put and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @param value the value to put
+ * @param onlyIfAbsent if true, don&#39;t change existing value
+ * @param evict if false, the table is in creation mode.
+ * @return previous value, or null if none
+ */
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) &amp; hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node&lt;K,V&gt; e; K k;
+        if (p.hash == hash &amp;&amp;
+            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+            e = p;
+        else if (p instanceof TreeNode)
+            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+        else {
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    if (++size &gt; threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的get调用关键方法源码。</p>
 <h5 id="2-get获取过程"><a href="#2-get获取过程" class="headerlink" title="2. get获取过程"></a>2. get获取过程</h5><p>①计算桶的位置，根据key的hashcode求出hash值，位置index = hash%length。</p>
 <p>②无论是数值，链表还是红黑树，for循环判断hash值冲突就比对key是否相等，相等就返回对应的value。</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs q">/**<br> * Implements Map.<span class="hljs-built_in">get</span> <span class="hljs-built_in">and</span> related methods<br> *<br> * @param hash hash for <span class="hljs-built_in">key</span><br> * @param <span class="hljs-built_in">key</span> the <span class="hljs-built_in">key</span><br> * @return the node, <span class="hljs-built_in">or</span> <span class="hljs-built_in">null</span> if none<br> */<br>final Node&lt;K,V&gt; getNode(<span class="hljs-type">int</span> hash, Object <span class="hljs-built_in">key</span>) &#123;<br>    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; <span class="hljs-built_in">first</span>, e; <span class="hljs-type">int</span> n; K k;<br>    if ((tab = table) != <span class="hljs-built_in">null</span> &amp;&amp; (n = tab.length) &gt; <span class="hljs-number">0</span> &amp;&amp;<br>        (<span class="hljs-built_in">first</span> = tab[(n - <span class="hljs-number">1</span>) &amp; hash]) != <span class="hljs-built_in">null</span>) &#123;<br>        if (<span class="hljs-built_in">first</span>.hash == hash &amp;&amp; <span class="hljs-comment">// always check first node</span><br>            ((k = <span class="hljs-built_in">first</span>.<span class="hljs-built_in">key</span>) == <span class="hljs-built_in">key</span> || (<span class="hljs-built_in">key</span> != <span class="hljs-built_in">null</span> &amp;&amp; <span class="hljs-built_in">key</span>.equals(k))))<br>            return <span class="hljs-built_in">first</span>;<br>        if ((e = <span class="hljs-built_in">first</span>.<span class="hljs-built_in">next</span>) != <span class="hljs-built_in">null</span>) &#123;<br>            if (<span class="hljs-built_in">first</span> instanceof TreeNode)<br>                return ((TreeNode&lt;K,V&gt;)<span class="hljs-built_in">first</span>).getTreeNode(hash, <span class="hljs-built_in">key</span>);<br>            <span class="hljs-keyword">do</span> &#123;<br>                if (e.hash == hash &amp;&amp;<br>                    ((k = e.<span class="hljs-built_in">key</span>) == <span class="hljs-built_in">key</span> || (<span class="hljs-built_in">key</span> != <span class="hljs-built_in">null</span> &amp;&amp; <span class="hljs-built_in">key</span>.equals(k))))<br>                    return e;<br>            &#125; <span class="hljs-keyword">while</span> ((e = e.<span class="hljs-built_in">next</span>) != <span class="hljs-built_in">null</span>);<br>        &#125;<br>    &#125;<br>    return <span class="hljs-built_in">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
+<pre><code>/**
+ * Implements Map.get and related methods
+ *
+ * @param hash hash for key
+ * @param key the key
+ * @return the node, or null if none
+ */
+final Node&lt;K,V&gt; getNode(int hash, Object key) {
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; int n; K k;
+    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;
+        (first = tab[(n - 1) &amp; hash]) != null) {
+        if (first.hash == hash &amp;&amp; // always check first node
+            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return first;
+        if ((e = first.next) != null) {
+            if (first instanceof TreeNode)
+                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);
+            do {
+                if (e.hash == hash &amp;&amp;
+                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                    return e;
+            } while ((e = e.next) != null);
+        }
+    }
+    return null;
+}
+</code></pre><p>以上是JDK1.8的HashMap的put调用关键方法源码。</p>
 <h3 id="三-数据结构和算法思考"><a href="#三-数据结构和算法思考" class="headerlink" title="三. 数据结构和算法思考"></a>三. 数据结构和算法思考</h3><h5 id="1-为什么选择数组和链表结构？"><a href="#1-为什么选择数组和链表结构？" class="headerlink" title="1.为什么选择数组和链表结构？"></a>1.为什么选择数组和链表结构？</h5><p>①数组内存连续块分配，效率体现查询更快。HashMap中用作查找数组桶的位置，利用元素的key的hash值对数组长度取模得到。</p>
 <p>②链表效率体现增加和删除。HashMap中链表是用来解决hash冲突，增删空间消耗平衡。</p>
 <p><strong>扩展：</strong> 为什么不是ArrayList而是使用Node&lt;K,V&gt;[] tab？因为ArrayList的扩容机制是1.5倍扩容，而HashMap扩容是2的次幂。</p>
-<h5 id="2-为什么扩容是2次幂，根据key的hashcode再求hash值？"><a href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？" class="headerlink" title="2.为什么扩容是2次幂，根据key的hashcode再求hash值？"></a>2.为什么扩容是2次幂，根据key的hashcode再求hash值？</h5><h5 id="①key的hash值计算"><a href="#①key的hash值计算" class="headerlink" title="①key的hash值计算"></a>①key的hash值计算</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span> hash(<span class="hljs-keyword">Object</span> <span class="hljs-built_in">key</span>) &#123;<br>    <span class="hljs-built_in">int</span> h;<br>    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">key</span> == <span class="hljs-keyword">null</span>) ? <span class="hljs-number">0</span> : (h = <span class="hljs-built_in">key</span>.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
-<h5 id="②计算桶的位置代码"><a href="#②计算桶的位置代码" class="headerlink" title="②计算桶的位置代码"></a>②计算桶的位置代码</h5><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">index</span> = (<span class="hljs-built_in">n</span> - <span class="hljs-number">1</span>) &amp; hash<br></code></pre></td></tr></table></figure>
-
-<p><strong>思想：</strong></p>
+<h5 id="2-为什么扩容是2次幂，根据key的hashcode再求hash值？"><a href="#2-为什么扩容是2次幂，根据key的hashcode再求hash值？" class="headerlink" title="2.为什么扩容是2次幂，根据key的hashcode再求hash值？"></a>2.为什么扩容是2次幂，根据key的hashcode再求hash值？</h5><h5 id="①key的hash值计算"><a href="#①key的hash值计算" class="headerlink" title="①key的hash值计算"></a>①key的hash值计算</h5><pre><code>static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+}
+</code></pre><p>代码意思是hash = hashcode的高16位异化低16位，而不是直接hashcode。</p>
+<h5 id="②计算桶的位置代码"><a href="#②计算桶的位置代码" class="headerlink" title="②计算桶的位置代码"></a>②计算桶的位置代码</h5><pre><code>index = (n - 1) &amp; hash
+</code></pre><p><strong>思想：</strong></p>
 <p>一是，为了减少hash冲突使用hash%length计算，求模计算保证了得到的结果一定在0-length范围之内。</p>
 <p>二是，为了提高运算速度，模运算比不上位运算，当n是2的次幂才满足hash%length == （n-1）&amp;hash。</p>
 <p>确定公式中（n-1）符合最优等式，剩下考虑hash值的最优，hash值这个因子考虑影响结果尽可能不冲突。</p>
@@ -240,9 +264,31 @@
 <p><strong>原理：</strong></p>
 <p>权衡依据是以上情况符合泊松分布（一种统计与概率学里常见到的离散概率分布，适合于描述单位时间（或空间）内随机事件发生的次数），<strong>用0.75作为加载因子，每个碰撞位置的链表长度超过８个概率非常低，少于千万分之一。</strong></p>
 <p><strong>源码说明：</strong></p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-comment">* Because TreeNodes are about twice the size of regular nodes, we</span><br><span class="hljs-comment">* use them only when bins contain enough nodes to warrant use</span><br><span class="hljs-comment">* (see TREEIFY_THRESHOLD). And when they become too small (due to</span><br><span class="hljs-comment">* removal or resizing) they are converted back to plain bins.  In</span><br><span class="hljs-comment">* usages with well-distributed user hashCodes, tree bins are</span><br><span class="hljs-comment">* rarely used.  Ideally, under random hashCodes, the frequency of</span><br><span class="hljs-comment">* nodes in bins follows a Poisson distribution</span><br><span class="hljs-comment">* (http://en.wikipedia.org/wiki/Poisson_distribution) with a</span><br><span class="hljs-comment">* parameter of about 0.5 on average for the default resizing</span><br><span class="hljs-comment">* threshold of 0.75, although with a large variance because of</span><br><span class="hljs-comment">* resizing granularity. Ignoring variance, the expected</span><br><span class="hljs-comment">* occurrences of list size k are (exp(-0.5) * pow(0.5, k) /</span><br><span class="hljs-comment">* factorial(k)). The first values are:</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* 0:    0.60653066</span><br><span class="hljs-comment">* 1:    0.30326533</span><br><span class="hljs-comment">* 2:    0.07581633</span><br><span class="hljs-comment">* 3:    0.01263606</span><br><span class="hljs-comment">* 4:    0.00157952</span><br><span class="hljs-comment">* 5:    0.00015795</span><br><span class="hljs-comment">* 6:    0.00001316</span><br><span class="hljs-comment">* 7:    0.00000094</span><br><span class="hljs-comment">* 8:    0.00000006</span><br><span class="hljs-comment">* more: less than 1 in ten million</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>扩展：</strong></p>
+<pre><code> * Because TreeNodes are about twice the size of regular nodes, we
+ * use them only when bins contain enough nodes to warrant use
+ * (see TREEIFY_THRESHOLD). And when they become too small (due to
+ * removal or resizing) they are converted back to plain bins.  In
+ * usages with well-distributed user hashCodes, tree bins are
+ * rarely used.  Ideally, under random hashCodes, the frequency of
+ * nodes in bins follows a Poisson distribution
+ * (http://en.wikipedia.org/wiki/Poisson_distribution) with a
+ * parameter of about 0.5 on average for the default resizing
+ * threshold of 0.75, although with a large variance because of
+ * resizing granularity. Ignoring variance, the expected
+ * occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
+ * factorial(k)). The first values are:
+ *
+ * 0:    0.60653066
+ * 1:    0.30326533
+ * 2:    0.07581633
+ * 3:    0.01263606
+ * 4:    0.00157952
+ * 5:    0.00015795
+ * 6:    0.00001316
+ * 7:    0.00000094
+ * 8:    0.00000006
+ * more: less than 1 in ten million 
+</code></pre><p><strong>扩展：</strong></p>
 <p>为什么不一开始选择红黑树？</p>
 <p>红黑树近乎于平衡二叉树，结构适合均匀分布节点，减少树的深度像链表长度情况。原因主要是插入效率上，红黑树增加节点很可能需要进行左旋，右旋，着色操作，这些时间效率并没有链表形式高。</p>
 <h5 id="4-HashMap的key选择"><a href="#4-HashMap的key选择" class="headerlink" title="4.HashMap的key选择"></a>4.HashMap的key选择</h5><p>1）选择不可变的对象，比如字符串或int类型。</p>
@@ -251,9 +297,18 @@
 <p>②保证所有成员变量必须私有，并且加上final修饰。</p>
 <p>③不提供改变成员变量的方法，包括setter。</p>
 <p>④通过构造器初始化所有成员，进行深拷贝(deep copy)。</p>
-<h5 id="5-String类中的hashcode计算"><a href="#5-String类中的hashcode计算" class="headerlink" title="5.String类中的hashcode计算"></a>5.String类中的hashcode计算</h5><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">int</span> h = hash;<br>    <span class="hljs-keyword">if</span> (h == <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">value</span>.length &gt; <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">char</span> val[] = <span class="hljs-keyword">value</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">value</span>.length; i++) &#123;<br>              h = <span class="hljs-number">31</span> * h + val[i];<br>          &#125;<br>          hash = h;<br>      &#125;<br>      <span class="hljs-keyword">return</span> h;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
+<h5 id="5-String类中的hashcode计算"><a href="#5-String类中的hashcode计算" class="headerlink" title="5.String类中的hashcode计算"></a>5.String类中的hashcode计算</h5><pre><code>public int hashCode() {
+    int h = hash;
+    if (h == 0 &amp;&amp; value.length &gt; 0) {
+    char val[] = value;
+        for (int i = 0; i &lt; value.length; i++) {
+              h = 31 * h + val[i];
+          }
+          hash = h;
+      }
+      return h;
+}
+</code></pre><p>哈希计算公式：s[0]31^(n-1) + s[1]31^(n-2) + … + s[n-1]</p>
 <h3 id="四-横向扩展"><a href="#四-横向扩展" class="headerlink" title="四. 横向扩展"></a>四. 横向扩展</h3><h5 id="1-HashMap出现线程问题"><a href="#1-HashMap出现线程问题" class="headerlink" title="1.HashMap出现线程问题"></a>1.HashMap出现线程问题</h5><p>①多线程扩容，引起的死循环问题（jdk1.8中，死循环问题已经解决）。</p>
 <p>②多线程put的时候可能导致元素丢失。</p>
 <p>③put非null元素后get出来的却是null。</p>
@@ -264,70 +319,289 @@
 <p>③根据index在key-value数组中对应位置查找，如果不相等认为冲突了，会以key为中心，分别上下展开，逐一查找。</p>
 <p>优势，数据量少时（少于1000）相比HashMap更节省内存。劣势，删除和插入时效率要比HashMap要低。</p>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/12/hashmap/">https://jiyugithub.github.io/2020/06/12/hashmap/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/12/javafs/">Java反射真的很慢吗</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/12/Rxjava/">Rxjava只看这一篇文章就够了</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-存储结构"><span class="toc-number">1.</span> <span class="toc-text">一. 存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-操作原理"><span class="toc-number">2.</span> <span class="toc-text">二. 操作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-数据结构和算法思考"><span class="toc-number">3.</span> <span class="toc-text">三. 数据结构和算法思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-横向扩展"><span class="toc-number">4.</span> <span class="toc-text">四. 横向扩展</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

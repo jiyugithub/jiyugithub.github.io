@@ -1,201 +1,151 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>Android进阶基础系列：View的工作原理 全面理解！ | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Android进阶基础系列：View的工作原理 全面理解！ - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="1、ViewRoot 和 DecorView
+ViewRoot对应ViewRootImpl类，是连接WindowManager和DecorView的纽带。View的三大流程是通过ViewRoot完成,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Android进阶基础系列：View的工作原理 全面理解！</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Android进阶基础系列：View的工作原理 全面理解！</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                July 25, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/07/25/andview/" title="Android进阶基础系列：View的工作原理 全面理解！" class="">Android进阶基础系列：View的工作原理 全面理解！</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 25, 2020&nbsp;&nbsp;19:03:07</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    39k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    35 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h1 id="1、ViewRoot-和-DecorView"><a href="#1、ViewRoot-和-DecorView" class="headerlink" title="1、ViewRoot 和 DecorView"></a>1、ViewRoot 和 DecorView</h1><ol>
 <li><strong>ViewRoot对应ViewRootImpl类，是连接WindowManager和DecorView的纽带。View的三大流程是通过ViewRoot完成的。</strong> 在ActivityThread中，当Activity对象被创建完毕时，会将DecorView添加到Window中，同时会创建ViewRootImpl，且ViewRootImpl和DecorView会建立关联。如下代码，WindowManagerGlobal的addView()方法：</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addView</span><span class="hljs-params">(View view, ViewGroup.LayoutParams params,Display display, Window parentWindow)</span> </span>&#123;<br>			...<br>            root = <span class="hljs-keyword">new</span> ViewRootImpl(view.getContext(), display);<br>            root.setView(view, wparams, panelParentView);<br>            ...<br>            &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">public void addView(View view, ViewGroup.LayoutParams params,Display display, Window parentWindow) {
+            ...
+            root = new ViewRootImpl(view.getContext(), display);
+            root.setView(view, wparams, panelParentView);
+            ...
+            }</code></pre>
 <ol>
 <li>View绘制流程从 <strong>performTraversals</strong>开始，经过Measure、layout、draw。流程图如下</li>
 </ol>
@@ -209,11 +159,47 @@
 <p>前面说了<strong>View的MeasureSpec是由LayoutParams和父容器的MeasureSpec共同决定</strong>。顶级view，即<strong>DecorView，是由窗口尺寸和自身LayoutParams决定</strong>。</p>
 </blockquote>
 <p>1、<strong>DecorView</strong>，ViewRootImpl中measureHierarchy()方法（performTraversals中执行），代码如下，desiredWindowWidth、desiredWindowHeight是屏幕的尺寸。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">measureHierarchy</span><span class="hljs-params">(<span class="hljs-keyword">final</span> View host, <span class="hljs-keyword">final</span> WindowManager.LayoutParams lp,</span></span><br><span class="hljs-function"><span class="hljs-params">            <span class="hljs-keyword">final</span> Resources res, <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> desiredWindowWidth, <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> desiredWindowHeight)</span> </span>&#123;<br>            ...<br>            	childWidthMeasureSpec = getRootMeasureSpec(desiredWindowWidth, lp.width);<br>            	childHeightMeasureSpec = getRootMeasureSpec(desiredWindowHeight, lp.height);<br>            	performMeasure(childWidthMeasureSpec, childHeightMeasureSpec);<br>            ...<br>            &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">private boolean measureHierarchy(final View host, final WindowManager.LayoutParams lp,
+            final Resources res, final int desiredWindowWidth, final int desiredWindowHeight) {
+            ...
+                childWidthMeasureSpec = getRootMeasureSpec(desiredWindowWidth, lp.width);
+                childHeightMeasureSpec = getRootMeasureSpec(desiredWindowHeight, lp.height);
+                performMeasure(childWidthMeasureSpec, childHeightMeasureSpec);
+            ...
+            }</code></pre>
 <p>performMeasure()内部是调用mView.measure(childWidthMeasureSpec, childHeightMeasureSpec)，mView就是DecorVIew。继续看getRootMeasureSpec（）方法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Figures out the measure spec for the root view in a window based on it's</span><br><span class="hljs-comment">     * layout params.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> windowSize</span><br><span class="hljs-comment">     *            The available width or height of the window</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> rootDimension</span><br><span class="hljs-comment">     *            The layout params for one dimension (width or height) of the</span><br><span class="hljs-comment">     *            window.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> The measure spec to use to measure the root view.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRootMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> windowSize, <span class="hljs-keyword">int</span> rootDimension)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> measureSpec;<br>        <span class="hljs-keyword">switch</span> (rootDimension) &#123;<br><br>        <span class="hljs-keyword">case</span> ViewGroup.LayoutParams.MATCH_PARENT:<br>            <span class="hljs-comment">// Window can't resize. Force root view to be windowSize.</span><br>            measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.EXACTLY);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> ViewGroup.LayoutParams.WRAP_CONTENT:<br>            <span class="hljs-comment">// Window can resize. Set max size for root view.</span><br>            measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.AT_MOST);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-comment">// Window wants to be an exact size. Force root view to be that size.</span><br>            measureSpec = MeasureSpec.makeMeasureSpec(rootDimension, MeasureSpec.EXACTLY);<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> measureSpec;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">/**
+     * Figures out the measure spec for the root view in a window based on it&#39;s
+     * layout params.
+     *
+     * @param windowSize
+     *            The available width or height of the window
+     *
+     * @param rootDimension
+     *            The layout params for one dimension (width or height) of the
+     *            window.
+     *
+     * @return The measure spec to use to measure the root view.
+     */
+    private static int getRootMeasureSpec(int windowSize, int rootDimension) {
+        int measureSpec;
+        switch (rootDimension) {
 
+        case ViewGroup.LayoutParams.MATCH_PARENT:
+            // Window can&#39;t resize. Force root view to be windowSize.
+            measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.EXACTLY);
+            break;
+        case ViewGroup.LayoutParams.WRAP_CONTENT:
+            // Window can resize. Set max size for root view.
+            measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.AT_MOST);
+            break;
+        default:
+            // Window wants to be an exact size. Force root view to be that size.
+            measureSpec = MeasureSpec.makeMeasureSpec(rootDimension, MeasureSpec.EXACTLY);
+            break;
+        }
+        return measureSpec;
+    }</code></pre>
 <p>DecorView的MeasureSpec就明确了，根据其LayoutParams：</p>
 <ul>
 <li>MATCH_PARENT：精确模式，就是窗口大小；</li>
@@ -221,11 +207,124 @@
 <li>固定值（如100dp）：精确模式，就是LayoutParams的指定值。</li>
 </ul>
 <p>2、<strong>普通View</strong>，测量过程从ViewGroup传递下来，看ViewGroup的measureChildWithMargins()方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Ask one of the children of this view to measure itself, taking into</span><br><span class="hljs-comment">     * account both the MeasureSpec requirements for this view and its padding</span><br><span class="hljs-comment">     * and margins. The child must have MarginLayoutParams The heavy lifting is</span><br><span class="hljs-comment">     * done in getChildMeasureSpec.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> child The child to measure</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> parentWidthMeasureSpec The width requirements for this view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> widthUsed Extra space that has been used up by the parent</span><br><span class="hljs-comment">     *        horizontally (possibly by other children of the parent)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> parentHeightMeasureSpec The height requirements for this view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> heightUsed Extra space that has been used up by the parent</span><br><span class="hljs-comment">     *        vertically (possibly by other children of the parent)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measureChildWithMargins</span><span class="hljs-params">(View child,</span></span><br><span class="hljs-function"><span class="hljs-params">            <span class="hljs-keyword">int</span> parentWidthMeasureSpec, <span class="hljs-keyword">int</span> widthUsed,</span></span><br><span class="hljs-function"><span class="hljs-params">            <span class="hljs-keyword">int</span> parentHeightMeasureSpec, <span class="hljs-keyword">int</span> heightUsed)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();<br><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,<br>                mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin<br>                        + widthUsed, lp.width);<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,<br>                mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin<br>                        + heightUsed, lp.height);<br><br>        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">/**
+     * Ask one of the children of this view to measure itself, taking into
+     * account both the MeasureSpec requirements for this view and its padding
+     * and margins. The child must have MarginLayoutParams The heavy lifting is
+     * done in getChildMeasureSpec.
+     *
+     * @param child The child to measure
+     * @param parentWidthMeasureSpec The width requirements for this view
+     * @param widthUsed Extra space that has been used up by the parent
+     *        horizontally (possibly by other children of the parent)
+     * @param parentHeightMeasureSpec The height requirements for this view
+     * @param heightUsed Extra space that has been used up by the parent
+     *        vertically (possibly by other children of the parent)
+     */
+    protected void measureChildWithMargins(View child,
+            int parentWidthMeasureSpec, int widthUsed,
+            int parentHeightMeasureSpec, int heightUsed) {
+        final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
+        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
+                mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin
+                        + widthUsed, lp.width);
+        final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
+                mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin
+                        + heightUsed, lp.height);
+
+        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+    }</code></pre>
 <p>即先获取child的MeasureSpec，再调child.measure()。可以看到，child的MeasureSpec是由父容器的﻿﻿MeasureSpec、父容器的padding、child的LayoutParams、child的marging 共同决定。继续看getChildMeasureSpec()方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Does the hard part of measureChildren: figuring out the MeasureSpec to</span><br><span class="hljs-comment">     * pass to a particular child. This method figures out the right MeasureSpec</span><br><span class="hljs-comment">     * for one dimension (height or width) of one child view.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * The goal is to combine information from our MeasureSpec with the</span><br><span class="hljs-comment">     * LayoutParams of the child to get the best possible results. For example,</span><br><span class="hljs-comment">     * if the this view knows its size (because its MeasureSpec has a mode of</span><br><span class="hljs-comment">     * EXACTLY), and the child has indicated in its LayoutParams that it wants</span><br><span class="hljs-comment">     * to be the same size as the parent, the parent should ask the child to</span><br><span class="hljs-comment">     * layout given an exact size.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> spec The requirements for this view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> padding The padding of this view for the current dimension and</span><br><span class="hljs-comment">     *        margins, if applicable</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> childDimension How big the child wants to be in the current</span><br><span class="hljs-comment">     *        dimension</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> a MeasureSpec integer for the child</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getChildMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> spec, <span class="hljs-keyword">int</span> padding, <span class="hljs-keyword">int</span> childDimension)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> specMode = MeasureSpec.getMode(spec);<br>        <span class="hljs-keyword">int</span> specSize = MeasureSpec.getSize(spec);<br>        <br>        <span class="hljs-comment">//padding,就是已被占用的空间，就是 父容器的padding+child的marging</span><br>		<span class="hljs-comment">//size，是ViewGroup本身size减去已使用的空间，是ViewGroup能提供给child的最大值。</span><br>        <span class="hljs-keyword">int</span> size = Math.max(<span class="hljs-number">0</span>, specSize - padding);<br><br>        <span class="hljs-keyword">int</span> resultSize = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> resultMode = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">switch</span> (specMode) &#123;<br>        <span class="hljs-comment">// Parent has imposed an exact size on us</span><br>        <span class="hljs-keyword">case</span> MeasureSpec.EXACTLY:<br>            <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>                resultSize = childDimension;<br>                resultMode = MeasureSpec.EXACTLY;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>                <span class="hljs-comment">// Child wants to be our size. So be it.</span><br>                resultSize = size;<br>                resultMode = MeasureSpec.EXACTLY;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>                <span class="hljs-comment">// Child wants to determine its own size. It can't be</span><br>                <span class="hljs-comment">// bigger than us.</span><br>                resultSize = size;<br>                resultMode = MeasureSpec.AT_MOST;<br>            &#125;<br>            <span class="hljs-keyword">break</span>;<br><br>        <span class="hljs-comment">// Parent has imposed a maximum size on us</span><br>        <span class="hljs-keyword">case</span> MeasureSpec.AT_MOST:<br>            <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// Child wants a specific size... so be it</span><br>                resultSize = childDimension;<br>                resultMode = MeasureSpec.EXACTLY;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>                <span class="hljs-comment">// Child wants to be our size, but our size is not fixed.</span><br>                <span class="hljs-comment">// Constrain child to not be bigger than us.</span><br>                resultSize = size;<br>                resultMode = MeasureSpec.AT_MOST;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>                <span class="hljs-comment">// Child wants to determine its own size. It can't be</span><br>                <span class="hljs-comment">// bigger than us.</span><br>                resultSize = size;<br>                resultMode = MeasureSpec.AT_MOST;<br>            &#125;<br>            <span class="hljs-keyword">break</span>;<br><br>        <span class="hljs-comment">// Parent asked to see how big we want to be</span><br>        <span class="hljs-keyword">case</span> MeasureSpec.UNSPECIFIED:<br>            <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// Child wants a specific size... let him have it</span><br>                resultSize = childDimension;<br>                resultMode = MeasureSpec.EXACTLY;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>                <span class="hljs-comment">// Child wants to be our size... find out how big it should</span><br>                <span class="hljs-comment">// be</span><br>                resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="hljs-number">0</span> : size;<br>                resultMode = MeasureSpec.UNSPECIFIED;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>                <span class="hljs-comment">// Child wants to determine its own size.... find out how</span><br>                <span class="hljs-comment">// big it should be</span><br>                resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="hljs-number">0</span> : size;<br>                resultMode = MeasureSpec.UNSPECIFIED;<br>            &#125;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-comment">//noinspection ResourceType</span><br>        <span class="hljs-keyword">return</span> MeasureSpec.makeMeasureSpec(resultSize, resultMode);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">/**
+     * Does the hard part of measureChildren: figuring out the MeasureSpec to
+     * pass to a particular child. This method figures out the right MeasureSpec
+     * for one dimension (height or width) of one child view.
+     *
+     * The goal is to combine information from our MeasureSpec with the
+     * LayoutParams of the child to get the best possible results. For example,
+     * if the this view knows its size (because its MeasureSpec has a mode of
+     * EXACTLY), and the child has indicated in its LayoutParams that it wants
+     * to be the same size as the parent, the parent should ask the child to
+     * layout given an exact size.
+     *
+     * @param spec The requirements for this view
+     * @param padding The padding of this view for the current dimension and
+     *        margins, if applicable
+     * @param childDimension How big the child wants to be in the current
+     *        dimension
+     * @return a MeasureSpec integer for the child
+     */
+    public static int getChildMeasureSpec(int spec, int padding, int childDimension) {
+        int specMode = MeasureSpec.getMode(spec);
+        int specSize = MeasureSpec.getSize(spec);
 
+        //padding,就是已被占用的空间，就是 父容器的padding+child的marging
+        //size，是ViewGroup本身size减去已使用的空间，是ViewGroup能提供给child的最大值。
+        int size = Math.max(0, specSize - padding);
+
+        int resultSize = 0;
+        int resultMode = 0;
+
+        switch (specMode) {
+        // Parent has imposed an exact size on us
+        case MeasureSpec.EXACTLY:
+            if (childDimension &gt;= 0) {
+                resultSize = childDimension;
+                resultMode = MeasureSpec.EXACTLY;
+            } else if (childDimension == LayoutParams.MATCH_PARENT) {
+                // Child wants to be our size. So be it.
+                resultSize = size;
+                resultMode = MeasureSpec.EXACTLY;
+            } else if (childDimension == LayoutParams.WRAP_CONTENT) {
+                // Child wants to determine its own size. It can&#39;t be
+                // bigger than us.
+                resultSize = size;
+                resultMode = MeasureSpec.AT_MOST;
+            }
+            break;
+
+        // Parent has imposed a maximum size on us
+        case MeasureSpec.AT_MOST:
+            if (childDimension &gt;= 0) {
+                // Child wants a specific size... so be it
+                resultSize = childDimension;
+                resultMode = MeasureSpec.EXACTLY;
+            } else if (childDimension == LayoutParams.MATCH_PARENT) {
+                // Child wants to be our size, but our size is not fixed.
+                // Constrain child to not be bigger than us.
+                resultSize = size;
+                resultMode = MeasureSpec.AT_MOST;
+            } else if (childDimension == LayoutParams.WRAP_CONTENT) {
+                // Child wants to determine its own size. It can&#39;t be
+                // bigger than us.
+                resultSize = size;
+                resultMode = MeasureSpec.AT_MOST;
+            }
+            break;
+
+        // Parent asked to see how big we want to be
+        case MeasureSpec.UNSPECIFIED:
+            if (childDimension &gt;= 0) {
+                // Child wants a specific size... let him have it
+                resultSize = childDimension;
+                resultMode = MeasureSpec.EXACTLY;
+            } else if (childDimension == LayoutParams.MATCH_PARENT) {
+                // Child wants to be our size... find out how big it should
+                // be
+                resultSize = View.sUseZeroUnspecifiedMeasureSpec ? 0 : size;
+                resultMode = MeasureSpec.UNSPECIFIED;
+            } else if (childDimension == LayoutParams.WRAP_CONTENT) {
+                // Child wants to determine its own size.... find out how
+                // big it should be
+                resultSize = View.sUseZeroUnspecifiedMeasureSpec ? 0 : size;
+                resultMode = MeasureSpec.UNSPECIFIED;
+            }
+            break;
+        }
+        //noinspection ResourceType
+        return MeasureSpec.makeMeasureSpec(resultSize, resultMode);
+    }</code></pre>
 <p>可见，view的MeasureSpec由 viewParent的MeasureSpec和自身layoutParams确定。另外，child的可利用的尺寸是parent尺寸减去padding，上面代码已有注释，这很好理解。 梳理如下：</p>
 <table>
 <thead>
@@ -274,20 +373,63 @@
 <p><strong>View的三大流程，measure、layout、draw</strong>。measure确定view的测量宽高，layout确定view的最终宽高和四个顶点位置，draw绘制到屏幕。</p>
 </blockquote>
 <h2 id="3-1-Measure过程"><a href="#3-1-Measure过程" class="headerlink" title="3.1 Measure过程"></a>3.1 Measure过程</h2><p>view的测量过程，由measure()方法完成。viewGroup测量自身后，还需调用child.measure()遍历测量子view。</p>
-<h3 id="3-1-1-view的测量过程"><a href="#3-1-1-view的测量过程" class="headerlink" title="3.1.1 view的测量过程"></a>3.1.1 view的测量过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * &lt;p&gt;</span><br><span class="hljs-comment">     * This is called to find out how big a view should be. The parent</span><br><span class="hljs-comment">     * supplies constraint information in the width and height parameters.</span><br><span class="hljs-comment">     * &lt;/p&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * &lt;p&gt;</span><br><span class="hljs-comment">     * The actual measurement work of a view is performed in</span><br><span class="hljs-comment">     * &#123;<span class="hljs-doctag">@link</span> #onMeasure(int, int)&#125;, called by this method. Therefore, only</span><br><span class="hljs-comment">     * &#123;<span class="hljs-doctag">@link</span> #onMeasure(int, int)&#125; can and must be overridden by subclasses.</span><br><span class="hljs-comment">     * &lt;/p&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> widthMeasureSpec Horizontal space requirements as imposed by the</span><br><span class="hljs-comment">     *        parent</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> heightMeasureSpec Vertical space requirements as imposed by the</span><br><span class="hljs-comment">     *        parent</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> #onMeasure(int, int)</span><br><span class="hljs-comment">     */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>	...<br>	<span class="hljs-comment">// measure ourselves, this should set the measured dimension flag back</span><br>     onMeasure(widthMeasureSpec, heightMeasureSpec);<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<h3 id="3-1-1-view的测量过程"><a href="#3-1-1-view的测量过程" class="headerlink" title="3.1.1 view的测量过程"></a>3.1.1 view的测量过程</h3><pre><code class="java">/**
+     * &lt;p&gt;
+     * This is called to find out how big a view should be. The parent
+     * supplies constraint information in the width and height parameters.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The actual measurement work of a view is performed in
+     * {@link #onMeasure(int, int)}, called by this method. Therefore, only
+     * {@link #onMeasure(int, int)} can and must be overridden by subclasses.
+     * &lt;/p&gt;
+     *
+     *
+     * @param widthMeasureSpec Horizontal space requirements as imposed by the
+     *        parent
+     * @param heightMeasureSpec Vertical space requirements as imposed by the
+     *        parent
+     *
+     * @see #onMeasure(int, int)
+     */
+public final void measure(int widthMeasureSpec, int heightMeasureSpec) {
+    ...
+    // measure ourselves, this should set the measured dimension flag back
+     onMeasure(widthMeasureSpec, heightMeasureSpec);
+    ...
+}</code></pre>
 <p>可见view的measure()方法是final，不可被子类重写。里面调用onMeasure()，实际真正的测量过程在onMeasure()中。所以<strong>只有onMeasure()可以且必须被子类重写</strong>。另外，参数widthMeasureSpec、heightMeasureSpec就是上一节最后的表格中的值。继续看onMeasure()：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),<br>                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
+                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
+    }</code></pre>
 <p>从名字就可以看出，<strong>setMeasuredDimension()就是设置测量的尺寸，且在onMeasure()中必须被调用</strong>，否则在测量时会发送异常。getDefaultSize()获取默认的宽/高。所以<strong>View类</strong>中的onMeasure() 是设置默认的宽高。 继续看getDefaultSize()具体实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getDefaultSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size, <span class="hljs-keyword">int</span> measureSpec)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> result = size;<br>        <span class="hljs-keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);<br>        <span class="hljs-keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);<br><br>        <span class="hljs-keyword">switch</span> (specMode) &#123;<br>        <span class="hljs-keyword">case</span> MeasureSpec.UNSPECIFIED:<br>            result = size;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MeasureSpec.AT_MOST:<br>        <span class="hljs-keyword">case</span> MeasureSpec.EXACTLY:<br>            result = specSize;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">public static int getDefaultSize(int size, int measureSpec) {
+        int result = size;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
 
+        switch (specMode) {
+        case MeasureSpec.UNSPECIFIED:
+            result = size;
+            break;
+        case MeasureSpec.AT_MOST:
+        case MeasureSpec.EXACTLY:
+            result = specSize;
+            break;
+        }
+        return result;
+    }</code></pre>
 <p><strong>UNSPECIFIED</strong>，一般是系统使用，不需要关心。这里view大小直接取size，就是getSuggestedMinimumWidth()/getSuggestedMinimumHeight()，意思是 <strong>建议的 最小宽高</strong>。看下实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getSuggestedMinimumWidth</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> (mBackground == <span class="hljs-keyword">null</span>) ? mMinWidth : max(mMinWidth, mBackground.getMinimumWidth());<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">protected int getSuggestedMinimumWidth() {
+        return (mBackground == null) ? mMinWidth : max(mMinWidth, mBackground.getMinimumWidth());
+    }</code></pre>
 <p>没有背景，就取mMinWidth，就是xml中设置的minWidth属性值；有背景，取 mMinWidth 、背景的MinimumWidth 的较大值。drawable的getMinimumWidth()如下，有固有宽度就取固有宽度（如BitmapDrawable），没有就是0（如ShadeDrawable）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinimumWidth</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> intrinsicWidth = getIntrinsicWidth();<br>    <span class="hljs-keyword">return</span> intrinsicWidth &gt; <span class="hljs-number">0</span> ? intrinsicWidth : <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">    public int getMinimumWidth() {
+        final int intrinsicWidth = getIntrinsicWidth();
+        return intrinsicWidth &gt; 0 ? intrinsicWidth : 0;
+    }</code></pre>
 <p><strong>AT_MOST、EXACTLY</strong>，直接取specSize，就是上一节最后的表格中的值，作为测量宽高。<strong>那这样取specSize是否合适呢</strong>？ 再来看一遍specSize的来源。</p>
 <table>
 <thead>
@@ -324,65 +466,410 @@
 <p><img src="http://user-gold-cdn.xitu.io/2020/7/20/1736bb003a5a1fec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="在这里插入图片描述"></p>
 <p>所以得出结论： 通常<strong>直接继承View的自定义View</strong>，在onMeasure()需要处理 ： a、wrap_content的情况，否则wrap_content就等同于match_parent； b、match_parent+父容器wrap_content的情况，否则就像<strong>例子一</strong>，父容器wrap_content是无效的，处理方式就是<strong>例子二</strong>中的textView。 总结就是，<strong>直接继承View的自定义View，需要处理AT_MOST时的宽高</strong>。</p>
 <p><strong>处理方式</strong>如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);<br>        <span class="hljs-keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);<br>        <span class="hljs-keyword">int</span> widthMode = MeasureSpec.getMode(widthMeasureSpec);<br>        <span class="hljs-keyword">int</span> heightSize = MeasureSpec.getSize(heightMeasureSpec);<br>        <span class="hljs-keyword">int</span> heightMode = MeasureSpec.getMode(heightMeasureSpec);<br>        <br>        <span class="hljs-keyword">if</span> (widthMode == MeasureSpec.AT_MOST &amp;&amp; heightMode == MeasureSpec.AT_MOST) &#123;<br>            setMeasuredDimension(mWidth, mHeight);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (widthMode == MeasureSpec.AT_MOST) &#123;<br>            setMeasuredDimension(mWidth, heightSize);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (heightMode == MeasureSpec.AT_MOST) &#123;<br>            setMeasuredDimension(widthSize, mHeight);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">@Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
+        if (widthMode == MeasureSpec.AT_MOST &amp;&amp; heightMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(mWidth, mHeight);
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(mWidth, heightSize);
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(widthSize, mHeight);
+        }
+    }</code></pre>
 <p>实际就是<strong>在 AT_MOST时 设置一个指定的尺寸mWidth、mHeight，其他情况沿用系统。至于mWidth、mHeight是多少，则要具体看你的view的逻辑了</strong>。例如TextView，可以参考其源码的实现。</p>
 <h3 id="3-1-2-ViewGroup的测量过程"><a href="#3-1-2-ViewGroup的测量过程" class="headerlink" title="3.1.2 ViewGroup的测量过程"></a>3.1.2 ViewGroup的测量过程</h3><blockquote>
 <p>ViewGroup需要完成自身的测量，还要遍历子view调用measure()方法进行测量。</p>
 </blockquote>
 <p>ViewGroup是抽象类，没有重写onMeasure，因为无法做到统一，是让具体继承ViewGroup的子类重写自己的逻辑。但是提供一些方便的方法给子类调用。如measureChildren()、measureChild()、measureChildWithMargins()，上面第二节分析过measureChildWithMargins()，这里我们看下measureChildren()：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Ask all of the children of this view to measure themselves, taking into</span><br><span class="hljs-comment">     * account both the MeasureSpec requirements for this view and its padding.</span><br><span class="hljs-comment">     * We skip children that are in the GONE state The heavy lifting is done in</span><br><span class="hljs-comment">     * getChildMeasureSpec.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> widthMeasureSpec The width requirements for this view</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> heightMeasureSpec The height requirements for this view</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measureChildren</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> size = mChildrenCount;<br>        <span class="hljs-keyword">final</span> View[] children = mChildren;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>            <span class="hljs-keyword">final</span> View child = children[i];<br>            <span class="hljs-keyword">if</span> ((child.mViewFlags &amp; VISIBILITY_MASK) != GONE) &#123;<br>                measureChild(child, widthMeasureSpec, heightMeasureSpec);<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">/**
+     * Ask all of the children of this view to measure themselves, taking into
+     * account both the MeasureSpec requirements for this view and its padding.
+     * We skip children that are in the GONE state The heavy lifting is done in
+     * getChildMeasureSpec.
+     *
+     * @param widthMeasureSpec The width requirements for this view
+     * @param heightMeasureSpec The height requirements for this view
+     */
+    protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
+        final int size = mChildrenCount;
+        final View[] children = mChildren;
+        for (int i = 0; i &lt; size; ++i) {
+            final View child = children[i];
+            if ((child.mViewFlags &amp; VISIBILITY_MASK) != GONE) {
+                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            }
+        }
+    }</code></pre>
 <p>就是遍历子view，调用measureChild()，继续看：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measureChild</span><span class="hljs-params">(View child, <span class="hljs-keyword">int</span> parentWidthMeasureSpec,</span></span><br><span class="hljs-function"><span class="hljs-params">            <span class="hljs-keyword">int</span> parentHeightMeasureSpec)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> LayoutParams lp = child.getLayoutParams();<br><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,<br>                mPaddingLeft + mPaddingRight, lp.width);<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,<br>                mPaddingTop + mPaddingBottom, lp.height);<br><br>        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">protected void measureChild(View child, int parentWidthMeasureSpec,
+            int parentHeightMeasureSpec) {
+        final LayoutParams lp = child.getLayoutParams();
 
+        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
+                mPaddingLeft + mPaddingRight, lp.width);
+        final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
+                mPaddingTop + mPaddingBottom, lp.height);
+
+        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+    }</code></pre>
 <p>通过getChildMeasureSpec()获取child的MeasureSpec，然后调用child.measure()，测量就传到child内部了，很好理解。measureChild()相比measureChildWithMargins() 没有考虑child的margin值。</p>
 <p>上面说了，ViewGroup没有重写onMeasure，因为无法做到统一，让具体继承ViewGroup的子类重写自己的逻辑。具体<strong>看下LinearLayout的测量过程</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (mOrientation == VERTICAL) &#123;<br>            measureVertical(widthMeasureSpec, heightMeasureSpec);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            measureHorizontal(widthMeasureSpec, heightMeasureSpec);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">@Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (mOrientation == VERTICAL) {
+            measureVertical(widthMeasureSpec, heightMeasureSpec);
+        } else {
+            measureHorizontal(widthMeasureSpec, heightMeasureSpec);
+        }
+    }</code></pre>
 <p>继续看measureVertical()：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">measureVertical</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>	...<br>	<span class="hljs-comment">//下面这句官方注释：看每个人多高，也记住最大宽度。想想这不就是计算竖向LinearLayout宽高的思路嘛！</span><br>	<span class="hljs-comment">// See how tall everyone is. Also remember max width.</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; ++i) &#123;<br>        	...<br>            <span class="hljs-keyword">final</span> View child = getVirtualChildAt(i);<br>            ...<br>            <span class="hljs-keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();<br>            ...<br>            	<span class="hljs-comment">// Determine how big this child would like to be. If this or</span><br>                <span class="hljs-comment">// previous children have given a weight, then we allow it to</span><br>                <span class="hljs-comment">// use all available space (and we will shrink things later</span><br>                <span class="hljs-comment">// if needed).</span><br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> usedHeight = totalWeight == <span class="hljs-number">0</span> ? mTotalLength : <span class="hljs-number">0</span>;<br>                <span class="hljs-comment">//这里测量child（里面就是measureChildWithMargins()）</span><br>                measureChildBeforeLayout(child, i, widthMeasureSpec, <span class="hljs-number">0</span>,<br>                        heightMeasureSpec, usedHeight);<br><br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childHeight = child.getMeasuredHeight();<br>                ...<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> totalLength = mTotalLength;<br>                <span class="hljs-comment">//这里mTotalLength加上child的高度、margin，就是child高度累积。</span><br>                mTotalLength = Math.max(totalLength, totalLength + childHeight + lp.topMargin +<br>                       lp.bottomMargin + getNextLocationOffset(child));<br>                ...<br>                <span class="hljs-comment">//这里记录最大宽度（包含margin）</span><br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> margin = lp.leftMargin + lp.rightMargin;<br>            	<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> measuredWidth = child.getMeasuredWidth() + margin;<br>            	maxWidth = Math.max(maxWidth, measuredWidth);<br>            ...<br>        &#125;<br>        <span class="hljs-comment">//遍历完了：高度加上自身的上下padding</span><br>		<span class="hljs-comment">// Add in our padding</span><br>        mTotalLength += mPaddingTop + mPaddingBottom;<br>        <span class="hljs-keyword">int</span> heightSize = mTotalLength;<br>        <span class="hljs-comment">// Check against our minimum height</span><br>        heightSize = Math.max(heightSize, getSuggestedMinimumHeight());<br>        <br>        <span class="hljs-comment">//这里很重要：调用resolveSizeAndState--决定 计算的高度（高度累加）和 LinearLayout的父容器约束的高度，取哪一个。</span><br>        <span class="hljs-comment">// Reconcile our calculated size with the heightMeasureSpec</span><br>        <span class="hljs-keyword">int</span> heightSizeAndState = resolveSizeAndState(heightSize, heightMeasureSpec, <span class="hljs-number">0</span>);<br>        heightSize = heightSizeAndState &amp; MEASURED_SIZE_MASK;<br>	...<br>		<span class="hljs-comment">//最大宽度加上左右margin</span><br>		maxWidth += mPaddingLeft + mPaddingRight;<br><br>        <span class="hljs-comment">// Check against our minimum width</span><br>        maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());<br><br>		<span class="hljs-comment">//设置最终的测量尺寸（宽也也同样调用resolveSizeAndState决定取哪个）</span><br>        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, childState),<br>                heightSizeAndState);<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">void measureVertical(int widthMeasureSpec, int heightMeasureSpec) {
+    ...
+    //下面这句官方注释：看每个人多高，也记住最大宽度。想想这不就是计算竖向LinearLayout宽高的思路嘛！
+    // See how tall everyone is. Also remember max width.
+        for (int i = 0; i &lt; count; ++i) {
+            ...
+            final View child = getVirtualChildAt(i);
+            ...
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            ...
+                // Determine how big this child would like to be. If this or
+                // previous children have given a weight, then we allow it to
+                // use all available space (and we will shrink things later
+                // if needed).
+                final int usedHeight = totalWeight == 0 ? mTotalLength : 0;
+                //这里测量child（里面就是measureChildWithMargins()）
+                measureChildBeforeLayout(child, i, widthMeasureSpec, 0,
+                        heightMeasureSpec, usedHeight);
 
+                final int childHeight = child.getMeasuredHeight();
+                ...
+                final int totalLength = mTotalLength;
+                //这里mTotalLength加上child的高度、margin，就是child高度累积。
+                mTotalLength = Math.max(totalLength, totalLength + childHeight + lp.topMargin +
+                       lp.bottomMargin + getNextLocationOffset(child));
+                ...
+                //这里记录最大宽度（包含margin）
+                final int margin = lp.leftMargin + lp.rightMargin;
+                final int measuredWidth = child.getMeasuredWidth() + margin;
+                maxWidth = Math.max(maxWidth, measuredWidth);
+            ...
+        }
+        //遍历完了：高度加上自身的上下padding
+        // Add in our padding
+        mTotalLength += mPaddingTop + mPaddingBottom;
+        int heightSize = mTotalLength;
+        // Check against our minimum height
+        heightSize = Math.max(heightSize, getSuggestedMinimumHeight());
+
+        //这里很重要：调用resolveSizeAndState--决定 计算的高度（高度累加）和 LinearLayout的父容器约束的高度，取哪一个。
+        // Reconcile our calculated size with the heightMeasureSpec
+        int heightSizeAndState = resolveSizeAndState(heightSize, heightMeasureSpec, 0);
+        heightSize = heightSizeAndState &amp; MEASURED_SIZE_MASK;
+    ...
+        //最大宽度加上左右margin
+        maxWidth += mPaddingLeft + mPaddingRight;
+
+        // Check against our minimum width
+        maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());
+
+        //设置最终的测量尺寸（宽也也同样调用resolveSizeAndState决定取哪个）
+        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, childState),
+                heightSizeAndState);
+}</code></pre>
 <p>所以，简单概括就是： 1.先测量所有child； 2.根据child的情况获取自身宽高（累加高度、最大宽度）。</p>
 <p><strong>那么，是否就取 累加高度、最大宽度？再看下resolveSizeAndState()</strong>:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Utility to reconcile a desired size and state, with constraints imposed</span><br><span class="hljs-comment">     * by a MeasureSpec. Will take the desired size, unless a different size</span><br><span class="hljs-comment">     * is imposed by the constraints. The returned value is a compound integer,</span><br><span class="hljs-comment">     * with the resolved size in the &#123;<span class="hljs-doctag">@link</span> #MEASURED_SIZE_MASK&#125; bits and</span><br><span class="hljs-comment">     * optionally the bit &#123;<span class="hljs-doctag">@link</span> #MEASURED_STATE_TOO_SMALL&#125; set if the</span><br><span class="hljs-comment">     * resulting size is smaller than the size the view wants to be.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> size How big the view wants to be. --想要的尺寸</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> measureSpec Constraints imposed by the parent. --父布局给的measureSpec</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> childMeasuredState Size information bit mask for the view's</span><br><span class="hljs-comment">     *                           children.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> Size information bit mask as defined by</span><br><span class="hljs-comment">     *         &#123;<span class="hljs-doctag">@link</span> #MEASURED_SIZE_MASK&#125; and</span><br><span class="hljs-comment">     *         &#123;<span class="hljs-doctag">@link</span> #MEASURED_STATE_TOO_SMALL&#125;.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">resolveSizeAndState</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size, <span class="hljs-keyword">int</span> measureSpec, <span class="hljs-keyword">int</span> childMeasuredState)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> specMode = MeasureSpec.getMode(measureSpec);<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> specSize = MeasureSpec.getSize(measureSpec);<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> result;<br>        <span class="hljs-keyword">switch</span> (specMode) &#123;<br>            <span class="hljs-keyword">case</span> MeasureSpec.AT_MOST:<br>            	<span class="hljs-comment">//AT_MOST时，想要的尺寸大于约束的尺寸，就只能取 约束的尺寸。</span><br>                <span class="hljs-keyword">if</span> (specSize &lt; size) &#123;<br>                    result = specSize | MEASURED_STATE_TOO_SMALL;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    result = size;<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MeasureSpec.EXACTLY:<br>            	<span class="hljs-comment">//dp值、match_parent且父EXACTLY，就是SpecSize</span><br>                result = specSize;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> MeasureSpec.UNSPECIFIED:<br>            <span class="hljs-keyword">default</span>:<br>                result = size;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result | (childMeasuredState &amp; MEASURED_STATE_MASK);<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">/**
+     * Utility to reconcile a desired size and state, with constraints imposed
+     * by a MeasureSpec. Will take the desired size, unless a different size
+     * is imposed by the constraints. The returned value is a compound integer,
+     * with the resolved size in the {@link #MEASURED_SIZE_MASK} bits and
+     * optionally the bit {@link #MEASURED_STATE_TOO_SMALL} set if the
+     * resulting size is smaller than the size the view wants to be.
+     *
+     * @param size How big the view wants to be. --想要的尺寸
+     * @param measureSpec Constraints imposed by the parent. --父布局给的measureSpec
+     * @param childMeasuredState Size information bit mask for the view&#39;s
+     *                           children.
+     * @return Size information bit mask as defined by
+     *         {@link #MEASURED_SIZE_MASK} and
+     *         {@link #MEASURED_STATE_TOO_SMALL}.
+     */
+    public static int resolveSizeAndState(int size, int measureSpec, int childMeasuredState) {
+        final int specMode = MeasureSpec.getMode(measureSpec);
+        final int specSize = MeasureSpec.getSize(measureSpec);
+        final int result;
+        switch (specMode) {
+            case MeasureSpec.AT_MOST:
+                //AT_MOST时，想要的尺寸大于约束的尺寸，就只能取 约束的尺寸。
+                if (specSize &lt; size) {
+                    result = specSize | MEASURED_STATE_TOO_SMALL;
+                } else {
+                    result = size;
+                }
+                break;
+            case MeasureSpec.EXACTLY:
+                //dp值、match_parent且父EXACTLY，就是SpecSize
+                result = specSize;
+                break;
+            case MeasureSpec.UNSPECIFIED:
+            default:
+                result = size;
+        }
+        return result | (childMeasuredState &amp; MEASURED_STATE_MASK);
+    }</code></pre>
 <p>这个过程就是 限制 AT_MOST时，即<strong>wrap_content</strong>（或match_parent且父wrap_content）时高度不能大于parent的剩余空间。</p>
 <h3 id="3-1-3-获取View宽高的时机"><a href="#3-1-3-获取View宽高的时机" class="headerlink" title="3.1.3 获取View宽高的时机"></a>3.1.3 获取View宽高的时机</h3><blockquote>
 <p>Measure过程完成，就可通过getMeasuredWidth()、getMeasuredHeight()获取测量宽高。但某些极端情况 需要多次Measure才能确定最终宽高。所以在onLayout方法中获取测量宽高是真正ok的。 我们知道，activity的onCreate中无法获取到view的宽高。实际onCreate、onStart、onResume都不能保证view已完成测量，所以可能获取的都是0。因为view的measure和activity生命周期不是同步的。</p>
 </blockquote>
 <p>以下是<strong>保证可以获取view测量宽高的方法</strong>：</p>
 <h4 id="1、Activity-View-onWindowFocusChanged"><a href="#1、Activity-View-onWindowFocusChanged" class="headerlink" title="1、Activity/View # onWindowFocusChanged"></a>1、Activity/View # onWindowFocusChanged</h4><p>onWindowFocusChanged：View已初始化完毕，宽高已准备ok。 但会多次调用，获取焦点、失去焦点都回调用。(这个回调是ViewRootIml中分发到DecorView，接着到Activity、到各级View。)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onWindowFocusChanged</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> hasFocus)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>.onWindowFocusChanged(hasFocus);<br>        <span class="hljs-keyword">if</span> (hasFocus) &#123;<br>            <span class="hljs-keyword">int</span> measuredWidth = scoreView.getMeasuredWidth();<br>            <span class="hljs-keyword">int</span> measuredHeight = scoreView.getMeasuredHeight();<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">@Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            int measuredWidth = scoreView.getMeasuredWidth();
+            int measuredHeight = scoreView.getMeasuredHeight();
+        }
+    }</code></pre>
 <h4 id="2、view-post-runnable"><a href="#2、view-post-runnable" class="headerlink" title="2、view.post(runnable)"></a>2、view.post(runnable)</h4><p>view.post可以把runnable放入消息队列，等待looper到此runnable是view已经初始化完成。v详细原理参考<a href="https://www.cnblogs.com/dasusu/p/8047172.html" target="_blank" rel="noopener">【Android源码解析】View.post()到底干了啥</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onStart</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>.onStart();<br>        scoreView.post(<span class="hljs-keyword">new</span> Runnable() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">int</span> measuredWidth = scoreView.getMeasuredWidth();<br>                <span class="hljs-keyword">int</span> measuredHeight = scoreView.getMeasuredHeight();<br>            &#125;<br>        &#125;);<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">@Override
+    protected void onStart() {
+        super.onStart();
+        scoreView.post(new Runnable() {
+            @Override
+            public void run() {
+                int measuredWidth = scoreView.getMeasuredWidth();
+                int measuredHeight = scoreView.getMeasuredHeight();
+            }
+        });
+    }</code></pre>
 <h4 id="3、ViewTreeObserver"><a href="#3、ViewTreeObserver" class="headerlink" title="3、ViewTreeObserver"></a>3、ViewTreeObserver</h4><p>ViewTreeObserver有很多回调，其中有个OnGlobalLayoutListener，当View树的状态发生改变或者View树内部view的可见性发生改变时 方法 onGlobalLayout()都会被调用。所以是会回调多次。 此时也可以获取view的宽高：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">ViewTreeObserver observer = view.getViewTreeObserver();<br>        observer.addOnGlobalLayoutListener(<span class="hljs-keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onGlobalLayout</span><span class="hljs-params">()</span> </span>&#123;<br>                mDefaultControlLayout.getViewTreeObserver().removeGlobalOnLayoutListener(<span class="hljs-keyword">this</span>);<br>                <span class="hljs-keyword">if</span> (mIsGroupListAnimating) &#123;<br>                    mIsGroupListAnimationPending = <span class="hljs-keyword">true</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    updateLayoutHeightInternal(animate);<br>                &#125;<br>            &#125;<br>        &#125;);<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mDefaultControlLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                if (mIsGroupListAnimating) {
+                    mIsGroupListAnimationPending = true;
+                } else {
+                    updateLayoutHeightInternal(animate);
+                }
+            }
+        });</code></pre>
 <h2 id="3-2Layout过程"><a href="#3-2Layout过程" class="headerlink" title="3.2Layout过程"></a>3.2Layout过程</h2><p>layout()的作用是View用来确定view本身位置，内部调用onLayout()来确定子view的位置。 layout过程比measure过程简单很多。看View的layout方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">layout</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> ((mPrivateFlags3 &amp; PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT) != <span class="hljs-number">0</span>) &#123;<br>        onMeasure(mOldWidthMeasureSpec, mOldHeightMeasureSpec);<br>        mPrivateFlags3 &amp;= ~PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT;<br>    &#125;<br><br>    <span class="hljs-keyword">int</span> oldL = mLeft;<br>    <span class="hljs-keyword">int</span> oldT = mTop;<br>    <span class="hljs-keyword">int</span> oldB = mBottom;<br>    <span class="hljs-keyword">int</span> oldR = mRight;<br>    <span class="hljs-comment">//使用setFrame方法设置4个顶点，就确定位置了~</span><br>    <span class="hljs-keyword">boolean</span> changed = isLayoutModeOptical(mParent) ?<br>            setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);<br><br>    <span class="hljs-keyword">if</span> (changed || (mPrivateFlags &amp; PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) &#123;<br>    	<span class="hljs-comment">//这里调用onLayout，是个空实现。ViewGroup中重写了，还是空实现，但加了abstract，即ViewGroup的子类必须重写onLayout确定子View的位置。</span><br>        onLayout(changed, l, t, r, b);<br><br>        <span class="hljs-keyword">if</span> (shouldDrawRoundScrollbar()) &#123;<br>            <span class="hljs-keyword">if</span>(mRoundScrollbarRenderer == <span class="hljs-keyword">null</span>) &#123;<br>                mRoundScrollbarRenderer = <span class="hljs-keyword">new</span> RoundScrollbarRenderer(<span class="hljs-keyword">this</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            mRoundScrollbarRenderer = <span class="hljs-keyword">null</span>;<br>        &#125;<br><br>        mPrivateFlags &amp;= ~PFLAG_LAYOUT_REQUIRED;<br><br>        ListenerInfo li = mListenerInfo;<br>        <span class="hljs-keyword">if</span> (li != <span class="hljs-keyword">null</span> &amp;&amp; li.mOnLayoutChangeListeners != <span class="hljs-keyword">null</span>) &#123;<br>            ArrayList&lt;OnLayoutChangeListener&gt; listenersCopy =<br>                    (ArrayList&lt;OnLayoutChangeListener&gt;)li.mOnLayoutChangeListeners.clone();<br>            <span class="hljs-keyword">int</span> numListeners = listenersCopy.size();<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numListeners; ++i) &#123;<br>                listenersCopy.get(i).onLayoutChange(<span class="hljs-keyword">this</span>, l, t, r, b, oldL, oldT, oldR, oldB);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">    public void layout(int l, int t, int r, int b) {
+        if ((mPrivateFlags3 &amp; PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT) != 0) {
+            onMeasure(mOldWidthMeasureSpec, mOldHeightMeasureSpec);
+            mPrivateFlags3 &amp;= ~PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT;
+        }
 
+        int oldL = mLeft;
+        int oldT = mTop;
+        int oldB = mBottom;
+        int oldR = mRight;
+        //使用setFrame方法设置4个顶点，就确定位置了~
+        boolean changed = isLayoutModeOptical(mParent) ?
+                setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);
+
+        if (changed || (mPrivateFlags &amp; PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) {
+            //这里调用onLayout，是个空实现。ViewGroup中重写了，还是空实现，但加了abstract，即ViewGroup的子类必须重写onLayout确定子View的位置。
+            onLayout(changed, l, t, r, b);
+
+            if (shouldDrawRoundScrollbar()) {
+                if(mRoundScrollbarRenderer == null) {
+                    mRoundScrollbarRenderer = new RoundScrollbarRenderer(this);
+                }
+            } else {
+                mRoundScrollbarRenderer = null;
+            }
+
+            mPrivateFlags &amp;= ~PFLAG_LAYOUT_REQUIRED;
+
+            ListenerInfo li = mListenerInfo;
+            if (li != null &amp;&amp; li.mOnLayoutChangeListeners != null) {
+                ArrayList&lt;OnLayoutChangeListener&gt; listenersCopy =
+                        (ArrayList&lt;OnLayoutChangeListener&gt;)li.mOnLayoutChangeListeners.clone();
+                int numListeners = listenersCopy.size();
+                for (int i = 0; i &lt; numListeners; ++i) {
+                    listenersCopy.get(i).onLayoutChange(this, l, t, r, b, oldL, oldT, oldR, oldB);
+                }
+            }
+        }
+
+        ...
+    }</code></pre>
 <p><strong>先是用setFrame方法设置4个顶点，就确定位置了，即mLeft、mTop、mBottom、mRight确定了。</strong> 然后调用onLayout，是个空实现。ViewGroup中重写了onLayout，还是空实现，但加了abstract，即<strong>ViewGroup的子类必须重写onLayout确定子View的位置</strong>。 那就<strong>看看LinearLayout的onLayout</strong>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLayout</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> changed, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (mOrientation == VERTICAL) &#123;<br>            layoutVertical(l, t, r, b);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            layoutHorizontal(l, t, r, b);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">@Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (mOrientation == VERTICAL) {
+            layoutVertical(l, t, r, b);
+        } else {
+            layoutHorizontal(l, t, r, b);
+        }
+    }</code></pre>
 <p>继续看layoutVertical()：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">layoutVertical</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> paddingLeft = mPaddingLeft;<br><br>        <span class="hljs-keyword">int</span> childTop;<br>        <span class="hljs-keyword">int</span> childLeft;<br><br>        <span class="hljs-comment">// Where right end of child should go</span><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> width = right - left;<br>        <span class="hljs-keyword">int</span> childRight = width - mPaddingRight;<br><br>        <span class="hljs-comment">// Space available for child</span><br>        <span class="hljs-keyword">int</span> childSpace = width - paddingLeft - mPaddingRight;<br><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> count = getVirtualChildCount();<br><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> majorGravity = mGravity &amp; Gravity.VERTICAL_GRAVITY_MASK;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> minorGravity = mGravity &amp; Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK;<br><br>        <span class="hljs-keyword">switch</span> (majorGravity) &#123;<br>           <span class="hljs-keyword">case</span> Gravity.BOTTOM:<br>               <span class="hljs-comment">// mTotalLength contains the padding already</span><br>               childTop = mPaddingTop + bottom - top - mTotalLength;<br>               <span class="hljs-keyword">break</span>;<br><br>               <span class="hljs-comment">// mTotalLength contains the padding already</span><br>           <span class="hljs-keyword">case</span> Gravity.CENTER_VERTICAL:<br>               childTop = mPaddingTop + (bottom - top - mTotalLength) / <span class="hljs-number">2</span>;<br>               <span class="hljs-keyword">break</span>;<br><br>           <span class="hljs-keyword">case</span> Gravity.TOP:<br>           <span class="hljs-keyword">default</span>:<br>               childTop = mPaddingTop;<br>               <span class="hljs-keyword">break</span>;<br>        &#125;<br>		<span class="hljs-comment">//遍历子view</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>            <span class="hljs-keyword">final</span> View child = getVirtualChildAt(i);<br>            <span class="hljs-keyword">if</span> (child == <span class="hljs-keyword">null</span>) &#123;<br>                childTop += measureNullChild(i);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (child.getVisibility() != GONE) &#123;<br>            	<span class="hljs-comment">//获取child的测量宽高</span><br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childWidth = child.getMeasuredWidth();<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childHeight = child.getMeasuredHeight();<br><br>                <span class="hljs-keyword">final</span> LinearLayout.LayoutParams lp =<br>                        (LinearLayout.LayoutParams) child.getLayoutParams();<br><br>                <span class="hljs-keyword">int</span> gravity = lp.gravity;<br>                <span class="hljs-keyword">if</span> (gravity &lt; <span class="hljs-number">0</span>) &#123;<br>                    gravity = minorGravity;<br>                &#125;<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> layoutDirection = getLayoutDirection();<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);<br>                <span class="hljs-keyword">switch</span> (absoluteGravity &amp; Gravity.HORIZONTAL_GRAVITY_MASK) &#123;<br>                    <span class="hljs-keyword">case</span> Gravity.CENTER_HORIZONTAL:<br>                        childLeft = paddingLeft + ((childSpace - childWidth) / <span class="hljs-number">2</span>)<br>                                + lp.leftMargin - lp.rightMargin;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> Gravity.RIGHT:<br>                        childLeft = childRight - childWidth - lp.rightMargin;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> Gravity.LEFT:<br>                    <span class="hljs-keyword">default</span>:<br>                        childLeft = paddingLeft + lp.leftMargin;<br>                        <span class="hljs-keyword">break</span>;<br>                &#125;<br><br>                <span class="hljs-keyword">if</span> (hasDividerBeforeChildAt(i)) &#123;<br>                    childTop += mDividerHeight;<br>                &#125;<br><br>                childTop += lp.topMargin;<br>                <span class="hljs-comment">//以上就是获取子view的左、上的位置，即宽高，然后调用setChildFrame</span><br>                setChildFrame(child, childLeft, childTop + getLocationOffset(child),<br>                        childWidth, childHeight);<br>                 <span class="hljs-comment">//top位置加上高度和margin，就是下一个view的top</span><br>                childTop += childHeight + lp.bottomMargin + getNextLocationOffset(child);<br><br>                i += getChildrenSkipCount(child, i);<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">void layoutVertical(int left, int top, int right, int bottom) {
+        final int paddingLeft = mPaddingLeft;
 
+        int childTop;
+        int childLeft;
+
+        // Where right end of child should go
+        final int width = right - left;
+        int childRight = width - mPaddingRight;
+
+        // Space available for child
+        int childSpace = width - paddingLeft - mPaddingRight;
+
+        final int count = getVirtualChildCount();
+
+        final int majorGravity = mGravity &amp; Gravity.VERTICAL_GRAVITY_MASK;
+        final int minorGravity = mGravity &amp; Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK;
+
+        switch (majorGravity) {
+           case Gravity.BOTTOM:
+               // mTotalLength contains the padding already
+               childTop = mPaddingTop + bottom - top - mTotalLength;
+               break;
+
+               // mTotalLength contains the padding already
+           case Gravity.CENTER_VERTICAL:
+               childTop = mPaddingTop + (bottom - top - mTotalLength) / 2;
+               break;
+
+           case Gravity.TOP:
+           default:
+               childTop = mPaddingTop;
+               break;
+        }
+        //遍历子view
+        for (int i = 0; i &lt; count; i++) {
+            final View child = getVirtualChildAt(i);
+            if (child == null) {
+                childTop += measureNullChild(i);
+            } else if (child.getVisibility() != GONE) {
+                //获取child的测量宽高
+                final int childWidth = child.getMeasuredWidth();
+                final int childHeight = child.getMeasuredHeight();
+
+                final LinearLayout.LayoutParams lp =
+                        (LinearLayout.LayoutParams) child.getLayoutParams();
+
+                int gravity = lp.gravity;
+                if (gravity &lt; 0) {
+                    gravity = minorGravity;
+                }
+                final int layoutDirection = getLayoutDirection();
+                final int absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);
+                switch (absoluteGravity &amp; Gravity.HORIZONTAL_GRAVITY_MASK) {
+                    case Gravity.CENTER_HORIZONTAL:
+                        childLeft = paddingLeft + ((childSpace - childWidth) / 2)
+                                + lp.leftMargin - lp.rightMargin;
+                        break;
+
+                    case Gravity.RIGHT:
+                        childLeft = childRight - childWidth - lp.rightMargin;
+                        break;
+
+                    case Gravity.LEFT:
+                    default:
+                        childLeft = paddingLeft + lp.leftMargin;
+                        break;
+                }
+
+                if (hasDividerBeforeChildAt(i)) {
+                    childTop += mDividerHeight;
+                }
+
+                childTop += lp.topMargin;
+                //以上就是获取子view的左、上的位置，即宽高，然后调用setChildFrame
+                setChildFrame(child, childLeft, childTop + getLocationOffset(child),
+                        childWidth, childHeight);
+                 //top位置加上高度和margin，就是下一个view的top
+                childTop += childHeight + lp.bottomMargin + getNextLocationOffset(child);
+
+                i += getChildrenSkipCount(child, i);
+            }
+        }
+    }</code></pre>
 <p>就是遍历子view，确认childLeft、childTop，调用setChildFrame确认子view的位置：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setChildFrame</span><span class="hljs-params">(View child, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">int</span> height)</span> </span>&#123;<br>		<span class="hljs-comment">//这里width、height就是 上面获取的 测量宽高</span><br>        child.layout(left, top, left + width, top + height);<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">private void setChildFrame(View child, int left, int top, int width, int height) {
+        //这里width、height就是 上面获取的 测量宽高
+        child.layout(left, top, left + width, top + height);
+    }</code></pre>
 <p>也就是调用child的layout方法，这样就走child的layout过程了。</p>
 <p><strong>一个问题：getMeasuredWidth() 与 getWidth()有何区别？</strong> 答曰：<strong>一般情况，getMeasuredWidth() 与 getWidth()两者无区别</strong>。 先看，getWidth():</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getWidth</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> mRight - mLeft;<br>    &#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">public final int getWidth() {
+        return mRight - mLeft;
+    }</code></pre>
 <p>在上面分析LinearLayout时，child.layout的参数中 mRight就是mLeft + measuredWidth，所以getWidth()就是measuredWidth。只不过是measuredWidth在测量过程产生，getWidth()在layout过程产生。 只要不重写view的layout()方法（也不需要重写）改变顶点位置就不会出现不同的情况，例如下面这个最终宽高比测量宽高大100。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">layout</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>	<span class="hljs-keyword">super</span>.layout(l,t,r+<span class="hljs-number">100</span>,b+<span class="hljs-number">100</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">    public void layout(int l, int t, int r, int b) {
+        super.layout(l,t,r+100,b+100);
+    }</code></pre>
 <h2 id="3-3Draw过程"><a href="#3-3Draw过程" class="headerlink" title="3.3Draw过程"></a>3.3Draw过程</h2><p>draw过程： 1、画背景 2、画自己– onDraw，自己实现 3、画子view– dispatchDraw 4、画装饰</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(Canvas canvas)</span> </span>&#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> privateFlags = mPrivateFlags;<br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> dirtyOpaque = (privateFlags &amp; PFLAG_DIRTY_MASK) == PFLAG_DIRTY_OPAQUE &amp;&amp;<br>                (mAttachInfo == <span class="hljs-keyword">null</span> || !mAttachInfo.mIgnoreDirtyState);<br>        mPrivateFlags = (privateFlags &amp; ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;<br><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * Draw traversal performs several drawing steps which must be executed</span><br><span class="hljs-comment">         * in the appropriate order:</span><br><span class="hljs-comment">         *</span><br><span class="hljs-comment">         *      1. Draw the background</span><br><span class="hljs-comment">         *      2. If necessary, save the canvas' layers to prepare for fading</span><br><span class="hljs-comment">         *      3. Draw view's content</span><br><span class="hljs-comment">         *      4. Draw children</span><br><span class="hljs-comment">         *      5. If necessary, draw the fading edges and restore layers</span><br><span class="hljs-comment">         *      6. Draw decorations (scrollbars for instance)</span><br><span class="hljs-comment">         */</span><br><br>        <span class="hljs-comment">// Step 1, draw the background, if needed</span><br>        <span class="hljs-keyword">int</span> saveCount;<br><br>        <span class="hljs-keyword">if</span> (!dirtyOpaque) &#123;<br>            drawBackground(canvas);<br>        &#125;<br><br>        <span class="hljs-comment">// skip step 2 &amp; 5 if possible (common case)</span><br>        <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> viewFlags = mViewFlags;<br>        <span class="hljs-keyword">boolean</span> horizontalEdges = (viewFlags &amp; FADING_EDGE_HORIZONTAL) != <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">boolean</span> verticalEdges = (viewFlags &amp; FADING_EDGE_VERTICAL) != <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span> (!verticalEdges &amp;&amp; !horizontalEdges) &#123;<br>            <span class="hljs-comment">// Step 3, draw the content</span><br>            <span class="hljs-keyword">if</span> (!dirtyOpaque) onDraw(canvas);<br><br>            <span class="hljs-comment">// Step 4, draw the children</span><br>            dispatchDraw(canvas);<br><br>            drawAutofilledHighlight(canvas);<br><br>            <span class="hljs-comment">// Overlay is part of the content and draws beneath Foreground</span><br>            <span class="hljs-keyword">if</span> (mOverlay != <span class="hljs-keyword">null</span> &amp;&amp; !mOverlay.isEmpty()) &#123;<br>                mOverlay.getOverlayView().dispatchDraw(canvas);<br>            &#125;<br><br>            <span class="hljs-comment">// Step 6, draw decorations (foreground, scrollbars)</span><br>            onDrawForeground(canvas);<br><br>            <span class="hljs-comment">// Step 7, draw the default focus highlight</span><br>            drawDefaultFocusHighlight(canvas);<br><br>            <span class="hljs-keyword">if</span> (debugDraw()) &#123;<br>                debugDrawFocus(canvas);<br>            &#125;<br><br>            <span class="hljs-comment">// we're done...</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">public void draw(Canvas canvas) {
+        final int privateFlags = mPrivateFlags;
+        final boolean dirtyOpaque = (privateFlags &amp; PFLAG_DIRTY_MASK) == PFLAG_DIRTY_OPAQUE &amp;&amp;
+                (mAttachInfo == null || !mAttachInfo.mIgnoreDirtyState);
+        mPrivateFlags = (privateFlags &amp; ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;
 
+        /*
+         * Draw traversal performs several drawing steps which must be executed
+         * in the appropriate order:
+         *
+         *      1. Draw the background
+         *      2. If necessary, save the canvas&#39; layers to prepare for fading
+         *      3. Draw view&#39;s content
+         *      4. Draw children
+         *      5. If necessary, draw the fading edges and restore layers
+         *      6. Draw decorations (scrollbars for instance)
+         */
+
+        // Step 1, draw the background, if needed
+        int saveCount;
+
+        if (!dirtyOpaque) {
+            drawBackground(canvas);
+        }
+
+        // skip step 2 &amp; 5 if possible (common case)
+        final int viewFlags = mViewFlags;
+        boolean horizontalEdges = (viewFlags &amp; FADING_EDGE_HORIZONTAL) != 0;
+        boolean verticalEdges = (viewFlags &amp; FADING_EDGE_VERTICAL) != 0;
+        if (!verticalEdges &amp;&amp; !horizontalEdges) {
+            // Step 3, draw the content
+            if (!dirtyOpaque) onDraw(canvas);
+
+            // Step 4, draw the children
+            dispatchDraw(canvas);
+
+            drawAutofilledHighlight(canvas);
+
+            // Overlay is part of the content and draws beneath Foreground
+            if (mOverlay != null &amp;&amp; !mOverlay.isEmpty()) {
+                mOverlay.getOverlayView().dispatchDraw(canvas);
+            }
+
+            // Step 6, draw decorations (foreground, scrollbars)
+            onDrawForeground(canvas);
+
+            // Step 7, draw the default focus highlight
+            drawDefaultFocusHighlight(canvas);
+
+            if (debugDraw()) {
+                debugDrawFocus(canvas);
+            }
+
+            // we&#39;re done...
+            return;
+        }</code></pre>
 <p>ViewGroup一般不用onDraw画自己，只需要画子View就可以了。但明确需要画自己的话，需要调用setViewNotDraw(false);</p>
 <p>以上View的三大流程就分析完了。</p>
 <h1 id="4、自定义View"><a href="#4、自定义View" class="headerlink" title="4、自定义View"></a>4、自定义View</h1><blockquote>
@@ -404,70 +891,289 @@
 <h2 id="4-3-例子"><a href="#4-3-例子" class="headerlink" title="4.3 例子"></a>4.3 例子</h2><p><a href="https://blog.csdn.net/hfy8971613/article/details/81589829" target="_blank" rel="noopener">自定义ViewGroup实例：横向滑动HorizontalView</a></p>
 <h2 id="4-4-自定义view的思想"><a href="#4-4-自定义view的思想" class="headerlink" title="4.4 自定义view的思想"></a>4.4 自定义view的思想</h2><p>先掌握基本功，弹性滑动、滑动冲突、绘制原理等，然后选择自定义的类别，按照注意事项多做就可以了。</p>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/07/25/andview/">https://jiyugithub.github.io/2020/07/25/andview/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/07/27/Jetpack/">Android全新UI编程 - Jetpack Compose 超详细教程 第1弹</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/07/05/suspendAction/">用协程控制多个并行异步结果的优先级</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、ViewRoot-和-DecorView"><span class="toc-number">1.</span> <span class="toc-text">1、ViewRoot 和 DecorView</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、-MeasureSpec"><span class="toc-number">2.</span> <span class="toc-text">2、 MeasureSpec</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1MeasureSpec"><span class="toc-number">2.1.</span> <span class="toc-text">2.1MeasureSpec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2MeasureSpec和LayoutParams的对应关系"><span class="toc-number">2.2.</span> <span class="toc-text">2.2MeasureSpec和LayoutParams的对应关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、View的工作流程"><span class="toc-number">3.</span> <span class="toc-text">3、View的工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Measure过程"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Measure过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-view的测量过程"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 view的测量过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-ViewGroup的测量过程"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 ViewGroup的测量过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-获取View宽高的时机"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 获取View宽高的时机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2Layout过程"><span class="toc-number">3.2.</span> <span class="toc-text">3.2Layout过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3Draw过程"><span class="toc-number">3.3.</span> <span class="toc-text">3.3Draw过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、自定义View"><span class="toc-number">4.</span> <span class="toc-text">4、自定义View</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1自定义view的分类"><span class="toc-number">4.1.</span> <span class="toc-text">4.1自定义view的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-自定义view-注意点"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 自定义view 注意点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-例子"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-自定义view的思想"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 自定义view的思想</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

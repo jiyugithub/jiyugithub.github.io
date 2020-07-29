@@ -1,196 +1,144 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FragmentStatePagerAdapter在ViewPager中优化了什么 - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="前言OK，填坑篇的文章来了。
+当我打开官方文档准备开始了解FragmentStatePagerAdapter的时候。我仿佛像是…闭关蛰伏数十载，准备反清复明；出关时发现大清已经亡了…
 
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>FragmentStatePagerAdapter在ViewPager中优化了什么 | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+什么鬼，我还,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">FragmentStatePagerAdapter在ViewPager中优化了什么</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">FragmentStatePagerAdapter在ViewPager中优化了什么</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 16, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/16/fragmentstatepager/" title="FragmentStatePagerAdapter在ViewPager中优化了什么" class="">FragmentStatePagerAdapter在ViewPager中优化了什么</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 16, 2020&nbsp;&nbsp;6:42:45</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    9.9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>OK，填坑篇的文章来了。</p>
 <p>当我打开官方文档准备开始了解FragmentStatePagerAdapter的时候。我仿佛像是…闭关蛰伏数十载，准备反清复明；出关时发现大清已经亡了…</p>
 <p><img src="http://user-gold-cdn.xitu.io/2020/5/28/17259fac8a6bcf70?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
@@ -206,8 +154,35 @@
 </blockquote>
 <p>从文档介绍来看，FragmentStatePagerAdapter提供更少的内存开销。第二篇文章，咱们也已经明白了FragmentPagerAdapter在FragmentManager体系下会可能出现大量内存消耗的问题。那么咱们就来看看，FragmentStatePagerAdapter是如何优化这个问题。</p>
 <h2 id="一、如果做到更少的内存开销？"><a href="#一、如果做到更少的内存开销？" class="headerlink" title="一、如果做到更少的内存开销？"></a>一、如果做到更少的内存开销？</h2><p>FragmentStatePagerAdapter（<strong>以下简称FSPA</strong>）的实现比较的简单，解决方式也很简单粗暴。咱们先看一个关键的方法instantiateItem()，基于这个方法咱们分4步来看一下这里的实现原理：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">instantiateItem</span><span class="hljs-params">(@NonNull ViewGroup container, <span class="hljs-keyword">int</span> position)</span> </span>&#123;<br>	<span class="hljs-comment">// 步骤1</span><br>    <span class="hljs-keyword">if</span> (mFragments.size() &gt; position) &#123;<br>        Fragment f = mFragments.get(position);<br>        <span class="hljs-keyword">if</span> (f != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> f;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 省略代码</span><br>    <span class="hljs-comment">// 步骤2</span><br>    Fragment fragment = getItem(position);<br>    <span class="hljs-keyword">if</span> (mSavedState.size() &gt; position) &#123;<br>        Fragment.SavedState fss = mSavedState.get(position);<br>        <span class="hljs-keyword">if</span> (fss != <span class="hljs-keyword">null</span>) &#123;<br>            fragment.setInitialSavedState(fss);<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 步骤 3</span><br>    <span class="hljs-keyword">while</span> (mFragments.size() &lt;= position) &#123;<br>        mFragments.add(<span class="hljs-keyword">null</span>);<br>    &#125;<br>    <span class="hljs-comment">// 省略部分代码</span><br>    <span class="hljs-comment">// 步骤4</span><br>    mFragments.set(position, fragment);<br>    mCurTransaction.add(container.getId(), fragment);<br>    <span class="hljs-comment">// 省略部分代码</span><br>    <span class="hljs-keyword">return</span> fragment;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">@Override
+public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    // 步骤1
+    if (mFragments.size() &gt; position) {
+        Fragment f = mFragments.get(position);
+        if (f != null) {
+            return f;
+        }
+    }
+    // 省略代码
+    // 步骤2
+    Fragment fragment = getItem(position);
+    if (mSavedState.size() &gt; position) {
+        Fragment.SavedState fss = mSavedState.get(position);
+        if (fss != null) {
+            fragment.setInitialSavedState(fss);
+        }
+    }
+    // 步骤 3
+    while (mFragments.size() &lt;= position) {
+        mFragments.add(null);
+    }
+    // 省略部分代码
+    // 步骤4
+    mFragments.set(position, fragment);
+    mCurTransaction.add(container.getId(), fragment);
+    // 省略部分代码
+    return fragment;
+}</code></pre>
 <blockquote>
 <p>我们可以看到这里的instantiateItem()和FPA有着极大的不同：这里没有通过FragmentManager去find已经存在的Fragment！这里可以断定FSPA失去了FPA上缓存的逻辑，接下来咱们会通过FSPA的源码来进一步了解二者逻辑上的不同。</p>
 </blockquote>
@@ -219,8 +194,9 @@
 <p>这里可能有小伙伴会有疑问，新new出来的Fragment为啥有可能会有SavedState呢？</p>
 <p>针对这个问题，先简单解释一下（大家可以再后文中得到详细答案）：因为这个mSavedState会存在所有实例过的Fragment的状态，但是mFragments里仅仅会存放当前attach的Fragment。因此调用getItem()时初始化的Fragment是有可能之前初始化过，因此这种case下是要恢复其状态的。</p>
 <h3 id="1-3、步骤三分析"><a href="#1-3、步骤三分析" class="headerlink" title="1.3、步骤三分析"></a>1.3、步骤三分析</h3><p>步骤三做的事情就比较有趣了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span> (mFragments.size() &lt;= position) &#123;<br>    mFragments.add(<span class="hljs-keyword">null</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="java">while (mFragments.size() &lt;= position) {
+    mFragments.add(null);
+}</code></pre>
 <p>说白了就是在占位。看到这一步，咱们就能明白：mFragments就是一个“以position为key，fragment为value的Map”。</p>
 <p>当我们定位到一个很靠后的position时。那么代码走到这我们得到的mFragments的List很有可能是这样的 ：[fragment1,fragment2,null,null,null,接下来要被add的fragment6]</p>
 <h3 id="1-4、步骤四分析"><a href="#1-4、步骤四分析" class="headerlink" title="1.4、步骤四分析"></a>1.4、步骤四分析</h3><p>步骤四就很简单了，add我们getItem出来的Fragment。</p>
@@ -234,19 +210,116 @@
 <h2 id="二、销毁Fragment"><a href="#二、销毁Fragment" class="headerlink" title="二、销毁Fragment"></a>二、销毁Fragment</h2><p>其实有了第二篇文章的分析，咱们已经明确是FragmentManager内存爆炸的原因就是在于FragmentStore在mActive中强引用了所有的Fragment实例，不进行任何回收。</p>
 <p>既然FSPA号称更少的开销，那么势必要直面这个问题。所以接下来就让咱们看看，FSPA销毁Fragment的策略。</p>
 <h3 id="2-1、destroyItem"><a href="#2-1、destroyItem" class="headerlink" title="2.1、destroyItem()"></a>2.1、destroyItem()</h3><p>FSPA和FPA主要区别就在于对destroyItem()的实现。这里咱们先对比一下二者的实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// FSPA</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">destroyItem</span><span class="hljs-params">(@NonNull ViewGroup container, <span class="hljs-keyword">int</span> position, @NonNull Object object)</span> </span>&#123;<br>    Fragment fragment = (Fragment) object;<br><br>    <span class="hljs-keyword">if</span> (mCurTransaction == <span class="hljs-keyword">null</span>) &#123;<br>        mCurTransaction = mFragmentManager.beginTransaction();<br>    &#125;<br>    <span class="hljs-keyword">while</span> (mSavedState.size() &lt;= position) &#123;<br>        mSavedState.add(<span class="hljs-keyword">null</span>);<br>    &#125;<br>    mSavedState.set(position, fragment.isAdded()<br>            ? mFragmentManager.saveFragmentInstanceState(fragment) : <span class="hljs-keyword">null</span>);<br>    mFragments.set(position, <span class="hljs-keyword">null</span>);<br>    <span class="hljs-comment">// 注意这里</span><br>    mCurTransaction.remove(fragment);<br>    <span class="hljs-keyword">if</span> (fragment.equals(mCurrentPrimaryItem)) &#123;<br>        mCurrentPrimaryItem = <span class="hljs-keyword">null</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// FPA</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">destroyItem</span><span class="hljs-params">(@NonNull ViewGroup container, <span class="hljs-keyword">int</span> position, @NonNull Object object)</span> </span>&#123;<br>    Fragment fragment = (Fragment) object;<br><br>    <span class="hljs-keyword">if</span> (mCurTransaction == <span class="hljs-keyword">null</span>) &#123;<br>        mCurTransaction = mFragmentManager.beginTransaction();<br>    &#125;<br>    <span class="hljs-comment">// 注意这里</span><br>    mCurTransaction.detach(fragment);<br>    <span class="hljs-keyword">if</span> (fragment.equals(mCurrentPrimaryItem)) &#123;<br>        mCurrentPrimaryItem = <span class="hljs-keyword">null</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">// FSPA
+@Override
+public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    Fragment fragment = (Fragment) object;
 
+    if (mCurTransaction == null) {
+        mCurTransaction = mFragmentManager.beginTransaction();
+    }
+    while (mSavedState.size() &lt;= position) {
+        mSavedState.add(null);
+    }
+    mSavedState.set(position, fragment.isAdded()
+            ? mFragmentManager.saveFragmentInstanceState(fragment) : null);
+    mFragments.set(position, null);
+    // 注意这里
+    mCurTransaction.remove(fragment);
+    if (fragment.equals(mCurrentPrimaryItem)) {
+        mCurrentPrimaryItem = null;
+    }
+}
+
+// FPA
+@Override
+public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    Fragment fragment = (Fragment) object;
+
+    if (mCurTransaction == null) {
+        mCurTransaction = mFragmentManager.beginTransaction();
+    }
+    // 注意这里
+    mCurTransaction.detach(fragment);
+    if (fragment.equals(mCurrentPrimaryItem)) {
+        mCurrentPrimaryItem = null;
+    }
+}</code></pre>
 <p>FSPA调用了remove方法，而FPA调用的是detach方法。接下来咱们就看看这二者有什么不同。其实无论是remove还是detach都会走到executeOps()中的switch判断：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-keyword">case</span> OP_REMOVE:<br>    f.setNextAnim(op.mExitAnim);<br>    mManager.removeFragment(f);<br>    <span class="hljs-keyword">break</span>;<br>    <br><span class="hljs-keyword">case</span> OP_DETACH:<br>	f.setNextAnim(op.mExitAnim);<br>	mManager.detachFragment(f);<br>	<span class="hljs-keyword">break</span>;<br></code></pre></td></tr></table></figure>
+<pre><code class="java"> case OP_REMOVE:
+    f.setNextAnim(op.mExitAnim);
+    mManager.removeFragment(f);
+    break;
 
+case OP_DETACH:
+    f.setNextAnim(op.mExitAnim);
+    mManager.detachFragment(f);
+    break;</code></pre>
 <p>但是这里无论是removeFrament()还是detachFragment()。本质调的都是<code>mFragmentStore.removeFragment(fragment);</code>，这里是把当前Fragment从FragmentStore中的mAdded列表移除还不会动mActive列表。</p>
 <p>因此对于FSPA来说，它并不是通过这种方式来控制内存开销。咱们继续往下看…</p>
 <h3 id="2-2、控制Fragment的状态机"><a href="#2-2、控制Fragment的状态机" class="headerlink" title="2.2、控制Fragment的状态机"></a>2.2、控制Fragment的状态机</h3><p>上述switch判断结束后，才会走到真正驱动状态的地方：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (!mReorderingAllowed &amp;&amp; op.mCmd != OP_ADD &amp;&amp; f != <span class="hljs-keyword">null</span>) &#123;<br>	<span class="hljs-comment">// 这里边会走到moveToState()中</span><br>    mManager.moveFragmentToExpectedState(f);<br>&#125;<br><br>FragmentManager#moveToState()<br><br><span class="hljs-keyword">if</span> (f.mState &lt;= newState) &#123;<br>	<span class="hljs-keyword">switch</span> (f.mState) &#123;<br>    	<span class="hljs-keyword">case</span> Fragment.INITIALIZING:&#123;<br>    		<span class="hljs-keyword">if</span> (newState &gt; Fragment.INITIALIZING) &#123;<br>    			<span class="hljs-comment">// 省略部分代码</span><br>    		&#125;<br>    	&#125;<br>    	<span class="hljs-keyword">case</span> Fragment.ATTACHED:&#123;<br>    		<span class="hljs-comment">// 省略部分代码</span><br>    	&#125;<br>    	<span class="hljs-comment">// 省略部分代码</span><br>&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (f.mState &gt; newState) &#123;<br>    <span class="hljs-keyword">switch</span> (f.mState) &#123;<br>        <span class="hljs-keyword">case</span> Fragment.RESUMED:<br>            <span class="hljs-keyword">if</span> (newState &lt; Fragment.RESUMED) &#123;<br>                <span class="hljs-comment">// 省略部分代码</span><br>            &#125;<br>        <span class="hljs-keyword">case</span> Fragment.CREATED:<br>            <span class="hljs-keyword">if</span> (newState &lt; Fragment.CREATED) &#123;<br>            	<span class="hljs-comment">// 重点在这</span><br>                <span class="hljs-keyword">boolean</span> beingRemoved = f.mRemoving &amp;&amp; !f.isInBackStack();<br>                <span class="hljs-keyword">if</span> (beingRemoved || mNonConfig.shouldDestroy(f)) &#123;<br>                    makeInactive(fragmentStateManager);<br>                &#125;<br>                <span class="hljs-comment">// 省略部分代码</span><br>            &#125;<br>        <span class="hljs-comment">// 省略部分代码</span><br>    &#125;<br>    <span class="hljs-comment">// 省略部分代码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">if (!mReorderingAllowed &amp;&amp; op.mCmd != OP_ADD &amp;&amp; f != null) {
+    // 这里边会走到moveToState()中
+    mManager.moveFragmentToExpectedState(f);
+}
 
+FragmentManager#moveToState()
+
+if (f.mState &lt;= newState) {
+    switch (f.mState) {
+        case Fragment.INITIALIZING:{
+            if (newState &gt; Fragment.INITIALIZING) {
+                // 省略部分代码
+            }
+        }
+        case Fragment.ATTACHED:{
+            // 省略部分代码
+        }
+        // 省略部分代码
+}else if (f.mState &gt; newState) {
+    switch (f.mState) {
+        case Fragment.RESUMED:
+            if (newState &lt; Fragment.RESUMED) {
+                // 省略部分代码
+            }
+        case Fragment.CREATED:
+            if (newState &lt; Fragment.CREATED) {
+                // 重点在这
+                boolean beingRemoved = f.mRemoving &amp;&amp; !f.isInBackStack();
+                if (beingRemoved || mNonConfig.shouldDestroy(f)) {
+                    makeInactive(fragmentStateManager);
+                }
+                // 省略部分代码
+            }
+        // 省略部分代码
+    }
+    // 省略部分代码
+}</code></pre>
 <p>这里状态机的逻辑，大家有兴趣可以自己阅读一下。这里处理状态的逻辑还是挺“骚”的。咱们只关注<code>makeInactive()</code>。上文我们之后remove和detach的区别，而这个区别的分水岭就在于这个方法。remove是会走到这个方法中：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makeInactive</span><span class="hljs-params">(@NonNull FragmentStateManager fragmentStateManager)</span> </span>&#123;<br>    <span class="hljs-comment">// 省略部分代码</span><br>    mFragmentStore.makeInactive(fragmentStateManager);<br>    removeRetainedFragment(f);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">makeInactive</span><span class="hljs-params">(@NonNull FragmentStateManager newlyInactive)</span> </span>&#123;<br>    Fragment f = newlyInactive.getFragment();<br>    <span class="hljs-keyword">for</span> (FragmentStateManager fragmentStateManager : mActive.values()) &#123;<br>        <span class="hljs-keyword">if</span> (fragmentStateManager != <span class="hljs-keyword">null</span>) &#123;<br>            Fragment fragment = fragmentStateManager.getFragment();<br>            <span class="hljs-keyword">if</span> (f.mWho.equals(fragment.mTargetWho)) &#123;<br>                fragment.mTarget = f;<br>                fragment.mTargetWho = <span class="hljs-keyword">null</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <br>    mActive.put(f.mWho, <span class="hljs-keyword">null</span>);<br><br>    <span class="hljs-keyword">if</span> (f.mTargetWho != <span class="hljs-keyword">null</span>) &#123;<br>        f.mTarget = findActiveFragment(f.mTargetWho);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">private void makeInactive(@NonNull FragmentStateManager fragmentStateManager) {
+    // 省略部分代码
+    mFragmentStore.makeInactive(fragmentStateManager);
+    removeRetainedFragment(f);
+}
 
+void makeInactive(@NonNull FragmentStateManager newlyInactive) {
+    Fragment f = newlyInactive.getFragment();
+    for (FragmentStateManager fragmentStateManager : mActive.values()) {
+        if (fragmentStateManager != null) {
+            Fragment fragment = fragmentStateManager.getFragment();
+            if (f.mWho.equals(fragment.mTargetWho)) {
+                fragment.mTarget = f;
+                fragment.mTargetWho = null;
+            }
+        }
+    }
+
+    mActive.put(f.mWho, null);
+
+    if (f.mTargetWho != null) {
+        f.mTarget = findActiveFragment(f.mTargetWho);
+    }
+}</code></pre>
 <p>可以看到<code>makeInactive()</code>方法中会对mActive进行回收的操作。因此FSPA比FPA的优化就在于移除掉了对mActive中“不必要”的引用。</p>
 <p>我猜看到这大家应该就能够get到FSPA的优化点，不过…问题来了：既然把FragmentManager中mActive移除掉了，那我们的缓存呢？</p>
 <h2 id="三、失去了缓存"><a href="#三、失去了缓存" class="headerlink" title="三、失去了缓存"></a>三、失去了缓存</h2><p>事实的确如此，咱们在开篇看<code>instantiateItem()</code>实现的时候就已经发现，FSPA移除了通过FragmentManager去find缓存的逻辑。</p>
@@ -268,70 +341,289 @@
 </blockquote>
 <h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>尽可能的学的深入，尽可能的发布正确的文章。欢迎大家评论区一起讨论~</p>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/16/fragmentstatepager/">https://jiyugithub.github.io/2020/06/16/fragmentstatepager/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/28/androidxx/">聊聊 Android 开发的现状和思考</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/16/100js/">100 行 js 代码下载抖音无水印视频</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正文"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、如果做到更少的内存开销？"><span class="toc-number">2.1.</span> <span class="toc-text">一、如果做到更少的内存开销？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1、步骤一分析"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1、步骤一分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2、步骤二分析"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.2、步骤二分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3、步骤三分析"><span class="toc-number">2.1.3.</span> <span class="toc-text">1.3、步骤三分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4、步骤四分析"><span class="toc-number">2.1.4.</span> <span class="toc-text">1.4、步骤四分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、销毁Fragment"><span class="toc-number">2.2.</span> <span class="toc-text">二、销毁Fragment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1、destroyItem"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1、destroyItem()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2、控制Fragment的状态机"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2、控制Fragment的状态机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、失去了缓存"><span class="toc-number">2.3.</span> <span class="toc-text">三、失去了缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1、ViewPager中取特定Fragment实例是否合理"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.1、ViewPager中取特定Fragment实例是否合理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尾声"><span class="toc-number">3.</span> <span class="toc-text">尾声</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

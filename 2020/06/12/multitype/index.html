@@ -1,196 +1,141 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>Android 复杂的列表视图新写法 MultiType | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Android 复杂的列表视图新写法 MultiType - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="Android 复杂的列视图新写法 MultiType前言在开发我的 TimeMachine 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Android 复杂的列表视图新写法 MultiType</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">Android 复杂的列表视图新写法 MultiType</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 12, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/multitype/" title="Android 复杂的列表视图新写法 MultiType" class="">Android 复杂的列表视图新写法 MultiType</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 12, 2020&nbsp;&nbsp;3:57:58</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    32k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    29 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h1 id="Android-复杂的列视图新写法-MultiType"><a href="#Android-复杂的列视图新写法-MultiType" class="headerlink" title="Android 复杂的列视图新写法 MultiType"></a>Android 复杂的列视图新写法 MultiType</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在开发我的 <strong><a href="https://github.com/drakeet/TimeMachine" target="_blank" rel="noopener">TimeMachine</a></strong> 时，我有一个复杂的聊天页面，于是我设计了我的类型池系统，它是完全解耦的，因此我能够轻松将它抽离出来分享，并给它取名为 <strong>MultiType</strong>.</p>
 <a id="more"></a>
 
@@ -212,24 +157,82 @@
 <p><a href="http://ww1.sinaimg.cn/large/86e2ff85gy1ffc03rofrmj21kw12htjl.jpg" target="_blank" rel="noopener"><img src="http://gank.io/images/6bf70d44bb1e489b951345b3a1c7d239" alt="img"></a></p>
 <h1 id="MultiType-基础用法"><a href="#MultiType-基础用法" class="headerlink" title="MultiType 基础用法"></a>MultiType 基础用法</h1><p>可能有的新手看到以上特性介绍说什么 “一对多”、抽象编程等等，都不太懂，我想说完全不要紧，不懂可以回过头来再看，我们先从基础用法入手，其实 <strong>MultiType</strong> 使用起来特别简单。使用 <strong>MultiType</strong> 一般情况下只要 maven 引入 + 三个小步骤。之后还会介绍使用插件生成代码方式，步骤将更加简化：</p>
 <h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>在你的 <code>build.gradle</code>:</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;<br>    <span class="hljs-keyword">compile</span> <span class="hljs-string">'me.drakeet.multitype:multitype:3.0.0'</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<blockquote>
+<pre><code>dependencies {
+    compile &#39;me.drakeet.multitype:multitype:3.0.0&#39;
+}</code></pre><blockquote>
 <p>注：<strong>MultiType</strong> 内部引用了 <code>recyclerview-v7:25.3.1</code>，如果你不想使用这个版本，可以使用 <code>exclude</code> 将它排除掉，再自行引入你选择的版本。示例如下：</p>
 </blockquote>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;<br>    <span class="hljs-keyword">compile</span>(<span class="hljs-string">'me.drakeet.multitype:multitype:3.0.0'</span>, &#123;<br>       <span class="hljs-keyword">exclude</span> <span class="hljs-keyword">group</span>: <span class="hljs-string">'com.android.support'</span><br>    &#125;)<br>    <span class="hljs-keyword">compile</span> <span class="hljs-string">'com.android.support:recyclerview-v7:你选择的版本'</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>dependencies {
+    compile(&#39;me.drakeet.multitype:multitype:3.0.0&#39;, {
+       exclude group: &#39;com.android.support&#39;
+    })
+    compile &#39;com.android.support:recyclerview-v7:你选择的版本&#39;
+}</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><strong>Step 1</strong>. 创建一个 <code>class</code>，它将是你的数据类型或 Java bean / model. 对这个类的内容没有任何限制。示例如下：</p>
+<pre><code>public class Category {
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><strong>Step 1</strong>. 创建一个 <code>class</code>，它将是你的数据类型或 Java bean / model. 对这个类的内容没有任何限制。示例如下：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Category</span> &#123;</span><br><br>    @NonNull <span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">String</span> <span class="hljs-built_in">text</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Category</span><span class="hljs-params">(@NonNull <span class="hljs-keyword">String</span> <span class="hljs-built_in">text</span>)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.<span class="hljs-built_in">text</span> = <span class="hljs-built_in">text</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    @NonNull public final String text;
 
-<p><strong>Step 2</strong>. 创建一个 <code>class</code> 继承 <code>ItemViewBinder</code>.</p>
+    public Category(@NonNull String text) {
+        this.text = text;
+    }
+}</code></pre><p><strong>Step 2</strong>. 创建一个 <code>class</code> 继承 <code>ItemViewBinder</code>.</p>
 <p><code>ItemViewBinder</code> 是个抽象类，其中 <code>onCreateViewHolder</code> 方法用于生产你的 Item View Holder, <code>onBindViewHolder</code> 用于绑定数据到 <code>View</code>s. 一般一个 <code>ItemViewBinder</code> 类在内存中只会有一个实例对象，MultiType 内部将复用这个 binder 对象来生产所有相关的 item views 和绑定数据。示例：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CategoryViewBinder</span></span><br><span class="hljs-class">    <span class="hljs-keyword">extends</span> <span class="hljs-title">ItemViewBinder&lt;Category</span>, <span class="hljs-title">CategoryViewBinder</span>.<span class="hljs-title">ViewHolder&gt;</span> </span>&#123;<br><br>    <span class="hljs-meta">@NonNull</span> <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">ViewHolder</span> onCreateViewHolder(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">LayoutInflater</span> inflater, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewGroup</span> parent) &#123;<br>        <span class="hljs-type">View</span> root = inflater.inflate(<span class="hljs-type">R</span>.layout.item_category, parent, <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">ViewHolder</span>(root);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> void onBindViewHolder(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewHolder</span> holder, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">Category</span> category) &#123;<br>        holder.category.setText(category.text);<br>    &#125;<br><br>    static <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewHolder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RecyclerView</span>.<span class="hljs-title">ViewHolder</span> </span>&#123;<br><br>        <span class="hljs-meta">@NonNull</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TextView</span> category;<br><br>        <span class="hljs-type">ViewHolder</span>(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">View</span> itemView) &#123;<br>            <span class="hljs-keyword">super</span>(itemView);<br>            <span class="hljs-keyword">this</span>.category = (<span class="hljs-type">TextView</span>) itemView.findViewById(<span class="hljs-type">R</span>.id.category);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>public class CategoryViewBinder
+    extends ItemViewBinder&lt;Category, CategoryViewBinder.ViewHolder&gt; {
 
-<p><strong>Step 3</strong>. 在 <code>Activity</code> 中加入 <code>RecyclerView</code> 和 <code>List</code> 并注册你的类型，示例：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">public <span class="hljs-keyword">class</span> MainActivity extends AppCompatActivity &#123;<br><br>    <span class="hljs-keyword">private</span> MultiTypeAdapter adapter;<br><br>    <span class="hljs-comment">/* Items 等同于 ArrayList&lt;Object&gt; */</span><br>    <span class="hljs-keyword">private</span> Items items;<br><br>    @Override <br>    protected void on<span class="hljs-constructor">Create(Bundle <span class="hljs-params">savedInstanceState</span>)</span> &#123;<br>        super.on<span class="hljs-constructor">Create(<span class="hljs-params">savedInstanceState</span>)</span>;<br>        set<span class="hljs-constructor">ContentView(R.<span class="hljs-params">layout</span>.<span class="hljs-params">activity_main</span>)</span>;<br>        RecyclerView recyclerView = (RecyclerView) find<span class="hljs-constructor">ViewById(R.<span class="hljs-params">id</span>.<span class="hljs-params">list</span>)</span>;<br><br>        adapter = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MultiTypeAdapter()</span>;<br><br>        <span class="hljs-comment">/* 注册类型和 View 的对应关系 */</span><br>        adapter.register(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Category</span>.</span></span><span class="hljs-keyword">class</span>, <span class="hljs-keyword">new</span> <span class="hljs-constructor">CategoryViewBinder()</span>);<br>        adapter.register(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Song</span>.</span></span><span class="hljs-keyword">class</span>, <span class="hljs-keyword">new</span> <span class="hljs-constructor">SongViewBinder()</span>);<br>        recyclerView.set<span class="hljs-constructor">Adapter(<span class="hljs-params">adapter</span>)</span>;<br><br>        <span class="hljs-comment">/* 模拟加载数据，也可以稍后再加载，然后使用</span><br><span class="hljs-comment">         * adapter.notifyDataSetChanged() 刷新列表 */</span><br>        items = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Items()</span>;<br>        for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span>; i++) &#123;<br>            items.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Category(<span class="hljs-string">"Songs"</span>)</span>);<br>            items.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Song(<span class="hljs-string">"小艾大人"</span>, R.<span class="hljs-params">drawable</span>.<span class="hljs-params">avatar_dakeet</span>)</span>);<br>            items.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Song(<span class="hljs-string">"许岑"</span>, R.<span class="hljs-params">drawable</span>.<span class="hljs-params">avatar_cen</span>)</span>);<br>        &#125;<br>        adapter.set<span class="hljs-constructor">Items(<span class="hljs-params">items</span>)</span>;<br>        adapter.notify<span class="hljs-constructor">DataSetChanged()</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        View root = inflater.inflate(R.layout.item_category, parent, false);
+        return new ViewHolder(root);
+    }
 
-<p>大功告成！这就是 <strong>MultiType</strong> 的基础用法了。其中 <code>onCreateViewHolder</code> 和 <code>onBindViewHolder</code> 方法名沿袭了使用 <code>RecyclerView</code> 的习惯，令人一目了然，减少了新人的学习成本。</p>
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Category category) {
+        holder.category.setText(category.text);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @NonNull private final TextView category;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.category = (TextView) itemView.findViewById(R.id.category);
+        }
+    }
+}</code></pre><p><strong>Step 3</strong>. 在 <code>Activity</code> 中加入 <code>RecyclerView</code> 和 <code>List</code> 并注册你的类型，示例：</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+    private MultiTypeAdapter adapter;
+
+    /* Items 等同于 ArrayList&lt;Object&gt; */
+    private Items items;
+
+    @Override 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        adapter = new MultiTypeAdapter();
+
+        /* 注册类型和 View 的对应关系 */
+        adapter.register(Category.class, new CategoryViewBinder());
+        adapter.register(Song.class, new SongViewBinder());
+        recyclerView.setAdapter(adapter);
+
+        /* 模拟加载数据，也可以稍后再加载，然后使用
+         * adapter.notifyDataSetChanged() 刷新列表 */
+        items = new Items();
+        for (int i = 0; i &lt; 20; i++) {
+            items.add(new Category(&quot;Songs&quot;));
+            items.add(new Song(&quot;小艾大人&quot;, R.drawable.avatar_dakeet));
+            items.add(new Song(&quot;许岑&quot;, R.drawable.avatar_cen));
+        }
+        adapter.setItems(items);
+        adapter.notifyDataSetChanged();
+    }
+}</code></pre><p>大功告成！这就是 <strong>MultiType</strong> 的基础用法了。其中 <code>onCreateViewHolder</code> 和 <code>onBindViewHolder</code> 方法名沿袭了使用 <code>RecyclerView</code> 的习惯，令人一目了然，减少了新人的学习成本。</p>
 <h1 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h1><p><strong>MultiType</strong> 设计伊始，我给它定了几个原则：</p>
 <ul>
 <li><p>要简单，便于他人阅读代码</p>
@@ -252,12 +255,28 @@
 <p>比如你输入的是 “Category”，它就会自动生成 <code>Category.java</code> 和 <code>CategoryViewBinder.java</code>.</p>
 <p>特别方便，相信你会很喜欢它。未来这个插件也将会支持自动生成布局文件，这是目前欠缺的，但不要紧，其实 AS 在这方面已经很方便了，对布局 <code>R.layout.item_category</code> 使用 <code>alt + enter</code> 快捷键即可自动生成布局文件。</p>
 <h2 id="一个类型对应多个-ItemViewBinder"><a href="#一个类型对应多个-ItemViewBinder" class="headerlink" title="一个类型对应多个 ItemViewBinder"></a>一个类型对应多个 <code>ItemViewBinder</code></h2><p><strong>MultiType</strong> 天然支持一个类型对应多个 <code>ItemViewBinder</code>，注册方式也很简单，如下：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">adapter</span><span class="hljs-selector-class">.register</span>(Data.class)<span class="hljs-selector-class">.to</span>(<br>    new DataType1ViewBinder(),<br>    new DataType2ViewBinder()<br>)<span class="hljs-selector-class">.withClassLinker</span>(new ClassLinker&lt;Data&gt;() &#123;<br>    <span class="hljs-variable">@NonNull</span> <span class="hljs-variable">@Override</span><br>    public Class&lt;? extends ItemViewBinder&lt;Data, ?&gt;&gt; index(<span class="hljs-variable">@NonNull</span> Data data) &#123;<br>        <span class="hljs-selector-tag">if</span> (data.type == Data.TYPE_2) &#123;<br>            <span class="hljs-selector-tag">return</span> <span class="hljs-selector-tag">DataType2ViewBinder</span><span class="hljs-selector-class">.class</span>;<br>        &#125; <span class="hljs-selector-tag">else</span> &#123;<br>            <span class="hljs-selector-tag">return</span> <span class="hljs-selector-tag">DataType1ViewBinder</span><span class="hljs-selector-class">.class</span>;<br>        &#125;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
-
-<p>或者：</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lasso">adapter.register(<span class="hljs-built_in">Data</span>.class).<span class="hljs-keyword">to</span>(<br>    <span class="hljs-literal">new</span> DataType1ViewBinder(),<br>    <span class="hljs-literal">new</span> DataType2ViewBinder()<br>).withLinker(<span class="hljs-literal">new</span> Linker&lt;<span class="hljs-built_in">Data</span>&gt;() &#123;<br>    @Override<br>    <span class="hljs-keyword">public</span> int index(@NonNull <span class="hljs-built_in">Data</span> <span class="hljs-built_in">data</span>) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">data</span>.<span class="hljs-keyword">type</span> == <span class="hljs-built_in">Data</span>.TYPE_2) &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
-
-<p>如果你使用 Lambda 表达式，以上代码可以更简洁：</p>
+<pre><code>adapter.register(Data.class).to(
+    new DataType1ViewBinder(),
+    new DataType2ViewBinder()
+).withClassLinker(new ClassLinker&lt;Data&gt;() {
+    @NonNull @Override
+    public Class&lt;? extends ItemViewBinder&lt;Data, ?&gt;&gt; index(@NonNull Data data) {
+        if (data.type == Data.TYPE_2) {
+            return DataType2ViewBinder.class;
+        } else {
+            return DataType1ViewBinder.class;
+        }
+    }
+});</code></pre><p>或者：</p>
+<pre><code>adapter.register(Data.class).to(
+    new DataType1ViewBinder(),
+    new DataType2ViewBinder()
+).withLinker(new Linker&lt;Data&gt;() {
+    @Override
+    public int index(@NonNull Data data) {
+        if (data.type == Data.TYPE_2) { return 1; } else return 0;
+    }
+});</code></pre><p>如果你使用 Lambda 表达式，以上代码可以更简洁：</p>
 <p><img src="https://cloud.githubusercontent.com/assets/5214214/25094943/e458121a-23cb-11e7-9bb6-106d6b1d8401.png" alt="img"></p>
 <p>解释：</p>
 <p>如上示例代码，对于一对多，我们需要使用 <code>MultiType#register(class)</code> 方法，它会返回一个 <code>OneToManyFlow</code> 让你紧接着绑定多个 <code>ItemViewBinder</code> 实例，最后再调用 <code>OneToManyEndpoint#withLinker</code> 或 <code>OneToManyEndpoint#withClassLinker</code> 操作符方法类设置 linker. 所谓 linker，是负责动态连接这个 “一” 对应 “多” 中哪一个 binder 的角色。</p>
@@ -268,15 +287,73 @@
 <p>另外，全局类型池一般都是 static 形式的，如果我们给这个 static 容器传递了 <code>Activity</code> 或 <code>Context</code> 对象，而没有在退出时释放，就容易造出内存泄漏，这对新手来说很容易触犯。</p>
 <p>因此我们删除了内置的全局类型池，当你创建一个 <code>MultiTypeAdapter</code> 对象时，默认情况下，它内部会自动创建一个局部类型池以供你接下来注册类型。当然了，如果你实在需要它，完全可以自己创建一个 static 的 <code>MultiTypePool</code>，然后通过 <code>MultiTypeAdapter#registerAll(pool)</code> 将这个类型池传入，以此达到多个地方共同使用。</p>
 <h2 id="与-ItemViewBinder-通讯"><a href="#与-ItemViewBinder-通讯" class="headerlink" title="与 ItemViewBinder 通讯"></a>与 <code>ItemViewBinder</code> 通讯</h2><p><code>ItemViewBinder</code> 对象可以接受外部类型、回调函数，只要在使用之前，传递进去即可，例如：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">OnClickListener listener = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OnClickListener()</span> &#123;<br>    @Override<br>    public void on<span class="hljs-constructor">Click(View <span class="hljs-params">v</span>)</span> &#123;<br>        <span class="hljs-comment">// ...</span><br>    &#125;<br>&#125;<br>adapter.register(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Post</span>.</span></span><span class="hljs-keyword">class</span>, <span class="hljs-keyword">new</span> <span class="hljs-constructor">PostViewBinder(<span class="hljs-params">xxx</span>, <span class="hljs-params">listener</span>)</span>);<br></code></pre></td></tr></table></figure>
+<pre><code>OnClickListener listener = new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // ...
+    }
+}
+adapter.register(Post.class, new PostViewBinder(xxx, listener));</code></pre><p>但话说回来，对于点击事件，能不依赖 <code>binder</code> 外部内容的话，最好就在 <code>binder</code> 内部完成。<code>binder</code> 内部能够拿到 Views 和 数据，大部分情况下，完全有能力不依赖外部 独立完成逻辑。这样能使代码更加模块化，实现解耦和内聚。例如下面便是一个完全自包含的例子：</p>
+<pre><code>public class SquareViewBinder extends ItemViewBinder&lt;Square, SquareViewBinder.ViewHolder&gt; {
 
-<p>但话说回来，对于点击事件，能不依赖 <code>binder</code> 外部内容的话，最好就在 <code>binder</code> 内部完成。<code>binder</code> 内部能够拿到 Views 和 数据，大部分情况下，完全有能力不依赖外部 独立完成逻辑。这样能使代码更加模块化，实现解耦和内聚。例如下面便是一个完全自包含的例子：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SquareViewBinder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ItemViewBinder&lt;Square</span>, <span class="hljs-title">SquareViewBinder</span>.<span class="hljs-title">ViewHolder&gt;</span> </span>&#123;<br><br>    <span class="hljs-meta">@NonNull</span> <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">ViewHolder</span> onCreateViewHolder(<br>        <span class="hljs-meta">@NonNull</span> <span class="hljs-type">LayoutInflater</span> inflater, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewGroup</span> parent) &#123;<br>        <span class="hljs-type">View</span> root = inflater.inflate(<span class="hljs-type">R</span>.layout.item_square, parent, <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">ViewHolder</span>(root);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> void onBindViewHolder(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewHolder</span> holder, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">Square</span> square) &#123;<br>        holder.square = square;<br>        holder.squareView.setText(valueOf(square.number));<br>        holder.squareView.setSelected(square.isSelected);<br>    &#125;<br><br>    public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewHolder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RecyclerView</span>.<span class="hljs-title">ViewHolder</span> </span>&#123;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">TextView</span> squareView;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">Square</span> square;<br><br>        <span class="hljs-type">ViewHolder</span>(<span class="hljs-keyword">final</span> <span class="hljs-type">View</span> itemView) &#123;<br>            <span class="hljs-keyword">super</span>(itemView);<br>            squareView = (<span class="hljs-type">TextView</span>) itemView.findViewById(<span class="hljs-type">R</span>.id.square);<br>            itemView.setOnClickListener(<span class="hljs-keyword">new</span> <span class="hljs-type">View</span>.<span class="hljs-type">OnClickListener</span>() &#123;<br>                <span class="hljs-meta">@Override</span> public void onClick(<span class="hljs-type">View</span> v) &#123;<br>                    itemView.setSelected(square.isSelected = !square.isSelected);<br>                &#125;<br>            &#125;);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(
+        @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        View root = inflater.inflate(R.layout.item_square, parent, false);
+        return new ViewHolder(root);
+    }
 
-<h2 id="使用断言，比传统-Adapter-更加易于调试"><a href="#使用断言，比传统-Adapter-更加易于调试" class="headerlink" title="使用断言，比传统 Adapter 更加易于调试"></a>使用断言，比传统 Adapter 更加易于调试</h2><p><strong>众所周知，如果一个传统的 <code>RecyclerView</code> <code>Adapter</code> 内部有异常导致崩溃，它的异常栈是不会指向到你的 <code>Activity</code></strong>，这给我们开发调试过程中带来了麻烦。如果我们的 <code>Adapter</code> 是复用的，就不知道是哪一个页面崩溃。而对于 <code>MultiTypeAdapter</code>，我们显然要用于多个地方，而且可能出现开发者忘记注册类型等等问题。为了便于调试，开发期快速失败，<strong>MultiType</strong> 提供了很方便的断言 API: <code>MultiTypeAsserts</code>，使用方式如下：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import static me.drakeet.multitype.<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">MultiTypeAsserts</span>.</span></span>assertAllRegistered;<br>import static me.drakeet.multitype.<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">MultiTypeAsserts</span>.</span></span>assertHasTheSameAdapter;<br><br>public <span class="hljs-keyword">class</span> SimpleActivity extends MenuBaseActivity &#123;<br><br>    <span class="hljs-keyword">private</span> Items items;<br>    <span class="hljs-keyword">private</span> MultiTypeAdapter adapter;<br><br>    @Override protected void on<span class="hljs-constructor">Create(Bundle <span class="hljs-params">savedInstanceState</span>)</span> &#123;<br>        super.on<span class="hljs-constructor">Create(<span class="hljs-params">savedInstanceState</span>)</span>;<br>        set<span class="hljs-constructor">ContentView(R.<span class="hljs-params">layout</span>.<span class="hljs-params">activity_main</span>)</span>;<br>        RecyclerView recyclerView = (RecyclerView) find<span class="hljs-constructor">ViewById(R.<span class="hljs-params">id</span>.<span class="hljs-params">list</span>)</span>;<br><br>        items = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Items()</span>;<br>        adapter = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MultiTypeAdapter(<span class="hljs-params">items</span>)</span>;<br>        adapter.register(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TextItem</span>.</span></span><span class="hljs-keyword">class</span>, <span class="hljs-keyword">new</span> <span class="hljs-constructor">TextItemViewBinder()</span>);<br><br>        for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span>; i++) &#123;<br>            items.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">TextItem(<span class="hljs-params">valueOf</span>(<span class="hljs-params">i</span>)</span>));<br>        &#125;<br><br>        <span class="hljs-comment">/* 断言所有使用的类型都已注册 */</span><br>        <span class="hljs-keyword">assert</span><span class="hljs-constructor">AllRegistered(<span class="hljs-params">adapter</span>, <span class="hljs-params">items</span>)</span>;<br>        recyclerView.set<span class="hljs-constructor">Adapter(<span class="hljs-params">adapter</span>)</span>;<br>        <span class="hljs-comment">/* 断言 recyclerView 使用的是正确的 adapter */</span><br>        <span class="hljs-keyword">assert</span><span class="hljs-constructor">HasTheSameAdapter(<span class="hljs-params">recyclerView</span>, <span class="hljs-params">adapter</span>)</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Square square) {
+        holder.square = square;
+        holder.squareView.setText(valueOf(square.number));
+        holder.squareView.setSelected(square.isSelected);
+    }
 
-<p><code>assertAllRegistered</code> 和 <code>assertHasTheSameAdapter</code> 都是可选择性使用，<code>assertAllRegistered</code> 需要在加载或更新数据之后， <code>assertHasTheSameAdapter</code> 必须在 <code>recyclerView.setAdapter(adapter)</code> 之后。</p>
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView squareView;
+        private Square square;
+
+        ViewHolder(final View itemView) {
+            super(itemView);
+            squareView = (TextView) itemView.findViewById(R.id.square);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    itemView.setSelected(square.isSelected = !square.isSelected);
+                }
+            });
+        }
+    }
+}</code></pre><h2 id="使用断言，比传统-Adapter-更加易于调试"><a href="#使用断言，比传统-Adapter-更加易于调试" class="headerlink" title="使用断言，比传统 Adapter 更加易于调试"></a>使用断言，比传统 Adapter 更加易于调试</h2><p><strong>众所周知，如果一个传统的 <code>RecyclerView</code> <code>Adapter</code> 内部有异常导致崩溃，它的异常栈是不会指向到你的 <code>Activity</code></strong>，这给我们开发调试过程中带来了麻烦。如果我们的 <code>Adapter</code> 是复用的，就不知道是哪一个页面崩溃。而对于 <code>MultiTypeAdapter</code>，我们显然要用于多个地方，而且可能出现开发者忘记注册类型等等问题。为了便于调试，开发期快速失败，<strong>MultiType</strong> 提供了很方便的断言 API: <code>MultiTypeAsserts</code>，使用方式如下：</p>
+<pre><code>import static me.drakeet.multitype.MultiTypeAsserts.assertAllRegistered;
+import static me.drakeet.multitype.MultiTypeAsserts.assertHasTheSameAdapter;
+
+public class SimpleActivity extends MenuBaseActivity {
+
+    private Items items;
+    private MultiTypeAdapter adapter;
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        items = new Items();
+        adapter = new MultiTypeAdapter(items);
+        adapter.register(TextItem.class, new TextItemViewBinder());
+
+        for (int i = 0; i &lt; 20; i++) {
+            items.add(new TextItem(valueOf(i)));
+        }
+
+        /* 断言所有使用的类型都已注册 */
+        assertAllRegistered(adapter, items);
+        recyclerView.setAdapter(adapter);
+        /* 断言 recyclerView 使用的是正确的 adapter */
+        assertHasTheSameAdapter(recyclerView, adapter);
+    }
+}</code></pre><p><code>assertAllRegistered</code> 和 <code>assertHasTheSameAdapter</code> 都是可选择性使用，<code>assertAllRegistered</code> 需要在加载或更新数据之后， <code>assertHasTheSameAdapter</code> 必须在 <code>recyclerView.setAdapter(adapter)</code> 之后。</p>
 <p>这样做以后，<code>MultiTypeAdapter</code> 相关的异常都会报到你的 <code>Activity</code>，并且会详细注明出错的原因，而如果符合断言，断言代码不会有任何副作用或影响你的代码逻辑，这时你可以把它当作废话。关于这个类的源代码是很简单的，有兴趣可以直接看看源码：<a href="https://github.com/drakeet/MultiType/blob/master/library/src/main/java/me/drakeet/multitype/MultiTypeAsserts.java" target="_blank" rel="noopener">drakeet/multitype/MultiTypeAsserts.java</a></p>
 <h2 id="支持-Google-AutoValue"><a href="#支持-Google-AutoValue" class="headerlink" title="支持 Google AutoValue"></a>支持 Google AutoValue</h2><p><a href="https://github.com/google/auto/tree/master/value" target="_blank" rel="noopener">AutoValue</a> 是 Google 提供的一个在 Java 实体类中自动生成代码的类库，使你更专注于处理项目的其他逻辑，它可使代码更少，更干净，以及更少的 bug.</p>
 <p>当我们使用传统方式创建一个 Java 模型类的时候，经常需要写一堆 <code>toString()</code>、<code>hashCode()</code>、getter、setter 等等方法，而且对于 Android 开发，大多情况下还需要实现 <code>Parcelable</code> 接口。这样的结果是，我本来想要一个只有几个属性的小模型类，但出于各种原因，这个模型类方法数变得十分繁复，阅读起来很不清爽，并且难免会写错内容。AutoValue 的出现解决了这个问题，我们只需定义一些抽象类交给 AutoValue，AutoValue 会<strong>自动</strong>生成该抽象类的具体实现子类，并携带各种样板代码。</p>
@@ -293,9 +370,31 @@
 </li>
 <li><p><strong>加载更多：</strong></p>
 <p><code>RecyclerView</code> 提供了 <code>addOnScrollListener</code> 滚动位置变化监听，要实现加载更多，只要监听并检测列表是否滚动到底部即可，有多种方式，鉴于 <code>LayoutManager</code> 本应该只做布局相关的事务，因此我们推荐直接在 <code>OnScrollListener</code> 层面进行判断。提供一个简单版 <code>OnScrollListener</code> 继承类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OnLoadMoreListener</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RecyclerView</span>.<span class="hljs-title">OnScrollListener</span> </span>&#123;<br><br>  <span class="hljs-keyword">private</span> LinearLayoutManager layoutManager;<br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> itemCount, lastPosition, lastItemCount;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLoadMore</span><span class="hljs-params">()</span></span>;<br><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onScrolled</span><span class="hljs-params">(RecyclerView recyclerView, <span class="hljs-keyword">int</span> dx, <span class="hljs-keyword">int</span> dy)</span> </span>&#123;<br>      <span class="hljs-keyword">if</span> (recyclerView.getLayoutManager() <span class="hljs-keyword">instanceof</span> LinearLayoutManager) &#123;<br>          layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();<br><br>          itemCount = layoutManager.getItemCount();<br>          lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>          Log.e(<span class="hljs-string">"OnLoadMoreListener"</span>, <span class="hljs-string">"The OnLoadMoreListener only support LinearLayoutManager"</span>);<br>          <span class="hljs-keyword">return</span>;<br>      &#125;<br><br>      <span class="hljs-keyword">if</span> (lastItemCount != itemCount &amp;&amp; lastPosition == itemCount - <span class="hljs-number">1</span>) &#123;<br>          lastItemCount = itemCount;<br>          <span class="hljs-keyword">this</span>.onLoadMore();<br>      &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>public abstract class OnLoadMoreListener extends RecyclerView.OnScrollListener {
 
-<p>或者参考我的 rebase-android 项目编写的 <a href="https://github.com/drakeet/rebase-android/blob/master/app/src/main/java/com/drakeet/rebase/tool/LoadMoreDelegate.java" target="_blank" rel="noopener">LoadMoreDelegate.java</a>.</p>
+  private LinearLayoutManager layoutManager;
+  private int itemCount, lastPosition, lastItemCount;
+
+  public abstract void onLoadMore();
+
+  @Override
+  public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+      if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+          layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+          itemCount = layoutManager.getItemCount();
+          lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+      } else {
+          Log.e(&quot;OnLoadMoreListener&quot;, &quot;The OnLoadMoreListener only support LinearLayoutManager&quot;);
+          return;
+      }
+
+      if (lastItemCount != itemCount &amp;&amp; lastPosition == itemCount - 1) {
+          lastItemCount = itemCount;
+          this.onLoadMore();
+      }
+  }
+}</code></pre><p>或者参考我的 rebase-android 项目编写的 <a href="https://github.com/drakeet/rebase-android/blob/master/app/src/main/java/com/drakeet/rebase/tool/LoadMoreDelegate.java" target="_blank" rel="noopener">LoadMoreDelegate.java</a>.</p>
 </li>
 <li><p><strong>获取数据后做 Diff 更新：</strong></p>
 <p><strong>MultiType</strong> 支持 onBindViewHolder with payloads，详情见 <code>ItemViewBinder</code> 类文档。对于 Diff，可以在 <code>Activity</code> 中进行 Diff，或者继承 <code>MultiTypeAdapter</code> 提供接收数据方法，在方法中进行 Diff. <strong>MultiType</strong> 不提供内置 Diff 方案，不然需要依赖 v4 包，并且这也不应该属于它的范畴。</p>
@@ -306,31 +405,124 @@
 </li>
 </ul>
 <h2 id="实现-RecyclerView-嵌套横向-RecyclerView"><a href="#实现-RecyclerView-嵌套横向-RecyclerView" class="headerlink" title="实现 RecyclerView 嵌套横向 RecyclerView"></a>实现 RecyclerView 嵌套横向 RecyclerView</h2><p><strong>MultiType</strong> 天生就适合实现类似 Google Play 或 iOS App Store 那样复杂的首页列表，这种页面通常会在垂直列表中嵌套横向列表，其实横向列表我们完全可以把它视为一种 <code>Item</code> 类型，这个 item 持有一个列表数据和当前横向列表滑动到的位置，类似这样：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">PostList</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> List&lt;Post&gt; posts;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> currentPosition;<br><br>    <span class="hljs-keyword">public</span> PostList(@NonNull List&lt;Post&gt; posts) &#123;<span class="hljs-keyword">this</span>.posts = posts;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>public class PostList {
 
-<p>对应的 <code>HorizontalItemViewBinder</code> 类似这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HorizontalItemViewBinder</span></span><br><span class="hljs-class">    <span class="hljs-keyword">extends</span> <span class="hljs-title">ItemViewBinder&lt;PostList</span>, <span class="hljs-title">HorizontalItemViewBinder</span>.<span class="hljs-title">ViewHolder&gt;</span> </span>&#123;<br><br>    <span class="hljs-meta">@NonNull</span> <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-type">ViewHolder</span> onCreateViewHolder(<br>        <span class="hljs-meta">@NonNull</span> <span class="hljs-type">LayoutInflater</span> inflater, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewGroup</span> parent) &#123;<br>        <span class="hljs-comment">/* item_horizontal_list 就是一个只有 RecyclerView 的布局 */</span><br>        <span class="hljs-type">View</span> view = inflater.inflate(<span class="hljs-type">R</span>.layout.item_horizontal_list, parent, <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">ViewHolder</span>(view);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> void onBindViewHolder(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">ViewHolder</span> holder, <span class="hljs-meta">@NonNull</span> <span class="hljs-type">PostList</span> postList) &#123;<br>        holder.setPosts(postList.posts);<br>    &#125;<br><br>    static <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewHolder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RecyclerView</span>.<span class="hljs-title">ViewHolder</span> </span>&#123;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">RecyclerView</span> recyclerView;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">PostsAdapter</span> adapter;<br><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">ViewHolder</span>(<span class="hljs-meta">@NonNull</span> <span class="hljs-type">View</span> itemView) &#123;<br>            <span class="hljs-keyword">super</span>(itemView);<br>            recyclerView = (<span class="hljs-type">RecyclerView</span>) itemView.findViewById(<span class="hljs-type">R</span>.id.post_list);<br>            <span class="hljs-type">LinearLayoutManager</span> layoutManager = <span class="hljs-keyword">new</span> <span class="hljs-type">LinearLayoutManager</span>(itemView.getContext());<br>            layoutManager.setOrientation(<span class="hljs-type">LinearLayoutManager</span>.<span class="hljs-type">HORIZONTAL</span>);<br>            recyclerView.setLayoutManager(layoutManager);<br>            <span class="hljs-comment">/* adapter 只负责灌输、适配数据，布局交给 LayoutManager，可复用 */</span><br>            adapter = <span class="hljs-keyword">new</span> <span class="hljs-type">PostsAdapter</span>(); <span class="hljs-comment">// 或者直接使用 MultiTypeAdapter 更加方便</span><br>            recyclerView.setAdapter(adapter);<br>            <span class="hljs-comment">/* 在此设置横向滑动监听器，用于记录和恢复当前滑动到的位置，略 */</span><br>            ...<br>        &#125;<br><br>        <span class="hljs-keyword">private</span> void setPosts(<span class="hljs-type">List</span>&lt;<span class="hljs-type">Post</span>&gt; posts) &#123;<br>            adapter.setPosts(posts);<br>            adapter.notifyDataSetChanged();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    public final List&lt;Post&gt; posts;
+    public int currentPosition;
 
-<h2 id="实现线性布局和网格布局混排列表"><a href="#实现线性布局和网格布局混排列表" class="headerlink" title="实现线性布局和网格布局混排列表"></a>实现线性布局和网格布局混排列表</h2><p>这个课题其实也不属于 <strong>MultiType</strong> 的范畴，<strong>MultiType</strong> 的职责是做数据类型分发，而不是布局，但鉴于很多复杂页面都会需要线性布局和网格布局混排，我就简单讲一讲，关键在于 <code>RecyclerView</code> 的 <code>LayoutManager</code>. 虽然是线性和网格混合，但实现起来其实只要一个网格布局 <code>GridLayoutManager</code>，如果你查看 <code>GridLayoutManager</code> 的官方源码，你会发现它其实继承自 <code>LinearLayoutManager</code>. 以下是示例和解释：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">public <span class="hljs-keyword">class</span> MultiGridActivity extends MenuBaseActivity &#123;<br><br>    <span class="hljs-keyword">private</span> final static <span class="hljs-built_in">int</span> SPAN_COUNT = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">private</span> MultiTypeAdapter adapter;<br>    <span class="hljs-keyword">private</span> Items items;<br><br>    @Override<br>    protected void on<span class="hljs-constructor">Create(Bundle <span class="hljs-params">savedInstanceState</span>)</span> &#123;<br>        super.on<span class="hljs-constructor">Create(<span class="hljs-params">savedInstanceState</span>)</span>;<br>        set<span class="hljs-constructor">ContentView(R.<span class="hljs-params">layout</span>.<span class="hljs-params">activity_multi_grid</span>)</span>;<br>        items = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Items()</span>;<br>        RecyclerView recyclerView = (RecyclerView) find<span class="hljs-constructor">ViewById(R.<span class="hljs-params">id</span>.<span class="hljs-params">list</span>)</span>;<br><br>        final GridLayoutManager layoutManager = <span class="hljs-keyword">new</span> <span class="hljs-constructor">GridLayoutManager(<span class="hljs-params">this</span>, SPAN_COUNT)</span>;<br><br>        <span class="hljs-comment">/* 关键内容：通过 setSpanSizeLookup 来告诉布局，你的 item 占几个横向单位，</span><br><span class="hljs-comment">           如果你横向有 5 个单位，而你返回当前 item 占用 5 个单位，那么它就会看起来单独占用一行 */</span><br>        layoutManager.set<span class="hljs-constructor">SpanSizeLookup(<span class="hljs-params">new</span> GridLayoutManager.SpanSizeLookup()</span> &#123;<br>            @Override<br>            public <span class="hljs-built_in">int</span> get<span class="hljs-constructor">SpanSize(<span class="hljs-params">int</span> <span class="hljs-params">position</span>)</span> &#123;<br>                return (items.get(position) instanceof Category) ? SPAN_COUNT : <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;);<br>        recyclerView.set<span class="hljs-constructor">LayoutManager(<span class="hljs-params">layoutManager</span>)</span>;<br><br>        adapter = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MultiTypeAdapter(<span class="hljs-params">items</span>)</span>;<br>        adapter.apply<span class="hljs-constructor">GlobalMultiTypePool()</span>;<br>        adapter.register(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Square</span>.</span></span><span class="hljs-keyword">class</span>, <span class="hljs-keyword">new</span> <span class="hljs-constructor">SquareViewBinder()</span>);<br><br>        <span class="hljs-keyword">assert</span><span class="hljs-constructor">AllRegistered(<span class="hljs-params">adapter</span>, <span class="hljs-params">items</span>)</span>;<br>        recyclerView.set<span class="hljs-constructor">Adapter(<span class="hljs-params">adapter</span>)</span>;<br>        load<span class="hljs-constructor">Data()</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> void load<span class="hljs-constructor">Data()</span> &#123;<br>        <span class="hljs-comment">// ...</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+    public PostList(@NonNull List&lt;Post&gt; posts) {this.posts = posts;}
+}</code></pre><p>对应的 <code>HorizontalItemViewBinder</code> 类似这样：</p>
+<pre><code>public class HorizontalItemViewBinder
+    extends ItemViewBinder&lt;PostList, HorizontalItemViewBinder.ViewHolder&gt; {
 
-<h2 id="数据扁平化处理"><a href="#数据扁平化处理" class="headerlink" title="数据扁平化处理"></a>数据扁平化处理</h2><p>在一个<strong>垂直</strong> <code>RecyclerView</code> 中，item 们都是同级的，没有任何嵌套关系，但我们的数据结构往往存在嵌套关系，比如 <code>Post</code> 内部包含了 <code>Comment</code>s 数据，或换句话说 <code>Post</code> 嵌套了 <code>Comment</code>，就像微信朋友圈一样，”动态” 伴随着 “评论”。那么如何把 非扁平化 的数据排布在 扁平 的列表中呢？必然需要一个<em>数据扁平化处理</em>的过程，就像 <code>ListView</code> 的数据需要一个 <code>Adapter</code> 来适配，<code>Adapter</code> 就像一个油漏斗，把油引入瓶子中。我们在面对嵌套数据结构的时候，可以采用如下的扁平化处理，关于扁平化这个词，不必太纠结，简单说，就是把嵌套数据都拉出来，摊平，让 <code>Comment</code> 和 <code>Post</code> 同级，最后把它们都 add 进同一个 <code>Items</code> 容器，交给 <code>MultiTypeAdapter</code>. 示例：</p>
+    @NonNull @Override
+    protected ViewHolder onCreateViewHolder(
+        @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        /* item_horizontal_list 就是一个只有 RecyclerView 的布局 */
+        View view = inflater.inflate(R.layout.item_horizontal_list, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull PostList postList) {
+        holder.setPosts(postList.posts);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private RecyclerView recyclerView;
+        private PostsAdapter adapter;
+
+        private ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.post_list);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
+            /* adapter 只负责灌输、适配数据，布局交给 LayoutManager，可复用 */
+            adapter = new PostsAdapter(); // 或者直接使用 MultiTypeAdapter 更加方便
+            recyclerView.setAdapter(adapter);
+            /* 在此设置横向滑动监听器，用于记录和恢复当前滑动到的位置，略 */
+            ...
+        }
+
+        private void setPosts(List&lt;Post&gt; posts) {
+            adapter.setPosts(posts);
+            adapter.notifyDataSetChanged();
+        }
+    }
+}</code></pre><h2 id="实现线性布局和网格布局混排列表"><a href="#实现线性布局和网格布局混排列表" class="headerlink" title="实现线性布局和网格布局混排列表"></a>实现线性布局和网格布局混排列表</h2><p>这个课题其实也不属于 <strong>MultiType</strong> 的范畴，<strong>MultiType</strong> 的职责是做数据类型分发，而不是布局，但鉴于很多复杂页面都会需要线性布局和网格布局混排，我就简单讲一讲，关键在于 <code>RecyclerView</code> 的 <code>LayoutManager</code>. 虽然是线性和网格混合，但实现起来其实只要一个网格布局 <code>GridLayoutManager</code>，如果你查看 <code>GridLayoutManager</code> 的官方源码，你会发现它其实继承自 <code>LinearLayoutManager</code>. 以下是示例和解释：</p>
+<pre><code>public class MultiGridActivity extends MenuBaseActivity {
+
+    private final static int SPAN_COUNT = 5;
+    private MultiTypeAdapter adapter;
+    private Items items;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_multi_grid);
+        items = new Items();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, SPAN_COUNT);
+
+        /* 关键内容：通过 setSpanSizeLookup 来告诉布局，你的 item 占几个横向单位，
+           如果你横向有 5 个单位，而你返回当前 item 占用 5 个单位，那么它就会看起来单独占用一行 */
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return (items.get(position) instanceof Category) ? SPAN_COUNT : 1;
+            }
+        });
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new MultiTypeAdapter(items);
+        adapter.applyGlobalMultiTypePool();
+        adapter.register(Square.class, new SquareViewBinder());
+
+        assertAllRegistered(adapter, items);
+        recyclerView.setAdapter(adapter);
+        loadData();
+    }
+
+    private void loadData() {
+        // ...
+    }
+}</code></pre><h2 id="数据扁平化处理"><a href="#数据扁平化处理" class="headerlink" title="数据扁平化处理"></a>数据扁平化处理</h2><p>在一个<strong>垂直</strong> <code>RecyclerView</code> 中，item 们都是同级的，没有任何嵌套关系，但我们的数据结构往往存在嵌套关系，比如 <code>Post</code> 内部包含了 <code>Comment</code>s 数据，或换句话说 <code>Post</code> 嵌套了 <code>Comment</code>，就像微信朋友圈一样，”动态” 伴随着 “评论”。那么如何把 非扁平化 的数据排布在 扁平 的列表中呢？必然需要一个<em>数据扁平化处理</em>的过程，就像 <code>ListView</code> 的数据需要一个 <code>Adapter</code> 来适配，<code>Adapter</code> 就像一个油漏斗，把油引入瓶子中。我们在面对嵌套数据结构的时候，可以采用如下的扁平化处理，关于扁平化这个词，不必太纠结，简单说，就是把嵌套数据都拉出来，摊平，让 <code>Comment</code> 和 <code>Post</code> 同级，最后把它们都 add 进同一个 <code>Items</code> 容器，交给 <code>MultiTypeAdapter</code>. 示例：</p>
 <p>假设：你的 <code>Post</code> 是这样的：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">Post</span> &#123;<br><br>    <span class="hljs-keyword">public</span> String content;<br>    <span class="hljs-keyword">public</span> List&lt;Comment&gt; comments; <br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>public class Post {
 
-<p>假设：你的 <code>Comment</code> 是这样的：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">Comment</span> &#123;<br><br>    <span class="hljs-keyword">public</span> String content;<br>&#125;<br></code></pre></td></tr></table></figure>
+    public String content;
+    public List&lt;Comment&gt; comments; 
+}</code></pre><p>假设：你的 <code>Comment</code> 是这样的：</p>
+<pre><code>public class Comment {
 
-<p>假设：你服务端返回的 JSON 数据是这样的：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json">[<br>    &#123;<br>        <span class="hljs-attr">"content"</span>:<span class="hljs-string">"I have released the MultiType v2.2.2"</span>, <br>        <span class="hljs-attr">"comments"</span>:[<br>            &#123;<span class="hljs-attr">"content"</span>:<span class="hljs-string">"great"</span>&#125;,<br>            &#123;<span class="hljs-attr">"content"</span>:<span class="hljs-string">"I love your post!"</span>&#125;<br>        ]<br>    &#125;<br>]<br></code></pre></td></tr></table></figure>
-
-<p>那么你的 JSON 转成 Java Bean 之后，你拿到手应该是个 <code>List&lt;Post&gt; posts</code> 对象，现在我们写一个扁平化处理的方法：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stata">private <span class="hljs-keyword">List</span>&lt;Object&gt; flattenData(<span class="hljs-keyword">List</span>&lt;<span class="hljs-keyword">Post</span>&gt; posts) &#123;<br>    final <span class="hljs-keyword">List</span>&lt;Object&gt; items = new ArrayList&lt;&gt;();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">Post</span> <span class="hljs-keyword">post</span> : posts) &#123;<br>        <span class="hljs-comment">/* 将 post 加进 items，Binder 内部拿到它的时候，</span><br><span class="hljs-comment">         * 我们无视它的 comments 内容即可 */</span><br>        items.add(<span class="hljs-keyword">post</span>);<br>        <span class="hljs-comment">/* 紧接着将 comments 拿出来插入进 items，</span><br><span class="hljs-comment">         * 评论就能正好处于该条 post 下面 */</span><br>        items.addAll(<span class="hljs-keyword">post</span>.comments);<br>    &#125;<br>    <span class="hljs-keyword">return</span> items;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>最后我们所有的 <code>posts</code> 在加入全局 MultiType <code>Items</code> 之前，都需要经过扁平化处理：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">items.add<span class="hljs-constructor">All(<span class="hljs-params">flattenData</span>(<span class="hljs-params">posts</span>)</span>);<br>adapter.notify<span class="hljs-constructor">DataSetChanged()</span>;<br></code></pre></td></tr></table></figure>
-
-<p>整个过程其实并不困难，相信大家都已经理解了。</p>
+    public String content;
+}</code></pre><p>假设：你服务端返回的 JSON 数据是这样的：</p>
+<pre><code>[
+    {
+        &quot;content&quot;:&quot;I have released the MultiType v2.2.2&quot;, 
+        &quot;comments&quot;:[
+            {&quot;content&quot;:&quot;great&quot;},
+            {&quot;content&quot;:&quot;I love your post!&quot;}
+        ]
+    }
+]</code></pre><p>那么你的 JSON 转成 Java Bean 之后，你拿到手应该是个 <code>List&lt;Post&gt; posts</code> 对象，现在我们写一个扁平化处理的方法：</p>
+<pre><code>private List&lt;Object&gt; flattenData(List&lt;Post&gt; posts) {
+    final List&lt;Object&gt; items = new ArrayList&lt;&gt;();
+    for (Post post : posts) {
+        /* 将 post 加进 items，Binder 内部拿到它的时候，
+         * 我们无视它的 comments 内容即可 */
+        items.add(post);
+        /* 紧接着将 comments 拿出来插入进 items，
+         * 评论就能正好处于该条 post 下面 */
+        items.addAll(post.comments);
+    }
+    return items;
+}</code></pre><p>最后我们所有的 <code>posts</code> 在加入全局 MultiType <code>Items</code> 之前，都需要经过扁平化处理：</p>
+<pre><code>items.addAll(flattenData(posts));
+adapter.notifyDataSetChanged();</code></pre><p>整个过程其实并不困难，相信大家都已经理解了。</p>
 <h1 id="更多示例"><a href="#更多示例" class="headerlink" title="更多示例"></a>更多示例</h1><p><strong>MultiType</strong> 的开源项目提供了许多的 samples (示例) 程序，这些示例秉承了一贯的代码清晰、干净的风格，十分易于阅读：</p>
 <ul>
 <li><p><a href="https://github.com/drakeet/MultiType/tree/master/sample/src/main/java/me/drakeet/multitype/sample/weibo" target="_blank" rel="noopener">仿造<strong>微博</strong>的数据结构和二级 ItemViewBinder</a></p>
@@ -376,70 +568,289 @@
 </li>
 </ul>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/12/multitype/">https://jiyugithub.github.io/2020/06/12/multitype/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/12/view1/">一文彻底了解Android自定义控件1</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/11/vue/">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-复杂的列视图新写法-MultiType"><span class="toc-number">1.</span> <span class="toc-text">Android 复杂的列视图新写法 MultiType</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MultiType-的特性"><span class="toc-number">3.</span> <span class="toc-text">MultiType 的特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总览"><span class="toc-number">4.</span> <span class="toc-text">总览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MultiType-基础用法"><span class="toc-number">5.</span> <span class="toc-text">MultiType 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入"><span class="toc-number">5.0.1.</span> <span class="toc-text">引入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">5.1.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计思想"><span class="toc-number">6.</span> <span class="toc-text">设计思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级用法"><span class="toc-number">7.</span> <span class="toc-text">高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MultiTypeTemplates-插件自动生成代码"><span class="toc-number">7.1.</span> <span class="toc-text">使用 MultiTypeTemplates 插件自动生成代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个类型对应多个-ItemViewBinder"><span class="toc-number">7.2.</span> <span class="toc-text">一个类型对应多个 ItemViewBinder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-全局类型池"><span class="toc-number">7.3.</span> <span class="toc-text">使用 全局类型池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与-ItemViewBinder-通讯"><span class="toc-number">7.4.</span> <span class="toc-text">与 ItemViewBinder 通讯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用断言，比传统-Adapter-更加易于调试"><span class="toc-number">7.5.</span> <span class="toc-text">使用断言，比传统 Adapter 更加易于调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持-Google-AutoValue"><span class="toc-number">7.6.</span> <span class="toc-text">支持 Google AutoValue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlatTypeAdapter-已废弃"><span class="toc-number">7.7.</span> <span class="toc-text">FlatTypeAdapter(已废弃)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MultiType-与下拉刷新、加载更多、HeaderView、FooterView、Diff"><span class="toc-number">7.8.</span> <span class="toc-text">MultiType 与下拉刷新、加载更多、HeaderView、FooterView、Diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现-RecyclerView-嵌套横向-RecyclerView"><span class="toc-number">7.9.</span> <span class="toc-text">实现 RecyclerView 嵌套横向 RecyclerView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现线性布局和网格布局混排列表"><span class="toc-number">7.10.</span> <span class="toc-text">实现线性布局和网格布局混排列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据扁平化处理"><span class="toc-number">7.11.</span> <span class="toc-text">数据扁平化处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更多示例"><span class="toc-number">8.</span> <span class="toc-text">更多示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">9.</span> <span class="toc-text">Q &amp; A</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

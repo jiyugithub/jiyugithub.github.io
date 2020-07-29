@@ -1,196 +1,141 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>从0到1教你搭建前端团队的组件系统（高级进阶必备） | Apocalypse&#39;s Blog</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>从0到1教你搭建前端团队的组件系统（高级进阶必备） - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="前言随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">从0到1教你搭建前端团队的组件系统（高级进阶必备）</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">从0到1教你搭建前端团队的组件系统（高级进阶必备）</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 11, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/11/vue/" title="从0到1教你搭建前端团队的组件系统（高级进阶必备）" class="">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 11, 2020&nbsp;&nbsp;12:57:45</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    13k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着vue/react这类以数据驱动为主的web框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于react的开源组件库ant-design，material，又比如基于vue的开源组件库elementUI，iView等。</p>
 <a id="more"></a>
 
@@ -265,24 +210,58 @@
 </ul>
 <p>所以作为一个开箱即用的组件库打包工具，已经为我们省去了很多中间步骤，比如说组件的测试，不同环境下的模块打包，而且还支持ts和文档功能，我们只需要掌握babel和rollup的知识，就能用它轻松配置出一个强大的组件库脚手架。如果对docz不太了解的可以在<a href="https://www.docz.site/" target="_blank" rel="noopener">docz官网</a>学习使用非常简单,只要你对markdown和react熟悉，分分钟入门。</p>
 <h4 id="4-2-使用father搭建组件库"><a href="#4-2-使用father搭建组件库" class="headerlink" title="4.2 使用father搭建组件库"></a>4.2 使用father搭建组件库</h4><p>其实father的使用非常简单，首先我们先安装一下father：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> father -D<br></code></pre></td></tr></table></figure>
+<pre><code>npm install father -D
+</code></pre><p>或者使用yarn安装：</p>
+<pre><code>yarn add father
+</code></pre><p>接下来我们可以在package.json里配置如下脚本来使用：</p>
+<pre><code># 打包库
+$ father build
 
-<p>或者使用yarn安装：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">add</span><span class="bash"> father</span><br></code></pre></td></tr></table></figure>
+# 开发环境下启动文档服务
+$ father doc dev
 
-<p>接下来我们可以在package.json里配置如下脚本来使用：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 打包库</span><br><span class="hljs-meta">$</span><span class="bash"> father build</span><br><br><span class="hljs-meta">#</span><span class="bash"> 开发环境下启动文档服务</span><br><span class="hljs-meta">$</span><span class="bash"> father doc dev</span><br><br><span class="hljs-meta">#</span><span class="bash"> 打包编译文档</span><br><span class="hljs-meta">$</span><span class="bash"> father doc build</span><br><br><span class="hljs-meta">#</span><span class="bash"> 将文档部署到github</span><br><span class="hljs-meta">$</span><span class="bash"> father doc deploy</span><br><br><span class="hljs-meta">#</span><span class="bash"> 组件库测试及测试覆盖率</span><br><span class="hljs-meta">$</span><span class="bash"> father <span class="hljs-built_in">test</span></span><br><span class="hljs-meta">$</span><span class="bash"> father <span class="hljs-built_in">test</span> --coverage</span><br></code></pre></td></tr></table></figure>
+# 打包编译文档
+$ father doc build
 
-<p>这里拿笔者之前已经发布到npm的组件库<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a>来举例。 首先我们看看<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json中的script脚本如何配置的：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">"scripts"</span>: &#123;<br>    <span class="hljs-string">"dev"</span>: <span class="hljs-string">"npx --max_old_space_size=8096 father doc dev --host 0.0.0.0"</span>,<br>    <span class="hljs-string">"build"</span>: <span class="hljs-string">"father build"</span>,<br>    <span class="hljs-string">"build:doc"</span>: <span class="hljs-string">"father doc build"</span>,<br>    <span class="hljs-string">"deploy"</span>: <span class="hljs-string">"father doc deploy"</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+# 将文档部署到github
+$ father doc deploy
 
-<p>当我们执行npm run dev或者yarn dev时，father自动帮我们启动了doc服务器，我们接下来就能看到我们组件的测试文档了：</p>
+# 组件库测试及测试覆盖率
+$ father test
+$ father test --coverage
+</code></pre><p>这里拿笔者之前已经发布到npm的组件库<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a>来举例。 首先我们看看<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json中的script脚本如何配置的：</p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;npx --max_old_space_size=8096 father doc dev --host 0.0.0.0&quot;,
+    &quot;build&quot;: &quot;father build&quot;,
+    &quot;build:doc&quot;: &quot;father doc build&quot;,
+    &quot;deploy&quot;: &quot;father doc deploy&quot;
+  }
+</code></pre><p>当我们执行npm run dev或者yarn dev时，father自动帮我们启动了doc服务器，我们接下来就能看到我们组件的测试文档了：</p>
 <p><img src="http://gank.io/images/e50a95c09cdf4efb8a51d3aa5a23b04c" alt="img"></p>
 <p><img src="http://gank.io/images/06f63fe8890b41519df05f3f19453d0c" alt="img"></p>
 <p>这些内容都是我们提前写好的mdx文档，语法类似于markdown，只不过增加了对react组件的编译支持，其实使用起来很简单，我们只需要把react组件包裹在Playground容器里就好了，具体使用可以参考以下方式：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">name:</span> <span class="hljs-string">Button</span><br><span class="hljs-attr">route:</span> <span class="hljs-string">/Button</span><br><span class="hljs-attr">order:</span> <span class="hljs-number">3</span><br><span class="hljs-attr">sidebar:</span> <span class="hljs-literal">true</span><br><span class="hljs-meta">---</span><br><br><span class="hljs-string">import</span> <span class="hljs-string">&#123;</span> <span class="hljs-string">Playground</span> <span class="hljs-string">&#125;</span> <span class="hljs-string">from</span> <span class="hljs-string">'docz'</span><br><span class="hljs-string">import</span> <span class="hljs-string">Button</span> <span class="hljs-string">from</span> <span class="hljs-string">'./index'</span><br><br><span class="hljs-comment"># Button</span><br><br><span class="hljs-comment">#### 基本用法</span><br><span class="hljs-string">&lt;Playground&gt;</span><br>    <span class="hljs-string">&lt;Button&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="primary"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="warning"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="info"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="pure"&gt;按钮&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br>    <span class="hljs-string">&lt;Button</span> <span class="hljs-string">type="primary"</span> <span class="hljs-string">shape="circle"&gt;按钮的命运&lt;/Button&gt;&lt;br</span> <span class="hljs-string">/&gt;</span><br><span class="hljs-string">&lt;/Playground&gt;</span><br></code></pre></td></tr></table></figure>
+<pre><code>---
+name: Button
+route: /Button
+order: 3
+sidebar: true
+---
 
-<p>头部的信息我需要介绍一下：</p>
+import { Playground } from &#39;docz&#39;
+import Button from &#39;./index&#39;
+
+# Button
+
+#### 基本用法
+&lt;Playground&gt;
+    &lt;Button&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;primary&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;warning&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;info&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;pure&quot;&gt;按钮&lt;/Button&gt;&lt;br /&gt;
+    &lt;Button type=&quot;primary&quot; shape=&quot;circle&quot;&gt;按钮的命运&lt;/Button&gt;&lt;br /&gt;
+&lt;/Playground&gt;
+</code></pre><p>头部的信息我需要介绍一下：</p>
 <ul>
 <li>name 组件的名称，也就是显示在左部导航栏里的导航文本</li>
 <li>route 组件页面的路由</li>
@@ -292,9 +271,34 @@
 <p>我们根据案例可以知道mdx里面可以使用es6的导入方式来引入组件或者变量，其实还有很多配置，这里就不一一举例了，感兴趣的可以到docz官网学习。以下是官网的截图：</p>
 <p><img src="http://gank.io/images/88c1791e8ff34523906081b881ed0edb" alt="img"></p>
 <p>接下来介绍我们最重要的部分，<strong>.fatherrc.js</strong>文件的配置。初始化father项目时会自动生成一个默认配置，但是大多数情况下我们都需要自定义配置，官网的配置参数也很多，可以找到适合自己团队的配置，这里我主要介绍<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>组件库的配置细节。先看看配置代码：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">//</span> <span class="hljs-string">.fatherrc.js</span><br><span class="hljs-string">const</span> <span class="hljs-string">options</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span><br>  <span class="hljs-attr">entry:</span> <span class="hljs-string">'src/index.js'</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">doc:</span> <span class="hljs-string">&#123;</span><br>    <span class="hljs-attr">title:</span> <span class="hljs-string">'xu_ui'</span><span class="hljs-string">,</span><br>    <span class="hljs-attr">themeConfig:</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">mode:</span> <span class="hljs-string">'light'</span> <span class="hljs-string">&#125;,</span><br>    <span class="hljs-attr">base:</span> <span class="hljs-string">'/xu_ui'</span><br>  <span class="hljs-string">&#125;,</span><br>  <span class="hljs-attr">extraBabelPlugins:</span> <span class="hljs-string">[</span><br>      <span class="hljs-string">['babel-plugin-import',</span> <span class="hljs-string">&#123;</span><br>          <span class="hljs-attr">libraryName:</span> <span class="hljs-string">'antd'</span><span class="hljs-string">,</span><br>          <span class="hljs-attr">libraryDirectory:</span> <span class="hljs-string">'es'</span><span class="hljs-string">,</span><br>          <span class="hljs-attr">style:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>      <span class="hljs-string">&#125;]</span><br>  <span class="hljs-string">],</span><br>  <span class="hljs-string">//</span> <span class="hljs-attr">cssModules:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">extractCSS:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">lessInBabelMode:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">runtimeHelpers:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">esm:</span> <span class="hljs-string">'babel'</span><span class="hljs-string">,</span> <br>  <span class="hljs-attr">cjs:</span> <span class="hljs-string">'babel'</span><span class="hljs-string">,</span><br>  <span class="hljs-attr">autoprefixer:</span> <span class="hljs-string">&#123;</span><br>      <span class="hljs-attr">browsers:</span> <span class="hljs-string">['ie&gt;9',</span> <span class="hljs-string">'Safari &gt;= 6'</span><span class="hljs-string">],</span><br>  <span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;;</span><br><br><span class="hljs-string">export</span> <span class="hljs-string">default</span> <span class="hljs-string">options;</span><br></code></pre></td></tr></table></figure>
+<pre><code>// .fatherrc.js
+const options = {
+  entry: &#39;src/index.js&#39;,
+  doc: {
+    title: &#39;xu_ui&#39;,
+    themeConfig: { mode: &#39;light&#39; },
+    base: &#39;/xu_ui&#39;
+  },
+  extraBabelPlugins: [
+      [&#39;babel-plugin-import&#39;, {
+          libraryName: &#39;antd&#39;,
+          libraryDirectory: &#39;es&#39;,
+          style: true,
+      }]
+  ],
+  // cssModules: true,
+  extractCSS: true,
+  lessInBabelMode: true,
+  runtimeHelpers: true,
+  esm: &#39;babel&#39;, 
+  cjs: &#39;babel&#39;,
+  autoprefixer: {
+      browsers: [&#39;ie&gt;9&#39;, &#39;Safari &gt;= 6&#39;],
+  }
+};
 
-<ul>
+export default options;
+</code></pre><ul>
 <li>entry</li>
 </ul>
 <p>  主要用来定义组件库的入口位置，通常我们会放在src目录下，以下是xui项目中src的目录结构：</p>
@@ -333,89 +337,326 @@
 <li><strong>homepage</strong> 组件库的主页地址，更有利于用户了解组件库的用法，功能等 完整的在线例子可以参考： <a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui——基于react的轻量级UI组件库</a></li>
 </ul>
 <h3 id="6-将组件库部署到github并发布到npm上"><a href="#6-将组件库部署到github并发布到npm上" class="headerlink" title="6. 将组件库部署到github并发布到npm上"></a>6. 将组件库部署到github并发布到npm上</h3><p><strong>首先</strong>我们需要在package.json中配置github的地址：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">"repository"</span>: &#123;<br>    <span class="hljs-string">"type"</span>: <span class="hljs-string">"git"</span>,<br>    <span class="hljs-string">"url"</span>: <span class="hljs-string">"git+https://github.com:MrXujiang/xu_ui.git"</span><br>  &#125;<br></code></pre></td></tr></table></figure>
-
-<p>大家可以复制以上代码改成自己的仓库地址。</p>
+<pre><code>&quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;git+https://github.com:MrXujiang/xu_ui.git&quot;
+  }
+</code></pre><p>大家可以复制以上代码改成自己的仓库地址。</p>
 <p><strong>其次</strong>我们需要登录进npm官网，如果你还没有账号可以直接申请一个，也很简单，然后在终端通过命令行登录。</p>
 <p><strong>接下来</strong>我们执行以下几个命令就能将自己的组件库打包发布到npm上了：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-comment">// 打包编译组件库</span><br>yarn build<br><br><span class="hljs-comment">// 编译组件库文档，该步骤可省略</span><br>yarn <span class="hljs-string">build:</span>doc<br><br><span class="hljs-comment">// 部署组件库文档到github, 该步骤可省略</span><br>yarn deploy<br><br><span class="hljs-comment">// 发布到npm上</span><br>npm publish --access <span class="hljs-keyword">public</span><br></code></pre></td></tr></table></figure>
+<pre><code>// 打包编译组件库
+yarn build
 
-<p>以上的yarn命令具体实现可参考<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json,也可以自己配置。经过上述步骤我们就成功将自己的组件库发布到npm上了，是不是很简单呢？</p>
+// 编译组件库文档，该步骤可省略
+yarn build:doc
+
+// 部署组件库文档到github, 该步骤可省略
+yarn deploy
+
+// 发布到npm上
+npm publish --access public
+</code></pre><p>以上的yarn命令具体实现可参考<a href="https://www.npmjs.com/package/@alex_xu/xui" target="_blank" rel="noopener">xui</a>的package.json,也可以自己配置。经过上述步骤我们就成功将自己的组件库发布到npm上了，是不是很简单呢？</p>
 <p>笔者已经将实现过的组件发布到npm上了,大家如果感兴趣可以直接用npm安装后使用,方式如下:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i @alex_xu/xui<br><br><span class="hljs-regexp">//</span> 导入xui<br><span class="hljs-keyword">import</span> &#123; <br>  Button, Skeleton, Empty, Progress,<br>  Message, Tag, Switch, Drawer, Badge, Alert<br>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@alex_xu/xui'</span><br></code></pre></td></tr></table></figure>
+<pre><code>npm i @alex_xu/xui
 
-<p>该组件库支持按需导入,我们只需要在项目里配置babel-plugin-import即可,具体配置如下:</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">//</span> <span class="hljs-string">.babelrc</span><br><span class="hljs-string">"plugins"</span>: [<br>  [<span class="hljs-string">"import"</span>, &#123; <span class="hljs-string">"libraryName"</span>: <span class="hljs-string">"@alex_xu/xui"</span>, <span class="hljs-string">"style"</span>: <span class="hljs-literal">true</span> &#125;]<br>]<br></code></pre></td></tr></table></figure>
-
-<p>npm库截图如下:</p>
+// 导入xui
+import { 
+  Button, Skeleton, Empty, Progress,
+  Message, Tag, Switch, Drawer, Badge, Alert
+} from &#39;@alex_xu/xui&#39;
+</code></pre><p>该组件库支持按需导入,我们只需要在项目里配置babel-plugin-import即可,具体配置如下:</p>
+<pre><code>// .babelrc
+&quot;plugins&quot;: [
+  [&quot;import&quot;, { &quot;libraryName&quot;: &quot;@alex_xu/xui&quot;, &quot;style&quot;: true }]
+]
+</code></pre><p>npm库截图如下:</p>
 <p><img src="http://gank.io/images/80676812e7b944a28e498dc8926a9866" alt="img"></p>
 <h2 id="组件系统与微前端架构初探"><a href="#组件系统与微前端架构初探" class="headerlink" title="组件系统与微前端架构初探"></a>组件系统与微前端架构初探</h2><p>笔者本篇文章并不会将微前端架构的知识，但是既然涉及到组件库，就一定要形成一个知识闭环，笔者特意画了如下脑图，供前端朋友或者正准备走向微前端架构的团队一些参考：</p>
 <p><img src="http://gank.io/images/34b349be69ef4d9c9446fbcb35aa06e5" alt="img"></p>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/11/vue/">https://jiyugithub.github.io/2020/06/11/vue/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/12/multitype/">Android 复杂的列表视图新写法 MultiType</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/09/handler/">Handler 机制</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你将收获"><span class="toc-number">2.</span> <span class="toc-text">你将收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">3.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-开发组件库的几种方式"><span class="toc-number">3.1.</span> <span class="toc-text">1. 开发组件库的几种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-前端组件系统设计思路和模式"><span class="toc-number">3.2.</span> <span class="toc-text">2. 前端组件系统设计思路和模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组件库的划分及设计思路"><span class="toc-number">3.3.</span> <span class="toc-text">3. 组件库的划分及设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-从0搭建一个组件库"><span class="toc-number">3.4.</span> <span class="toc-text">4. 从0搭建一个组件库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-组件库的package-json文件配置说明"><span class="toc-number">3.5.</span> <span class="toc-text">5. 组件库的package.json文件配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-将组件库部署到github并发布到npm上"><span class="toc-number">3.6.</span> <span class="toc-text">6. 将组件库部署到github并发布到npm上</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件系统与微前端架构初探"><span class="toc-number">4.</span> <span class="toc-text">组件系统与微前端架构初探</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>

@@ -1,196 +1,146 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="Apocalypse">
-
-
-
-
-
-<title>如何快速搭建好看的个人博客 | Apocalypse&#39;s Blog</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>如何快速搭建好看的个人博客 - Apocalypse&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="TriDiamond Obsidian,"> 
+    <meta name="description" content="如何快速搭建好看的个人博客(完整配置与源码)
+博客地址 程序员成长指北 就是这样搭建出来的! 可以先体验下。
 
 
 
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+为什么选择vuepress之前使用docsify部署过个人博客, 在此之前也使用过,"> 
+    <meta name="author" content="Apocalypse"> 
+    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
 
     
-    
-        
-    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
 
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-<body>
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Apocalypse&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Apocalypse&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
 
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-        <div class="main">
-            <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://jiyugithub.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">如何快速搭建好看的个人博客</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">如何快速搭建好看的个人博客</h1>
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
+                
+                June 12, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/blog/" title="如何快速搭建好看的个人博客" class="">如何快速搭建好看的个人博客</a>
+            </h3>
             
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Apocalypse</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 12, 2020&nbsp;&nbsp;6:04:28</a>
-                        </span>
-                    
-                    
-                </div>
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    18k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    17 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_container_page_pv">
+                    <b class="iconfont icon-read"></b> <i>Read count</i>
+                    <span id="busuanzi_value_page_pv">0</span>
+                </span>
+                
+            </p>
             
-        </header>
+            
+        </div>
+    </div>
+</div>
 
-        <div class="post-content">
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
             <h1 id="如何快速搭建好看的个人博客-完整配置与源码"><a href="#如何快速搭建好看的个人博客-完整配置与源码" class="headerlink" title="如何快速搭建好看的个人博客(完整配置与源码)"></a>如何快速搭建好看的个人博客(完整配置与源码)</h1><blockquote>
 <p>博客地址 <a href="http://www.inode.club/" target="_blank" rel="noopener">程序员成长指北</a> 就是这样搭建出来的! 可以先体验下。</p>
 </blockquote>
@@ -222,59 +172,100 @@
 <p>总的来说, 使用vuepress优势有挺多的, 特别是我之前使用docsify搭建的网站, 是一点也没有被浏览器收录啊, 怎么都搜不到,受到一万点打击,所以决心改一改</p>
 <p>其实<a href="https://v1.vuepress.vuejs.org/zh/guide/" target="_blank" rel="noopener">vuepress的官网</a>已经写的挺好的了, 但是我这篇文章也有优势啊,是一步步的教你搭建, 这样就不用来回在文档中去找什么配置.(当然如果你想直接通过官网来学习, 可以直接看官网,点击链接就可以喔)</p>
 <h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><h3 id="安装vuepress"><a href="#安装vuepress" class="headerlink" title="安装vuepress"></a><strong>安装vuepress</strong></h3><p>第一步就是进行vuepress进行安装: 如果使用npm来安装, Node.js版本需要 &gt;=8 才可以</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cs">yarn <span class="hljs-keyword">global</span> <span class="hljs-keyword">add</span> vuepress <span class="hljs-meta"># 或者：npm install -g vuepress</span><br></code></pre></td></tr></table></figure>
-
-<blockquote>
+<pre><code>yarn global add vuepress # 或者：npm install -g vuepress
+</code></pre><blockquote>
 <h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>如果你的现有项目依赖了 webpack 3.x，推荐使用 Yarn而不是 npm 来安装 VuePress。因为在这种情形下，npm 会生成错误的依赖树。</p>
 </blockquote>
 <h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a><strong>初始化项目</strong></h3><p>创建项目目录<code>blog</code></p>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">mkdir</span> blog<br><span class="hljs-built_in">cd</span> blog<br></code></pre></td></tr></table></figure>
-
-<p>初始化</p>
-<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gml">yarn init -<span class="hljs-symbol">y</span> # 或者 npm init -<span class="hljs-symbol">y</span><br></code></pre></td></tr></table></figure>
-
-<p>初始化完成后, 会创建一个package.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">"name"</span>:<span class="hljs-string">"blog"</span>,  <br>  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,<br>  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"index.js"</span>,<br>  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"MIT"</span><br>  <span class="hljs-string">"scripts"</span>: &#123;<br>     <span class="hljs-attr">"test"</span>: <span class="hljs-string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>在package.json中, 配置启动命令</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">"scripts"</span>: &#123;<br>    <span class="hljs-string">"docs:dev"</span>: <span class="hljs-string">"vuepress dev docs"</span>,<br>    <span class="hljs-string">"docs:build"</span>: <span class="hljs-string">"vuepress build docs"</span><br>  &#125;<br></code></pre></td></tr></table></figure>
-
-<p>启动项目: <code>npm run docs:dev</code>这条命令就等于<code>vuepress dev docs</code></p>
+<pre><code>mkdir blog
+cd blog
+</code></pre><p>初始化</p>
+<pre><code>yarn init -y # 或者 npm init -y
+</code></pre><p>初始化完成后, 会创建一个package.json</p>
+<pre><code>{
+  &quot;name&quot;:&quot;blog&quot;,  
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;license&quot;: &quot;MIT&quot;
+  &quot;scripts&quot;: {
+     &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  }
+}
+</code></pre><p>在package.json中, 配置启动命令</p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;docs:dev&quot;: &quot;vuepress dev docs&quot;,
+    &quot;docs:build&quot;: &quot;vuepress build docs&quot;
+  }
+</code></pre><p>启动项目: <code>npm run docs:dev</code>这条命令就等于<code>vuepress dev docs</code></p>
 <p>打包项目: <code>npm run build</code> 这条命令就等于 <code>vuepress build docs</code></p>
 <p>创建docs目录, 主要用于放置我们写的<code>.md</code>类型的文章以及<code>.vuepress</code>相关的配置</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-built_in">mkdir</span> docs<br></code></pre></td></tr></table></figure>
-
-<p>接着在docs文件夹中创建<code>.vuepress</code>文件夹</p>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">cd</span> docs<br><span class="hljs-built_in">mkdir</span> .vuepress<br></code></pre></td></tr></table></figure>
-
-<p>这个文件主要就是放vuepress相关的<a href="https://v1.vuepress.vuejs.org/zh/config/#基本配置" target="_blank" rel="noopener">配置</a></p>
+<pre><code>mkdir docs
+</code></pre><p>接着在docs文件夹中创建<code>.vuepress</code>文件夹</p>
+<pre><code>cd docs
+mkdir .vuepress
+</code></pre><p>这个文件主要就是放vuepress相关的<a href="https://v1.vuepress.vuejs.org/zh/config/#基本配置" target="_blank" rel="noopener">配置</a></p>
 <p>到这一步, 我们的项目大体架子已经搭建出来了,接下来进行配置.</p>
 <h2 id="页面具体内容配置"><a href="#页面具体内容配置" class="headerlink" title="页面具体内容配置"></a>页面具体内容配置</h2><h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a><strong>基本配置</strong></h3><p>接下来要让页面显示内容, 就需要进行配置, 新建一个总的配置文件<code>config.js</code>, 这个文件的名字是固定的.</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">cd</span> <span class="hljs-selector-class">.vuepress</span><br><span class="hljs-selector-tag">touch</span> <span class="hljs-selector-tag">config</span><span class="hljs-selector-class">.js</span><br></code></pre></td></tr></table></figure>
-
-<p><code>config.js</code>最基础的配置文件内容如下:</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">module.exports = &#123;<br>    title: 'koala的博客',<br>    description: '专注 <span class="hljs-keyword">Node</span>.<span class="hljs-title">js</span> 技术栈分享，从前端到<span class="hljs-keyword">Node</span>.<span class="hljs-title">js</span>再到数据库',<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>如果这时运行<code>npm run docs:dev</code>或者<code>yarn docs:dev</code>, 会出现页面404页面,vuepress默认打开的是docs下的<code>readme.md</code>文件, 由于你没有创建,所以找到的是vuepress默认提供的404页面, 关于这有点,我们借助<a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a>工具来查看一下vue的结构</p>
+<pre><code>cd .vuepress
+touch config.js
+</code></pre><p><code>config.js</code>最基础的配置文件内容如下:</p>
+<pre><code>module.exports = {
+    title: &#39;koala的博客&#39;,
+    description: &#39;专注 Node.js 技术栈分享，从前端到Node.js再到数据库&#39;,
+}
+</code></pre><p>如果这时运行<code>npm run docs:dev</code>或者<code>yarn docs:dev</code>, 会出现页面404页面,vuepress默认打开的是docs下的<code>readme.md</code>文件, 由于你没有创建,所以找到的是vuepress默认提供的404页面, 关于这有点,我们借助<a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a>工具来查看一下vue的结构</p>
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59c8e15587e40?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>在docs目录下创建<code>README.md</code>文件, 再运行,就可以看到运行起来的效果, 如下图所示:</p>
 <ul>
 <li>blog001.jpg</li>
 </ul>
 <h3 id="设置封面页"><a href="#设置封面页" class="headerlink" title="设置封面页"></a><strong>设置封面页</strong></h3><p>此时<code>README</code>文件中没有内容,封面页是空的, 我们可以通过在这个markdown文件中写一些内容, 同时官方也给我们提供了封面页的模板(个人觉得还是比较实用的):</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">home:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">heroImage:</span> <span class="hljs-string">/home.png</span><br><span class="hljs-attr">actionText:</span> <span class="hljs-string">Get</span> <span class="hljs-string">Started</span> <span class="hljs-string">→</span><br><span class="hljs-attr">actionLink:</span> <span class="hljs-string">/node/</span><br><span class="hljs-attr">features:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">title:</span> <span class="hljs-string">day</span> <span class="hljs-string">day</span> <span class="hljs-string">up</span><br>  <span class="hljs-attr">details:</span> <span class="hljs-string">记录每一天的进步,</span> <span class="hljs-string">一分耕耘，一分收获.</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">title:</span> <span class="hljs-string">程序员成长指北</span><br>  <span class="hljs-attr">details:</span> <span class="hljs-string">专注</span> <span class="hljs-string">Node.js</span> <span class="hljs-string">技术栈分享，从</span> <span class="hljs-string">前端</span> <span class="hljs-string">到</span> <span class="hljs-string">Node.js</span> <span class="hljs-string">再到</span> <span class="hljs-string">后端数据库，祝您成为优秀的高级</span> <span class="hljs-string">Node.js</span> <span class="hljs-string">全栈工程师</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">title:</span> <span class="hljs-string">koala</span><br>  <span class="hljs-attr">details:</span> <span class="hljs-string">一个有趣的且乐于分享的人。座右铭：今天未完成的，明天更不会完成。</span><br><span class="hljs-attr">footer:</span> <span class="hljs-string">MIT</span> <span class="hljs-string">Licensed</span> <span class="hljs-string">|</span> <span class="hljs-string">Copyright</span> <span class="hljs-string">©</span> <span class="hljs-number">2018</span><span class="hljs-string">-present</span> <span class="hljs-string">Evan</span> <span class="hljs-string">You</span><br><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+<pre><code>---
+home: true
+heroImage: /home.png
+actionText: Get Started →
+actionLink: /node/
+features:
+- title: day day up
+  details: 记录每一天的进步, 一分耕耘，一分收获.
+- title: 程序员成长指北
+  details: 专注 Node.js 技术栈分享，从 前端 到 Node.js 再到 后端数据库，祝您成为优秀的高级 Node.js 全栈工程师
+- title: koala
+  details: 一个有趣的且乐于分享的人。座右铭：今天未完成的，明天更不会完成。
+footer: MIT Licensed | Copyright © 2018-present Evan You
 
-<p>效果图如下:</p>
+---
+</code></pre><p>效果图如下:</p>
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cc52c658352?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <h3 id="配置导航栏nav"><a href="#配置导航栏nav" class="headerlink" title="配置导航栏nav"></a><strong>配置导航栏nav</strong></h3><p>在<code>config.js</code>中添加:</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">themeConfig</span>:&#123;<br>  <span class="hljs-attribute">nav</span>: [&#123;text: <span class="hljs-string">"主页"</span>, link: <span class="hljs-string">"/"</span>      &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"node"</span>, link: <span class="hljs-string">"/node/"</span> &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"前端"</span>, link: <span class="hljs-string">"/webframe/"</span>&#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"数据库"</span>, link: <span class="hljs-string">"/database/"</span>   &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"android"</span>, link: <span class="hljs-string">"/android/"</span>   &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"面试问题"</span>, link: <span class="hljs-string">"/interview/"</span> &#125;<br>    ],<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>themeConfig:{
+  nav: [{text: &quot;主页&quot;, link: &quot;/&quot;      },
+      { text: &quot;node&quot;, link: &quot;/node/&quot; },
+      { text: &quot;前端&quot;, link: &quot;/webframe/&quot;},
+      { text: &quot;数据库&quot;, link: &quot;/database/&quot;   },
+      { text: &quot;android&quot;, link: &quot;/android/&quot;   },
+      { text: &quot;面试问题&quot;, link: &quot;/interview/&quot; }
+    ],
+}
 
-<p>效果如下图:</p>
+</code></pre><p>效果如下图:</p>
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cca4e693662?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>如果想要展示二级导航, 可以这样配置:</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">themeConfig</span>:&#123;<br>  <span class="hljs-attribute">nav</span>: [&#123;text: <span class="hljs-string">"主页"</span>, link: <span class="hljs-string">"/"</span>      &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"node"</span>, link: <span class="hljs-string">"/node/"</span> &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"前端"</span>, <br>        items: [ <br>          &#123; text: <span class="hljs-string">"html"</span>, link:<span class="hljs-string">"/web/html/"</span>&#125;,<br>          &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"css"</span>, link:<span class="hljs-string">"/web/css/"</span>&#125;,<br>          ]<br>      &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"数据库"</span>, link: <span class="hljs-string">"/database/"</span>   &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"android"</span>, link: <span class="hljs-string">"/android/"</span>   &#125;,<br>      &#123; <span class="hljs-attribute">text</span>: <span class="hljs-string">"面试问题"</span>, link: <span class="hljs-string">"/interview/"</span> &#125;<br>    ],<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>效果如图所示:</p>
+<pre><code>themeConfig:{
+  nav: [{text: &quot;主页&quot;, link: &quot;/&quot;      },
+      { text: &quot;node&quot;, link: &quot;/node/&quot; },
+      { text: &quot;前端&quot;, 
+        items: [ 
+          { text: &quot;html&quot;, link:&quot;/web/html/&quot;},
+          { text: &quot;css&quot;, link:&quot;/web/css/&quot;},
+          ]
+      },
+      { text: &quot;数据库&quot;, link: &quot;/database/&quot;   },
+      { text: &quot;android&quot;, link: &quot;/android/&quot;   },
+      { text: &quot;面试问题&quot;, link: &quot;/interview/&quot; }
+    ],
+}
+</code></pre><p>效果如图所示:</p>
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cce0571a8df?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <blockquote>
 <p>当你使用上面的方式配置nav时, 目录结构最好和我创建的一样 项目目录结构如下:</p>
@@ -282,52 +273,123 @@
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd3042159f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>导航栏创建好了, 接下来就是配置页面内容中的侧边栏slider</p>
 <h3 id="配置侧边栏slider"><a href="#配置侧边栏slider" class="headerlink" title="配置侧边栏slider"></a><strong>配置侧边栏slider</strong></h3><h4 id="1-自动获取侧边栏内容"><a href="#1-自动获取侧边栏内容" class="headerlink" title="1.自动获取侧边栏内容"></a>1.自动获取侧边栏内容</h4><p>如果你希望自动生成当前页面标题的侧边栏, 可以在<code>config.js</code>中配置来启用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// .vuepress/config.js</span><br><span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = &#123;<br>  themeConfig:&#123;<br>    sidebar: <span class="hljs-string">'auto'</span>,<br>    <span class="hljs-comment">// sidebarDepth: 1 </span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h4 id="2-展示每个页面的侧边栏"><a href="#2-展示每个页面的侧边栏" class="headerlink" title="2.展示每个页面的侧边栏"></a>2.展示每个页面的侧边栏</h4><p>如果你希望为不同的页面组显示不同的侧边栏, 就和官网一样, 点击<code>指南</code>显示的是对应的侧边栏,目前目录有<code>node \ database \ web</code>等, 这些目录下都存放着多个md文件:</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs prolog">module.exports = &#123;<br>  themeConfig:&#123;<br>    sidebar:&#123;<br>      <span class="hljs-string">"/node/"</span>:[<br>        [<span class="hljs-string">""</span>, <span class="hljs-string">"node目录"</span>],<br>        [<span class="hljs-string">"path"</span>, <span class="hljs-string">"作为前端也需要知道的路径知识"</span>],<br>        [<span class="hljs-string">"stream"</span>, <span class="hljs-string">"node核心模块-stream"</span>]<br>      ],<br>      <span class="hljs-string">"/web/"</span>:[<br>        [<span class="hljs-string">""</span>, <span class="hljs-string">"前端"</span>],<br>        &#123;<br>          title: <span class="hljs-string">"css"</span>,<br>          name: <span class="hljs-string">"css"</span>,<br>          collabsable: false,<br>          children: [<br>            [<span class="hljs-string">"css/"</span>, <span class="hljs-string">"目录"</span>],<br>            [<span class="hljs-string">'css/1'</span>, <span class="hljs-string">"css常考面试题"</span>]<br>          ]<br>        &#125;<br>      ]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>设置的效果图如下: 在<code>node</code>导航下:<img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd92669ea17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<pre><code>// .vuepress/config.js
+module.exports = {
+  themeConfig:{
+    sidebar: &#39;auto&#39;,
+    // sidebarDepth: 1 
+  }
+}
+</code></pre><h4 id="2-展示每个页面的侧边栏"><a href="#2-展示每个页面的侧边栏" class="headerlink" title="2.展示每个页面的侧边栏"></a>2.展示每个页面的侧边栏</h4><p>如果你希望为不同的页面组显示不同的侧边栏, 就和官网一样, 点击<code>指南</code>显示的是对应的侧边栏,目前目录有<code>node \ database \ web</code>等, 这些目录下都存放着多个md文件:</p>
+<pre><code>module.exports = {
+  themeConfig:{
+    sidebar:{
+      &quot;/node/&quot;:[
+        [&quot;&quot;, &quot;node目录&quot;],
+        [&quot;path&quot;, &quot;作为前端也需要知道的路径知识&quot;],
+        [&quot;stream&quot;, &quot;node核心模块-stream&quot;]
+      ],
+      &quot;/web/&quot;:[
+        [&quot;&quot;, &quot;前端&quot;],
+        {
+          title: &quot;css&quot;,
+          name: &quot;css&quot;,
+          collabsable: false,
+          children: [
+            [&quot;css/&quot;, &quot;目录&quot;],
+            [&#39;css/1&#39;, &quot;css常考面试题&quot;]
+          ]
+        }
+      ]
+    }
+  }
+}
+</code></pre><p>设置的效果图如下: 在<code>node</code>导航下:<img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cd92669ea17?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>在<code>前端</code>导航下的效果:<img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59cdd5ce60931?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>上面采用了两个方式配置侧边栏, 一个侧边栏是<code>node</code>目录下直接是写的markdown文章, 而在<code>web</code>下又有多个分类, 所有有进行了分栏配置, 其实这两种方式在我们博客中都是比较常见的</p>
 <h2 id="自定义布局内容"><a href="#自定义布局内容" class="headerlink" title="自定义布局内容"></a>自定义布局内容</h2><p>网站的导航和侧边栏都已经配置好之后, 如果你觉得页面不是很符合你的预期, 你也可以自定修改成你想要的效果。比如就像我的博客中左侧固定的内容, 就是自定义的全局组件. 这里使用vuepress提供的插件机制来实现</p>
 <p>在.vuepress文件夹下创建components文件夹, 在components下再创建<code>fixed.vue</code>文件</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs xquery"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fixed_container"</span>&gt;</span></span><br><span class="xml">    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tencent_code"</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>关注作者公众<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>和万千小伙伴一起学习<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/ggh.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"group_code"</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>加入技术交流群<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>扫描二维码 备注</span><br><span class="xml">        </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span> 加群<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">      </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/wechat.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default </span><span class="xquery">&#123;</span><br><span class="xquery"> <span class="hljs-built_in"> name</span>: <span class="hljs-string">'fixed'</span></span><br><span class="xquery">&#125;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml"> ....</span><br><span class="xml"> // 这里省略了部分样式代码, 想看全部的小伙伴点开github地址就可以了</span><br></code></pre></td></tr></table></figure>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;fixed_container&quot;&gt;
+    &lt;div class=&quot;tencent_code&quot;&gt;
+      &lt;h4&gt;关注作者公众&lt;/h4&gt;
+      &lt;p&gt;和万千小伙伴一起学习&lt;/p&gt;
+      &lt;img src=&quot;/ggh.jpg&quot; alt=&quot;&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;group_code&quot;&gt;
+      &lt;h4&gt;加入技术交流群&lt;/h4&gt;
+      &lt;p&gt;扫描二维码 备注
+        &lt;span&gt; 加群&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;img src=&quot;/wechat.jpg&quot; alt=&quot;&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: &#39;fixed&#39;
+}
+&lt;/script&gt;
+ ....
+ // 这里省略了部分样式代码, 想看全部的小伙伴点开github地址就可以了
 
-<p>然后在配置文件中以插件的形式配置即可:</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-comment">// 插件</span><br><span class="hljs-symbol">plugins:</span>[<br>  &#123;<br><span class="hljs-symbol">    name:</span><span class="hljs-string">"page-plugin"</span>,<br><span class="hljs-symbol">    globalUIComponents:</span>[<span class="hljs-string">"fixed"</span>], <br>  &#125;<br>]<br></code></pre></td></tr></table></figure>
-
-<p><code>globalUIComponents</code>是用于注入全局的UI, 它以数组的形式接收参数名字, 这里的名字必须与components文件夹下的<code>.vue</code>文件同名, <strong>全局UI就是一个Vue组件</strong>; 其实vuepress也提供了一些内置的全局UI组件, 例如:<code>back-to-top</code>, <code>popup</code>, <code>nprogress</code>等.</p>
+</code></pre><p>然后在配置文件中以插件的形式配置即可:</p>
+<pre><code>  // 插件
+  plugins:[
+    {
+      name:&quot;page-plugin&quot;,
+      globalUIComponents:[&quot;fixed&quot;], 
+    }
+  ]
+</code></pre><p><code>globalUIComponents</code>是用于注入全局的UI, 它以数组的形式接收参数名字, 这里的名字必须与components文件夹下的<code>.vue</code>文件同名, <strong>全局UI就是一个Vue组件</strong>; 其实vuepress也提供了一些内置的全局UI组件, 例如:<code>back-to-top</code>, <code>popup</code>, <code>nprogress</code>等.</p>
 <h3 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a><strong>配置插件</strong></h3><h3 id="UI插件"><a href="#UI插件" class="headerlink" title="UI插件"></a><strong>UI插件</strong></h3><p>配置内置的全局UI,首先需要插件:</p>
-<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs llvm">yarn <span class="hljs-keyword">add</span> -D <span class="hljs-title">@vuepress</span>/plugin-back-<span class="hljs-keyword">to</span>-top <span class="hljs-title">@vuepress</span>/plugin-nprogress<br># OR npm install -D <span class="hljs-title">@vuepress</span>/plugin-back-<span class="hljs-keyword">to</span>-top  <span class="hljs-title">@vuepress</span>/plugin-nprogress<br></code></pre></td></tr></table></figure>
+<pre><code>yarn add -D @vuepress/plugin-back-to-top @vuepress/plugin-nprogress
+# OR npm install -D @vuepress/plugin-back-to-top  @vuepress/plugin-nprogress
+</code></pre><p>在config.js中配置:</p>
+<pre><code>  plugins:[
+   [&quot;@vuepress/back-to-top&quot;], // 返回顶部
+   [&quot;@vuepress/nprogress&quot;],   // 加载进度条
+  ]
 
-<p>在config.js中配置:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cs">plugins:[<br> [<span class="hljs-meta"><span class="hljs-meta-string">"@vuepress/back-to-top"</span></span>], <span class="hljs-comment">// 返回顶部</span><br> [<span class="hljs-meta"><span class="hljs-meta-string">"@vuepress/nprogress"</span></span>],   <span class="hljs-comment">// 加载进度条</span><br>]<br></code></pre></td></tr></table></figure>
-
-<blockquote>
+</code></pre><blockquote>
 <p>这里需要注意一点就是看你项目中是否安装了<code>vuepress</code>, 由于我之前是全局安装的, 在项目下还没有安装, 插件是依赖于<code>vuepress</code>的, 所有没有安装的需要安装上, 插件才有效.</p>
 </blockquote>
 <h3 id="支持PWA"><a href="#支持PWA" class="headerlink" title="支持PWA"></a><strong>支持PWA</strong></h3><p>vuepress还有一个我比较看重的优势, 就是支持PWA, 当用户没有网的情况下,一样能继续的访问我们的网站</p>
 <p>在<code>0.x</code> 版本中我们只要配置<code>serviceWorker: true</code> 即可, 但是我们现在使用的是<code>1.2.0</code>版本, 这个版本中已经将这个功能抽离出来作为插件的方式使用, 下面就看一下具体如何使用的:</p>
 <p>首先需要安装插件:</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">add</span><span class="bash"> -D @vuepress/plugin-pwa</span><br><span class="hljs-comment"># 或者 npm install -D @vuepress/plugin-pwa</span><br></code></pre></td></tr></table></figure>
-
-<p>在<code>config.js</code>中配置:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">module.exports</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span><br>  <span class="hljs-attr">plugins:</span> <span class="hljs-string">['@vuepress/pwa',</span> <span class="hljs-string">&#123;</span><br>    <span class="hljs-attr">serviceWorker:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br>    <span class="hljs-attr">updatePopup:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-string">&#125;]</span><br><span class="hljs-string">&#125;</span><br></code></pre></td></tr></table></figure>
-
-<p>注意点:</p>
+<pre><code>yarn add -D @vuepress/plugin-pwa
+# 或者 npm install -D @vuepress/plugin-pwa
+</code></pre><p>在<code>config.js</code>中配置:</p>
+<pre><code>module.exports = {
+  plugins: [&#39;@vuepress/pwa&#39;, {
+    serviceWorker: true,
+    updatePopup: true
+  }]
+}
+</code></pre><p>注意点:</p>
 <blockquote>
 <h4 id="为了让你的网站完全地兼容-PWA，你需要"><a href="#为了让你的网站完全地兼容-PWA，你需要" class="headerlink" title="为了让你的网站完全地兼容 PWA，你需要:"></a>为了让你的网站完全地兼容 PWA，你需要:</h4><ul>
 <li>在 .vuepress/public 提供 Manifest 和 icons</li>
 <li>在 <code>.vuepress/config.js</code> 添加正确的 <code>head links</code></li>
 </ul>
 </blockquote>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-comment">// 配置</span><br>module.exports = &#123;<br><span class="hljs-symbol">  head:</span> [<br>    [<span class="hljs-string">'link'</span>, &#123; <span class="hljs-string">rel:</span> <span class="hljs-string">'icon'</span>, <span class="hljs-string">href:</span> `/favicon.ico` &#125;],<br>    <span class="hljs-comment">//增加manifest.json</span><br>    [<span class="hljs-string">'link'</span>, &#123; <span class="hljs-string">rel:</span> <span class="hljs-string">'manifest'</span>, <span class="hljs-string">href:</span> <span class="hljs-string">'/manifest.json'</span> &#125;],<br>  ],<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>manifest.json 文件</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"koala_blog"</span>,<br>  <span class="hljs-attr">"short_name"</span>: <span class="hljs-string">"blog"</span>,<br>  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,<br>  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"程序员成长指北博主, koala的博客"</span>,<br>  <span class="hljs-attr">"manifest_version"</span>: <span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="配置评论"><a href="#配置评论" class="headerlink" title="配置评论"></a><strong>配置评论</strong></h3><p>由于之前有小伙伴说过,『程序员成长指北』公众号上不能评论，所有这次我在博客中增加了评论功能，刚开始本来打算使用gitTalk, 但是我的博客采用的是部署到自己的服务器, 并没有部署成 GitHub Pages, 所有我使用的是<code>valine</code>, 它除了评论功能还可以统计阅读量, 请大家看:</p>
+<pre><code>// 配置
+module.exports = {
+  head: [
+    [&#39;link&#39;, { rel: &#39;icon&#39;, href: `/favicon.ico` }],
+    //增加manifest.json
+    [&#39;link&#39;, { rel: &#39;manifest&#39;, href: &#39;/manifest.json&#39; }],
+  ],
+}
+</code></pre><p>manifest.json 文件</p>
+<pre><code>{
+  &quot;name&quot;: &quot;koala_blog&quot;,
+  &quot;short_name&quot;: &quot;blog&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;程序员成长指北博主, koala的博客&quot;,
+  &quot;manifest_version&quot;: 2
+}
+</code></pre><h3 id="配置评论"><a href="#配置评论" class="headerlink" title="配置评论"></a><strong>配置评论</strong></h3><p>由于之前有小伙伴说过,『程序员成长指北』公众号上不能评论，所有这次我在博客中增加了评论功能，刚开始本来打算使用gitTalk, 但是我的博客采用的是部署到自己的服务器, 并没有部署成 GitHub Pages, 所有我使用的是<code>valine</code>, 它除了评论功能还可以统计阅读量, 请大家看:</p>
 <p><img src="http://user-gold-cdn.xitu.io/2019/12/31/16f59d08fa824ffd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>但是我后面也会将gitTalk配置方式写出来, 方便使用gitTalk的小伙伴</p>
 <h4 id="valine-使用"><a href="#valine-使用" class="headerlink" title="valine 使用"></a>valine 使用</h4><p>点击进入 <a href="https://leancloud.cn/dashboard/login.html#/signin" target="_blank" rel="noopener">Valine官网</a> ，需要先注册才能使用.</p>
@@ -337,22 +399,46 @@
 <ul>
 <li>安装:</li>
 </ul>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">add</span><span class="bash"> vuepress-plugin-comment -D</span><br></code></pre></td></tr></table></figure>
-
-<ul>
+<pre><code>yarn add vuepress-plugin-comment -D</code></pre><ul>
 <li>快速使用</li>
 </ul>
 <p>在<code>.vuepress</code>下的config.js插件配置中:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs vim">module.exports = &#123;<br>  plugin<span class="hljs-variable">s:</span> [<br>    [<br>      <span class="hljs-string">'vuepress-plugin-comment'</span>,<br>      &#123;<br>        choosen: <span class="hljs-string">'valine'</span>, <br>        // <span class="hljs-keyword">options</span>选项中的所有参数，会传给Valine的配置<br>        option<span class="hljs-variable">s:</span> &#123;<br>          <span class="hljs-keyword">e</span><span class="hljs-variable">l:</span> <span class="hljs-string">'#valine-vuepress-comment'</span>,<br>          appId: <span class="hljs-string">'Your own appId'</span>,<br>          appKey: <span class="hljs-string">'Your own appKey'</span><br>        &#125;<br>      &#125;<br>    ]<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>appid和appkey为你创建的应用的APP ID 和APP Key</p>
+<pre><code>module.exports = {
+  plugins: [
+    [
+      &#39;vuepress-plugin-comment&#39;,
+      {
+        choosen: &#39;valine&#39;, 
+        // options选项中的所有参数，会传给Valine的配置
+        options: {
+          el: &#39;#valine-vuepress-comment&#39;,
+          appId: &#39;Your own appId&#39;,
+          appKey: &#39;Your own appKey&#39;
+        }
+      }
+    ]
+  ]
+}
+</code></pre><p>appid和appkey为你创建的应用的APP ID 和APP Key</p>
 <h4 id="gitTalk-使用"><a href="#gitTalk-使用" class="headerlink" title="gitTalk 使用"></a>gitTalk 使用</h4><h3 id="主题样式修改"><a href="#主题样式修改" class="headerlink" title="主题样式修改"></a><strong>主题样式修改</strong></h3><p>vuepress默认是主题颜色是绿色, 如果你不喜欢可以对其进行更改. 如果要对默认设置的样式进行简单颜色替换, 或者自定义一些颜色变量供以后使用, 可以在<code>.vuepress/styles</code>下创建<code>palette.styl</code>文件.</p>
 <p>你可以调整的颜色变量:</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 颜色<br><span class="hljs-variable">$textColor</span> ?= <span class="hljs-comment">#2c3e50</span><br><span class="hljs-variable">$accentColor</span> ?= <span class="hljs-comment">#1e90ff</span><br><span class="hljs-variable">$grayTextColor</span> ?= <span class="hljs-comment">#666</span><br><span class="hljs-variable">$lightTextColor</span> ?= <span class="hljs-comment">#999</span><br><span class="hljs-variable">$borderColor</span> ?= <span class="hljs-comment">#eaecef</span><br><span class="hljs-variable">$codeBgColor</span> ?= <span class="hljs-comment">#282c34</span><br><span class="hljs-variable">$arrowBgColor</span> ?= <span class="hljs-comment">#ccc</span><br><span class="hljs-variable">$navbarColor</span> ?= <span class="hljs-comment">#fff</span><br><span class="hljs-variable">$headerColor</span> ?= <span class="hljs-comment">#fff</span><br><span class="hljs-variable">$headerTitleColor</span> ?= <span class="hljs-comment">#fff</span><br><span class="hljs-variable">$nprogressColor</span> ?= <span class="hljs-variable">$accentColor</span><br><span class="hljs-regexp">//</span> 布局<br>bannerHeight ?= <span class="hljs-number">12</span>rem <span class="hljs-regexp">//</span> 响应式 breakpoints<br>MQNarrow ?= <span class="hljs-number">1024</span>px<br>MQMobileNarrow ?= <span class="hljs-number">480</span>px<br></code></pre></td></tr></table></figure>
-
-
-
-<blockquote>
+<pre><code>// 颜色
+$textColor ?= #2c3e50
+$accentColor ?= #1e90ff
+$grayTextColor ?= #666
+$lightTextColor ?= #999
+$borderColor ?= #eaecef
+$codeBgColor ?= #282c34
+$arrowBgColor ?= #ccc
+$navbarColor ?= #fff
+$headerColor ?= #fff
+$headerTitleColor ?= #fff
+$nprogressColor ?= $accentColor
+// 布局
+bannerHeight ?= 12rem // 响应式 breakpoints
+MQNarrow ?= 1024px
+MQMobileNarrow ?= 480px
+</code></pre><blockquote>
 <h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点:"></a>注意点:</h4><p>你应该只在这个文件中写入颜色变量。因为 <code>palette.styl</code> 将在根的 stylus 配置文件的末尾引入，作为配置，它将被多个文件使用，所以一旦你在这里写了样式，你的样式就会被多次复制</p>
 </blockquote>
 <p>如果要添加额外的样式, vuepress也是提供了简便方法的, 只要在<code>.vuepress/styles</code>文件下创建一个 <code>index.styl</code>, 在里面写css样式即可, 注意文件命名是固定的.</p>
@@ -367,18 +453,29 @@
 <p>运行<code>npm run docs:build</code>将项目打包, 默认打包文件在<code>docs/.vuepress/dist</code>目录下</p>
 <p><strong>第三步: 配置nginx</strong></p>
 <p>进入到nginx 配置目录, 找到conf.d文件, 添加下面的配置:</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">server</span> &#123;<br>    <span class="hljs-keyword">listen</span>       <span class="hljs-number">80</span>;<br>    server_name  www.inode.club;<br><br>    root     /usr/web/inode/dist;<br><br>    error_log   /var/<span class="hljs-keyword">log</span>/nginx/inode-error.<span class="hljs-keyword">log</span>;<br>    access_log  /var/<span class="hljs-keyword">log</span>/nginx/inode-<span class="hljs-keyword">access</span>.<span class="hljs-keyword">log</span>;<br><br>    #        deny <span class="hljs-keyword">all</span>;<br>    <span class="hljs-keyword">index</span>  <span class="hljs-keyword">index</span>.php <span class="hljs-keyword">index</span>.html <span class="hljs-keyword">index</span>.htm;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>server {
+    listen       80;
+    server_name  www.inode.club;
 
-<ul>
+    root     /usr/web/inode/dist;
+
+    error_log   /var/log/nginx/inode-error.log;
+    access_log  /var/log/nginx/inode-access.log;
+
+    #        deny all;
+    index  index.php index.html index.htm;
+}
+</code></pre><ul>
 <li>server_name 是你解析的域名地址</li>
 <li>root 配置文件将访问的静态资源文件的路径</li>
 </ul>
 <p>*<em>第四步: 上传静态资源文件 *</em></p>
 <p>将静态资源文件放置到服务器上, 路径为配置的<code>/usr/web/inode/dist</code>, 可以借助xftp工具上传也可以通过git克隆, 选择适合自己的方式就可以</p>
 <p>*<em>第五步: 重启nginx *</em></p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 重启之前务必检查配置是否正确</span><br>sudo nginx -t  <span class="hljs-string">//</span> 检查配置<br>sudo nginx -s <span class="hljs-keyword">reload</span>  <span class="hljs-string">//</span> 重启<br></code></pre></td></tr></table></figure>
-
-<p>然后你就可以通过域名来访问你的网站啦!</p>
+<pre><code># 重启之前务必检查配置是否正确
+sudo nginx -t  // 检查配置
+sudo nginx -s reload  // 重启
+</code></pre><p>然后你就可以通过域名来访问你的网站啦!</p>
 <h3 id="github部署"><a href="#github部署" class="headerlink" title="github部署"></a><strong>github部署</strong></h3><p>将代码部署到 Github Pages, 你可以看vuepress文档: <a href="https://vuepress.vuejs.org/zh/guide/deploy.html#github-pages" target="_blank" rel="noopener">vuepress部署</a>, 也参照我这里写的的步骤来部署</p>
 <p><strong>第一步: 首先确保你的项目满足以下几个条件:</strong></p>
 <ul>
@@ -386,18 +483,44 @@
 <li>使用的是默认的构建输出位置</li>
 <li>vuepress以本地依赖的形式被安装到你的项目中, 在根目录<code>package.json</code>文件中包含如下代码:</li>
 </ul>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-comment">// 配置npm scripts</span><br><span class="hljs-string">"scripts"</span>: &#123;<br>    <span class="hljs-string">"docs:dev"</span>: <span class="hljs-string">"vuepress dev docs"</span>,<br>    <span class="hljs-string">"docs:build"</span>: <span class="hljs-string">"vuepress build docs"</span><br> &#125;<br><br><span class="hljs-comment">// VuePress 以本地依赖的形式被安装</span><br><span class="hljs-string">"devDependencies"</span>: &#123;<br>  <span class="hljs-string">"vuepress"</span>: <span class="hljs-string">"^1.2.0"</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>// 配置npm scripts
+&quot;scripts&quot;: {
+    &quot;docs:dev&quot;: &quot;vuepress dev docs&quot;,
+    &quot;docs:build&quot;: &quot;vuepress build docs&quot;
+ }
 
-<p><strong>第二步: 创建github仓库</strong></p>
+// VuePress 以本地依赖的形式被安装
+&quot;devDependencies&quot;: {
+  &quot;vuepress&quot;: &quot;^1.2.0&quot;
+}
+</code></pre><p><strong>第二步: 创建github仓库</strong></p>
 <p>在github上创建一个名为blog的仓库, 并将代码提交到github上</p>
 <p><strong>第三步: 配置仓库名称</strong></p>
 <p>配置<code>docs/.vuepress/config.js</code>文件中的base, 如果打算发布到<code>https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;/</code>(也就是说你的仓库在: <code>https://github.com/&lt;USERNAME&gt;/&lt;REPO&gt;</code> ), 此处我的仓库为: blog, 则将base按照如下配置即可:</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fsharp"><span class="hljs-keyword">module</span>.exports = &#123;<br>  <span class="hljs-keyword">base</span>: <span class="hljs-string">"/blog/"</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code>module.exports = {
+  base: &quot;/blog/&quot;
+}
+</code></pre><p><strong>第四步: 在项目根目录中,创建一个如下的脚本文件<code>deploy.sh</code></strong></p>
+<pre><code>#!/usr/bin/env sh
 
-<p><strong>第四步: 在项目根目录中,创建一个如下的脚本文件<code>deploy.sh</code></strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env sh</span><br><br><span class="hljs-comment"># 确保脚本抛出遇到的错误</span><br><span class="hljs-built_in">set</span> -e<br><br><span class="hljs-comment"># 生成静态文件</span><br>npm run docs:build<br><br><span class="hljs-comment"># 进入生成的文件夹</span><br><span class="hljs-built_in">cd</span> docs/.vuepress/dist<br><br>git init<br>git add -A<br>git commit -m <span class="hljs-string">'deploy'</span><br><br><span class="hljs-comment"># 如果发布到 https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;</span><br>git push -f git@github.com:&lt;USERNAME&gt;/&lt;REPO&gt;.git master:gh-pages<br><span class="hljs-comment"># 例如 git push -f git@github.com:koala-coding/blog.git master:gh-pages </span><br><span class="hljs-built_in">cd</span> -<br></code></pre></td></tr></table></figure>
+# 确保脚本抛出遇到的错误
+set -e
 
-<p><strong>第五步: 双击 deploy.sh 运行脚本</strong></p>
+# 生成静态文件
+npm run docs:build
+
+# 进入生成的文件夹
+cd docs/.vuepress/dist
+
+git init
+git add -A
+git commit -m &#39;deploy&#39;
+
+# 如果发布到 https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;
+git push -f git@github.com:&lt;USERNAME&gt;/&lt;REPO&gt;.git master:gh-pages
+# 例如 git push -f git@github.com:koala-coding/blog.git master:gh-pages 
+cd -
+</code></pre><p><strong>第五步: 双击 deploy.sh 运行脚本</strong></p>
 <p>会自动在我们的 GitHub 仓库中，创建一个名为 gh-pages 的分支，而我们要部署到 GitHub Pages 的正是这个分支</p>
 <p><strong>**第六步: setting Github Pages</strong> 这是最后一步了，在 GitHub 项目点击 Setting 按钮，找到 GitHub Pages - Source，选择 gh-pages 分支，点击 Save 按钮后，静静地等待它部署完成即可。</p>
 <h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>我的网站 <a href="http://www.inode.club" target="_blank" rel="noopener">程序员成长指北</a> 就是这样搭建出来的!</p>
@@ -410,70 +533,289 @@
 <li><a href="https://juejin.im/post/5c94ddf35188252d65344cfe" target="_blank" rel="noopener">https://juejin.im/post/5c94ddf35188252d65344cfe</a></li>
 </ul>
 
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Apocalypse</span>
-                    </p>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
                 
                 
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="https://jiyugithub.github.io/2020/06/12/blog/">https://jiyugithub.github.io/2020/06/12/blog/</a></span>
-                    </p>
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
                 
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
                     
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2020/06/12/typescript/">TypeScript泛型及应用</a>
+            </ul>
             
             
-            <a class="next" rel="next" href="/2020/06/12/agent/">动态代理设计模式</a>
             
-        </section>
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='ec894e2b66f752e8b7fb'
+        data-cs='3ccc2e92bb350688fe2c2dc2930189b62622bfb1'
+        data-r='blog-comments'
+        data-o='TriDiamond'
+        data-a='TriDiamond'
+        data-d=''
+    >Comments</div>
 
 
-    </article>
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>Apocalypse</p>
+                    <span>Think like an artist, develop like an artisan</span>
+                    <dl>
+                        <dd><a href="https://github.com/TriDiamond" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="https://stackoverflow.com/users/7602324/tridiamond?tab=profile" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">33 <p>Articles</p></a></li>
+                    <li><a href="/categories">2 <p>Categories</p></a></li>
+                    <li><a href="/tags">2 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何快速搭建好看的个人博客-完整配置与源码"><span class="toc-number">1.</span> <span class="toc-text">如何快速搭建好看的个人博客(完整配置与源码)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么选择vuepress"><span class="toc-number">1.1.</span> <span class="toc-text">为什么选择vuepress</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vuepress特性"><span class="toc-number">1.1.1.</span> <span class="toc-text">vuepress特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目搭建"><span class="toc-number">1.2.</span> <span class="toc-text">项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装vuepress"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装vuepress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化项目"><span class="toc-number">1.2.2.</span> <span class="toc-text">初始化项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#页面具体内容配置"><span class="toc-number">1.3.</span> <span class="toc-text">页面具体内容配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本配置"><span class="toc-number">1.3.1.</span> <span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置封面页"><span class="toc-number">1.3.2.</span> <span class="toc-text">设置封面页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置导航栏nav"><span class="toc-number">1.3.3.</span> <span class="toc-text">配置导航栏nav</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置侧边栏slider"><span class="toc-number">1.3.4.</span> <span class="toc-text">配置侧边栏slider</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义布局内容"><span class="toc-number">1.4.</span> <span class="toc-text">自定义布局内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置插件"><span class="toc-number">1.4.1.</span> <span class="toc-text">配置插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI插件"><span class="toc-number">1.4.2.</span> <span class="toc-text">UI插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持PWA"><span class="toc-number">1.4.3.</span> <span class="toc-text">支持PWA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置评论"><span class="toc-number">1.4.4.</span> <span class="toc-text">配置评论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题样式修改"><span class="toc-number">1.4.5.</span> <span class="toc-text">主题样式修改</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">1.5.</span> <span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx部署"><span class="toc-number">1.5.1.</span> <span class="toc-text">nginx部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github部署"><span class="toc-number">1.5.2.</span> <span class="toc-text">github部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目地址"><span class="toc-number">1.6.</span> <span class="toc-text">项目地址</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
 </div>
 
-        </div>
-        <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© Apocalypse | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
-
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
     </div>
 </body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2020
+        <span class="gradient-text">
+            Apocalypse
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+ 
+<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<script src="/js/busuanzi.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    if ($('span[id^="busuanzi_"]').length) {
+      initialBusuanzi();
+    }
+  });
+</script>
+ 
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149874671-1');
+</script>
+ 
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
 </html>
