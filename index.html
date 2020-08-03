@@ -1,512 +1,514 @@
-
 <!DOCTYPE html>
-<html lang="en" class="loading">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!--icon-->
+    
+        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- meta -->
+    
     <title>Apocalypse&#39;s Blog</title>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate" />
-    <meta name="keywords" content="TriDiamond Obsidian,"> 
     
-    <meta name="author" content="Apocalypse"> 
-    <link rel="alternative" href="atom.xml" title="Apocalypse&#39;s Blog" type="application/atom+xml"> 
-    <link rel="icon" href="/img/favicon.png"> 
-    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+
+    <!-- OpenGraph -->
+     
+        <meta property="og:type" content="website">
+<meta property="og:title" content="Apocalypse&#39;s Blog">
+<meta property="og:url" content="https://jiyugithub.github.io/index.html">
+<meta property="og:site_name" content="Apocalypse&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Apocalypse">
+<meta name="twitter:card" content="summary_large_image">
     
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    <!-- feed -->
+    
 
     
-<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+    
+    
+        
+<link rel="stylesheet" href="/css/style/dark.css">
+
+        
+<script src="/js/darkmode.js"></script>
 
     
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
 
     
-<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
 
     
-<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
+    
+
+     
 
     
-<link rel="stylesheet" href="/css/obsidian.css">
-
-    
-<link rel="stylesheet" href="/css/ball-atom.min.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-
-<body class="loading">
-    <div class="loader">
-        <div class="la-ball-atom la-2x">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    <span id="config-title" style="display:none">Apocalypse&#39;s Blog</span>
-    <div id="loader"></div>
-    <div class="nav">
-    <ul id="menu-menu" class="menu">
-        
-        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
-        </li>
-        
-        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
-        </li>
-        
-        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/tags/" title="TAGS" external="false">TAGS</a>
-        </li>
-        
-        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
-        </li>
-        
-    </ul>
-    <p class="copyright" id="copyright">
-        &copy; 2020 Apocalypse.
-        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
-        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
-    </p>
-</div>
-
-<div id="container">
-    
-<div class="search-box">
-    <form class="site-search-form">
-        <span class="iconfont icon-search"></span>
-        <input type="text" id="local-search-input" class="st-search-input" />
-        <div class="iconfont icon-cross search-box-close"></div>
-    </form>
-    <div class="search-scrollable">
-        <div id="local-search-result" class="local-search-result-cls" data-initialise="Initialising search index..."
-            data-start="Please input search keywords." data-empty="No result found, please try other keywords.">
-            <span>Please input search keywords.</span>
-        </div>
-    </div>
-</div>
-<div id="header">
-    <div>
-        <div class="logo animated fadeInDown">
-            <img src="/img/favicon.png" alt="">
-            <a class="image-logo" href="/"></a>
-        </div>
-        <ul id="menu-menu" class="menu text-menu">
-            
-            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
-            </li>
-            
-            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
-            </li>
-            
-            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
-            </li>
-            
-            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
-                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
-            </li>
-            
-            
-        </ul>
-        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
-    </div>
-</div>
-<div id="screen">
-    <div id="mark">
-        <div class="cover animated fadeIn" style="
-            animation-delay: 900ms;
-            animation-duration: 2.8s;
-            background-image:
-                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
-                url(/img/cover.jpg);">
-        </div>
-    </div>
-    
-    <div id="post0" class="else">
-        <p class="animated fadeInDown">
-            
-            <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            July 27, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown">
-            <a href="/2020/07/27/Jetpack/" title="Android全新UI编程 - Jetpack Compose 超详细教程 第1弹" class="posttitle">Android全新UI编程 - Jetpack Compose 超详细教程 第1弹</a></h3>
-        
-        <p class="post-count animated fadeInDown">
-            
-            <span>
-                <b class="iconfont icon-text2"></b> <i>Words count</i>
-                9.7k
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                Apocalypse's Blog 
             </span>
-            
-            
-            <span>
-                <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                9 mins.
-            </span>
-            
-            
-        </p>
-        
-        
-        <div class="md-content animated fadeIn">
-            
-            <p><code>Jetpack Compose</code>是在2019Google i/O大会上发布的新的库。<code>Compose</code>库是用响应式编程的方式对View进行构建,可以用更少更直观的代码，更强大的功能，能提高开发速度（这一段是...</p>
-            
-            <span class="read-more"><a href="/2020/07/27/Jetpack/" title="Read article" class="posttitle">Read article</a>
-                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+        </a>
     </div>
-    
-</div>
-
-<div class="screen-gradient-after">
-    <div class="screen-gradient-content">
-        <div class="screen-gradient-content-inside">
-            <div class="bold-underline-links screen-gradient-sponsor">
-                <p>
-                    <span class="typed-text"></span>
-                </p>
+    <div class="header__right">
+        
+            <div class="cover__menus">
+                
+                    <a href="/" class="cover-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="cover-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="cover-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="cover-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="cover-menu button">
+                        Page
+                    </a>
+                
             </div>
+        
+        
+            <a href="javaScript:void(0);" id="btn-toggle-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </a>
+        
+         
+            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+                </svg>
+            </a>
+        
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/friends/" class="dropdown-menu button">
+                        友链
+                    </a>
+                
+                    <a href="/page/" class="dropdown-menu button">
+                        Page
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    requestAnimationFrame(() => {
+                        dd.style.display = 'flex';
+                        requestAnimationFrame(() => {
+                            dd.style.transform = 'translateY(0)';
+                            dd.style.opacity = '1';
+                        });
+                    });
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(2.25rem)';                    
+                    dd.style.opacity = '0';
+                    setTimeout(() => {dd.style.display = 'none';}, 350);
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+    <div class="cover">
+        <div class="cover__logo">
+            
+                <h1>Apocalypse's Blog</h1>
+            
         </div>
+        
+            <div class="cover__intro">
+                <p>Hi, nice to meet you!</p>
+ 
+            </div>
+        
+    </div>
+
+            <main class="main">
+    
+    <div class="posts">
+        
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/27/Jetpack/" class="index-title">
+        <h2 class="post-card__title">
+            Android全新UI编程 - Jetpack Compose 超详细教程 第1弹
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a><strong>1. 简介</strong></h2><p><code>Jetpack Compose</code>是在2019Google i/O大会上发布的新的库。<code>Compose</code>库是用响应式编程的方式对View进行构建,可以用更少更直观的代码，更强大的功能，能提高开发速度（这一段是谷歌自己说的）。 说实话，<code>View/Layout</code>的模式对安卓工程师来说太过于熟悉，对于学习曲线陡峭的<code>Jetpack Compose</code>能不能很好的普及还是有所担心。</p>
+                
+            </div>
+        
     </div>
 </div>
-
-    <div id="primary">
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-27
+</a>
+    
+    
         
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            July 25, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/07/25/andview/" title="Android进阶基础系列：View的工作原理 全面理解！" class="posttitle">Android进阶基础系列：View的工作原理 全面理解！</a></h3>
-        
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        39k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        35 mins.
-                    </span>
-                
-                
-            </p>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <ol>
-<li><strong>ViewRoot对应ViewRootImpl类，是连接WindowManager和DecorView的纽带。View的三大流程是通过ViewRoot完成的。</strong> 在ActivityThread中，当Activity对象被创建完毕时，会将DecorView添加到Window中，同时会创建ViewRootImpl，且ViewRootImpl和DecorView会建立关联。如下代码，WindowManagerGlobal的addView()方法：</li>
-</ol>
-<pre><code class="java">public void addView(View view...</code></pre>
-            
-            <span class="read-more"><a href="/2020/07/25/andview/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
+ 
+    
 </div>
 
+    <div class="post-tags post-card__tags">
+    
+</div> 
 
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
+<a href="/2020/07/27/Jetpack/" class="post-card__link">Link</a>
+                </div>
             
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            July 05, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/07/05/suspendAction/" title="用协程控制多个并行异步结果的优先级" class="posttitle">用协程控制多个并行异步结果的优先级</a></h3>
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/25/andview/" class="index-title">
+        <h2 class="post-card__title">
+            Android进阶基础系列：View的工作原理 全面理解！
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-            <p class="post-count animated fadeInDown">
+            <div class="md-content">
                 
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        10k
-                    </span>
+                    <p>
+                        1、ViewRoot 和 DecorView...
+                    </p>
                 
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        9 mins.
-                    </span>
-                
-                
-            </p>
-            
+            </div>
         
-        <div class="md-content animated fadeIn">
-            
-                <p>你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。</p>
-<a id="more"></a>
-
-<p>串行请求是最容易想到的解决方案，即先请求最高优先级的弹窗，当它返回展示后再请求第二优先级弹窗。但这样会拉长所有弹窗的展示时间。</p>
-<p>性能更好的方案是同时并行发出三个请求，但网络请求时长的不确定性使得最高优先级的弹窗不一定优先返回，所以得设计一种<strong>优先级阻塞机制</strong>。本文使用 <strong>协程</strong> + <strong>链式队列</strong> 实现这个机制。</p>
-<p>把单个异步任务进行抽象：</p>
-<pre><code class="kotlin">// 单个异步任务
-class ...</code></pre>
-            
-            <span class="read-more"><a href="/2020/07/05/suspendAction/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 30, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/30/blogs/" title="帮朋友转发一个博客" class="posttitle">帮朋友转发一个博客</a></h3>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-25
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        153
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        1 mins.
-                    </span>
-                
-                
-            </p>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <p><a href="http://blog.moiyun.cn/archives/15/" target="_blank" rel="noopener">http://blog.moiyun.cn/archives/15/</a><br>除非付诸行动，否则空口无凭</p>
-<p>博主：刘时俊</p>
-
-            
-            <span class="read-more"><a href="/2020/06/30/blogs/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
+ 
+    
 </div>
 
+    <div class="post-tags post-card__tags">
+    
+</div> 
 
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
+<a href="/2020/07/25/andview/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/07/05/suspendAction/" class="index-title">
+        <h2 class="post-card__title">
+            用协程控制多个并行异步结果的优先级
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。</p>
+                
+            </div>
+        
     </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 28, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/28/androidxx/" title="聊聊 Android 开发的现状和思考" class="posttitle">聊聊 Android 开发的现状和思考</a></h3>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/07/" class="button" style="color: #808080;">
+    2020-07-05
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        7.1k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        6 mins.
-                    </span>
-                
-                
-            </p>
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/07/05/suspendAction/" class="post-card__link">Link</a>
+                </div>
             
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/30/blogs/" class="index-title">
+        <h2 class="post-card__title">
+            帮朋友转发一个博客
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-        <div class="md-content animated fadeIn">
+            <div class="md-content">
+                
+                    <p>
+                        http://blog.moiyun.cn/archives/15/除非付诸行动，否则空口无凭
+博主：刘时...
+                    </p>
+                
+            </div>
+        
+    </div>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-30
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/30/blogs/" class="post-card__link">Link</a>
+                </div>
             
-                <p>回想这六年里 Android 开发的发展历程，现如今的 Android 已经拥有了成熟的开发体系，技术框架也是经历了一代一代的更新：</p>
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/28/androidxx/" class="index-title">
+        <h2 class="post-card__title">
+            聊聊 Android 开发的现状和思考
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>回想这六年里 Android 开发的发展历程，现如今的 Android 已经拥有了成熟的开发体系，技术框架也是经历了一代一代的更新：</p>
 <ul>
 <li><code>HttpClient</code>、<code>Volley</code> 、<code>OkHttp</code>、<code>Retrofit</code> ；</li>
 <li><code>ImageLoader</code>、<code>Picasso</code>、<code>Fresco</code>、<code>Glide</code>；</li>
 <li><code>OrmLite</code>、<code>LitePal</code>、<code>GreenDao</code>、<code>Realm</code>、<code>Room</code>；</li>
 </ul>
-<p>除了熟悉的网络、图片和数据库“三大件”外，还有像 <code>xUtils</code>、<code>EventBus</code>、<code>Dagger</code>、<code>RxJava</code>、<code>MultiType</code> 等等，它们对于老...</p>
-            
-            <span class="read-more"><a href="/2020/06/28/androidxx/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+<p>除了熟悉的网络、图片和数据库“三大件”外，还有像 <code>xUtils</code>、<code>EventBus</code>、<code>Dagger</code>、<code>RxJava</code>、<code>MultiType</code> 等等，它们对于老 Android 来说，可以说是贯穿了整个“青春期”的回忆。</p>
+                
+            </div>
+        
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 16, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/16/fragmentstatepager/" title="FragmentStatePagerAdapter在ViewPager中优化了什么" class="posttitle">FragmentStatePagerAdapter在ViewPager中优化了什么</a></h3>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-28
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        9.9k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        9 mins.
-                    </span>
-                
-                
-            </p>
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/28/androidxx/" class="post-card__link">Link</a>
+                </div>
             
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/16/fragmentstatepager/" class="index-title">
+        <h2 class="post-card__title">
+            FragmentStatePagerAdapter在ViewPager中优化了什么
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-        <div class="md-content animated fadeIn">
-            
-                <p>OK，填坑篇的文章来了。</p>
+            <div class="md-content">
+                
+                    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>OK，填坑篇的文章来了。</p>
 <p>当我打开官方文档准备开始了解FragmentStatePagerAdapter的时候。我仿佛像是…闭关蛰伏数十载，准备反清复明；出关时发现大清已经亡了…</p>
-<p></p>
+<p><img src="http://user-gold-cdn.xitu.io/2020/5/28/17259fac8a6bcf70?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>什么鬼，我还不会用呢，就tm废弃了？？？</p>
-<a id="more"></a>
-
-<p>当然这不妨碍咱们去了解它如何增强了FragmentPagerAdapter。扶我起来，我还能学！</p>
-<p>看FragmentStatePagerAdapter之前，咱们还是要先看<a href="https://developer.android.com/reference/androidx/fragment/app/FragmentStatePagerAdapter" target="_blank" rel="noopener">文档</a></p>
-<p>官网是这么介绍这个类的（我直接用自己蹩脚的英文翻译了一下）：</p>
-<p>当存在大量fragment时，此版本...</p>
-            
-            <span class="read-more"><a href="/2020/06/16/fragmentstatepager/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+                
+            </div>
+        
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 16, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/16/100js/" title="100 行 js 代码下载抖音无水印视频" class="posttitle">100 行 js 代码下载抖音无水印视频</a></h3>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-16
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        3.5k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        3 mins.
-                    </span>
-                
-                
-            </p>
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/16/fragmentstatepager/" class="post-card__link">Link</a>
+                </div>
             
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/16/100js/" class="index-title">
+        <h2 class="post-card__title">
+            100 行 js 代码下载抖音无水印视频
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-        <div class="md-content animated fadeIn">
-            
-                <blockquote>
+            <div class="md-content">
+                
+                    <blockquote>
 <p>本文大约 600 字，看完本文大概需要 5 分钟，仅供学习使用，如有错误，请指正。</p>
 </blockquote>
 <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>抖音平台下载一个视频，去掉左上角的水印id。</p>
 <h3 id="先来看看有水印效果"><a href="#先来看看有水印效果" class="headerlink" title="先来看看有水印效果"></a>先来看看有水印效果</h3><p>这时候就会发现，抖音官方下载下来的视频，会有抖音的水印，需要去掉水印。</p>
-<p></p>
-<a id="more"></a>
-
-<h3 id="分享视频"><a href="#分享视频" class="headerlink" title="分享视频"></a>分享视频</h3><p>从抖音分享一个视频，你会获得一个分享文案和地址，格式如下（不懂怎么分享可以百度）</p>
-<pre><code>一只都放不明白 https://v.douyin.com/JdbBqog/ 复制此链接，打开【抖音短视频】，直接观看视频！</code></pre><p><strong>把上面的 url 地址 ( <a href="https://v.douyin.com/JdbBqog/" target="_blank" rel="noopener">v.douyin.com/JdbBqog...</a></strong></p>
-            
-            <span class="read-more"><a href="/2020/06/16/100js/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+<p><img src="http://user-gold-cdn.xitu.io/2020/6/13/172ae574b9c8c350?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+                
+            </div>
+        
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 14, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/KotlinJava/" title="Kotlin与Java的异同" class="posttitle">Kotlin与Java的异同</a></h3>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-16
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        11k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        10 mins.
-                    </span>
-                
-                
-            </p>
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/16/100js/" class="post-card__link">Link</a>
+                </div>
             
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/KotlinJava/" class="index-title">
+        <h2 class="post-card__title">
+            Kotlin与Java的异同
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-        <div class="md-content animated fadeIn">
-            
-                <h3 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h3><blockquote>
+            <div class="md-content">
+                
+                    <h3 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h3><blockquote>
 <p>Java</p>
 </blockquote>
 <pre><code class="java">System.out.print(&quot;hello world&quot;);
@@ -516,342 +518,182 @@ System.out.println(&quot;hello world&quot;);</code></pre>
 </blockquote>
 <pre><code class="kotlin">print(&quot;hello world&quot;)
 println(&quot;hello world&quot;)</code></pre>
-<a id="more"></a>
-
-<h3 id="定义变量与常量常"><a href="#定义变量与常量常" class="headerlink" title="定义变量与常量常"></a>定义变量与常量常</h3><blockquote>
-<p>Java</p>
-</blockquote>
-<pre><code class="java">String name = &quot;hello world&quot;;
-final String name = &quot...</code></pre>
-            
-            <span class="read-more"><a href="/2020/06/14/KotlinJava/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+                
+            </div>
+        
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/assets/title.jpg/);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="/categories/Category1">
-                  <b>「 </b>CATEGORY1<b> 」</b>
-                </a>
-            
-            June 14, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/switcher/" title="炫酷！从未见过如此Q弹的Switcher" class="posttitle">炫酷！从未见过如此Q弹的Switcher</a></h3>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
         
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        6.1k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        6 mins.
-                    </span>
-                
-                
-            </p>
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/14/KotlinJava/" class="post-card__link">Link</a>
+                </div>
             
-                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tag1/" rel="tag">Tag1</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tag2/" rel="tag">Tag2</a></li></ul>
-            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/switcher/" class="index-title">
+        <h2 class="post-card__title">
+            炫酷！从未见过如此Q弹的Switcher
+        </h2>
+    </a>
+    <div class="post-card__descrption">
         
-        <div class="md-content animated fadeIn">
-            
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
+            <div class="md-content">
+                
+                    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
 <blockquote>
 <p>原作者：<a href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------" target="_blank" rel="noopener">Alexander Kolpakov</a> 译者：<a href="https://www.jianshu.com/u/35167a70aa39" target="_blank" rel="noopener">依然范特稀西</a> 地址：<a href="http://suo.im/60UJjT" target="_blank" rel="noopener">http://suo.im/60UJjT</a></p>
 </blockquote>
-<a id="more"></a>
-
-<h3 id="正文开始"><a href="#正文开始" class="headerlink" title="正文开始"></a>正文开始</h3><p>最近，我写了一篇关于实现Dribbble上的一个漂亮设计的文章。得到了很多...</p>
-            
-            <span class="read-more"><a href="/2020/06/14/switcher/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
+                
+            </div>
+        
     </div>
 </div>
-
-
-<div class="post" id="post">
-    <div class="post-cover animated fadeIn" style="
-            background-image:
-            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
-            url(/img/welcome-cover.jpg);">
-    </div>
-    <div class="else">
-        <p class="animated fadeInDown">
-            
-                <a href="javascript:;"><b>「 </b>Article<b> 」</b></a>
-            
-            June 14, 2020
-        </p>
-        <h3 class="post-title animated fadeInDown"><a href="/2020/06/14/Kotlinyf/" title="Kotlin实战 | 语法糖" class="posttitle">Kotlin实战 | 语法糖</a></h3>
-        
-            <p class="post-count animated fadeInDown">
-                
-                    <span>
-                        <b class="iconfont icon-text2"></b> <i>Words count</i>
-                        14k
-                    </span>
-                
-                
-                    <span>
-                        <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                        13 mins.
-                    </span>
-                
-                
-            </p>
-            
-        
-        <div class="md-content animated fadeIn">
-            
-                <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
-<a id="more"></a>
-
-<p>在非 xml 环境下构建布局，需要将 px 转换为 dp 来进行多屏幕适配。Java 的做法是在<code>Util</code>类中新增一个静态函数。利用 Kotlin 的扩展属性可以更简洁地实现：</p>
-<pre><code>val Int.dp: Int
-    get() {
-        return TypedValue...</code></pre>
-            
-            <span class="read-more"><a href="/2020/06/14/Kotlinyf/" title="Read article" class="posttitle">Read article</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
-        </div>
-    </div>
-</div>
-
-
-    </div>
+<div class="post-card__meta">
     
-    <div id="pager"><a href="/page/2/" class="more" data-loading="加载中..." data-load-more="Load more">Load more</a></div>
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
+        
+    <span class="separate-dot"></span><a href="/categories/Category1/" class="button">Category1</a>
+
+    <span class="separate-dot"></span><a href="/categories/Category1/Category2/" class="button">Category2</a>
+
+ 
     
 </div>
-<div id="preview"></div>
 
-    <div id="back-to-top" class="animated fadeIn faster">
-        <div class="flow"></div>
-        <span class="percentage animated fadeIn faster">0%</span>
-        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    <div class="post-tags post-card__tags">
+    
+        <a href="/tags/Tag1/" class="post-tags__link button"># Tag1</a>
+    
+        <a href="/tags/Tag2/" class="post-tags__link button"># Tag2</a>
+    
+</div> 
+
+<a href="/2020/06/14/switcher/" class="post-card__link">Link</a>
+                </div>
+            
+                <div class='post-card content-card'>
+                    <div class="post-card__header">
+    
+         
+    
+</div>
+<div class="post-card__content">
+    <a href="/2020/06/14/Kotlinyf/" class="index-title">
+        <h2 class="post-card__title">
+            Kotlin实战 | 语法糖
+        </h2>
+    </a>
+    <div class="post-card__descrption">
+        
+            <div class="md-content">
+                
+                    <p>学习了 Kotlin 后，写代码时常有一种“闹革命”的冲动，总是希望运用语法糖推翻“旧世界”（这样不好，项目会 delay 的~）。本文归纳了 Kotlin 语法糖在项目实战中的综合运用，以实际问题为索引，在分析解决方案的同时介绍相关语法知识。</p>
+                
+            </div>
+        
     </div>
-</body>
-<footer>
-    <p class="copyright" id="copyright">
-        &copy; 2020
-        <span class="gradient-text">
-            Apocalypse
-        </span>.
-        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
-        Theme
-        <span class="gradient-text">
-            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
-        </span>
-        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.4" target="_blank" rel="noopener">v1.4.4</a></small>
-    </p>
+</div>
+<div class="post-card__meta">
+    
+        <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-14
+</a>
+    
+    
+        
+ 
+    
+</div>
+
+    <div class="post-tags post-card__tags">
+    
+</div> 
+
+<a href="/2020/06/14/Kotlinyf/" class="post-card__link">Link</a>
+                </div>
+            
+        
+    </div>
+    
+        
+            <br>
+            <nav role="navigation" aria-label="Pagination Navigation">
+                
+                <span>1 / 4</span>
+                
+                    <a href="/page/2/" class="button">
+                        Next&nbsp;&gt;
+                    </a>
+                
+            </nav>
+        
+    
+
+
+</main>
+<footer class="footer">
+     
+
+
+     
+  
+    
+        
+            <p>Copyright © 2020</p>
+
+        
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
 </footer>
 
-<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<script>
-  MathJax.Hub.Config({
-    "HTML-CSS": {
-      preferredFont: "TeX",
-      availableFonts: ["STIX", "TeX"],
-      linebreaks: {
-        automatic: true
-      },
-      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-      inlineMath: [
-        ["$", "$"],
-        ["\\(", "\\)"]
-      ],
-      processEscapes: true,
-      ignoreClass: "tex2jax_ignore|dno",
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      noUndefined: {
-        attributes: {
-          mathcolor: "red",
-          mathbackground: "#FFEEEE",
-          mathsize: "90%"
-        }
-      },
-      Macros: {
-        href: "{}"
-      }
-    },
-    messageStyle: "none"
-  });
-</script>
-<script>
-  function initialMathJax() {
-    MathJax.Hub.Queue(function () {
-      var all = MathJax.Hub.getAllJax(),
-        i;
-      // console.log(all);
-      for (i = 0; i < all.length; i += 1) {
-        console.log(all[i].SourceElement().parentNode)
-        all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-    });
-  }
-
-  function reprocessMathJax() {
-    if (typeof MathJax !== 'undefined') {
-      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-    }
-  }
-</script>
 
 
- 
-<link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
- 
-<script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
-  
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/js/plugin.js"></script>
-<script src="/js/obsidian.js"></script>
-<script src="/js/jquery.truncate.js"></script>
-<script src="/js/search.js"></script>
- 
-<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
- 
-<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
- 
-<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
-
-
-<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
- 
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
-  
-<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
-   
-<script src="/js/busuanzi.min.js"></script>
-
-<script>
-  $(document).ready(function () {
-    if ($('span[id^="busuanzi_"]').length) {
-      initialBusuanzi();
-    }
-  });
-</script>
- 
-<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
-
-
-<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
-<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
-
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
         </div>
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <!--  Controls are self-explanatory. Order can be changed. -->
-                <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-        </div>
-    </div>
-</div>
- 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="//www.googletagmanager.com/gtag/js?id=UA-149874671-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
+        
 
-  gtag('config', 'UA-149874671-1');
-</script>
  
 
-<script>
-  function initialTyped() {
-    var typedTextEl = $('.typed-text');
-    if (typedTextEl && typedTextEl.length > 0) {
-      var typed = new Typed('.typed-text', {
-        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
-        typeSpeed: 90,
-        loop: true,
-        loopCount: Infinity,
-        backSpeed: 20,
-      });
-    }
-  }
+ 
 
-  if ($('.article-header') && $('.article-header').length) {
-    $(document).ready(function () {
-      initialTyped();
-    });
-  }
-</script>
+ 
+
+  
+
+ 
+
+ 
+    
+<script src="/js/b2t.js"></script>
 
 
 
 
+
+
+
+
+    </body>
 </html>
