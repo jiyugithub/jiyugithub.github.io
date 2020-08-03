@@ -1,257 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
-
-    
-
-    <!--icon-->
-    
-        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
-    
-
-    <!-- 渲染优化 -->
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="HandheldFriendly" content="True" >
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- meta -->
-    
-    <title>炫酷！从未见过如此Q弹的Switcher | Apocalypse&#39;s Blog</title>
-    
-        <meta name="keywords" content="Tag1, Tag2">
-    
-
-    <!-- OpenGraph -->
-     
-        <meta name="description" content="前言最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov 译者：依然范特稀西 地址：http:&#x2F;&#x2F;suo.im&#x2F;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="炫酷！从未见过如此Q弹的Switcher">
-<meta property="og:url" content="https://jiyugithub.github.io/2020/06/14/switcher/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="前言最近逛Dribbble的时候，看到了一个非常酷的Switcher动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！  原作者：Alexander Kolpakov 译者：依然范特稀西 地址：http:&#x2F;&#x2F;suo.im&#x2F;">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1f123a19?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c209a787a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c223d523d?imageslim">
-<meta property="article:published_time" content="2020-06-13T18:40:38.000Z">
-<meta property="article:modified_time" content="2020-06-13T20:44:26.122Z">
-<meta property="article:author" content="Apocalypse">
-<meta property="article:tag" content="Tag1">
-<meta property="article:tag" content="Tag2">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim">
-    
-
-    <!-- feed -->
-    
-
-    
-<link rel="stylesheet" href="/css/style/main.css">
- 
-    
-    
-        
-<link rel="stylesheet" href="/css/style/dark.css">
-
-        
-<script src="/js/darkmode.js"></script>
-
-    
-
-    
-        
-            <link rel="stylesheet" id="hljs-default-theme" href="/css/highlight/github.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
-            
-                <link rel="stylesheet" id="hljs-dark-theme" href="/css/highlight/atom-one-dark.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
-            
-        
-    
-
-    
-        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
-    
-
-     
-
-    
-
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    <body>
-        <div id="app">
-            <header class="header">
-    <div class="header__left">
-        <a href="/" class="button">
-            <span class="logo__text">
-                Apocalypse's Blog 
-            </span>
-        </a>
-    </div>
-    <div class="header__right">
-        
-            <div class="cover__menus">
-                
-                    <a href="/" class="cover-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="cover-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="cover-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="cover-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="cover-menu button">
-                        Page
-                    </a>
-                
-            </div>
-        
-        
-            <a href="javaScript:void(0);" id="btn-toggle-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </a>
-        
-         
-            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
-                </svg>
-            </a>
-        
-        
-            <a class="dropdown-icon button" id="btn-dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
-                </svg>
-            </a>
-            <div class="dropdown-menus" id="dropdown-menus">
-                <a class="dropback-icon button" id="btn-dropback">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                    </svg>
-                </a>
-                
-                    <a href="/" class="dropdown-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="dropdown-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="dropdown-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="dropdown-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="dropdown-menu button">
-                        Page
-                    </a>
-                
-            </div>
-            <script>
-                document.getElementById('btn-dropdown').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    requestAnimationFrame(() => {
-                        dd.style.display = 'flex';
-                        requestAnimationFrame(() => {
-                            dd.style.transform = 'translateY(0)';
-                            dd.style.opacity = '1';
-                        });
-                    });
-                });
-                document.getElementById('btn-dropback').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    dd.style.transform = 'translateY(2.25rem)';                    
-                    dd.style.opacity = '0';
-                    setTimeout(() => {dd.style.display = 'none';}, 350);
-                });
-            </script>
-        
-    </div>
-</header>
-
-
-            <main class="main">
-    <div class="post-title">
-    <h1 class="post-title__text">
-        炫酷！从未见过如此Q弹的Switcher
-    </h1>
-    <div class="post-title__meta">
-        
-            <a href="/archives/2020/06/" class="button" style="color: #808080;">
-    2020-06-14
-</a>
-        
-        
-            
-    <span class="separate-dot"></span><a href="/categories/Category1/" class="button">Category1</a>
-
-    <span class="separate-dot"></span><a href="/categories/Category1/Category2/" class="button">Category2</a>
-
- 
-        
-        
-     
- 
-
-  
-    </div>
-</div>
-
-
-    <div class="post__with-side">
-        <aside class="post-side">
-            <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正文开始"><span class="toc-text">正文开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来开始绘制"><span class="toc-text">接下来开始绘制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始分解动画"><span class="toc-text">开始分解动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#至此，我们一切都可以了"><span class="toc-text">至此，我们一切都可以了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Talk-is-Chep，Just-show-Code"><span class="toc-text">Talk is Chep，Just show Code</span></a></li></ol>
-            </div>
-        </aside>
-        <article class="post content-card">
-            <div class="post__header">
-                
-                     
-                
-                
-                    
-    <div class="post__expire" id="post-expired-notify">
-        <p>
-            This article was last updated on <span id="expire-date"></span> days ago, the information described in the article may be outdated.
-        </p>
-    </div>
-    <script>
-        (() => {
-            var update = Date.parse("2020-06-14"),
-                date = new Date(),
-                now = date.getTime(),
-                expire = now - update,
-                expire_days = Math.floor(expire/(24*3600*1000));
-            if (expire_days >= 120) {
-                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
-                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
-            }
-        })();
-    </script>
-
-                
-            </div>
-            <div class="post__content">
-                <div class="md-content">
-                    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="炫酷！从未见过如此Q弹的Switcher"><meta name="keywords" content="Tag1,Tag2"><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>炫酷！从未见过如此Q弹的Switcher | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正文开始"><span class="toc-number">2.</span> <span class="toc-text">正文开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来开始绘制"><span class="toc-number">3.</span> <span class="toc-text">接下来开始绘制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始分解动画"><span class="toc-number">4.</span> <span class="toc-text">开始分解动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#至此，我们一切都可以了"><span class="toc-number">5.</span> <span class="toc-text">至此，我们一切都可以了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Talk-is-Chep，Just-show-Code"><span class="toc-number">6.</span> <span class="toc-text">Talk is Chep，Just show Code</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">33</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">炫酷！从未见过如此Q弹的Switcher</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-14</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Category1/">Category1</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Category1/Category2/">Category2</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近逛<code>Dribbble</code>的时候，看到了一个非常酷的<code>Switcher</code>动画，特别喜欢，本想着试着用代码在Android平台来实现一下，没想到已经有实现的版本，并且作者还写了文章分享，思路清晰，各个实现关键点都讲的特别清楚，因此就译诚中文，分享大家，正如作者最后所说，大家一定要运行试试，效果非常赞！</p>
 <blockquote>
 <p>原作者：<a href="https://android.jlelse.eu/@bitvale?source=post_page-----433258cbb80f----------------------" target="_blank" rel="noopener">Alexander Kolpakov</a> 译者：<a href="https://www.jianshu.com/u/35167a70aa39" target="_blank" rel="noopener">依然范特稀西</a> 地址：<a href="http://suo.im/60UJjT" target="_blank" rel="noopener">http://suo.im/60UJjT</a></p>
 </blockquote>
@@ -262,85 +18,27 @@
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1a6eecc9?imageslim" alt="swicher.gif">swicher.gif</p>
 <p>乍一看，实现这样的切换似乎并不简单，但我认为那是因为动画非常漂亮。如 你所见，创建相同的动画并不难。让我们一步一步地来实现它。</p>
 <p>第一步，我们需要自定义View,并且实现它的3个构造方法：</p>
-<pre><code>class Switcher @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet ? = null,
-        defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Switcher @JvmOverloads constructor(</span><br><span class="line">        context: Context,</span><br><span class="line">        attrs: AttributeSet ? &#x3D; null,</span><br><span class="line">        defStyleAttr: Int &#x3D; 0</span><br><span class="line">) : View(context, attrs, defStyleAttr) &#123;</span><br><span class="line">      </span><br><span class="line">    init &#123;</span><br><span class="line">        attrs?.let &#123; retrieveAttributes(attrs, defStyleAttr) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    private fun retrieveAttributes(attrs: AttributeSet, defStyleAttr: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; retrieve cutom attributes</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; setup switcher width and height</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) &#123;</span><br><span class="line">        &#x2F;&#x2F; setup helper sizes every time switcher size changed (radius, icon width...)</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    override fun onDraw(canvas: Canvas ?) &#123;</span><br><span class="line">        &#x2F;&#x2F; just draw</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    init {
-        attrs?.let { retrieveAttributes(attrs, defStyleAttr) }
-    }
-
-    private fun retrieveAttributes(attrs: AttributeSet, defStyleAttr: Int) {
-        // retrieve cutom attributes
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        // setup switcher width and height
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        // setup helper sizes every time switcher size changed (radius, icon width...)
-    }
-
-    override fun onDraw(canvas: Canvas ?) {
-        // just draw
-    }
-}
-</code></pre><h3 id="接下来开始绘制"><a href="#接下来开始绘制" class="headerlink" title="接下来开始绘制"></a>接下来开始绘制</h3><p>在默认（选中）状态下，我们的开关由2个圆角矩形（绿色和白色）组成</p>
+<h3 id="接下来开始绘制"><a href="#接下来开始绘制" class="headerlink" title="接下来开始绘制"></a>接下来开始绘制</h3><p>在默认（选中）状态下，我们的开关由2个圆角矩形（绿色和白色）组成</p>
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c1f123a19?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <p>绘制它们非常简单，我们只需要计算白色矩形的位置并将偏移量<code>iconTranslateX</code>传递给Android KTX <code>Canvas.withTranslation</code>扩展即可：</p>
-<pre><code>override fun onDraw(canvas: Canvas ?) {
-  // draw switcher (green rect)
-  canvas?.drawRoundRect(switcherRect, switcherCornerRadius, switcherCornerRadius, switcherPaint)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">override fun onDraw(canvas: Canvas ?) &#123;</span><br><span class="line">  &#x2F;&#x2F; draw switcher (green rect)</span><br><span class="line">  canvas?.drawRoundRect(switcherRect, switcherCornerRadius, switcherCornerRadius, switcherPaint)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; draw icon (white rect)</span><br><span class="line">  canvas?.withTranslation(x &#x3D; iconTranslateX) &#123;</span><br><span class="line">      drawRoundRect(iconRect, switcherCornerRadius, switcherCornerRadius, iconPaint)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  // draw icon (white rect)
-  canvas?.withTranslation(x = iconTranslateX) {
-      drawRoundRect(iconRect, switcherCornerRadius, switcherCornerRadius, iconPaint)
-  }
-}
-</code></pre><h3 id="开始分解动画"><a href="#开始分解动画" class="headerlink" title="开始分解动画"></a>开始分解动画</h3><p>动画部分，我们使用<code>ValueAnimator</code>来实现，使用它的<code>ofFloat(float... values)</code>方法,我们需要三个动画：</p>
+<h3 id="开始分解动画"><a href="#开始分解动画" class="headerlink" title="开始分解动画"></a>开始分解动画</h3><p>动画部分，我们使用<code>ValueAnimator</code>来实现，使用它的<code>ofFloat(float... values)</code>方法,我们需要三个动画：</p>
 <ul>
 <li>1、<code>switcherAnimator</code>: 切换器图标动画，从白色矩形到圆形，反之亦然</li>
 <li>2、<code>translateAnimator</code>: 为切换器图标从左到右的过渡设置动画，反之亦然；</li>
 <li>3、<code>colorAnimator</code>: 将颜色从绿色（选中）更改为红色，反之亦然。</li>
 </ul>
 <p>让我们先看一下<code>switcherAnimator</code>动画，设置<code>0</code>为动画的开始值，<code>1</code>为动画的结束值。</p>
-<pre><code>// ...
-var amplitude = BOUNCE_ANIM_AMPLITUDE_IN
-var frequency = BOUNCE_ANIM_FREQUENCY_IN
-var newProgress = 1f
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">var amplitude &#x3D; BOUNCE_ANIM_AMPLITUDE_IN</span><br><span class="line">var frequency &#x3D; BOUNCE_ANIM_FREQUENCY_IN</span><br><span class="line">var newProgress &#x3D; 1f</span><br><span class="line"></span><br><span class="line">if (!checked) &#123;</span><br><span class="line">    amplitude &#x3D; BOUNCE_ANIM_AMPLITUDE_OUT</span><br><span class="line">    frequency &#x3D; BOUNCE_ANIM_FREQUENCY_OUT</span><br><span class="line">    newProgress &#x3D; 0f</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val switcherAnimator &#x3D; ValueAnimator.ofFloat(iconProgress, newProgress).apply &#123;</span><br><span class="line">    addUpdateListener &#123;</span><br><span class="line">        iconProgress &#x3D; it.animatedValue as Float</span><br><span class="line">    &#125;</span><br><span class="line">    interpolator &#x3D; BounceInterpolator(amplitude, frequency)</span><br><span class="line">    duration &#x3D; SWITCHER_ANIMATION_DURATION</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
 
-if (!checked) {
-    amplitude = BOUNCE_ANIM_AMPLITUDE_OUT
-    frequency = BOUNCE_ANIM_FREQUENCY_OUT
-    newProgress = 0f
-}
-
-val switcherAnimator = ValueAnimator.ofFloat(iconProgress, newProgress).apply {
-    addUpdateListener {
-        iconProgress = it.animatedValue as Float
-    }
-    interpolator = BounceInterpolator(amplitude, frequency)
-    duration = SWITCHER_ANIMATION_DURATION
-}
-// ...
-</code></pre><p>我们可以使用 <a href="https://github.com/evgenyneu" target="_blank" rel="noopener">Evgenii Neumerzhitckii</a> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<a href="https://evgenii.com/blog/spring-button-animation-on-android/" target="_blank" rel="noopener">evgenii.com/blog/spring…</a>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
+<p>我们可以使用 <a href="https://github.com/evgenyneu" target="_blank" rel="noopener">Evgenii Neumerzhitckii</a> 写的<code>BounceInterpolator</code>来实现反弹效果，这非常适合我们的动画场景，不了解的可以看一下这片文章：<a href="https://evgenii.com/blog/spring-button-animation-on-android/" target="_blank" rel="noopener">evgenii.com/blog/spring…</a>，它解释了<code>BounceInterpolator</code>是如何工作的。</p>
 <p>在Android KTX <code>addUpdateListener</code>扩展中，我们更新了<code>progress</code>的值，然后触发<code>invalidate</code>方法，最后重新绘制了视图。</p>
-<pre><code>private var iconProgress = 0f
-  set(value) {
-      if (field != value) {
-          field = value
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private var iconProgress &#x3D; 0f</span><br><span class="line">  set(value) &#123;</span><br><span class="line">      if (field !&#x3D; value) &#123;</span><br><span class="line">          field &#x3D; value</span><br><span class="line">        </span><br><span class="line">          val iconOffset &#x3D; lerp(0f, iconRadius - iconCollapsedWidth &#x2F; 2, value)</span><br><span class="line">          iconRect.left &#x3D; width - switcherCornerRadius - iconCollapsedWidth &#x2F; 2 - iconOffset</span><br><span class="line">          iconRect.right &#x3D; width - switcherCornerRadius + iconCollapsedWidth &#x2F; 2 + iconOffset</span><br><span class="line"></span><br><span class="line">          postInvalidateOnAnimation()</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-          val iconOffset = lerp(0f, iconRadius - iconCollapsedWidth / 2, value)
-          iconRect.left = width - switcherCornerRadius - iconCollapsedWidth / 2 - iconOffset
-          iconRect.right = width - switcherCornerRadius + iconCollapsedWidth / 2 + iconOffset
-
-          postInvalidateOnAnimation()
-      }
-  }
-</code></pre><p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
+<p><code>lerp</code>方法类似一个线性插值器，它用于计算<code>iconOffset</code>,反过来，它也用于计算<code>Swicher</code>图标的圆角矩形坐标。此图标的矩形从一个圆角矩形变为一个圆形（圆角半径较大的圆角矩形）。</p>
 <blockquote>
 <p>我们使用了<code>postInvalidateOnAnimation()</code>代替<code>postIvalidate</code>,是因为我们需要平滑的动画，并且第一个方法有优势，详情请看：<a href="https://stackoverflow.com/questions/29219372/postinvalidateonanimation-vs-postinvalidate/42648958#42648958" target="_blank" rel="noopener">stackoverflow.com/questions/2…</a></p>
 </blockquote>
@@ -356,91 +54,48 @@ val switcherAnimator = ValueAnimator.ofFloat(iconProgress, newProgress).apply {
 <h3 id="至此，我们一切都可以了"><a href="#至此，我们一切都可以了" class="headerlink" title="至此，我们一切都可以了"></a>至此，我们一切都可以了</h3><p>现在，我们可以使用任何类型的动画来创建自定义视图，而且我们可以稍微更改代码以创建另一个由<code>Oleg Frolov</code>设计的<code>Swicher</code>小部件。仅需将视图轮廓从圆角矩形更新为圆形，并禁用平移动画。就是这么简单。</p>
 <p><img src="http://user-gold-cdn.xitu.io/2020/3/12/170cd50c223d523d?imageslim" alt="swicherX.gif">swicherX.gif</p>
 <h3 id="Talk-is-Chep，Just-show-Code"><a href="#Talk-is-Chep，Just-show-Code" class="headerlink" title="Talk is Chep，Just show Code"></a>Talk is Chep，Just show Code</h3><p>随意获取GitHub上的源代码，查看我的其他实现，别忘了尝试一下！ Github: <a href="https://github.com/bitvale/Switcher" target="_blank" rel="noopener">github.com/bitvale/Swi…</a></p>
-
-                </div>
-            </div>
-            
-                
-    <div class="post__license">
-        <p>
-            <strong>Author: </strong>Apocalypse
-        </p>
-        <p>
-            <strong>
-                Permalink: 
-            </strong>
-            <a href="https://jiyugithub.github.io/2020/06/14/switcher/">https://jiyugithub.github.io/2020/06/14/switcher/</a>
-        </p>
-        
-    </div>
- 
-            
-            
-                <div class="post-meta post-footer__meta">
-    <p>
-        最后更新于：2020-06-14
-    </p>
-</div> 
-            
-            
-                <div class="post-cats post-card__cats">
-    
-        <a href="/categories/Category1/" class="post-cats__link button">Category1</a>
-    
-        <a href="/categories/Category1/Category2/" class="post-cats__link button">Category2</a>
-    
-    
-        <a href="/tags/Tag1/" class="post-tags__link button"># Tag1</a>
-    
-        <a href="/tags/Tag2/" class="post-tags__link button"># Tag2</a>
-    
-</div> 
-             
-        </article>
-        
-    </div>
-
-
-</main>
-<footer class="footer">
-     
-
-
-     
-  
-    
-        
-            <p>Copyright © 2020</p>
-
-        
-    
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
-</footer>
-
-
-        </div>
-        
-
- 
-
- 
-
- 
-
-  
-
- 
-
- 
-    
-<script src="/js/b2t.js"></script>
-
-
-
-
-
-
-
-
-    </body>
-</html>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/06/14/switcher/">https://jiyugithub.github.io/2020/06/14/switcher/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Tag1/">Tag1</a><a class="post-meta__tags" href="/tags/Tag2/">Tag2</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/06/14/KotlinJava/"><i class="fa fa-chevron-left">  </i><span>Kotlin与Java的异同</span></a></div><div class="next-post pull-right"><a href="/2020/06/14/Kotlinyf/"><span>Kotlin实战 | 语法糖</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+  appKey:'FihoucantYlc5U1FQ9BzkO3l',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

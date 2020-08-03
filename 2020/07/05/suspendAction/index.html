@@ -1,604 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
-
-    
-
-    <!--icon-->
-    
-        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
-    
-
-    <!-- 渲染优化 -->
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="HandheldFriendly" content="True" >
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- meta -->
-    
-    <title>用协程控制多个并行异步结果的优先级 | Apocalypse&#39;s Blog</title>
-    
-
-    <!-- OpenGraph -->
-     
-        <meta name="description" content="你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="用协程控制多个并行异步结果的优先级">
-<meta property="og:url" content="https://jiyugithub.github.io/2020/07/05/suspendAction/index.html">
-<meta property="og:site_name" content="Apocalypse&#39;s Blog">
-<meta property="og:description" content="你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-05T01:09:27.000Z">
-<meta property="article:modified_time" content="2020-07-05T01:15:37.558Z">
-<meta property="article:author" content="Apocalypse">
-<meta name="twitter:card" content="summary_large_image">
-    
-
-    <!-- feed -->
-    
-
-    
-<link rel="stylesheet" href="/css/style/main.css">
- 
-    
-    
-        
-<link rel="stylesheet" href="/css/style/dark.css">
-
-        
-<script src="/js/darkmode.js"></script>
-
-    
-
-    
-        
-            <link rel="stylesheet" id="hljs-default-theme" href="/css/highlight/github.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
-            
-                <link rel="stylesheet" id="hljs-dark-theme" href="/css/highlight/atom-one-dark.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')!==-1)this.media='all'">
-            
-        
-    
-
-    
-        <link rel="stylesheet" href="/css/style/note.css" media="none" onload="this.media='all'">
-    
-
-     
-
-    
-
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-    <body>
-        <div id="app">
-            <header class="header">
-    <div class="header__left">
-        <a href="/" class="button">
-            <span class="logo__text">
-                Apocalypse's Blog 
-            </span>
-        </a>
-    </div>
-    <div class="header__right">
-        
-            <div class="cover__menus">
-                
-                    <a href="/" class="cover-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="cover-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="cover-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="cover-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="cover-menu button">
-                        Page
-                    </a>
-                
-            </div>
-        
-        
-            <a href="javaScript:void(0);" id="btn-toggle-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </a>
-        
-         
-            <a href="javaScript:void(0);" id="b2t" style="" aria-label="Back to Top" title="Back to Top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
-                </svg>
-            </a>
-        
-        
-            <a class="dropdown-icon button" id="btn-dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
-                </svg>
-            </a>
-            <div class="dropdown-menus" id="dropdown-menus">
-                <a class="dropback-icon button" id="btn-dropback">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
-                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
-                    </svg>
-                </a>
-                
-                    <a href="/" class="dropdown-menu button">
-                        首页
-                    </a>
-                
-                    <a href="/tags/" class="dropdown-menu button">
-                        标签
-                    </a>
-                
-                    <a href="/archives/" class="dropdown-menu button">
-                        归档
-                    </a>
-                
-                    <a href="/friends/" class="dropdown-menu button">
-                        友链
-                    </a>
-                
-                    <a href="/page/" class="dropdown-menu button">
-                        Page
-                    </a>
-                
-            </div>
-            <script>
-                document.getElementById('btn-dropdown').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    requestAnimationFrame(() => {
-                        dd.style.display = 'flex';
-                        requestAnimationFrame(() => {
-                            dd.style.transform = 'translateY(0)';
-                            dd.style.opacity = '1';
-                        });
-                    });
-                });
-                document.getElementById('btn-dropback').addEventListener('click', () => {
-                    const dd = document.getElementById('dropdown-menus');
-                    dd.style.transform = 'translateY(2.25rem)';                    
-                    dd.style.opacity = '0';
-                    setTimeout(() => {dd.style.display = 'none';}, 350);
-                });
-            </script>
-        
-    </div>
-</header>
-
-
-            <main class="main">
-    <div class="post-title">
-    <h1 class="post-title__text">
-        用协程控制多个并行异步结果的优先级
-    </h1>
-    <div class="post-title__meta">
-        
-            <a href="/archives/2020/07/" class="button" style="color: #808080;">
-    2020-07-05
-</a>
-        
-        
-            
- 
-        
-        
-     
- 
-
-  
-    </div>
-</div>
-
-
-    <div class="post__with-side">
-        <aside class="post-side">
-            <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#异步任务链"><span class="toc-text">异步任务链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局作用域"><span class="toc-text">全局作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步超时"><span class="toc-text">异步超时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步任务生命周期管理"><span class="toc-text">异步任务生命周期管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Talk-is-cheap-show-me-the-code"><span class="toc-text">Talk is cheap, show me the code</span></a></li></ol>
-            </div>
-        </aside>
-        <article class="post content-card">
-            <div class="post__header">
-                
-                     
-                
-                
-                    
-    <div class="post__expire" id="post-expired-notify">
-        <p>
-            This article was last updated on <span id="expire-date"></span> days ago, the information described in the article may be outdated.
-        </p>
-    </div>
-    <script>
-        (() => {
-            var update = Date.parse("2020-07-05"),
-                date = new Date(),
-                now = date.getTime(),
-                expire = now - update,
-                expire_days = Math.floor(expire/(24*3600*1000));
-            if (expire_days >= 120) {
-                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
-                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
-            }
-        })();
-    </script>
-
-                
-            </div>
-            <div class="post__content">
-                <div class="md-content">
-                    <p>你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="用协程控制多个并行异步结果的优先级"><meta name="keywords" content=""><meta name="author" content="Apocalypse"><meta name="copyright" content="Apocalypse"><title>用协程控制多个并行异步结果的优先级 | Apocalypse's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><meta name="generator" content="Hexo 4.2.1"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#异步任务链"><span class="toc-number">1.</span> <span class="toc-text">异步任务链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局作用域"><span class="toc-number">2.</span> <span class="toc-text">全局作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步超时"><span class="toc-number">3.</span> <span class="toc-text">异步超时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步任务生命周期管理"><span class="toc-number">4.</span> <span class="toc-text">异步任务生命周期管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Talk-is-cheap-show-me-the-code"><span class="toc-number">5.</span> <span class="toc-text">Talk is cheap, show me the code</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Apocalypse</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">33</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">2</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Apocalypse's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">用协程控制多个并行异步结果的优先级</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-07-05</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>你会怎么实现下面这个场景？应用首页有三个优先级从高到低的弹窗，展示内容依赖网络请求，若低优先级弹窗请求先返回则需等待，让高优先级先展示。</p>
 <a id="more"></a>
 
 <p>串行请求是最容易想到的解决方案，即先请求最高优先级的弹窗，当它返回展示后再请求第二优先级弹窗。但这样会拉长所有弹窗的展示时间。</p>
 <p>性能更好的方案是同时并行发出三个请求，但网络请求时长的不确定性使得最高优先级的弹窗不一定优先返回，所以得设计一种<strong>优先级阻塞机制</strong>。本文使用 <strong>协程</strong> + <strong>链式队列</strong> 实现这个机制。</p>
 <h2 id="异步任务链"><a href="#异步任务链" class="headerlink" title="异步任务链"></a><strong>异步任务链</strong></h2><p>把单个异步任务进行抽象：</p>
-<pre><code class="kotlin">// 单个异步任务
-class Item {
-    companion object {
-        // 默认异步优先级
-        const val PRIORITY_DEFAULT = 0
-    }
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单个异步任务</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="comment">// 默认异步优先级</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> PRIORITY_DEFAULT = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 异步操作：耗时的异步操作</span></span><br><span class="line">    <span class="keyword">var</span> suspendAction: (<span class="keyword">suspend</span> () -&gt; Any?)? = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">set</span>(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">            value?.let &#123;</span><br><span class="line">                <span class="comment">// 启动协程执行异步操作</span></span><br><span class="line">                GlobalScope.launch &#123; deferred = async &#123; it.invoke() &#125; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// 异步响应：异步操作结束后要做的事情</span></span><br><span class="line">    <span class="keyword">var</span> resumeAction: ((Any?) -&gt; <span class="built_in">Unit</span>)? = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 异步结果：异步操作返回值</span></span><br><span class="line">    <span class="keyword">var</span> deferred: Deferred&lt;*&gt;? = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 异步优先级</span></span><br><span class="line">    <span class="keyword">var</span> priority: <span class="built_in">Int</span> = PRIORITY_DEFAULT</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    // 异步操作：耗时的异步操作
-    var suspendAction: (suspend () -&gt; Any?)? = null
-        set(value) {
-            field = value
-            value?.let {
-                // 启动协程执行异步操作
-                GlobalScope.launch { deferred = async { it.invoke() } }
-            }
-        }
-    // 异步响应：异步操作结束后要做的事情
-    var resumeAction: ((Any?) -&gt; Unit)? = null
-    // 异步结果：异步操作返回值
-    var deferred: Deferred&lt;*&gt;? = null
-    // 异步优先级
-    var priority: Int = PRIORITY_DEFAULT
-}</code></pre>
 <p>异步任务有三个主要的属性，分别是异步操作<code>suspendAction</code>、异步响应<code>resumeAction</code>、异步结果<code>deferred</code>。每当异步操作被赋值时，就启动协程执行它，并将其返回值保存在<code>deferred</code>中。</p>
 <p>为了确保异步任务的优先级，把多个异步任务用链的方式串起来，组成<strong>异步任务链</strong>：</p>
-<pre><code class="kotlin">class Item {
-    companion object {
-        const val PRIORITY_DEFAULT = 0
-    }
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">val</span> PRIORITY_DEFAULT = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> suspendAction: (<span class="keyword">suspend</span> () -&gt; Any?)? = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">set</span>(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">            value?.let &#123;</span><br><span class="line">                GlobalScope.launch &#123; deferred = async &#123; it.invoke() &#125; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">var</span> resumeAction: ((Any?) -&gt; <span class="built_in">Unit</span>)? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> deferred: Deferred&lt;*&gt;? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> priority: <span class="built_in">Int</span> = PRIORITY_DEFAULT</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 异步任务前结点（Item 包含 Item）</span></span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> next: Item? = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 异步任务后结点（Item 包含 Item）</span></span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> pre: Item? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在当前结点后插入新结点</span></span><br><span class="line">    <span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">addNext</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">        next?.let &#123;</span><br><span class="line">            it.pre = item</span><br><span class="line">            item.next = it</span><br><span class="line">            item.pre = <span class="keyword">this</span></span><br><span class="line">            <span class="keyword">this</span>.next = item</span><br><span class="line">        &#125; ?: also &#123; <span class="comment">// 尾结点插入</span></span><br><span class="line">            <span class="keyword">this</span>.next = item</span><br><span class="line">            item.pre = <span class="keyword">this</span></span><br><span class="line">            item.next = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在当前结点前插入新结点</span></span><br><span class="line">    <span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">addPre</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">        pre?.let &#123;</span><br><span class="line">            it.next = item</span><br><span class="line">            item.pre = it</span><br><span class="line">            item.next = <span class="keyword">this</span></span><br><span class="line">            <span class="keyword">this</span>.pre = item</span><br><span class="line">        &#125; ?: also &#123; <span class="comment">// 头结点插入</span></span><br><span class="line">            item.next = <span class="keyword">this</span></span><br><span class="line">            item.pre = <span class="literal">null</span></span><br><span class="line">            <span class="keyword">this</span>.pre = item</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    var suspendAction: (suspend () -&gt; Any?)? = null
-        set(value) {
-            field = value
-            value?.let {
-                GlobalScope.launch { deferred = async { it.invoke() } }
-            }
-        }
-
-    var resumeAction: ((Any?) -&gt; Unit)? = null
-    var deferred: Deferred&lt;*&gt;? = null
-    var priority: Int = PRIORITY_DEFAULT
-
-    // 异步任务前结点（Item 包含 Item）
-    internal var next: Item? = null
-    // 异步任务后结点（Item 包含 Item）
-    internal var pre: Item? = null
-
-    // 在当前结点后插入新结点
-    internal fun addNext(item: Item) {
-        next?.let {
-            it.pre = item
-            item.next = it
-            item.pre = this
-            this.next = item
-        } ?: also { // 尾结点插入
-            this.next = item
-            item.pre = this
-            item.next = null
-        }
-    }
-
-    // 在当前结点前插入新结点
-    internal fun addPre(item: Item) {
-        pre?.let {
-            it.next = item
-            item.pre = it
-            item.next = this
-            this.pre = item
-        } ?: also { // 头结点插入
-            item.next = this
-            item.pre = null
-            this.pre = item
-        }
-    }
-}</code></pre>
 <p>用 <strong>自己包含自己</strong> 的方式就能实现链式结构。Android 消息列表也用同样的结构：</p>
-<pre><code class="kotlin">public final class Message implements Parcelable {
-    Message next;
-    ...
-}</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="title">implements</span> <span class="title">Parcelable</span> </span>&#123;</span><br><span class="line">    Message next;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>链必须有个头结点，存放头结点的类就是存放整个链的类，就好像消息列表<code>MessageQueue</code>一样：</p>
-<pre><code class="kotlin">public final class MessageQueue {
-    Message mMessages;
-}</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageQueue</span> </span>&#123;</span><br><span class="line">    Message mMessages;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>模仿消息列表，写一个<strong>异步任务链</strong>：</p>
-<pre><code class="kotlin">// 异步任务链
-class SuspendList {
-    // 头结点
-    private var head: Item = emptyItem()
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步任务链</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuspendList</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 头结点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> head: Item = emptyItem()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向异步任务链插入结点</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">add</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 从头结点向后查找插入位置，找到再后插入</span></span><br><span class="line">        head.findItem(item.priority).addNext(item)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据优先级向后查找插入位置(优先级升序)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> Item.<span class="title">findItem</span><span class="params">(priority: <span class="type">Int</span>)</span></span>: Item &#123;</span><br><span class="line">        <span class="comment">// 当前结点</span></span><br><span class="line">        <span class="keyword">var</span> p: Item? = <span class="keyword">this</span></span><br><span class="line">        <span class="comment">// 当前结点的后续结点</span></span><br><span class="line">        <span class="keyword">var</span> next: Item? = p?.next</span><br><span class="line">        <span class="comment">// 从当前结点开始向后遍历异步任务链</span></span><br><span class="line">        <span class="keyword">while</span> (next != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 若优先级介于当前结点和其后续结点之间,则表示找到插入位置</span></span><br><span class="line">            <span class="keyword">if</span> (priority <span class="keyword">in</span> p!!.priority until next.priority) &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            p = p.next</span><br><span class="line">            next = p?.next</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p!!</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 观察异步任务链并按优先级阻塞</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">observe</span><span class="params">()</span></span> = GlobalScope.launch(Dispatchers.Main) &#123;</span><br><span class="line">        <span class="comment">// 从头结点向后遍历异步任务链</span></span><br><span class="line">        <span class="keyword">var</span> p: Item? = head.next</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 在每个异步结果上阻塞，直到异步任务完成后执行异步响应</span></span><br><span class="line">            p.resumeAction?.invoke(p.deferred?.await())</span><br><span class="line">            p = p.next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异步任务(已讲解不再赘述)</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 空结点(头结点)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">emptyItem</span><span class="params">()</span></span>: SuspendList.Item = SuspendList.Item().apply &#123; priority = -<span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure>
 
-    // 向异步任务链插入结点
-    fun add(item: Item) {
-        // 从头结点向后查找插入位置，找到再后插入
-        head.findItem(item.priority).addNext(item)
-    }
-
-    // 根据优先级向后查找插入位置(优先级升序)
-    private fun Item.findItem(priority: Int): Item {
-        // 当前结点
-        var p: Item? = this
-        // 当前结点的后续结点
-        var next: Item? = p?.next
-        // 从当前结点开始向后遍历异步任务链
-        while (next != null) {
-            // 若优先级介于当前结点和其后续结点之间,则表示找到插入位置
-            if (priority in p!!.priority until next.priority) {
-                break
-            }
-            p = p.next
-            next = p?.next
-        }
-        return p!!
-    }
-
-    // 观察异步任务链并按优先级阻塞
-    fun observe() = GlobalScope.launch(Dispatchers.Main) {
-        // 从头结点向后遍历异步任务链
-        var p: Item? = head.next
-        while (p != null) {
-            // 在每个异步结果上阻塞，直到异步任务完成后执行异步响应
-            p.resumeAction?.invoke(p.deferred?.await())
-            p = p.next
-        }
-    }
-
-    // 异步任务(已讲解不再赘述)
-    class Item { ... }
-}
-
-// 空结点(头结点)
-fun emptyItem(): SuspendList.Item = SuspendList.Item().apply { priority = -1 }</code></pre>
 <p><code>SuspendList</code>持有链的头结点，为了使“头插入”和“中间插入”复用一套代码，将头结点设置为“空结点”。</p>
 <p><strong>异步任务链</strong>上的任务按优先级升序排列（优先级数字越小优先级越高）。这保证了优先级最高的异步任务总是在链表头。</p>
 <p><strong><em>优先级阻塞：当所有异步任务都被添加到链之后，调用<code>observe()</code>观察整个异步任务链。该方法启动了一个协程，在协程中从头结点向后遍历链，并在每个异步任务的<code>Deferred</code>上阻塞。因为链表已按优先级排序，所以阻塞时也是按优先级从高到低进行的。</em></strong></p>
 <h2 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a><strong>全局作用域</strong></h2><p>真实业务场景中，需要统一安排优先级的异步任务可能是跨界面的。这就要求异步任务链能全局访问，单例是一个最直接的选择，但它限制了整个 App 中异步任务链的数量：</p>
-<pre><code class="kotlin">// 私有构造函数
-class SuspendList private constructor() {
-    companion object {
-        // 静态 map 存放所有异步任务链
-        var map = ArrayMap&lt;String, SuspendList&gt;()
-        // 根据 key 构建异步任务链
-        fun of(key: String): SuspendList = map[key] ?: let {
-            val p = SuspendList()
-            map[key] = p
-            p
-        }
-    }
-    ...
-}</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 私有构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuspendList</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>() &#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="comment">// 静态 map 存放所有异步任务链</span></span><br><span class="line">        <span class="keyword">var</span> map = ArrayMap&lt;String, SuspendList&gt;()</span><br><span class="line">        <span class="comment">// 根据 key 构建异步任务链</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">of</span><span class="params">(key: <span class="type">String</span>)</span></span>: SuspendList = map[key] ?: let &#123;</span><br><span class="line">            <span class="keyword">val</span> p = SuspendList()</span><br><span class="line">            map[key] = p</span><br><span class="line">            p</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>然后就可以像这样使用异步任务链：</p>
-<pre><code class="kotlin">// 构建异步任务链
-SuspendList.of(&quot;dialog&quot;).apply {
-    // 向链添加异步任务1
-    add(Item {
-        suspendAction = { fetchUser() }
-        resumeAction = { user: Any? -&gt; onUserResume(user) }
-        priority = 3
-    })
-    // 向链添加异步任务2
-    add(Item {
-        suspendAction = { fetchActivity() }
-        resumeAction = { activity: Any? -&gt; onActivityResume(activity) }
-        priority = 1
-    })
-}.observe()
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构建异步任务链</span></span><br><span class="line">SuspendList.of(<span class="string">"dialog"</span>).apply &#123;</span><br><span class="line">    <span class="comment">// 向链添加异步任务1</span></span><br><span class="line">    add(Item &#123;</span><br><span class="line">        suspendAction = &#123; fetchUser() &#125;</span><br><span class="line">        resumeAction = &#123; user: Any? -&gt; onUserResume(user) &#125;</span><br><span class="line">        priority = <span class="number">3</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 向链添加异步任务2</span></span><br><span class="line">    add(Item &#123;</span><br><span class="line">        suspendAction = &#123; fetchActivity() &#125;</span><br><span class="line">        resumeAction = &#123; activity: Any? -&gt; onActivityResume(activity) &#125;</span><br><span class="line">        priority = <span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;.observe()</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">fetchUser</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    delay(<span class="number">4000</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"User Taylor"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">fetchActivity</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    delay(<span class="number">5000</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Activity Bonus"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityResume</span><span class="params">(activity: <span class="type">Any</span>?)</span></span> &#123;</span><br><span class="line">    Log.v(<span class="string">"test"</span>, <span class="string">"activity(<span class="subst">$&#123;activity.toString()&#125;</span>) resume"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onUserResume</span><span class="params">(user: <span class="type">Any</span>?)</span></span> &#123;</span><br><span class="line">    Log.v(<span class="string">"test"</span>, <span class="string">"user(<span class="subst">$&#123;user.toString()&#125;</span>) resume"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-suspend fun fetchUser(): String {
-    delay(4000)
-    return &quot;User Taylor&quot;
-}
-
-suspend fun fetchActivity(): String {
-    delay(5000)
-    return &quot;Activity Bonus&quot;
-}
-
-private fun onActivityResume(activity: Any?) {
-    Log.v(&quot;test&quot;, &quot;activity(${activity.toString()}) resume&quot;)
-}
-
-private fun onUserResume(user: Any?) {
-    Log.v(&quot;test&quot;, &quot;user(${user.toString()}) resume&quot;)
-}</code></pre>
 <p>上述代码构建了一个名为 dialog 的异步任务链，向其中添加了两个异步任务，并按优先级观察它们的结果。</p>
 <p>其中<code>Item()</code>是一个顶层方法，用于构建单个异步任务：</p>
-<pre><code class="kotlin">fun Item(init: SuspendList.Item.() -&gt; Unit): SuspendList.Item = SuspendList.Item().apply(init)</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">Item</span><span class="params">(<span class="keyword">init</span>: <span class="type">SuspendList</span>.<span class="type">Item</span>.() -&gt; <span class="type">Unit</span>)</span></span>: SuspendList.Item = SuspendList.Item().apply(<span class="keyword">init</span>)</span><br></pre></td></tr></table></figure>
+
 <p>这是构建对象 DSL 的标准写法，详细讲解可以参见<a href="https://juejin.im/post/5d2895316fb9a07eaf2bbe58" target="_blank" rel="noopener">这里</a>。</p>
 <p>运用 DSL 的思路还可以进一步将构建代码简化成这样：</p>
-<pre><code class="kotlin">SuspendList.of(&quot;dialog&quot;) {
-    Item {
-        suspendAction = { fetchUser() }
-        resumeAction = { user: Any? -&gt; onUserResume(user) }
-        priority = 3
-    }
-    Item {
-        suspendAction = { fetchActivity() }
-        resumeAction = { activity: Any? -&gt; onActivityResume(activity) }
-        priority = 1
-    }
-}.observe()</code></pre>
-<p>不过需要对原先的<code>of()</code>和<code>Item()</code>做一些调整：</p>
-<pre><code class="kotlin">// 新增接收者为SuspendList的 lambda 参数，为构建异步任务提供外层环境
-fun of(key: String, init: SuspendList.() -&gt; Unit): SuspendList = (map[key] ?: let {
-    val p = SuspendList()
-    map[key] = p
-    p
-}).apply(init)
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SuspendList.of(<span class="string">"dialog"</span>) &#123;</span><br><span class="line">    Item &#123;</span><br><span class="line">        suspendAction = &#123; fetchUser() &#125;</span><br><span class="line">        resumeAction = &#123; user: Any? -&gt; onUserResume(user) &#125;</span><br><span class="line">        priority = <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">    Item &#123;</span><br><span class="line">        suspendAction = &#123; fetchActivity() &#125;</span><br><span class="line">        resumeAction = &#123; activity: Any? -&gt; onActivityResume(activity) &#125;</span><br><span class="line">        priority = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;.observe()</span><br></pre></td></tr></table></figure>
 
-// 将构建异步任务声明为SuspendList的扩展方法
-// 构建异步任务后将其插入到异步任务链中
-fun SuspendList.Item(init: SuspendList.Item.() -&gt; Unit): SuspendList.Item = 
-    SuspendList.Item().apply(init).also { add(it) }</code></pre>
+<p>不过需要对原先的<code>of()</code>和<code>Item()</code>做一些调整：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增接收者为SuspendList的 lambda 参数，为构建异步任务提供外层环境</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">of</span><span class="params">(key: <span class="type">String</span>, <span class="keyword">init</span>: <span class="type">SuspendList</span>.() -&gt; <span class="type">Unit</span>)</span></span>: SuspendList = (map[key] ?: let &#123;</span><br><span class="line">    <span class="keyword">val</span> p = SuspendList()</span><br><span class="line">    map[key] = p</span><br><span class="line">    p</span><br><span class="line">&#125;).apply(<span class="keyword">init</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将构建异步任务声明为SuspendList的扩展方法</span></span><br><span class="line"><span class="comment">// 构建异步任务后将其插入到异步任务链中</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> SuspendList.<span class="title">Item</span><span class="params">(<span class="keyword">init</span>: <span class="type">SuspendList</span>.<span class="type">Item</span>.() -&gt; <span class="type">Unit</span>)</span></span>: SuspendList.Item = </span><br><span class="line">    SuspendList.Item().apply(<span class="keyword">init</span>).also &#123; add(it) &#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="异步超时"><a href="#异步超时" class="headerlink" title="异步超时"></a><strong>异步超时</strong></h2><p>若某个高优先级的异步任务迟迟不能结束，其它任务只能都被阻塞？</p>
 <p>得加个超时参数：</p>
-<pre><code class="kotlin">class Item {
-    // 为异步操作赋值时,不再立刻构建协程
-    var suspendAction: (suspend () -&gt; Any?)? = null
-    // 超时时长
-    var timeout: Long = -1
-    ...
-}</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 为异步操作赋值时,不再立刻构建协程</span></span><br><span class="line">    <span class="keyword">var</span> suspendAction: (<span class="keyword">suspend</span> () -&gt; Any?)? = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 超时时长</span></span><br><span class="line">    <span class="keyword">var</span> timeout: <span class="built_in">Long</span> = -<span class="number">1</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>为单个异步任务添加超时时长参数，还得重构一下异步任务的构建函数：</p>
-<pre><code class="kotlin">fun SuspendList.Item(init: SuspendList.Item.() -&gt; Unit): SuspendList.Item =
-        SuspendList.Item().apply {
-            // 为异步任务设置各种参数
-            init()
-            // 启动协程
-            GlobalScope.launch {
-                // 将异步任务结果包装成 Deferred
-                deferred = async {
-                    // 若需要超时机制
-                    if (timeout &gt; 0) {
-                        withTimeoutOrNull(timeout) { suspendAction?.invoke() }
-                    }
-                    // 不需要超时机制
-                    else {
-                        suspendAction?.invoke()
-                    }
-                }
-            }
-        }.also { add(it) }</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> SuspendList.<span class="title">Item</span><span class="params">(<span class="keyword">init</span>: <span class="type">SuspendList</span>.<span class="type">Item</span>.() -&gt; <span class="type">Unit</span>)</span></span>: SuspendList.Item =</span><br><span class="line">        SuspendList.Item().apply &#123;</span><br><span class="line">            <span class="comment">// 为异步任务设置各种参数</span></span><br><span class="line">            <span class="keyword">init</span>()</span><br><span class="line">            <span class="comment">// 启动协程</span></span><br><span class="line">            GlobalScope.launch &#123;</span><br><span class="line">                <span class="comment">// 将异步任务结果包装成 Deferred</span></span><br><span class="line">                deferred = async &#123;</span><br><span class="line">                    <span class="comment">// 若需要超时机制</span></span><br><span class="line">                    <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        withTimeoutOrNull(timeout) &#123; suspendAction?.invoke() &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 不需要超时机制</span></span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        suspendAction?.invoke()</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.also &#123; add(it) &#125;</span><br></pre></td></tr></table></figure>
+
 <p>原本在<code>suspendAction</code>赋值时就立马启动协程，现在将其延后，等所有参数都设置完毕后才启动。这样可以避免“先为 suspendAction 赋值，再为 timeout 赋值”case 下超时无效的 bug。</p>
 <p>使用<code>withTimeoutOrNull()</code>实现超时机制，当超时发生时，业务会从<code>resumeAction</code>中获得<code>null</code>。</p>
 <h2 id="异步任务生命周期管理"><a href="#异步任务生命周期管理" class="headerlink" title="异步任务生命周期管理"></a><strong>异步任务生命周期管理</strong></h2><p>构建异步任务链时使用了<code>GlobalScope.launch()</code>启动协程，其创建的协程不符合<a href="https://juejin.im/post/5d565779f265da03aa256a1a" target="_blank" rel="noopener"><code>structured-concurrency</code></a>。所以需要手动管理生命周期：</p>
-<pre><code class="kotlin">class SuspendList private constructor() {
-    class Item {
-        // 为异步任务新增 Job 属性，指向其对应的协程
-        internal var job:Job? = null
-        ...
-    }
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuspendList</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>() &#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 为异步任务新增 Job 属性，指向其对应的协程</span></span><br><span class="line">        <span class="keyword">internal</span> <span class="keyword">var</span> job:Job? = <span class="literal">null</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// observer()返回类型为 Job,业务层可以在需要的时候取消它</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">observe</span><span class="params">()</span></span> = GlobalScope.launch(Dispatchers.Main) &#123;</span><br><span class="line">        <span class="keyword">var</span> p: Item? = head.next</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="literal">null</span>) &#123;</span><br><span class="line">            p.resumeAction?.invoke(p.deferred?.await())</span><br><span class="line">            <span class="comment">// 当异步任务响应被处理后，取消其协程以释放资源</span></span><br><span class="line">            p.job?.cancel()</span><br><span class="line">            p = p.next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> SuspendList.<span class="title">Item</span><span class="params">(<span class="keyword">init</span>: <span class="type">SuspendList</span>.<span class="type">Item</span>.() -&gt; <span class="type">Unit</span>)</span></span>: SuspendList.Item =</span><br><span class="line">        SuspendList.Item().apply &#123;</span><br><span class="line">            <span class="keyword">init</span>()</span><br><span class="line">            <span class="comment">// 将该异步任务的协程存储在 job 中</span></span><br><span class="line">            job = GlobalScope.launch &#123;</span><br><span class="line">                deferred = async &#123;</span><br><span class="line">                    <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        withTimeoutOrNull(timeout) &#123; suspendAction?.invoke() &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        suspendAction?.invoke()</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.also &#123; add(it) &#125;</span><br></pre></td></tr></table></figure>
 
-    // observer()返回类型为 Job,业务层可以在需要的时候取消它
-    fun observe() = GlobalScope.launch(Dispatchers.Main) {
-        var p: Item? = head.next
-        while (p != null) {
-            p.resumeAction?.invoke(p.deferred?.await())
-            // 当异步任务响应被处理后，取消其协程以释放资源
-            p.job?.cancel()
-            p = p.next
-        }
-    }
-}
-
-fun SuspendList.Item(init: SuspendList.Item.() -&gt; Unit): SuspendList.Item =
-        SuspendList.Item().apply {
-            init()
-            // 将该异步任务的协程存储在 job 中
-            job = GlobalScope.launch {
-                deferred = async {
-                    if (timeout &gt; 0) {
-                        withTimeoutOrNull(timeout) { suspendAction?.invoke() }
-                    } else {
-                        suspendAction?.invoke()
-                    }
-                }
-            }
-        }.also { add(it) }</code></pre>
 <h2 id="Talk-is-cheap-show-me-the-code"><a href="#Talk-is-cheap-show-me-the-code" class="headerlink" title="Talk is cheap, show me the code"></a><strong>Talk is cheap, show me the code</strong></h2><p>本篇的完整源码可以点击<a href="https://github.com/wisdomtl/SuspendList" target="_blank" rel="noopener">这里</a></p>
-
-                </div>
-            </div>
-            
-                
-    <div class="post__license">
-        <p>
-            <strong>Author: </strong>Apocalypse
-        </p>
-        <p>
-            <strong>
-                Permalink: 
-            </strong>
-            <a href="https://jiyugithub.github.io/2020/07/05/suspendAction/">https://jiyugithub.github.io/2020/07/05/suspendAction/</a>
-        </p>
-        
-    </div>
- 
-            
-            
-                <div class="post-meta post-footer__meta">
-    <p>
-        最后更新于：2020-07-05
-    </p>
-</div> 
-            
-            
-                <div class="post-cats post-card__cats">
-    
-    
-</div> 
-             
-        </article>
-        
-    </div>
-
-
-</main>
-<footer class="footer">
-     
-
-
-     
-  
-    
-        
-            <p>Copyright © 2020</p>
-
-        
-    
-    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
-</footer>
-
-
-        </div>
-        
-
- 
-
- 
-
- 
-
-  
-
- 
-
- 
-    
-<script src="/js/b2t.js"></script>
-
-
-
-
-
-
-
-
-    </body>
-</html>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Apocalypse</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://jiyugithub.github.io/2020/07/05/suspendAction/">https://jiyugithub.github.io/2020/07/05/suspendAction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/07/25/andview/"><i class="fa fa-chevron-left">  </i><span>Android进阶基础系列：View的工作原理 全面理解！</span></a></div><div class="next-post pull-right"><a href="/2020/06/30/blogs/"><span>帮朋友转发一个博客</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'GpGkfBlXUXHdzTB4tqH7SPnb-gzGzoHsz',
+  appKey:'FihoucantYlc5U1FQ9BzkO3l',
+  placeholder:'Just go go',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Apocalypse</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
