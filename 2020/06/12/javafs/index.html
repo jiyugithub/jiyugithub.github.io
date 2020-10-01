@@ -1,0 +1,591 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Apocalypse's Blog" href="https://jiyugithub.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.1.9">
+
+  
+
+
+<meta name="description" content="" >
+
+
+<link rel="canonical" href="https://jiyugithub.github.io/2020/06/12/javafs/">
+
+
+
+  <title>
+Java反射真的很慢吗 |
+启示录 = Apocalypse's Blog</title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Java反射真的很慢吗
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2020-06-12 05:49:50">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2020-06-12T05:49:50+08:00">2020-06-12</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">启示录</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main id="main">
+      <div class="inner">
+        <div id="content" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="https://jiyugithub.github.io/2020/06/12/javafs/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar">
+    <meta itemprop="name" content="Apocalypse">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Apocalypse's Blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="反射到底是好是坏"><a class="markdownIt-Anchor" href="#反射到底是好是坏">#</a> 反射到底是好是坏</h2>
+<p>说到 Java 中的反射，初学者在刚刚接触到反射的各种高级特性时，往往表示十分兴奋，甚至会在一些不需要使用反射的场景中强行使用反射来「炫技」。而经验较为丰富的长者，看到反射时往往会发出灵魂三问：为什么要用反射？反射不会降低性能么？不用还有什么办法可以解决这个问题？</p>
+<a id="more"></a>
+<p>那么今天我们就来深入探讨下，反射到底对性能有多大影响？顺便探讨下，反射为什么对性能有影响？</p>
+<h2 id="编码试验"><a class="markdownIt-Anchor" href="#编码试验">#</a> 编码试验</h2>
+<p>在我们分析具体原理之前，我们可以通过编写代码做实验得出结论。</p>
+<p>反射可能会涉及多种类型的操作，比如生成实例，获取 / 设置变量属性，调用方法等。经过简单的思考，我们认为生成实例对性能的影响相对其他操作要大一些，所以我们采用生成实例来做试验。</p>
+<p>在如下代码中，我们定义了一个类  <code>InnerClass</code> ，我们测试分别使用 <code>new</code>  和 <code>反射</code> 来生成  <code>MAX_TIMES</code>  个实例，并打印出耗时时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private static final String TAG &#x3D; &quot;MainAc&quot;;</span><br><span class="line">    private final int MAX_TIMES &#x3D; 100 * 1000;</span><br><span class="line">    private InnerClass innerList[];</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        innerList &#x3D; new InnerClass[MAX_TIMES];</span><br><span class="line"></span><br><span class="line">        long startTime &#x3D; SystemClock.elapsedRealtime();</span><br><span class="line">        for (int i&#x3D;0; i &lt; MAX_TIMES; i++) &#123;</span><br><span class="line">            innerList[i] &#x3D; new InnerClass();</span><br><span class="line">        &#125;</span><br><span class="line">        Log.e(TAG, &quot;totalTime: &quot; + (SystemClock.elapsedRealtime() - startTime));</span><br><span class="line"></span><br><span class="line">        long startTime2 &#x3D; SystemClock.elapsedRealtime();</span><br><span class="line">        for (int i&#x3D;0; i &lt; MAX_TIMES; i++) &#123;</span><br><span class="line">            innerList[i] &#x3D; newInstanceByReflection();</span><br><span class="line">        &#125;</span><br><span class="line">        Log.e(TAG, &quot;totalTime2: &quot; + (SystemClock.elapsedRealtime() - startTime2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public InnerClass newInstanceByReflection() &#123;</span><br><span class="line">        Class clazz &#x3D; InnerClass.class;</span><br><span class="line">        try &#123;</span><br><span class="line">            return (InnerClass) clazz.getDeclaredConstructor().newInstance();</span><br><span class="line">        &#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class InnerClass &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-03-19 22:34:49.738 2151-2151&#x2F;? E&#x2F;MainAc: totalTime: 15</span><br><span class="line">2020-03-19 22:34:50.409 2151-2151&#x2F;? E&#x2F;MainAc: totalTime2: 670</span><br></pre></td></tr></table></figure>
+<p>使用反射生成 10 万 个实例，耗时 670ms，明显高于直接使用  <code>new</code>  关键字的 15ms，所以反射性能低。别急，这个结论总结的还有点早，我们将要生成的实例总数改为 1000 个试试，输出日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-03-19 22:39:21.287 3641-3641&#x2F;com.example.myapplication E&#x2F;MainAc: totalTime: 2</span><br><span class="line">2020-03-19 22:39:21.296 3641-3641&#x2F;com.example.myapplication E&#x2F;MainAc: totalTime2: 9</span><br></pre></td></tr></table></figure>
+<p>使用反射生成 1000 个实例，虽然需要 9ms，高于 <code>new</code>  的 2ms，但是 9ms 和 2ms 的差距本身肉眼不可见，而且通常我们在业务中写的反射一般来说执行频率也未必会超过 1000 次，这种场景下，我们还能理直气壮地说反射性能很低么？</p>
+<p>很显然，不能。</p>
+<p>除了代码执行耗时，我们再看看反射对内存的影响。我们仍然以生成 10 万 个实例为目标，对上述代码做略微改动，依次只保留  <code>new</code>  方式和反射方式，然后运行程序，观察内存占用情况。</p>
+<p><img data-src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df2febd3611?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>使用  <code>new</code>  方式</p>
+<p><img data-src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df300d4decd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>使用反射</p>
+<p>对比两图，我们可以看到第二张图中多了很多  <code>Constructor</code>  和 <code>Class</code>  对象实例，这两部分占用的内存 2.7M。因此，我们可以得出结论，反射会产生大量的临时对象，并且会占用额外内存空间。</p>
+<h2 id="刨根问底反射原理是什么"><a class="markdownIt-Anchor" href="#刨根问底反射原理是什么">#</a> 刨根问底：反射原理是什么</h2>
+<p>我们以前面试验中反射生成实例的代码为入口。</p>
+<p>首先回顾下虚拟机中类的生命周期：加载，连接（验证，准备，解析），初始化，使用，卸载。在加载的过程 中，虚拟机会把类的字节码转换成运行时数据结构，并保存在方法区，在内存中会生成一个代表这个类数据结构的 java.lang.Class 对象，后续访问这个类的数据结构就可以通过这个 Class 对象来访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public InnerClass newInstanceByReflection() &#123;</span><br><span class="line">    &#x2F;&#x2F; 获取虚拟机中 InnerClass 类的 Class 对象</span><br><span class="line">    Class clazz &#x3D; InnerClass.class;</span><br><span class="line">    try &#123;</span><br><span class="line">        return (InnerClass) clazz.getDeclaredConstructor().newInstance();</span><br><span class="line">    &#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; catch (InstantiationException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中  <code>clazz.getDeclaredConstructor()</code>  用于获取类中定义的构造方法，由于我们没有显式定义构造方法，所以会返回编译器为我们自己生成的默认无参构造方法。</p>
+<p>下面我们看下  <code>getDeclaredConstructor</code>  是如何返回构造方法的。以下均以 jdk 1.8 代码为源码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@CallerSensitive</span><br><span class="line">public Constructor&lt;T&gt; getDeclaredConstructor(Class&lt;?&gt;... parameterTypes)</span><br><span class="line">    throws NoSuchMethodException, SecurityException &#123;</span><br><span class="line">    &#x2F;&#x2F; 权限检查</span><br><span class="line">    checkMemberAccess(Member.DECLARED, Reflection.getCallerClass(), true);</span><br><span class="line">    return getConstructor0(parameterTypes, Member.DECLARED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>getDeclaredConstructor</code>  方法首先做了权限检查，然后直接调用  <code>getConstructor0</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Constructor&lt;T&gt; getConstructor0(Class&lt;?&gt;[] parameterTypes,</span><br><span class="line">                                    int which) throws NoSuchMethodException</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; privateGetDeclaredConstructors 方法是获取所有的构造方法数组</span><br><span class="line">    Constructor&lt;T&gt;[] constructors &#x3D; privateGetDeclaredConstructors((which &#x3D;&#x3D; Member.PUBLIC));</span><br><span class="line">    &#x2F;&#x2F; 遍历所有的构造方法数组，根据传入的参数类型依次匹配，找到合适的构造方法后就会拷贝一份作为返回值</span><br><span class="line">    for (Constructor&lt;T&gt; constructor : constructors) &#123;</span><br><span class="line">        if (arrayContentsEq(parameterTypes,</span><br><span class="line">                            constructor.getParameterTypes())) &#123;</span><br><span class="line">            &#x2F;&#x2F; 拷贝构造方法</span><br><span class="line">            return getReflectionFactory().copyConstructor(constructor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 没有找到的话，就抛出异常 </span><br><span class="line">    throw new NoSuchMethodException(getName() + &quot;.&lt;init&gt;&quot; + argumentTypesToString(parameterTypes));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>getConstructor0</code>  方法主要做了两件事：</p>
+<ul>
+<li>获取所有构造方法组成的数组</li>
+<li>遍历构造方法数组，找到匹配的</li>
+</ul>
+<p>遍历匹配没啥好说的，我们重点看下第一件事，怎么获取的所有构造方法数组，也就是这个方法  <code>privateGetDeclaredConstructors</code> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">private Constructor&lt;T&gt;[] privateGetDeclaredConstructors(boolean publicOnly) &#123;</span><br><span class="line">    checkInitted();</span><br><span class="line">    Constructor&lt;T&gt;[] res;</span><br><span class="line">    &#x2F;&#x2F; 获取缓存的 ReflectionData 数据</span><br><span class="line">    ReflectionData&lt;T&gt; rd &#x3D; reflectionData();</span><br><span class="line">    &#x2F;&#x2F; 如果缓存中有 ReflectionData，就先看看 ReflectionData 中的 publicConstructors 或 declaredConstructors是否为空</span><br><span class="line">    if (rd !&#x3D; null) &#123;</span><br><span class="line">        res &#x3D; publicOnly ? rd.publicConstructors : rd.declaredConstructors;</span><br><span class="line">        if (res !&#x3D; null) return res;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 如果没有缓存，或者缓存中构造方法数组为空</span><br><span class="line">    &#x2F;&#x2F; No cached value available; request value from VM</span><br><span class="line">    &#x2F;&#x2F; 对接口类型的字节码特殊处理</span><br><span class="line">    if (isInterface()) &#123;</span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        &#x2F;&#x2F; 如果是接口类型，那么生成一个长度为0的构造方法数组</span><br><span class="line">        Constructor&lt;T&gt;[] temporaryRes &#x3D; (Constructor&lt;T&gt;[]) new Constructor&lt;?&gt;[0];</span><br><span class="line">        res &#x3D; temporaryRes;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果不是接口类型，就调用 getDeclaredConstructors0 获取构造方法数组</span><br><span class="line">        res &#x3D; getDeclaredConstructors0(publicOnly);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 获取到构造方法数组后，再赋值给缓存 ReflectionData 中的对应属性</span><br><span class="line">    if (rd !&#x3D; null) &#123;</span><br><span class="line">        if (publicOnly) &#123;</span><br><span class="line">            rd.publicConstructors &#x3D; res;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            rd.declaredConstructors &#x3D; res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中我已经对关键代码进行了注释，在讲解整个流程之前，我们看到了一个陌生的类型  <code>ReflectionData</code> 。它对应的数据结构是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private static class ReflectionData&lt;T&gt; &#123;</span><br><span class="line">    volatile Field[] declaredFields;</span><br><span class="line">    volatile Field[] publicFields;</span><br><span class="line">    volatile Method[] declaredMethods;</span><br><span class="line">    volatile Method[] publicMethods;</span><br><span class="line">    volatile Constructor&lt;T&gt;[] declaredConstructors;</span><br><span class="line">    volatile Constructor&lt;T&gt;[] publicConstructors;</span><br><span class="line">    &#x2F;&#x2F; Intermediate results for getFields and getMethods</span><br><span class="line">    volatile Field[] declaredPublicFields;</span><br><span class="line">    volatile Method[] declaredPublicMethods;</span><br><span class="line">    volatile Class&lt;?&gt;[] interfaces;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Value of classRedefinedCount when we created this ReflectionData instance</span><br><span class="line">    final int redefinedCount;</span><br><span class="line"></span><br><span class="line">    ReflectionData(int redefinedCount) &#123;</span><br><span class="line">        this.redefinedCount &#x3D; redefinedCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ReflectionData</code>  这个类就是用来保存从虚拟机中获取到的一些数据。同时我们可以看到所有反射属性都使用了  <code>volatile</code>  关键字修饰。</p>
+<p>获取缓存的  <code>ReflectionData</code>  数据是通过调用 <code>reflectionData()</code>  方法获取的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义在 Class 类中的反射缓存对象</span><br><span class="line">private volatile transient SoftReference&lt;ReflectionData&lt;T&gt;&gt; reflectionData;</span><br><span class="line"></span><br><span class="line">private ReflectionData&lt;T&gt; reflectionData() &#123;</span><br><span class="line">    SoftReference&lt;ReflectionData&lt;T&gt;&gt; reflectionData &#x3D; this.reflectionData;</span><br><span class="line">    int classRedefinedCount &#x3D; this.classRedefinedCount;</span><br><span class="line">    ReflectionData&lt;T&gt; rd;</span><br><span class="line">    if (useCaches &amp;&amp;</span><br><span class="line">        reflectionData !&#x3D; null &amp;&amp;</span><br><span class="line">        (rd &#x3D; reflectionData.get()) !&#x3D; null &amp;&amp;</span><br><span class="line">        rd.redefinedCount &#x3D;&#x3D; classRedefinedCount) &#123;</span><br><span class="line">        return rd;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; else no SoftReference or cleared SoftReference or stale ReflectionData</span><br><span class="line">    &#x2F;&#x2F; -&gt; create and replace new instance</span><br><span class="line">    return newReflectionData(reflectionData, classRedefinedCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到  <code>reflectionData</code>  实际上是一个软引用，软引用会在内存不足的情况下被虚拟机回收，所以 <code>reflectionData()</code>  方法在开始的地方，先判断了是否可以使用缓存以及缓存是否失效，如果失效了，就会调用  <code>newReflectionData</code>  方法生成一个新的  <code>ReflectionData</code>  实例。</p>
+<p>接下来看看  <code>newReflectionData</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">private ReflectionData&lt;T&gt; newReflectionData(SoftReference&lt;ReflectionData&lt;T&gt;&gt; oldReflectionData,</span><br><span class="line">                                                int classRedefinedCount) &#123;</span><br><span class="line">    &#x2F;&#x2F; 如果不允许使用缓存，直接返回 null</span><br><span class="line">    if (!useCaches) return null;</span><br><span class="line">	</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        ReflectionData&lt;T&gt; rd &#x3D; new ReflectionData&lt;&gt;(classRedefinedCount);</span><br><span class="line">        &#x2F;&#x2F; try to CAS it...</span><br><span class="line">        if (Atomic.casReflectionData(this, oldReflectionData, new SoftReference&lt;&gt;(rd))) &#123;</span><br><span class="line">            return rd;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; else retry</span><br><span class="line">        oldReflectionData &#x3D; this.reflectionData;</span><br><span class="line">        classRedefinedCount &#x3D; this.classRedefinedCount;</span><br><span class="line">        if (oldReflectionData !&#x3D; null &amp;&amp;</span><br><span class="line">            (rd &#x3D; oldReflectionData.get()) !&#x3D; null &amp;&amp;</span><br><span class="line">            rd.redefinedCount &#x3D;&#x3D; classRedefinedCount) &#123;</span><br><span class="line">            return rd;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>newReflectionData</code>  中使用 <strong>volatile + 死循环 + CAS 机制</strong> 保证线程安全。注意到这里的死循环每执行一次都会构造一个新的  <code>ReflectionData</code>  实例。</p>
+<p>你可能会有疑问， <code>Class</code>  中  <code>reflectionData</code>  属性什么时候被赋值的，其实是封装在 <code>Atomic.casReflectionData</code>  这个方法里了，他会检测当前 <code>Class</code>  对象中的 <code>reflectionData</code>  是否与 <code>oldReflectionData</code>  相等，如果相等，就会把 <code>new SoftReference&lt;&gt;(rd)</code>  赋值给  <code>reflectionData</code> 。</p>
+<p>到现在为止，关于  <code>ReflectionData</code>  的背景知识都介绍完了。我们再回到  <code>privateGetDeclaredConstructors</code>  中看看获取构造方法的流程。</p>
+<p><img data-src="http://user-gold-cdn.xitu.io/2020/3/20/170f7df304157365?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><code>privateGetDeclaredConstructors</code>  流程图</p>
+<p>可以看到对于普通类，最终通过调用  <code>getDeclaredConstructors0</code>  方法获取的构造方法列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private native Constructor&lt;T&gt;[] getDeclaredConstructors0(boolean publicOnly);</span><br></pre></td></tr></table></figure>
+<p>这个方法是 native 的，具体逻辑在 jdk 源码中。</p>
+<p>在  <code>native/java/lang/Class_getDeclaredConstructors0.c</code>  文件中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">void getDeclaredConstructors0(Frame * frame)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; Frame 可以理解为调用native方法时，java层传递过来的数据的一种封装</span><br><span class="line">	LocalVars * vars &#x3D; frame-&gt;localVars;</span><br><span class="line">	Object * classObj &#x3D; getLocalVarsThis(vars);</span><br><span class="line">    &#x2F;&#x2F; 取得java方法的入参</span><br><span class="line">	bool publicOnly &#x3D; getLocalVarsBoolean(vars, 1);</span><br><span class="line"></span><br><span class="line">	uint16_t constructorsCount &#x3D; 0;</span><br><span class="line">    &#x2F;&#x2F; 获取要查询的类的 Class 对象</span><br><span class="line">	Class * c &#x3D; classObj-&gt;extra;</span><br><span class="line">    &#x2F;&#x2F; 获取这个类的所有构造方法，且数量保存在 constructorsCount 中</span><br><span class="line">	Method* * constructors &#x3D; getClassConstructors(c, publicOnly, &amp;constructorsCount);</span><br><span class="line">	&#x2F;&#x2F; 获取 java 方法调用所属的 classLoader</span><br><span class="line">	ClassLoader *  classLoader &#x3D; frame-&gt;method-&gt;classMember.attachClass-&gt;classLoader;</span><br><span class="line">	&#x2F;&#x2F; 拿到 Constructor 对应的 class 对象</span><br><span class="line">	Class * constructorClass &#x3D; loadClass(classLoader, &quot;java&#x2F;lang&#x2F;reflect&#x2F;Constructor&quot;);</span><br><span class="line">    &#x2F;&#x2F;创建一个长度为 constructorsCount 的数组保存构造方法</span><br><span class="line">	Object * constructorArr &#x3D; newArray(arrayClass(constructorClass), constructorsCount);</span><br><span class="line"></span><br><span class="line">	pushOperandRef(frame-&gt;operandStack, constructorArr);</span><br><span class="line">	&#x2F;&#x2F; 后面是具体的赋值逻辑。将native中的Method对象转化为java层的Constructor对象</span><br><span class="line">	if (constructorsCount &gt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		Thread * thread &#x3D; frame-&gt;thread;</span><br><span class="line">		Object* * constructorObjs &#x3D; getObjectRefs(constructorArr);</span><br><span class="line"></span><br><span class="line">		Method * constructorInitMethod &#x3D; getClassConstructor(constructorClass, _constructorConstructorDescriptor);</span><br><span class="line">		for (uint16_t i &#x3D; 0; i &lt; constructorsCount; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			Method * constructor &#x3D; constructors[i];</span><br><span class="line"></span><br><span class="line">			Object * constructorObj &#x3D; newObject(constructorClass);</span><br><span class="line">			constructorObj-&gt;extra &#x3D; constructor;</span><br><span class="line">			constructorObjs[i] &#x3D; constructorObj;</span><br><span class="line"></span><br><span class="line">			OperandStack * ops &#x3D; newOperandStack(9);</span><br><span class="line">			pushOperandRef(ops, constructorObj);</span><br><span class="line">			pushOperandRef(ops, classObj);</span><br><span class="line">			pushOperandRef(ops, toClassArr(classLoader, methodParameterTypes(constructor), constructor-&gt;parsedDescriptor-&gt;parameterTypesCount));</span><br><span class="line">			if (constructor-&gt;exceptions !&#x3D; NULL)</span><br><span class="line">				pushOperandRef(ops, toClassArr(classLoader, methodExceptionTypes(constructor), constructor-&gt;exceptions-&gt;number_of_exceptions));</span><br><span class="line">			else</span><br><span class="line">				pushOperandRef(ops, toClassArr(classLoader, methodExceptionTypes(constructor), 0));</span><br><span class="line">			pushOperandInt(ops, constructor-&gt;classMember.accessFlags);</span><br><span class="line">			pushOperandInt(ops, 0);</span><br><span class="line">			pushOperandRef(ops, getSignatureStr(classLoader, constructor-&gt;classMember.signature));         &#x2F;&#x2F; signature</span><br><span class="line">			pushOperandRef(ops, toByteArr(classLoader, constructor-&gt;classMember.annotationData, constructor-&gt;classMember.annotationDataLen));</span><br><span class="line">			pushOperandRef(ops, toByteArr(classLoader, constructor-&gt;parameterAnnotationData, constructor-&gt;parameterAnnotationDataLen));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			Frame * shimFrame &#x3D; newShimFrame(thread, ops);</span><br><span class="line">			pushThreadFrame(thread, shimFrame);</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; init constructorObj</span><br><span class="line">			InvokeMethod(shimFrame, constructorInitMethod);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的逻辑，可以知道获取构造方法的核心方法是  <code>getClassConstructors</code>  ，所在文件为  <code>rtda/heap/class.c</code> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Method* * getClassConstructors(Class * self, bool publicOnly, uint16_t * constructorsCount)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; 分配大小为 sizeof(Method) 的长度为 methodsCount 的连续内存地址，即数组</span><br><span class="line">	Method* * constructors &#x3D; calloc(self-&gt;methodsCount, sizeof(Method));</span><br><span class="line">	*constructorsCount &#x3D; 0;</span><br><span class="line">    &#x2F;&#x2F; 在native 层，构造方法和普通方法都存在 methods 中，逐一遍历</span><br><span class="line">	for (uint16_t i &#x3D; 0; i &lt; self-&gt;methodsCount; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Method * method &#x3D; self-&gt;methods + i;</span><br><span class="line">        &#x2F;&#x2F; 判断是否是构造方法</span><br><span class="line">		if (isMethodConstructor(method))</span><br><span class="line">		&#123;</span><br><span class="line">            &#x2F;&#x2F; 检查权限</span><br><span class="line">			if (!publicOnly || isMethodPublic(method))</span><br><span class="line">			&#123;</span><br><span class="line">                &#x2F;&#x2F; 符合条件的构造方法依次存到数组中</span><br><span class="line">				constructors[*constructorsCount] &#x3D; method;</span><br><span class="line">				(*constructorsCount)++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return constructors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到 <code>getClassConstructors</code>  实际上就是对  <code>methods</code>  进行了一次过滤，过滤的条件为：1. 是构造方法；2. 权限一致。</p>
+<p><code>isMethodConstructor</code>  方法的判断逻辑也是十分简单，不是静态方法，而且方法名是 <code>&lt;init&gt;</code>  即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bool isMethodConstructor(Method * self)</span><br><span class="line">&#123;</span><br><span class="line">	return !isMethodStatic(self) &amp;&amp; strcmp(self-&gt;classMember.name, &quot;&lt;init&gt;&quot;) &#x3D;&#x3D; 0;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以核心的逻辑变成了 <code>Class</code>  中的  <code>methods</code>  数组何时被初始化赋值的？我们刨根问底的追踪下。</p>
+<p>我们先找到类加载到虚拟机中的入口方法  <code>loadNonArrayClass</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Class * loadNonArrayClass(ClassLoader * classLoader, const char * className)</span><br><span class="line">&#123;</span><br><span class="line">	int32_t classSize &#x3D; 0;</span><br><span class="line">	char * classContent &#x3D; NULL;</span><br><span class="line">	Class * loadClass &#x3D; NULL;</span><br><span class="line">	classSize &#x3D; readClass(className, &amp;classContent);</span><br><span class="line">	if (classSize &gt; 0 &amp;&amp; classContent !&#x3D; NULL)&#123;</span><br><span class="line">#if 0</span><br><span class="line">		printf(&quot;class size:%d,class data:[&quot;, classSize);</span><br><span class="line">		for (int32_t i &#x3D; 0; i &lt; classSize; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;0x%02x &quot;, classContent[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;]\n&quot;);</span><br><span class="line">#endif</span><br><span class="line">	&#125;</span><br><span class="line">	if (classSize &lt;&#x3D; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;Could not found target class\n&quot;);</span><br><span class="line">		exit(127);</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F; 解析字节码文件</span><br><span class="line">	loadClass &#x3D; parseClassFile(classContent, classSize);</span><br><span class="line">	loadClass-&gt;classLoader &#x3D; classLoader;</span><br><span class="line">	&#x2F;&#x2F; 加载</span><br><span class="line">	defineClass(classLoader, loadClass);</span><br><span class="line">	&#x2F;&#x2F; 链接</span><br><span class="line">	linkClass(classLoader, loadClass);</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;printf(&quot;[Loaded %s\n&quot;, loadClass-&gt;name);</span><br><span class="line">	return loadClass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在  <code>parseClassFile</code>  方法中，调用了 <code>newClass</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class * parseClassFile(char * classContent, int32_t classSize)</span><br><span class="line">&#123;</span><br><span class="line">	ClassFile * classFile &#x3D; NULL;</span><br><span class="line"></span><br><span class="line">	classFile &#x3D; parseClassData(classContent, classSize);</span><br><span class="line"></span><br><span class="line">	return newClass(classFile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>newClass</code>  方法在 <code>rtda/heap/class.c</code>  文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Class * newClass(ClassFile * classFile)</span><br><span class="line">&#123;</span><br><span class="line">	Class * c &#x3D; calloc(1, sizeof(Class));</span><br><span class="line">	c-&gt;accessFlags &#x3D; classFile-&gt;accessFlags;</span><br><span class="line">	c-&gt;sourceFile &#x3D; getClassSourceFileName(classFile);</span><br><span class="line">	newClassName(c, classFile);</span><br><span class="line">	newSuperClassName(c, classFile);</span><br><span class="line">	newInterfacesName(c, classFile);</span><br><span class="line">	newConstantPool(c, classFile);</span><br><span class="line">	newFields(c, classFile);</span><br><span class="line">	newMethods(c, classFile);</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，在 native 层创建了一个 <code>Class</code>  对象，我们重点看 <code>newMethods(c, classFile)</code>  方法啊，这个方法定义在 <code>rtda/heap/method.c</code>  中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Method * newMethods(struct Class * c, ClassFile * classFile)</span><br><span class="line">&#123;</span><br><span class="line">	c-&gt;methodsCount &#x3D; classFile-&gt;methodsCount;</span><br><span class="line">	c-&gt;methods &#x3D; NULL;</span><br><span class="line">	if (c-&gt;methodsCount &#x3D;&#x3D; 0)</span><br><span class="line">		return NULL;</span><br><span class="line"></span><br><span class="line">	c-&gt;methods &#x3D; calloc(classFile-&gt;methodsCount, sizeof(Method));</span><br><span class="line">	for (uint16_t i &#x3D; 0; i &lt; c-&gt;methodsCount; i++)</span><br><span class="line">	&#123;		</span><br><span class="line">		c-&gt;methods[i].classMember.attachClass &#x3D; c;</span><br><span class="line">		copyMethodInfo(&amp;c-&gt;methods[i], &amp;classFile-&gt;methods[i], classFile);</span><br><span class="line">		copyAttributes(&amp;c-&gt;methods[i], &amp;classFile-&gt;methods[i], classFile);</span><br><span class="line">		MethodDescriptor * md &#x3D; parseMethodDescriptor(c-&gt;methods[i].classMember.descriptor);</span><br><span class="line">		c-&gt;methods[i].parsedDescriptor &#x3D; md;</span><br><span class="line">		calcArgSlotCount(&amp;c-&gt;methods[i]);</span><br><span class="line">		if (isMethodNative(&amp;c-&gt;methods[i]))</span><br><span class="line">		&#123;</span><br><span class="line">			injectCodeAttribute(&amp;c-&gt;methods[i], md-&gt;returnType);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	return NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看出，实际上就是把 <code>ClassFile</code>  中解析到的方法逐一赋值给了  <code>Class</code>  对象的  <code>methods</code>  数组。</p>
+<p>总算梳理清楚了，反射创建对象的调用链为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">loadClass -&gt; loadNonArrayClass -&gt; parseClassFile -&gt; newMethods -&gt; Class 的 methods数组</span><br><span class="line"></span><br><span class="line">privateGetDeclaredConstructors -&gt; getDeclaredConstructors0 -&gt; getClassConstructors (过滤Class 的 methods数组)</span><br></pre></td></tr></table></figure>
+<p>到目前为止，我们搞明白反射时如何找到对应的构造方法的。下面我们来看  <code>newInstance</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">(InnerClass) clazz.getDeclaredConstructor().newInstance();</span><br><span class="line"> </span><br><span class="line">public T newInstance(Object ... initargs)</span><br><span class="line">        throws InstantiationException, IllegalAccessException,</span><br><span class="line">               IllegalArgumentException, InvocationTargetException</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; 构造方法是否被重载了</span><br><span class="line">        if (!override) &#123;</span><br><span class="line">            if (!Reflection.quickCheckMemberAccess(clazz, modifiers)) &#123;</span><br><span class="line">                Class&lt;?&gt; caller &#x3D; Reflection.getCallerClass();</span><br><span class="line">                &#x2F;&#x2F; 检查权限</span><br><span class="line">                checkAccess(caller, clazz, null, modifiers);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 枚举类型报错</span><br><span class="line">        if ((clazz.getModifiers() &amp; Modifier.ENUM) !&#x3D; 0)</span><br><span class="line">            throw new IllegalArgumentException(&quot;Cannot reflectively create enum objects&quot;);</span><br><span class="line">        &#x2F;&#x2F; ConstructorAccessor 是缓存的，如果为空，就去创建一个</span><br><span class="line">        ConstructorAccessor ca &#x3D; constructorAccessor;   &#x2F;&#x2F; read volatile</span><br><span class="line">        if (ca &#x3D;&#x3D; null) &#123;</span><br><span class="line">            &#x2F;&#x2F; 创建 ConstructorAccessor</span><br><span class="line">            ca &#x3D; acquireConstructorAccessor();</span><br><span class="line">        &#125;</span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        &#x2F;&#x2F; 使用 ConstructorAccessor 的 newInstance 构造实例</span><br><span class="line">        T inst &#x3D; (T) ca.newInstance(initargs);</span><br><span class="line">        return inst;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>接着看下  <code>acquireConstructorAccessor</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private ConstructorAccessor acquireConstructorAccessor() &#123;</span><br><span class="line">    &#x2F;&#x2F; First check to see if one has been created yet, and take it</span><br><span class="line">    &#x2F;&#x2F; if so.</span><br><span class="line">    ConstructorAccessor tmp &#x3D; null;</span><br><span class="line">    &#x2F;&#x2F; 可以理解为缓存的对象</span><br><span class="line">    if (root !&#x3D; null) tmp &#x3D; root.getConstructorAccessor();</span><br><span class="line">    if (tmp !&#x3D; null) &#123;</span><br><span class="line">        constructorAccessor &#x3D; tmp;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; Otherwise fabricate one and propagate it up to the root</span><br><span class="line">        &#x2F;&#x2F; 生成一个 ConstructorAccessor，并缓存起来</span><br><span class="line">        tmp &#x3D; reflectionFactory.newConstructorAccessor(this);</span><br><span class="line">        setConstructorAccessor(tmp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续走到 <code>newConstructorAccessor</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public ConstructorAccessor newConstructorAccessor(Constructor&lt;?&gt; var1) &#123;</span><br><span class="line">        checkInitted();</span><br><span class="line">        Class var2 &#x3D; var1.getDeclaringClass();</span><br><span class="line">    &#x2F;&#x2F; 如果是抽象类，报错</span><br><span class="line">    if (Modifier.isAbstract(var2.getModifiers())) &#123;</span><br><span class="line">        return new InstantiationExceptionConstructorAccessorImpl((String)null);</span><br><span class="line">    &#125; </span><br><span class="line">    &#x2F;&#x2F; 如果 Class 类报错</span><br><span class="line">    else if (var2 &#x3D;&#x3D; Class.class) &#123;</span><br><span class="line">        return new InstantiationExceptionConstructorAccessorImpl(&quot;Can not instantiate java.lang.Class&quot;);</span><br><span class="line">    &#125; </span><br><span class="line">    &#x2F;&#x2F; 如果是 ConstructorAccessorImpl 的子类的话，返回 BootstrapConstructorAccessorImpl </span><br><span class="line">    else if (Reflection.isSubclassOf(var2, ConstructorAccessorImpl.class)) &#123;</span><br><span class="line">        return new BootstrapConstructorAccessorImpl(var1);</span><br><span class="line">    &#125; </span><br><span class="line">    &#x2F;&#x2F; 判断 noInflation , 后面是判断不是匿名类</span><br><span class="line">    else if (noInflation &amp;&amp; !ReflectUtil.isVMAnonymousClass(var1.getDeclaringClass())) &#123;</span><br><span class="line">        return (new MethodAccessorGenerator()).generateConstructor(var1.getDeclaringClass(), var1.getParameterTypes(), var1.getExceptionTypes(), var1.getModifiers());</span><br><span class="line">    &#125; </span><br><span class="line">    &#x2F;&#x2F; 使用 NativeConstructorAccessorImpl 来生成实例</span><br><span class="line">    else &#123;</span><br><span class="line">        NativeConstructorAccessorImpl var3 &#x3D; new NativeConstructorAccessorImpl(var1);</span><br><span class="line">        DelegatingConstructorAccessorImpl var4 &#x3D; new DelegatingConstructorAccessorImpl(var3);</span><br><span class="line">        var3.setParent(var4);</span><br><span class="line">        return var4;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体逻辑，在上述代码中已经注释了。这里提一下  <code>noInflation</code> 。</p>
+<p><code>ReflectionFactory</code>  在执行所有方法前会检查下是否执行过了 <code>checkInitted</code>  方法，这个方法会把 <code>noInflation</code>  的值和 <code>inflationThreshold</code>  从虚拟机的环境变量中读取出来并赋值。</p>
+<p>当 <code>noInflation</code>  为  <code>false</code>  而且不是匿名类时，就会使用 <code>MethodAccessorGenerator</code>  方式。否则就是用  <code>NativeConstructorAccessorImpl</code>  的方式来生成。</p>
+<p>默认 <code>noInflation</code>  为 <code>false</code> ，所以我们先看 native 调用的方式。关注  <code>NativeConstructorAccessorImpl</code>  类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class NativeConstructorAccessorImpl extends ConstructorAccessorImpl &#123;</span><br><span class="line">    private final Constructor&lt;?&gt; c;</span><br><span class="line">    private DelegatingConstructorAccessorImpl parent;</span><br><span class="line">    private int numInvocations;</span><br><span class="line"></span><br><span class="line">    NativeConstructorAccessorImpl(Constructor&lt;?&gt; var1) &#123;</span><br><span class="line">        this.c &#x3D; var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Object newInstance(Object[] var1) throws InstantiationException, IllegalArgumentException, InvocationTargetException &#123;</span><br><span class="line">        if (++this.numInvocations &gt; ReflectionFactory.inflationThreshold() &amp;&amp; !ReflectUtil.isVMAnonymousClass(this.c.getDeclaringClass())) &#123;</span><br><span class="line">            ConstructorAccessorImpl var2 &#x3D; (ConstructorAccessorImpl)(new MethodAccessorGenerator()).generateConstructor(this.c.getDeclaringClass(), this.c.getParameterTypes(), this.c.getExceptionTypes(), this.c.getModifiers());</span><br><span class="line">            this.parent.setDelegate(var2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return newInstance0(this.c, var1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void setParent(DelegatingConstructorAccessorImpl var1) &#123;</span><br><span class="line">        this.parent &#x3D; var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static native Object newInstance0(Constructor&lt;?&gt; var0, Object[] var1) throws InstantiationException, IllegalArgumentException, InvocationTargetException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到  <code>NativeConstructorAccessorImpl</code>  中维护了一个计数器 <code>numInvocations</code> , 在每次调用 <code>newInstance</code>  方法生成实例时，就会对计数器自增，当计数器超过 <code>ReflectionFactory.inflationThreshold()</code>  的阈值，默认为 15，就会使用  <code>ConstructorAccessorImpl</code>  替换  <code>NativeConstructorAccessorImpl</code> , 后面就会直接调用 <code>MethodAccessorGenerator</code>  中的方法了。</p>
+<p>我们先看看没到达阈值前，会调用 native 方法  <code>newInstance0</code> , 这个方法定义在 <code>native/sun/reflect/NativeConstructorAccessorImpl.c</code>  中，具体 <code>newInstance0</code>  的流程我就不分析了，大致逻辑是操作堆栈执行方法。</p>
+<p>然后我们再看看超过阈值后，执行的是  <code>MethodAccessorGenerator</code>  生成构造器的方式。这种方式与 <code>newConstructorAccessor</code>  方法中 <code>noInflation</code>  为  <code>false</code>  的处理方式一样。所以可以解释为：java 虚拟机在执行反射操作时，如果同一操作执行次数超过阈值，会从 native 生成实例的方式转变为 java 生成实例的方式。</p>
+<p><code>MethodAccessorGenerator</code>  的 <code>MethodAccessorGenerator</code>  方法如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public ConstructorAccessor generateConstructor(Class&lt;?&gt; var1, Class&lt;?&gt;[] var2, Class&lt;?&gt;[] var3, int var4) &#123;</span><br><span class="line">    return (ConstructorAccessor)this.generate(var1, &quot;&lt;init&gt;&quot;, var2, Void.TYPE, var3, var4, true, false, (Class)null);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续跟踪下去可以发现，反射调用构造方法实际上是动态编写字节码，并且在虚拟机中把编好的字节码加载成一个 Class，这个 Class 实际上是  <code>ConstructorAccessorImpl</code>  类型的，然后调用这个动态类的 <code>newInstance</code>  方法。回看刚刚我们梳理的 <code>newConstructorAccessor</code>  代码，可以看到第三个逻辑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果是 ConstructorAccessorImpl 的子类的话，返回 BootstrapConstructorAccessorImpl </span><br><span class="line">else if (Reflection.isSubclassOf(var2, ConstructorAccessorImpl.class)) &#123;</span><br><span class="line">    return new BootstrapConstructorAccessorImpl(var1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终执行的是  <code>BootstrapConstructorAccessorImpl</code>  的 <code>newInstance</code>  方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class BootstrapConstructorAccessorImpl extends ConstructorAccessorImpl &#123;</span><br><span class="line">    private final Constructor&lt;?&gt; constructor;</span><br><span class="line"></span><br><span class="line">    BootstrapConstructorAccessorImpl(Constructor&lt;?&gt; var1) &#123;</span><br><span class="line">        this.constructor &#x3D; var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Object newInstance(Object[] var1) throws IllegalArgumentException, InvocationTargetException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return UnsafeFieldAccessorImpl.unsafe.allocateInstance(this.constructor.getDeclaringClass());</span><br><span class="line">        &#125; catch (InstantiationException var3) &#123;</span><br><span class="line">            throw new InvocationTargetException(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后是通过使用 <code>Unsafe</code>  类分配了一个实例。</p>
+<h2 id="反射带来的问题"><a class="markdownIt-Anchor" href="#反射带来的问题">#</a> 反射带来的问题</h2>
+<p>到现在为止，我们已经把反射生成实例的所有流程都搞清楚了。回到文章开头的问题，我们现在反思下，反射性能低么？为什么？</p>
+<ol>
+<li>反射调用过程中会产生大量的临时对象，这些对象会占用内存，可能会导致频繁 gc，从而影响性能。</li>
+<li>反射调用方法时会从方法数组中遍历查找，并且会检查可见性等操作会耗时。</li>
+<li>反射在达到一定次数时，会动态编写字节码并加载到内存中，这个字节码没有经过编译器优化，也不能享受 JIT 优化。</li>
+<li>反射一般会涉及自动装箱 / 拆箱和类型转换，都会带来一定的资源开销。</li>
+</ol>
+<p>在 Android 中，我们可以在某些情况下对反射进行优化。举个例子，EventBus 2.x 会在 register 方法运行时，遍历所有方法找到回调方法；而 EventBus 3.x 则在编译期间，将所有回调方法的信息保存的自己定义的  <code>SubscriberMethodInfo</code>  中，这样可以减少对运行时的性能影响。</p>
+<p><strong>本文的结论如下：</strong></p>
+<ol>
+<li>不要在性能敏感的应用中，频繁调用反射。</li>
+<li>如果反射执行的次数小于 1000 这个数量级，反射的耗时实际上与正常调用无太大差异。</li>
+<li>反射对内存占用还有一定影响的，在内存敏感的场景下，谨慎使用反射。</li>
+</ol>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2020-06-14 04:41:18" itemprop="dateModified" datetime="2020-06-14T04:41:18+08:00">2020-06-14</time>
+  </span>
+  <span id="2020/06/12/javafs/" class="item leancloud_visitors" data-flag-title="Java反射真的很慢吗" title="Views">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">Views</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">times</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Apocalypse <i class="ic i-at"><em>@</em></i>Apocalypse's Blog
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="https://jiyugithub.github.io/2020/06/12/javafs/" title="Java反射真的很慢吗">https://jiyugithub.github.io/2020/06/12/javafs/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="nav">
+    <div class="item left">
+      
+
+  <a href="/2020/06/12/hashmap/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="HashMap原理技术知识整理">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>HashMap原理技术知识整理</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2020/06/12/undefined/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeun65urj20zk0m81ii.jpg" title="Android目前最稳定和高效的UI适配方案">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Android目前最稳定和高效的UI适配方案</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments" data-id="2020/06/12/javafs/"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射到底是好是坏"><span class="toc-number">1.</span> <span class="toc-text"> 反射到底是好是坏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码试验"><span class="toc-number">2.</span> <span class="toc-text"> 编码试验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#刨根问底反射原理是什么"><span class="toc-number">3.</span> <span class="toc-text"> 刨根问底：反射原理是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射带来的问题"><span class="toc-number">4.</span> <span class="toc-text"> 反射带来的问题</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Apocalypse"
+      data-src="/images/avatar">
+  <p class="name" itemprop="name">Apocalypse</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">36</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">categories</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ppeXVnaXRodWI=" title="https:&#x2F;&#x2F;github.com&#x2F;jiyugithub"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+        
+  <li class="item dropdown">
+    <a href="javascript:void(0);"><i class="ic i-feather"></i>Posts</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>Archives</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>Categories</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>Tags</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2020/06/12/hashmap/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2020/06/12/undefined/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/14/FragmentTransaction/" title="Androidx 下 Fragment 懒加载的新实现">Androidx 下 Fragment 懒加载的新实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/view2/" title="一文彻底了解Android自定义控件2">一文彻底了解Android自定义控件2</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/28/androidxx/" title="聊聊 Android 开发的现状和思考">聊聊 Android 开发的现状和思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/socket/" title="手把手教你写Socket长连接">手把手教你写Socket长连接</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/08/03/uinm/" title="这15个Android开源库，只有经常逛Github的才知道！">这15个Android开源库，只有经常逛Github的才知道！</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/javafs/" title="Java反射真的很慢吗">Java反射真的很慢吗</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/16/fragmentstatepager/" title="FragmentStatePagerAdapter在ViewPager中优化了什么">FragmentStatePagerAdapter在ViewPager中优化了什么</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/07/27/Jetpack/" title="Android全新UI编程 - Jetpack Compose 超详细教程 第1弹">Android全新UI编程 - Jetpack Compose 超详细教程 第1弹</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/undefined/" title="Android目前最稳定和高效的UI适配方案">Android目前最稳定和高效的UI适配方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/08/flutternm/" title="Flutter高级玩法-贝塞尔曲线的表象认知">Flutter高级玩法-贝塞尔曲线的表象认知</a></span>
+  </li>
+
+  </ul>
+</div>
+<div id="rcomment">
+  <h2>Recent Comments</h2>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2020</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Apocalypse @ 启示录</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'https://jiyugithub.github.io/2020/06/12/javafs/',
+    favicon: {
+      show: "（●´3｀●）",
+      hide: "(´Д｀)"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return uri === LOCAL.path;
+      }
+    ]
+  };
+</script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/velocity-animate@1.5.2/velocity.min.js,npm/velocity-animate@1.5.2/velocity.ui.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js,npm/leancloud-storage@3/dist/av-min.js"></script>
+
+<script src="/js/app.js?v=0.1.9"></script>
+
+
+
+
+</body>
+</html>

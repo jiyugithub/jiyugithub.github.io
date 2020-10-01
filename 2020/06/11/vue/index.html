@@ -1,0 +1,657 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Apocalypse's Blog" href="https://jiyugithub.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.1.9">
+
+  
+
+
+<meta name="description" content="" >
+
+
+<link rel="canonical" href="https://jiyugithub.github.io/2020/06/11/vue/">
+
+
+
+  <title>
+从0到1教你搭建前端团队的组件系统（高级进阶必备） |
+启示录 = Apocalypse's Blog</title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">从0到1教你搭建前端团队的组件系统（高级进阶必备）
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2020-06-11 12:57:45">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2020-06-11T12:57:45+08:00">2020-06-11</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">启示录</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main id="main">
+      <div class="inner">
+        <div id="content" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="https://jiyugithub.github.io/2020/06/11/vue/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar">
+    <meta itemprop="name" content="Apocalypse">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Apocalypse's Blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="前言"><a class="markdownIt-Anchor" href="#前言">#</a> 前言</h2>
+<p>随着 vue/react 这类以数据驱动为主的 web 框架的不断完善和壮大，越来越多的前端团队开始着手搭建内部的组件库。虽然目前市面上已经有很多功能强大且完善的组件库供我们使用，比如基于 react 的开源组件库 ant-design，material，又比如基于 vue 的开源组件库 elementUI，iView 等。</p>
+<a id="more"></a>
+<p>我们在开发管理系统或者中台产品时，完全可以使用这种第三方库来开发，因为首先其服务的用户群体比较小众，一般是企业或者运营人员来使用，重点在于功能和业务，所以在 B 端产品比较适合；另一点就是设计要求相对于 C 端产品会低一些，因为 B 端产品或者管理系统风格统一简单反而会降低使用者的学习成本。所以对于上述情况，我们完全可以使用 ant-design-pro 或者 element-admin-vue 这类集成管理框架开开发。</p>
+<p>我们使用第三方组件库搭建一个企业级应用是完全没有问题的，但是另一方面，随着我们对用户体验以及网站性能的要求越来越高，流量及金钱，速度即王道，对于专注于做 C 端的企业来说，尽可能的减少用户等待才能留住更多的用户，比如我们在某宝，某东上买一个商品，结果我们花了一分钟商品列表还没有出来（形容的有点夸张），这种情况下客户可有可能直接选择某拼了。很明显像 ant-design 和 elementUI 这样的组件不适合做 C 端产品，因为体积太大了，除非用高性能服务器或者其他方式弥补。所以说采用轻量级组件库对于 C 端项目来说有以下几点好处：</p>
+<ul>
+<li>打包体积小，高度可控</li>
+<li>采用内部组件库安全性更高，防止嵌入攻击</li>
+<li>构建和开发更灵活，且组合型更高</li>
+</ul>
+<p>但是开发组件库还是需要投入时间和成本的，毕竟这东西不是每个团队都玩的起的。说了这么多，接下来我们就来分析和实现一个团队内部的组件库吧。</p>
+<h2 id="你将收获"><a class="markdownIt-Anchor" href="#你将收获">#</a> 你将收获</h2>
+<ul>
+<li>如何从 0 搭建一个组件库</li>
+<li>前端组件系统设计思路和模式</li>
+<li>组件库的划分及设计思路</li>
+<li>组件库的 package.json 文件配置说明</li>
+<li>将组件库部署到 github 并发布到 npm 上</li>
+</ul>
+<h2 id="正文"><a class="markdownIt-Anchor" href="#正文">#</a> 正文</h2>
+<h3 id="1-开发组件库的几种方式"><a class="markdownIt-Anchor" href="#1-开发组件库的几种方式">#</a> 1. 开发组件库的几种方式</h3>
+<p><img data-src="http://gank.io/images/fb7164945fc946e59b9fe29c7a11c1c1" alt="img"></p>
+<p>目前我们开发组件库的方式有很多，只要根据 npm 发包原则去配置就好了，我们可以用 webpack 自己大家一个 library，也可以直接使用 create-react-app/vue-cli3 来快速改造一个组件库的脚手架，或者采用之前比较火且自动集成 tree-shaking 的 rollup，这些方式都可以搭建我们组件库的脚手架。关于如何使用 webpack4.0 和 rollup，可以参考笔者的以下几篇文章：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uaW0vcG9zdC81ZGFiMGNjMWU1MWQ0NTI0ZGYzNWI3YjQ=">前端组件 / 库打包利器 rollup 使用与配置实战</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uaW0vcG9zdC81ZGFjZWUxYzZmYjlhMDRkZTA0ZDk0ZTA=">基于 create-react-app 打包编译自己的第三方 UI 组件库并发布到 npm</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uaW0vcG9zdC81ZDA3OGNjMTZmYjlhMDdlZjM3NjY4ZDA=">用 webpack 4.0 撸单页 / 多页脚手架 (jquery, react, vue, typescript)</span></li>
+</ul>
+<p>其实还有一种最快的方式就是直接去 ant-design 或者 elementUI 的 github 仓库，把代码 copy 下来改成自己的组件库脚手架，当然，这也不是随便就能改好的，如果想尝试这种方案，建议大家先学好 typescript 和 webpack。</p>
+<p>笔者这里采用的是目前比较流行的工具链 umi，umi 的 father 专门是提供组件库或者工具库打包的集成工具，我们只需要更改配置文件就能轻松搭建一款自带说明文档的组件库。笔者接下来会具来教大家如何使用它。</p>
+<h3 id="2-前端组件系统设计思路和模式"><a class="markdownIt-Anchor" href="#2-前端组件系统设计思路和模式">#</a> 2. 前端组件系统设计思路和模式</h3>
+<p><img data-src="http://gank.io/images/d82118e1278a48ac9009f048f9221457" alt="img"></p>
+<p>以上是笔者画的一个简陋的分层图，我们可以看到最底层的是我们的基础视图组件，它是上层建筑的基石。对于一个包含很多子系统的复杂的项目系统来说，要想设计一个好的架构，第一步就是合理划分组件，组件的粒度拆成的足够细，这样才能最大限度的复用组件。</p>
+<p>对于任何一个复杂系统来说，最重要的就是实现错综复杂的业务功能，但是不同模块或者子系统之间很多业务往往是相通的或者相似的，如果这个时候我们每个页面对于实现类似的业务场景都去重复去写一遍业务代码，那完全是没必要的，对于可维护性来说也是一种打击，所以基于这种场景我们的 <strong>业务组件</strong> 就很有必要出场了。<strong>我们可以把功能或者需求类似的有机体封装成一个业务组件，并对外暴露接口来实现灵活的可定制性，这样的话我们就可以再不同页面不同子系统中复用同样的逻辑和功能了。</strong></p>
+<p>同理，不同页面中往往有可能出现视觉或者交互完全相同或者类似的<strong>区块</strong>，为了提高可复用性和提高开发效率，<strong>我们往往会基于基础组件和业务组件再进行一次封装，让其成为一个独立的区块以便直接复用。</strong></p>
+<p>通过这样一层层封装，我们就逐渐搭建了一套完整的组件化系统，基于这种模式的开发往往也是一个好的前端架构的开始。但要注意一点就是高层次的组件一定会依赖低层次的组件，但是低层次的组件不可以包含高层次的组件。（听起来有点像 rudex 的单向数据流法则），他们的关系就好像下图：</p>
+<p><img data-src="http://gank.io/images/fb3d6de8f3924f49b35f0d0839c0f618" alt="img"></p>
+<h3 id="3-组件库的划分及设计思路"><a class="markdownIt-Anchor" href="#3-组件库的划分及设计思路">#</a> 3. 组件库的划分及设计思路</h3>
+<p>组件库的划分其实可以参考成熟组件库划分。由于业务组件和区块划分完全取决于不同公司的实际项目情况，这里不能形成一套统一的思维框架，所以我这里说的组件库划分主要指基础组件库的划分。我们先来看看 antd 的划分，它划分为：<strong>通用组件，布局组件，导航组件，数据录入和数据展示组件，反馈型组件和其他</strong>。elementUI 的组件划分为：<strong>基础组件，表单组件，数据呈现组件，通知类组件，导航类组件和其他</strong>，这些分类发都是非常合理的划分，所以我们在设计组件库时也可以参考或者直接使用，具体总结如下：</p>
+<ul>
+<li>通用型组件：比如 Button, Icon 等.</li>
+<li>布局型组件：比如 Grid, Layout 布局等.</li>
+<li>导航型组件：比如面包屑 Breadcrumb, 下拉菜单 Dropdown, 菜单 Menu 等.</li>
+<li>数据录入型组件：比如 form 表单，Switch 开关，Upload 文件上传等.</li>
+<li>数据展示型组件：比如 Avator 头像，Table 表格，List 列表等.</li>
+<li>反馈型组件：比如 Progress 进度条，Drawer 抽屉，Modal 对话框等.</li>
+<li>其他业务类型</li>
+</ul>
+<p>至于组件实现的设计思路，其实笔者之前也写过很多文章来做铺垫，第一要义就是需求，一切要从需求出发。不仅仅是 react 的组件设计，vue 或者 angular 等都是类似的方法和思路，这里简单给大家举一个组件开发的例子 —— 弹窗组件（Modal）的开发思路：</p>
+<ol>
+<li>
+<p>需求分析</p>
+<p><img data-src="http://gank.io/images/1149d1d05de94a9e8ab98c2e553da3be" alt="img"></p>
+</li>
+<li>
+<p>功能设计及实现思路</p>
+<p><img data-src="http://gank.io/images/6ba3bf2de70844878738cf24ec5359af" alt="img"></p>
+</li>
+<li>
+<p>健壮性与组件测试</p>
+<p><img data-src="http://gank.io/images/cf7ec6693a6e42ccad8cbd0f1ee606f8" alt="img"></p>
+<p>因为 Modal 设计是组件设计里一个很典型的案例，如果想学习具体实现细节，可以在读完本文之后移步</p>
+<p>手摸手实现一个轻量级可扩展的模态框 (Modal) 组件</p>
+</li>
+</ol>
+<h3 id="4-从0搭建一个组件库"><a class="markdownIt-Anchor" href="#4-从0搭建一个组件库">#</a> 4. 从 0 搭建一个组件库</h3>
+<p>这一步是文章的重点，我们将会了解到如何使用 umi/father 来搭建团队的组件库。至于 umi 这个前端集成解决方案，笔者从它的架构中受到了很多启发，并且基于 umi+dva+react 的前端开发流程应用非常广泛，感兴趣的朋友可以研究学习一下。</p>
+<h4 id="41-father介绍"><a class="markdownIt-Anchor" href="#41-father介绍">#</a> 4.1 father 介绍</h4>
+<p>官方介绍就一句话：基于 rollup 和 docz 的库打包工具。它的特点主要有：</p>
+<ul>
+<li>基于 docz 的文档功能</li>
+<li>基于 rollup 和 babel 的组件打包功能</li>
+<li>支持 TypeScript</li>
+<li>支持 cjs、esm 和 umd 三种格式的打包</li>
+<li>esm 支持生成 mjs，直接为浏览器使用</li>
+<li>支持用 babel 或 rollup 打包 cjs 和 esm</li>
+<li>支持多 entry</li>
+<li>支持 lerna</li>
+<li>支持 css 和 less，支持开启 css modules</li>
+<li>支持 test</li>
+<li>支持用 prettier 和 eslint 做 pre-commit 检查</li>
+</ul>
+<p>所以作为一个开箱即用的组件库打包工具，已经为我们省去了很多中间步骤，比如说组件的测试，不同环境下的模块打包，而且还支持 ts 和文档功能，我们只需要掌握 babel 和 rollup 的知识，就能用它轻松配置出一个强大的组件库脚手架。如果对 docz 不太了解的可以在<span class="exturl" data-url="aHR0cHM6Ly93d3cuZG9jei5zaXRlLw=="> docz 官网</span>学习使用非常简单，只要你对 markdown 和 react 熟悉，分分钟入门。</p>
+<h4 id="42-使用father搭建组件库"><a class="markdownIt-Anchor" href="#42-使用father搭建组件库">#</a> 4.2 使用 father 搭建组件库</h4>
+<p>其实 father 的使用非常简单，首先我们先安装一下 father：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install father -D</span><br></pre></td></tr></table></figure>
+<p>或者使用 yarn 安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add father</span><br></pre></td></tr></table></figure>
+<p>接下来我们可以在 package.json 里配置如下脚本来使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 打包库</span><br><span class="line">$ father build</span><br><span class="line"></span><br><span class="line"># 开发环境下启动文档服务</span><br><span class="line">$ father doc dev</span><br><span class="line"></span><br><span class="line"># 打包编译文档</span><br><span class="line">$ father doc build</span><br><span class="line"></span><br><span class="line"># 将文档部署到github</span><br><span class="line">$ father doc deploy</span><br><span class="line"></span><br><span class="line"># 组件库测试及测试覆盖率</span><br><span class="line">$ father test</span><br><span class="line">$ father test --coverage</span><br></pre></td></tr></table></figure>
+<p>这里拿笔者之前已经发布到 npm 的组件库<span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvQGFsZXhfeHUveHVp"> xui—— 基于 react 的轻量级 UI 组件库</span>来举例。 首先我们看看<span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvQGFsZXhfeHUveHVp"> xui</span> 的 package.json 中的 script 脚本如何配置的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;npx --max_old_space_size&#x3D;8096 father doc dev --host 0.0.0.0&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;father build&quot;,</span><br><span class="line">    &quot;build:doc&quot;: &quot;father doc build&quot;,</span><br><span class="line">    &quot;deploy&quot;: &quot;father doc deploy&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>当我们执行 npm run dev 或者 yarn dev 时，father 自动帮我们启动了 doc 服务器，我们接下来就能看到我们组件的测试文档了：</p>
+<p><img data-src="http://gank.io/images/e50a95c09cdf4efb8a51d3aa5a23b04c" alt="img"></p>
+<p><img data-src="http://gank.io/images/06f63fe8890b41519df05f3f19453d0c" alt="img"></p>
+<p>这些内容都是我们提前写好的 mdx 文档，语法类似于 markdown，只不过增加了对 react 组件的编译支持，其实使用起来很简单，我们只需要把 react 组件包裹在 Playground 容器里就好了，具体使用可以参考以下方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: Button</span><br><span class="line">route: &#x2F;Button</span><br><span class="line">order: 3</span><br><span class="line">sidebar: true</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">import &#123; Playground &#125; from &#39;docz&#39;</span><br><span class="line">import Button from &#39;.&#x2F;index&#39;</span><br><span class="line"></span><br><span class="line"># Button</span><br><span class="line"></span><br><span class="line">#### 基本用法</span><br><span class="line">&lt;Playground&gt;</span><br><span class="line">    &lt;Button&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;primary&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;warning&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;info&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;pure&quot;&gt;按钮&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">    &lt;Button type&#x3D;&quot;primary&quot; shape&#x3D;&quot;circle&quot;&gt;按钮的命运&lt;&#x2F;Button&gt;&lt;br &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;Playground&gt;</span><br></pre></td></tr></table></figure>
+<p>头部的信息我需要介绍一下：</p>
+<ul>
+<li>name 组件的名称，也就是显示在左部导航栏里的导航文本</li>
+<li>route 组件页面的路由</li>
+<li>order 组件在导航条中显示的顺序</li>
+<li>siderbar 当前页面是否显示导航条</li>
+</ul>
+<p>我们根据案例可以知道 mdx 里面可以使用 es6 的导入方式来引入组件或者变量，其实还有很多配置，这里就不一一举例了，感兴趣的可以到 docz 官网学习。以下是官网的截图：</p>
+<p><img data-src="http://gank.io/images/88c1791e8ff34523906081b881ed0edb" alt="img"></p>
+<p>接下来介绍我们最重要的部分，<strong>.fatherrc.js</strong> 文件的配置。初始化 father 项目时会自动生成一个默认配置，但是大多数情况下我们都需要自定义配置，官网的配置参数也很多，可以找到适合自己团队的配置，这里我主要介绍<span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvQGFsZXhfeHUveHVp"> xui</span> 组件库的配置细节。先看看配置代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; .fatherrc.js</span><br><span class="line">const options &#x3D; &#123;</span><br><span class="line">  entry: &#39;src&#x2F;index.js&#39;,</span><br><span class="line">  doc: &#123;</span><br><span class="line">    title: &#39;xu_ui&#39;,</span><br><span class="line">    themeConfig: &#123; mode: &#39;light&#39; &#125;,</span><br><span class="line">    base: &#39;&#x2F;xu_ui&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  extraBabelPlugins: [</span><br><span class="line">      [&#39;babel-plugin-import&#39;, &#123;</span><br><span class="line">          libraryName: &#39;antd&#39;,</span><br><span class="line">          libraryDirectory: &#39;es&#39;,</span><br><span class="line">          style: true,</span><br><span class="line">      &#125;]</span><br><span class="line">  ],</span><br><span class="line">  &#x2F;&#x2F; cssModules: true,</span><br><span class="line">  extractCSS: true,</span><br><span class="line">  lessInBabelMode: true,</span><br><span class="line">  runtimeHelpers: true,</span><br><span class="line">  esm: &#39;babel&#39;, </span><br><span class="line">  cjs: &#39;babel&#39;,</span><br><span class="line">  autoprefixer: &#123;</span><br><span class="line">      browsers: [&#39;ie&gt;9&#39;, &#39;Safari &gt;&#x3D; 6&#39;],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default options;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>entry</p>
+<p>主要用来定义组件库的入口位置，通常我们会放在 src 目录下，以下是 xui 项目中 src 的目录结构：</p>
+<p><img data-src="http://gank.io/images/ccd3a2255c954714ad04e14db2b69059" alt="img"></p>
+<p><img data-src="http://gank.io/images/641bd29ad38740b3950b5158a2b1fd69" alt="img"></p>
+<p>大家可以参考以下，我们还可以在组件目录下加测试代码，这里就不举例了。</p>
+</li>
+<li>
+<p><strong>doc</strong> 主要用来配置文档的标题，主题色以及根路由</p>
+</li>
+<li>
+<p><strong>extraBabelPlugins</strong> 主要用来配置额外的 babel 插件，比如组件库的按需导入。xui 虽然没用用到 antd，但是大家如果有基于 antd 二次开发业务组件或者区块时，可以按照如上配置去按需导入第三方组件库，这样可以极大的降低代码体积</p>
+</li>
+<li>
+<p><strong>cssModules</strong> 是否开启 css Module，这个按团队需求来定制，可以不用配置</p>
+</li>
+<li>
+<p><strong>extractCSS</strong> 是否将 css 抽离成单独的 css 文件，这个也是看组件库的体量，不过建议最好配置上</p>
+</li>
+<li>
+<p><strong>lessInBabelMode</strong> 在 babel 模式下做 less 编译，基于 gulp-less，默认不开启</p>
+</li>
+<li>
+<p><strong>runtimeHelpers</strong> 是否把 helper 方法提取到 @babel/runtime 里，推荐开启，能节约不少代码体积</p>
+</li>
+<li>
+<p><strong>esm</strong> 是否输出 esm 格式，以及指定 esm 格式的打包方式等，笔者这里使用 babel 的打包方式</p>
+</li>
+<li>
+<p><strong>cjs</strong> 是否输出 cjs 格式，以及指定 cjs 格式的打包方式等，笔者这里使用 babel 的打包方式</p>
+</li>
+<li>
+<p><strong>autoprefixer</strong> 主要用来配置打包后的组件对浏览器的兼容版本</p>
+</li>
+</ul>
+<p>通过以上的配置，我们就能愉快的开发组件啦。</p>
+<h4 id="43-编写组件说明文档"><a class="markdownIt-Anchor" href="#43-编写组件说明文档">#</a> 4.3 编写组件说明文档</h4>
+<p>组件说明文档是让其他人了解组件库的关键环节，包括组件库的适用范围（pc 端，移动端，轻量级还是重量级），兼容浏览器的版本，设计原则和背景，以及社区生态，使用方法等。所以组件库说明文档的编写也是非常重要的，大家具体可以参考 antd 或者 element 的说明文档，可以说是写的非常专业了。如下是 antd 的例子：</p>
+<p><img data-src="http://gank.io/images/f00f468d974445048153efe2825c054b" alt="img"></p>
+<p>大家可以参考以上笔者整理的核心部分去写组件说明文档。</p>
+<h3 id="5-组件库的packagejson文件配置说明"><a class="markdownIt-Anchor" href="#5-组件库的packagejson文件配置说明">#</a> 5. 组件库的 package.json 文件配置说明</h3>
+<p>如果你在为团队开发私有组件库，那么完全不需要在意接下来笔者写的内容，但是如果你要开发一个开源的，大家都能使用的组件库，一定要注意以下几点的编写：</p>
+<ul>
+<li><strong>name</strong> package 的包名，让人一眼就能知道这个库是用来做什么的</li>
+<li><strong>description</strong> 库的描述，一个精准而具体的组件库的描述有利于人们在 npm 或者 github 上的搜索，有点类似于 SEO 的感觉，没错，这就是组件库的 SEO</li>
+<li><strong>keywords</strong> 组件库的关键字说明，这一点也很重要，直接影响者用户对我们组件库的搜索排名</li>
+<li><strong>homepage</strong> 组件库的主页地址，更有利于用户了解组件库的用法，功能等 完整的在线例子可以参考： <span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvQGFsZXhfeHUveHVp">xui—— 基于 react 的轻量级 UI 组件库</span></li>
+</ul>
+<h3 id="6-将组件库部署到github并发布到npm上"><a class="markdownIt-Anchor" href="#6-将组件库部署到github并发布到npm上">#</a> 6. 将组件库部署到 github 并发布到 npm 上</h3>
+<p><strong>首先</strong>我们需要在 package.json 中配置 github 的地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;repository&quot;: &#123;</span><br><span class="line">    &quot;type&quot;: &quot;git&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;git+https:&#x2F;&#x2F;github.com:MrXujiang&#x2F;xu_ui.git&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>大家可以复制以上代码改成自己的仓库地址。</p>
+<p><strong>其次</strong>我们需要登录进 npm 官网，如果你还没有账号可以直接申请一个，也很简单，然后在终端通过命令行登录。</p>
+<p><strong>接下来</strong>我们执行以下几个命令就能将自己的组件库打包发布到 npm 上了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 打包编译组件库</span><br><span class="line">yarn build</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 编译组件库文档，该步骤可省略</span><br><span class="line">yarn build:doc</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 部署组件库文档到github, 该步骤可省略</span><br><span class="line">yarn deploy</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 发布到npm上</span><br><span class="line">npm publish --access public</span><br></pre></td></tr></table></figure>
+<p>以上的 yarn 命令具体实现可参考<span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvQGFsZXhfeHUveHVp"> xui</span> 的 package.json, 也可以自己配置。经过上述步骤我们就成功将自己的组件库发布到 npm 上了，是不是很简单呢？</p>
+<p>笔者已经将实现过的组件发布到 npm 上了，大家如果感兴趣可以直接用 npm 安装后使用，方式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm i @alex_xu&#x2F;xui</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 导入xui</span><br><span class="line">import &#123; </span><br><span class="line">  Button, Skeleton, Empty, Progress,</span><br><span class="line">  Message, Tag, Switch, Drawer, Badge, Alert</span><br><span class="line">&#125; from &#39;@alex_xu&#x2F;xui&#39;</span><br></pre></td></tr></table></figure>
+<p>该组件库支持按需导入，我们只需要在项目里配置 babel-plugin-import 即可，具体配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; .babelrc</span><br><span class="line">&quot;plugins&quot;: [</span><br><span class="line">  [&quot;import&quot;, &#123; &quot;libraryName&quot;: &quot;@alex_xu&#x2F;xui&quot;, &quot;style&quot;: true &#125;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>npm 库截图如下:</p>
+<p><img data-src="http://gank.io/images/80676812e7b944a28e498dc8926a9866" alt="img"></p>
+<h2 id="组件系统与微前端架构初探"><a class="markdownIt-Anchor" href="#组件系统与微前端架构初探">#</a> 组件系统与微前端架构初探</h2>
+<p>笔者本篇文章并不会将微前端架构的知识，但是既然涉及到组件库，就一定要形成一个知识闭环，笔者特意画了如下脑图，供前端朋友或者正准备走向微前端架构的团队一些参考：</p>
+<p><img data-src="http://gank.io/images/34b349be69ef4d9c9446fbcb35aa06e5" alt="img"></p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2020-06-12 05:29:30" itemprop="dateModified" datetime="2020-06-12T05:29:30+08:00">2020-06-12</time>
+  </span>
+  <span id="2020/06/11/vue/" class="item leancloud_visitors" data-flag-title="从0到1教你搭建前端团队的组件系统（高级进阶必备）" title="Views">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">Views</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">times</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Apocalypse <i class="ic i-at"><em>@</em></i>Apocalypse's Blog
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="https://jiyugithub.github.io/2020/06/11/vue/" title="从0到1教你搭建前端团队的组件系统（高级进阶必备）">https://jiyugithub.github.io/2020/06/11/vue/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="nav">
+    <div class="item left">
+      
+
+  <a href="/2020/06/09/handler/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipey0a334j20zk0m8qpt.jpg" title="Handler 机制">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Handler 机制</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2020/06/12/multitype/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhfehz7j20zk0m8u0x.jpg" title="Android 复杂的列表视图新写法 MultiType">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Android 复杂的列表视图新写法 MultiType</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments" data-id="2020/06/11/vue/"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你将收获"><span class="toc-number">2.</span> <span class="toc-text"> 你将收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正文"><span class="toc-number">3.</span> <span class="toc-text"> 正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-开发组件库的几种方式"><span class="toc-number">3.1.</span> <span class="toc-text"> 1. 开发组件库的几种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-前端组件系统设计思路和模式"><span class="toc-number">3.2.</span> <span class="toc-text"> 2. 前端组件系统设计思路和模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组件库的划分及设计思路"><span class="toc-number">3.3.</span> <span class="toc-text"> 3. 组件库的划分及设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-从0搭建一个组件库"><span class="toc-number">3.4.</span> <span class="toc-text"> 4. 从 0 搭建一个组件库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#41-father介绍"><span class="toc-number">3.4.1.</span> <span class="toc-text"> 4.1 father 介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#42-使用father搭建组件库"><span class="toc-number">3.4.2.</span> <span class="toc-text"> 4.2 使用 father 搭建组件库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#43-编写组件说明文档"><span class="toc-number">3.4.3.</span> <span class="toc-text"> 4.3 编写组件说明文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-组件库的packagejson文件配置说明"><span class="toc-number">3.5.</span> <span class="toc-text"> 5. 组件库的 package.json 文件配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-将组件库部署到github并发布到npm上"><span class="toc-number">3.6.</span> <span class="toc-text"> 6. 将组件库部署到 github 并发布到 npm 上</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件系统与微前端架构初探"><span class="toc-number">4.</span> <span class="toc-text"> 组件系统与微前端架构初探</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Apocalypse"
+      data-src="/images/avatar">
+  <p class="name" itemprop="name">Apocalypse</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">36</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">categories</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ppeXVnaXRodWI=" title="https:&#x2F;&#x2F;github.com&#x2F;jiyugithub"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+        
+  <li class="item dropdown">
+    <a href="javascript:void(0);"><i class="ic i-feather"></i>Posts</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>Archives</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>Categories</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>Tags</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2020/06/09/handler/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2020/06/12/multitype/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/30/blogs/" title="帮朋友转发一个博客">帮朋友转发一个博客</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/multitype/" title="Android 复杂的列表视图新写法 MultiType">Android 复杂的列表视图新写法 MultiType</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/socket/" title="手把手教你写Socket长连接">手把手教你写Socket长连接</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/typescript/" title="TypeScript泛型及应用">TypeScript泛型及应用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/0_kotlin/" title="使用Kotlin从零开始写一个现代Android">使用Kotlin从零开始写一个现代Android</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/14/FragmentTransaction/" title="Androidx 下 Fragment 懒加载的新实现">Androidx 下 Fragment 懒加载的新实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/14/Top10/" title="2020年GitHub 上那些优秀Android开源库">2020年GitHub 上那些优秀Android开源库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/hashmap/" title="HashMap原理技术知识整理">HashMap原理技术知识整理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/08/flutternm/" title="Flutter高级玩法-贝塞尔曲线的表象认知">Flutter高级玩法-贝塞尔曲线的表象认知</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/11/vue/" title="从0到1教你搭建前端团队的组件系统（高级进阶必备）">从0到1教你搭建前端团队的组件系统（高级进阶必备）</a></span>
+  </li>
+
+  </ul>
+</div>
+<div id="rcomment">
+  <h2>Recent Comments</h2>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2020</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Apocalypse @ 启示录</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'https://jiyugithub.github.io/2020/06/11/vue/',
+    favicon: {
+      show: "（●´3｀●）",
+      hide: "(´Д｀)"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return uri === LOCAL.path;
+      }
+    ]
+  };
+</script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/velocity-animate@1.5.2/velocity.min.js,npm/velocity-animate@1.5.2/velocity.ui.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js,npm/leancloud-storage@3/dist/av-min.js"></script>
+
+<script src="/js/app.js?v=0.1.9"></script>
+
+
+
+
+</body>
+</html>
