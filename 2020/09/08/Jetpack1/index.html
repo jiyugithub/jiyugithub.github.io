@@ -1,0 +1,713 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Apocalypse's Blog" href="https://jiyugithub.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Apocalypse's Blog" href="https://jiyugithub.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.1.9">
+
+  
+
+
+<meta name="description" content="" >
+
+
+<link rel="canonical" href="https://jiyugithub.github.io/2020/09/08/Jetpack1/">
+
+
+
+  <title>
+Jetpack Compose Alpha 版现已发布！ |
+启示录 = Apocalypse's Blog</title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Jetpack Compose Alpha 版现已发布！
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2020-09-08 14:31:54">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2020-09-08T14:31:54+08:00">2020-09-08</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">启示录</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main id="main">
+      <div class="inner">
+        <div id="content" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="en">
+  <link itemprop="mainEntityOfPage" href="https://jiyugithub.github.io/2020/09/08/Jetpack1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/http:/q1.qlogo.cn/g?b=qq&nk=2391624941&s=640">
+    <meta itemprop="name" content="Apocalypse">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Apocalypse's Blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p><img data-src="http://mmbiz.qpic.cn/mmbiz_png/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqa2psKsvle7boLicRILqY37F8oQUASndJx3HBMGkRTKmQXZAYmGysgTg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">Jetpack Compose 是一个现代化的 UI 工具包，旨在帮助开发者通过原生平台 API 简单快捷地在全 Android 平台构建精美应用，它能大幅降低代码量并包含交互式工具，以及使用直观的 Kotlin API，为您的应用增添活力。现在，我们正式发布 Jetpack Compose 的 Alpha 版本，邀请您体验！</p>
+<a id="more"></a>
+<ul>
+<li>
+<p>Jetpack Compose</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vamV0cGFjay9jb21wb3Nl">https://developer.android.google.cn/jetpack/compose</span></p>
+</li>
+</ul>
+<p>开发者们通过构建应用演绎价值和实现理想。开发效率的提升离不开三个重要因素：编程语言、集成开发环境 (IDE) 以及用户界面 (UI) 框架。我们为大家带来的 Jetpack Compose，目的就是为了让您 (我们也是！) 能在构建 UI 上更加高效！</p>
+<p>起初，我们计划通过一系列的 Android Jetpack 开发库解决 Android 开发中最困难、最常见的问题，帮助开发者们在所有的 Android 版本上运行高质量的应用。如今 Google Play 商店排名前一万的应用中，已经有 84% 的应用使用了 Jetpack 库。</p>
+<ul>
+<li>
+<p>Android Jetpack</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vamV0cGFjaw==">https://developer.android.google.cn/jetpack</span></p>
+</li>
+</ul>
+<p>进而，我们还了解到 Kotlin 深受开发者的喜爱，如今在排名前一千名的应用中，有超过 70% 的应用使用了 Kotlin，60% 的专业 Android 开发者都在使用 Kotlin。Google Home 应用使用了 Kotlin 之后，在某些情况下减少了 80% 代码行数，NullPointerExceptions 与过去同期相比减少 33%。还有，多邻国 (Duolingo) 应用使用了 Kotlin 之后，肉眼可见的代码行数平均减少了 30%。</p>
+<ul>
+<li>
+<p>Google Home</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vc3Rvcmllcy9hcHBzL2dvb2dsZS1ob21l">https://developer.android.google.cn/stories/apps/google-home</span></p>
+</li>
+<li>
+<p>多邻国 (Duolingo)</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vc3Rvcmllcy9hcHBzL2R1b2xpbmdvLWtvdGxpbg==">https://developer.android.google.cn/stories/apps/duolingo-kotlin</span></p>
+</li>
+</ul>
+<p>最后，我们通过社区收集到了一些强烈的建议，开发者们希望可以使用一些声明式的 API 来降低 UI 构建的难度。Jetpack Compose 结合刚刚提到的三点优势应运而生 —— 可大规模构建高质量应用的 API、直观的编程语言以及响应式的编程模型。</p>
+<p><img data-src="http://mmbiz.qpic.cn/mmbiz_png/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqjsmxSqFkxsCluDBzPkXmLY9IcfShcicSuRXHWyNpCQzH54QxxjmT3KQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>Jetpack 的 Hello World</p>
+<p><strong>Jetpack Compose: Alpha 版现已发布</strong></p>
+<p><strong>Jetpack Compose Alpha 版本</strong>提供了用于构建成熟 Android 应用所需的功能，不仅有高效的工具，还可以和现有 Android 视图进行互操作，您无需重新编写您的应用。Compose API 是与一组使用 Material Design 规范的示例应用一起设计和开发的！我们很高兴发布这些应用！您还可以直接在 Android Studio 中导入和浏览最新的示例。</p>
+<p><img data-src="http://mmbiz.qpic.cn/mmbiz_gif/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqMFSgyd2AWAr2rDKTJYL2mOVZW0j7j73dj3B3hVGvmo9mspzjCnUM8g/640?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<ul>
+<li>
+<p>规范的示例应用</p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5naXRodWIuY29tL2FuZHJvaWQvY29tcG9zZS1zYW1wbGVz">http://www.github.com/android/compose-samples</span></p>
+</li>
+<li>
+<p>导入和浏览</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vamV0cGFjay9jb21wb3NlL3NldHVwI3NhbXBsZQ==">https://developer.android.google.cn/jetpack/compose/setup#sample</span></p>
+</li>
+</ul>
+<p>Alpha 版本发布内容如下:</p>
+<ul>
+<li>Animations</li>
+<li>Constraint Layout</li>
+<li>无障碍初步支持</li>
+<li>输入和手势</li>
+<li>与视图的互操作性 (可以在您现有的 app 中混合可以组合的功能)</li>
+<li>懒加载列表</li>
+<li>Material UI 组件</li>
+<li>性能优化</li>
+<li>测试</li>
+<li>文本和可编辑文本</li>
+<li>主题和图形</li>
+<li>Window 管理</li>
+</ul>
+<p>在与 JetBrains Kotlin 团队的紧密合作下，我们也为 Android Studio 4.2 canary 添加了一系列新功能来帮助您使用 Compose 构建应用:</p>
+<ul>
+<li>
+<p>Compose 代码自动补全</p>
+</li>
+<li>
+<p>Compose 预览注解</p>
+</li>
+<li>
+<p>部署单个可组合的组件到任何设备上</p>
+</li>
+<li>
+<p>交互式 Compose 预览</p>
+</li>
+<li>
+<p>可以生成代码的 Kotlin 编译器插件</p>
+</li>
+<li>
+<p>适用于 Compose 的示例数据 API</p>
+</li>
+<li>
+<p>JetBrains Kotlin 团队</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9rb3RsaW5sYW5nLm9yZy8=">https://kotlinlang.org/</span></p>
+</li>
+<li>
+<p>Romain 的视频 - Jetpack Compose</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1VNUJ3ZnFCcGlXVQ==">https://www.youtube.com/watch?v=U5BwfqBpiWU</span></p>
+</li>
+</ul>
+<p><strong>Compose 的编程思想</strong></p>
+<p>Compose 使用的编程模型与 Android 上现有的构建 UI 的模型完全不同。从历史上看，Android 的视图层次结构一直被描述为 UI 组件树。随着 app 状态的变化，需要更新 UI 层次结构来显示当前的数据。更新 UI 最常见的方法是使用像 findViewById () 这样的方法去遍历 UI 组件树，并通过调用类似下面的这些方法来改变节点:</p>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">button.setText(String)</span><br></pre></td></tr></table></figure>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">container.addView(View)</span><br></pre></td></tr></table></figure>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img.setImageBitmap(Bitmap)</span><br></pre></td></tr></table></figure>
+<p>这些方法会改变组件的内部状态。这不仅乏味繁琐，而且手动更新视图也会增加出错的可能性 (例如忘记更新视图)。Jetpack Compose 是一种完全基于声明式组件的方法，这意味着您需要将 UI 描述为将数据转换为 UI 层级结构的函数。当基础数据发生变化时，Compose 框架会自动为您更新 UI 层次结构，从而使您可以轻松快速的构建 UI。</p>
+<ul>
+<li>
+<p>观看视频：用 Compose 思考</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly95b3V0dS5iZS9TTU9obDlSSzBCQQ==">https://youtu.be/SMOhl9RK0BA</span></p>
+</li>
+</ul>
+<p><strong>与现有 Android 视图完全互操作</strong></p>
+<p>对于现有的项目和代码库来说，采用任何新的框架都是一个很大的改变，这就是为什么我们把 Compose 设计得和 Kotlin 一样容易采用 —— 它从一开始就可以与现有的 Android 代码完全互操作。</p>
+<p>是否迁移到 Compose 取决于您和您的团队。如果您正在构建一个新的 app，最好的选择可能是使用 Compose 来实现 app 的整个 UI 界面。我们知道大多数人都有大量的现有代码库，可以将 Compose 与现有的 UI 设计结合起来，而无需重写应用。</p>
+<p>可以通过以下两种主要的方式将 Compose 与基于视图的 UI 结合起来:</p>
+<ul>
+<li>
+<p>您可以添加 Compose 元素到现有的 UI，或者创建一个全新的基于 Compose 的屏幕，或者是向现有的 fragment 或视图布局中添加 Compose 元素。</p>
+</li>
+<li>
+<p>您可以将基于视图的 UI 元素添加到可组合的函数中。这样做可以将不基于 Compose 的组件添加到基于 Compose 的组件中，例如: MapView 或 WebView。</p>
+</li>
+</ul>
+<p>我们也发布了一个新库 MDC Compose 主题适配器，它可以让您在 Compose UI 中复用现有的 Material Components 主题。</p>
+<ul>
+<li>
+<p>MDC Compose 主题适配器</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tYXRlcmlhbC1jb21wb25lbnRzLmdpdGh1Yi5pby9tYXRlcmlhbC1jb21wb25lbnRzLWFuZHJvaWQtY29tcG9zZS10aGVtZS1hZGFwdGVyLw==">https://material-components.github.io/material-components-android-compose-theme-adapter/</span></p>
+</li>
+<li>
+<p>Material Components</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tYXRlcmlhbC5pby9kZXZlbG9wL2FuZHJvaWQv">https://material.io/develop/android/</span></p>
+</li>
+</ul>
+<p>要了解更多相关信息，请参阅 Compose for existing apps codelab 或查看以下两个示例:</p>
+<ul>
+<li>
+<p>Tivi 和 Sunflower 展示了如何在现有项目中集成 Compose</p>
+</li>
+<li>
+<p>Crane 示例应用展示了如何在 Compose 嵌入一个 MapView</p>
+</li>
+<li>
+<p>Compose for existing apps codelab</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9jb2RlbGFicy5kZXZlbG9wZXJzLmdvb2dsZS5jb20vY29kZWxhYnMvYW5kcm9pZC1jb21wb3NlLW1pZ3JhdGlvbg==">https://codelabs.developers.google.com/codelabs/android-compose-migration</span></p>
+</li>
+<li>
+<p>Tivi</p>
+<p><span class="exturl" data-url="aHR0cDovL3RpdmkuYXBw">http://tivi.app</span></p>
+</li>
+<li>
+<p>Sunflower</p>
+<p><span class="exturl" data-url="aHR0cDovL2dvby5nbGUvc3VuZmxvd2VyLWNvbXBvc2U=">http://goo.gle/sunflower-compose</span></p>
+</li>
+<li>
+<p>Crane 示例应用</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FuZHJvaWQvY29tcG9zZS1zYW1wbGVzLw==">https://github.com/android/compose-samples/</span></p>
+</li>
+<li>
+<p>观看视频：将 Compose 加入现有的应用</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly95b3V0dS5iZS9QalFkRm1pRGd3aw==">https://youtu.be/PjQdFmiDgwk</span></p>
+</li>
+</ul>
+<p><strong>强大的工具</strong></p>
+<p>Android Studio 中包含了辅助您使用 Jetpack Compose 的强大工具，可以帮助您快递迭代 UI 元素。</p>
+<p>借助 Compose 布局预览，您可以预览 Compose 组件，而无需将应用部署到设备或模拟器。在开发应用时，您的预览会更新，以帮助您更快地检查变更。要创建布局预览，请编写一个不使用任何参数的 Composable 函数，并添加:</p>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Preview</span> <span class="keyword">annotation</span></span><br></pre></td></tr></table></figure>
+<p>完成应用构建后，预览功能的 UI 会出现在 Android Studio 的 <strong>Preview</strong> 窗格中。</p>
+<p><img data-src="http://mmbiz.qpic.cn/mmbiz_gif/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqXWTz0Tso149iaOKxBYRico5llkUlbpzFBicGKicsNOKoc0sfOHDoLZhPmA/640?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<p>Android Studio 提供了<em>交互式预览模式</em>。在交互式预览模式下，您可以在 UI 元素中点击或输入，UI 将会响应，就像是在已安装的应用中一样。</p>
+<p><img data-src="http://mmbiz.qpic.cn/mmbiz_gif/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqtRBInhmibWT0WrAveCNaYich3CyZxU4mJpehFmicibPb9EH7ktNyG34vOA/640?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<p>交互式预览工具</p>
+<p>您也可以将单个可组合功能部署到物理设备或 Android Emulator。Android Studio 会创建一个新的 Activity，其中包含由将该功能所生成的 UI，并将其部署到您在设备上的应用。这样您就可以实际体验测试 UI，而无需重新安装整个应用或导航到当前页面。</p>
+<p><img data-src="http://mmbiz.qpic.cn/mmbiz_png/rFWVXwibLGtw9y7BgGYN5JAMv0vVBgVAqibZaczuDYuC4SiaDCXiaX93jibe8vTYrDuPbBZF86XyW4N786IJBGqibeGw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>可组合元素预览</p>
+<p><strong>开始使用 Jetpack Compose</strong></p>
+<p>要开始使用 Jetpack Compose，请参阅 Compose 教程并进行设置。或者直接进入示例应用并在 “Compose by Example” 中浏览这些应用:</p>
+<ul>
+<li>
+<p>Compose 教程</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vamV0cGFjay9jb21wb3NlL3R1dG9yaWFs">https://developer.android.google.cn/jetpack/compose/tutorial</span></p>
+</li>
+<li>
+<p>进行设置</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vamV0cGFjay9jb21wb3NlL3NldHVwI2FkZC1jb21wb3Nl">https://developer.android.google.cn/jetpack/compose/setup#add-compose</span></p>
+</li>
+<li>
+<p>示例应用</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2l0aHViLmNvbS9hbmRyb2lkL2NvbXBvc2Utc2FtcGxlcw==">https://www.github.com/android/compose-samples</span></p>
+</li>
+<li>
+<p>观看视频: Compose 示例</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly95b3V0dS5iZS9ERGQ2SU9sSDNpbw==">https://youtu.be/DDd6IOlH3io</span></p>
+</li>
+</ul>
+<p>欢迎访问 Compose 学习计划，了解包括新增的 Codelab 和扩展文档的更多 Compose 资源。</p>
+<ul>
+<li>
+<p>Compose 学习计划</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5nb29nbGUuY24vY291cnNlcy9wYXRod2F5cy9jb21wb3Nl">https://developer.android.google.cn/courses/pathways/compose</span></p>
+</li>
+<li>
+<p>新增的 Codelab</p>
+<p><span class="exturl" data-url="aHR0cDovL2dvby5nbGUvY29tcG9zZS1jb2RlbGFicw==">http://goo.gle/compose-codelabs</span></p>
+</li>
+</ul>
+<p>自我们<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3M/X19iaXo9TXpBd09EWTRPVGsyTWc9PSZhbXA7bWlkPTI2NTIwNDkxODEmYW1wO2lkeD0xJmFtcDtzbj0zNmQwMWE5NGNkODg5NzgyNzNlY2FhNzg5NDYzYTA3MSZhbXA7Y2hrc209ODA4Y2FmNThiN2ZiMjY0ZTQxMDljZTQxOWVhNTExYzVjN2FiODM3NDliY2IwNzAyYTgyODBlYTllMTdkN2I5YWYxNzNiYTA1M2JlOSZhbXA7c2NlbmU9MjEjd2VjaGF0X3JlZGlyZWN0">去年</span>开源 Jetpack Compose 以来，众多开发者为我们提供了宝贵反馈，使我们有了今天的成就，感谢大家！</p>
+<p>我们还在提升 API 的稳定性和优化性能，因此目前还不建议您将 Compose 完全投入到生产环境中。但我们希望大家可以试用并向我们分享反馈。您也可以加入 Kotlin Slack 的 #compose 频道或在微信留言区与我们讨论。Compose 1.0 预期将在 2021 年发布。</p>
+<ul>
+<li>
+<p>分享反馈</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9pc3N1ZXRyYWNrZXIuZ29vZ2xlLmNvbS9pc3N1ZXMvbmV3P2NvbXBvbmVudD02MTIxMjg=">https://issuetracker.google.com/issues/new?component=612128</span></p>
+</li>
+<li>
+<p>Kotlin Slack</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zdXJ2ZXlzLmpldGJyYWlucy5jb20vczMva290bGluLXNsYWNrLXNpZ24tdXA=">https://surveys.jetbrains.com/s3/kotlin-slack-sign-up</span></p>
+</li>
+</ul>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2020-09-08 14:35:41" itemprop="dateModified" datetime="2020-09-08T14:35:41+08:00">2020-09-08</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>give me a cup of coffee</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Apocalypse WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Apocalypse Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Apocalypse PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Apocalypse <i class="ic i-at"><em>@</em></i>Apocalypse's Blog
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="https://jiyugithub.github.io/2020/09/08/Jetpack1/" title="Jetpack Compose Alpha 版现已发布！">https://jiyugithub.github.io/2020/09/08/Jetpack1/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="nav">
+    <div class="item left">
+      
+
+  <a href="/2020/08/31/fenql/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipex2cdtbj20zk0m8x6p.jpg" title="Android 10(Q)&#x2F;11(R) 分区存储适配">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Android 10(Q)/11(R) 分区存储适配</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments" data-id="2020/09/08/Jetpack1/"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Apocalypse"
+      data-src="/images/http:/q1.qlogo.cn/g?b=qq&nk=2391624941&s=640">
+  <p class="name" itemprop="name">Apocalypse</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">36</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">2</span>
+        <span class="name">categories</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">2</span>
+        <span class="name">tags</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lvdXJuYW1l" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;yourname"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;yourname"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPXlvdXJpZA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;yourid"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item weibo" data-url="aHR0cHM6Ly93ZWliby5jb20veW91cm5hbWU=" title="https:&#x2F;&#x2F;weibo.com&#x2F;yourname"><i class="ic i-weibo"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+        
+  <li class="item dropdown">
+    <a href="javascript:void(0);"><i class="ic i-feather"></i>Posts</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>Archives</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>Categories</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>Tags</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/08/03/uinm/" title="这15个Android开源库，只有经常逛Github的才知道！">这15个Android开源库，只有经常逛Github的才知道！</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/view2/" title="一文彻底了解Android自定义控件2">一文彻底了解Android自定义控件2</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/view3/" title="一文彻底了解Android自定义控件3">一文彻底了解Android自定义控件3</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/Rxjava/" title="Rxjava只看这一篇文章就够了">Rxjava只看这一篇文章就够了</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/hashmap/" title="HashMap原理技术知识整理">HashMap原理技术知识整理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/undefined/" title="Android目前最稳定和高效的UI适配方案">Android目前最稳定和高效的UI适配方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/12/0_kotlin/" title="使用Kotlin从零开始写一个现代Android">使用Kotlin从零开始写一个现代Android</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/07/27/Jetpack/" title="Android全新UI编程 - Jetpack Compose 超详细教程 第1弹">Android全新UI编程 - Jetpack Compose 超详细教程 第1弹</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2020/06/14/KotlinJava/" title="Kotlin与Java的异同">Kotlin与Java的异同</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Category1/" title="In Category1">Category1</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/Category1/Category2/" title="In Category2">Category2</a>
+</div>
+
+    <span><a href="/2020/06/14/switcher/" title="炫酷！从未见过如此Q弹的Switcher">炫酷！从未见过如此Q弹的Switcher</a></span>
+  </li>
+
+  </ul>
+</div>
+<div id="rcomment">
+  <h2>Recent Comments</h2>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2020</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Apocalypse @ 启示录</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'https://jiyugithub.github.io/2020/09/08/Jetpack1/',
+    favicon: {
+      show: "（●´3｀●）",
+      hide: "(´Д｀)"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return uri === LOCAL.path;
+      }
+    ]
+  };
+</script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/velocity-animate@1.5.2/velocity.min.js,npm/velocity-animate@1.5.2/velocity.ui.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js,npm/leancloud-storage@3/dist/av-min.js"></script>
+
+<script src="/js/app.js?v=0.1.9"></script>
+
+
+
+
+</body>
+</html>
